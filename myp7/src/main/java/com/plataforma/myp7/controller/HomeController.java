@@ -12,7 +12,6 @@ public class HomeController {
 
 	@RequestMapping(value="/")
 	public String test(HttpServletResponse response) throws IOException{
-		System.out.println("testeaaasasa");
 		return "teste";
 	}
 }
