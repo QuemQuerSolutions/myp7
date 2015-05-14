@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.NCM;
 
 
-@Component
+//@Component
 public interface NCMMapper {
 
 	public NCM obterPorId(Long id);

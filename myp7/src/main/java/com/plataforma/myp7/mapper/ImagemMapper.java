@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.Imagem;
 
 
-@Component
+//@Component
 public interface ImagemMapper {
 
 	public Imagem obterPorId(Long id);

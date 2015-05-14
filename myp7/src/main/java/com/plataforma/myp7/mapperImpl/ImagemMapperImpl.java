@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.mapper.ImagemMapper;
 
-@Service
+//@Service
 public class ImagemMapperImpl {
 	
-	@Autowired
+//	@Autowired
 	private ImagemMapper imagemMapper;
 	
 }

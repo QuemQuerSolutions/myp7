@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.mapper.ProdutoMapper;
 
-@Service
+//@Service
 public class ProdutoMapperImpl {
 
-	@Autowired
+//	@Autowired
 	private ProdutoMapper produtoMapper;
 	
 }

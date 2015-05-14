@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.mapper.UsuarioMapper;
 
-@Service
+//@Service
 public class UsuarioMapperImpl {
 	
-	@Autowired
+//	@Autowired
 	private UsuarioMapper usuarioMapper;
 	
 	

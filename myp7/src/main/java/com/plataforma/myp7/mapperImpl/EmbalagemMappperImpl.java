@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import com.plataforma.myp7.mapper.EmbalagemMapper;
 
 
-@Service
+//@Service
 public class EmbalagemMappperImpl {
 	
-	@Autowired
+//	@Autowired
 	private EmbalagemMapper embalagemMapper;
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.Embalagem;
 
 
-@Component
+//@Component
 public interface EmbalagemMapper {
 
 	public Embalagem obterPorId(Long id);

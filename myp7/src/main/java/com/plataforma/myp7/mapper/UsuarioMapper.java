@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.Usuario;
 
 
-@Component
+//@Component
 public interface UsuarioMapper {
 
 	public Usuario obterPorId(Long id);

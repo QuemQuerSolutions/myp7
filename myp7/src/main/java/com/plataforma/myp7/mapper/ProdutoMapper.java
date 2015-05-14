@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.Produto;
 
 
-@Component
+//@Component
 public interface ProdutoMapper {
 
 	public Produto obterPorId(Long id);

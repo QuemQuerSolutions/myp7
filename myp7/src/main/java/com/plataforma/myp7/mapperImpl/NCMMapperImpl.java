@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.mapper.NCMMapper;
 
-@Service
+//@Service
 public class NCMMapperImpl {
 	
-	@Autowired
+//	@Autowired
 	private NCMMapper ncmMapper;
 	
 }
