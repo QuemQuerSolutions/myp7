@@ -23,7 +23,7 @@
 		<include refid="selectUsuario"/>
 	</select>
 
-	<select id="obterPorLogin" resultMap="usuarioMap">
+	<select id="obterPorId" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
 		WHERE ID_USUARIO = #{id}
 	</select>
