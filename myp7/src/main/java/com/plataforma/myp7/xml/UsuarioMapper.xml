@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.stefanini.originacao.adm.mapper.UsuarioMapper">
+<mapper namespace="UsuarioMapper">
 
-	<resultMap id="usuarioMap" type="com.plataforma.myp7.data.Usuario">
+	<resultMap id="usuarioMap" type="Usuario">
 		<id property="idUsuario" 		column="ID_USUARIO"/>
 		<result property="razaoSocial"  column="RAZAO_SOCIAL" />
 		<result property="email" 		column="USU_EMAIL" />
