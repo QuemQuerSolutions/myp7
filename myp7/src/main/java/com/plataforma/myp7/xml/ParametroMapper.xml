@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ParametroMapper">
+
+	<resultMap id="parametroMap" type="Parametro">
+		<id property="id" 				column="ID_PARAMETRO"/>
+		<result property="dominio" 		column="DOMINIO"/>
+		<result property="tipo" 		column="TIPO"/>
+		<result property="nome" 		column="NOME"/>
+		<result property="auxiliar" 	column="AUXILIAR"/>
+	</resultMap>
+
+	<sql id="selectParametro">
+		<![CDATA[
+			SELECT ID_PARAMETRO, DOMINIO, TIPO, NOME, AUXILIAR
+			FROM MYP7_PARAMETRO
+		  ]]>
+	</sql>
+	
+	<select id="obterTodos" resultMap="parametroMap">
+		<include refid="selectParametro"/>
+	</select>
+
+	<select id="obterPorDominio" resultMap="parametroMap">
+		<include refid="selectParametro"/>
+		WHERE TIPO = #{id}
+	</select>
+	
+</mapper>

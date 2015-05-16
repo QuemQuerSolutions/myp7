@@ -1,41 +1,55 @@
 package com.plataforma.myp7.bo;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.plataforma.myp7.DAO.HistoricoSenhaDAO;
+import com.plataforma.myp7.DAO.ParametroDAO;
+import com.plataforma.myp7.data.DominioParametro;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
+import com.plataforma.myp7.data.Usuario;
 
 public class SenhaBusiness {
 	
-	public Boolean valida(String senha){
+	/**
+	 * 
+	 * @param senha - Senha digitada
+	 * @param usuario - Usuario digitado
+	 * @param dominio - Perfil do usuário que esta fazendo login
+	 * @return Boolean
+	 * Método para validar se a senha esta de acordo com os parametros.
+	 */
+	public Boolean valida(String senha, Usuario usuario, DominioParametro dominio){
+		ParametroDAO parametroDAO = new ParametroDAO();
+		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
+		
 		Boolean validacaoNumeros 		= false;
 		Boolean validacaoLetras 		= false;
 		Boolean validacaoLetraMaiuscula = false;
 		Boolean validacaoQtdeMinima 	= false;
 		Boolean validacaoQtdeRepeticao 	= false;
 		
-		//Substituir o "new ArrayList<Parametro>()" pela chamada do metodo que faz o select
-		List<Parametro> parametros = new ArrayList<Parametro>(); 
+//		List<Parametro> parametros = new ArrayList<Parametro>(); 
+		List<Parametro> parametros = parametroDAO.selecionarPorDominio(dominio);
 		
 		//MOCK
-		Parametro param1 = new Parametro();
-		Parametro param2 = new Parametro();
-		Parametro param3 = new Parametro();
-		Parametro param4 = new Parametro();
-		Parametro param5 = new Parametro();
-		param1.setNome("NUMEROS");
-		param2.setNome("LETRAS");
-		param3.setNome("UMA LETRA MAIUSCULA");
-		param4.setNome("QTDE MINIMA");
-		param4.setAuxiliar("5");
-		param5.setNome("QTDE REPETICAO");
-		param5.setAuxiliar("1");
-		parametros.add(param1);
-		parametros.add(param2);
-		parametros.add(param3);
-		parametros.add(param4);
-		parametros.add(param5);
+//		Parametro param1 = new Parametro();
+//		Parametro param2 = new Parametro();
+//		Parametro param3 = new Parametro();
+//		Parametro param4 = new Parametro();
+//		Parametro param5 = new Parametro();
+//		param1.setNome("NUMEROS");
+//		param2.setNome("LETRAS");
+//		param3.setNome("UMA LETRA MAIUSCULA");
+//		param4.setNome("QTDE MINIMA");
+//		param4.setAuxiliar("5");
+//		param5.setNome("QTDE REPETICAO");
+//		param5.setAuxiliar("1");
+//		parametros.add(param1);
+//		parametros.add(param2);
+//		parametros.add(param3);
+//		parametros.add(param4);
+//		parametros.add(param5);
 		
 		for(Parametro p : parametros){
 			switch(p.getNome().toUpperCase()){
@@ -90,15 +104,13 @@ public class SenhaBusiness {
 				 * que esta sendo informada
 				 */
 				case "QTDE REPETICAO":
-					//Substituir o "new ArrayList<Parametro>()" pela chamada do metodo que faz o select
-					//Mandar a quantidade de senhas anteriores que não poderam se repetir como parametro no metodo
-					//Integer.parseInt(p.getAuxiliar())
-					List<HistoricoSenha> senhasAnteriores = new ArrayList<HistoricoSenha>();
+//					List<HistoricoSenha> senhasAnteriores = new ArrayList<HistoricoSenha>();
+					List<HistoricoSenha> senhasAnteriores = historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(p.getAuxiliar()));
 					
 					//MOCK
-					HistoricoSenha hs = new HistoricoSenha();
-					hs.setSenha("a1A");
-					senhasAnteriores.add(hs);
+//					HistoricoSenha hs = new HistoricoSenha();
+//					hs.setSenha("a1A");
+//					senhasAnteriores.add(hs);
 					
 					boolean achouIgual = false;
 					for(HistoricoSenha senhaAnterior : senhasAnteriores){

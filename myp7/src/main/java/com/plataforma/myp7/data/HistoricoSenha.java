@@ -9,9 +9,17 @@ public class HistoricoSenha implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Usuario usuario;
 	private String senha;
 	private Date dataInclusao;
 	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public String getSenha() {
 		return senha;
 	}

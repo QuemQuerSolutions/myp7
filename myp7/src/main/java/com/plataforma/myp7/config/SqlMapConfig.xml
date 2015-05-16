@@ -7,6 +7,8 @@
  
     <typeAliases>
         <typeAlias alias="Usuario" type="com.plataforma.myp7.data.Usuario"/>
+        <typeAlias alias="Usuario" type="com.plataforma.myp7.data.Parametro"/>
+        <typeAlias alias="Usuario" type="com.plataforma.myp7.data.HistoricoSenha"/>
     </typeAliases>
  
     <environments default="development">
@@ -23,6 +25,8 @@
  
     <mappers>
        <mapper resource="com/plataforma/myp7/xml/UsuarioMapper.xml"/>
+       <mapper resource="com/plataforma/myp7/xml/HistoricoSenhaMapper.xml"/>
+       <mapper resource="com/plataforma/myp7/xml/ParametroMapper.xml"/>
     </mappers>
  
 </configuration>
