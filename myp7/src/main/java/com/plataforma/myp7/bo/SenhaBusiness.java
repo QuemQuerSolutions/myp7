@@ -28,7 +28,7 @@ public class SenhaBusiness {
 		param2.setNome("LETRAS");
 		param3.setNome("UMA LETRA MAIUSCULA");
 		param4.setNome("QTDE MINIMA");
-		param4.setAuxiliar("3");
+		param4.setAuxiliar("5");
 		param5.setNome("QTDE REPETICAO");
 		param5.setAuxiliar("1");
 		parametros.add(param1);
@@ -80,7 +80,7 @@ public class SenhaBusiness {
 				 */
 				case "QTDE MINIMA":
 					if(senha.toCharArray().length >= Integer.parseInt(p.getAuxiliar())){
-						validacaoQtdeRepeticao = true;
+						validacaoQtdeMinima = true;
 						break;
 					}
 					break;
@@ -97,15 +97,17 @@ public class SenhaBusiness {
 					
 					//MOCK
 					HistoricoSenha hs = new HistoricoSenha();
-					hs.setSenha("a1B");
+					hs.setSenha("a1A");
 					senhasAnteriores.add(hs);
 					
+					boolean achouIgual = false;
 					for(HistoricoSenha senhaAnterior : senhasAnteriores){
 						if(senhaAnterior.getSenha().equals(senha)){
+							achouIgual = true;
 							break;
 						}
 					}
-					validacaoQtdeRepeticao = true;
+					validacaoQtdeRepeticao = !achouIgual;
 					break;
 			}
 		}
