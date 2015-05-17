@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.plataforma.myp7.DTO.HistoricoSenha_Usuario_Limit;
+import com.plataforma.myp7.DTO.HistoricoSenhaUsuarioLimit;
 import com.plataforma.myp7.conexao.Conexao;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Usuario;
@@ -18,11 +18,11 @@ public class HistoricoSenhaDAO {
 	
 	public List<HistoricoSenha> selecionarPorUsuario(Usuario usuario, int qtdLinhas){
 		
-		HistoricoSenha_Usuario_Limit historicoSenha_Usuario_Limit = new HistoricoSenha_Usuario_Limit();
-		historicoSenha_Usuario_Limit.setQtd(qtdLinhas);
-		historicoSenha_Usuario_Limit.setUsuario(usuario.getIdUsuario());
+		HistoricoSenhaUsuarioLimit _historico = new HistoricoSenhaUsuarioLimit();
+		_historico.setQtd(qtdLinhas);
+		_historico.setUsuario(usuario.getIdUsuario());
 		
-		List<HistoricoSenha> historicoSenha = this.session.selectList("obterPorUsuarioELimit", historicoSenha_Usuario_Limit);
+		List<HistoricoSenha> historicoSenha = this.session.selectList("obterPorUsuarioELimit", _historico);
 		
 		return historicoSenha;
 	}

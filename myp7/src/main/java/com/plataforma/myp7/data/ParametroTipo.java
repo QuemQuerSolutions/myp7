@@ -2,7 +2,7 @@ package com.plataforma.myp7.data;
 
 import java.io.Serializable;
 
-public class TipoParametro implements Serializable{
+public class ParametroTipo implements Serializable{
 	/**
 	 * 
 	 */

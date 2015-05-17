@@ -5,10 +5,10 @@
 
 	<resultMap id="parametroMap" type="Parametro">
 		<id property="id" 				column="ID_PARAMETRO"/>
-		<result property="dominio" 		column="DOMINIO"/>
-		<result property="tipo" 		column="TIPO"/>
 		<result property="nome" 		column="NOME"/>
 		<result property="auxiliar" 	column="AUXILIAR"/>
+		<association property="tipo" 	column="TIPO" select="ParametroTipo.obterPorId"/>
+		<association property="dominio" column="DOMINIO" select="ParametroDominio.obterPorId"/>
 	</resultMap>
 
 	<sql id="selectParametro">
@@ -18,10 +18,6 @@
 		  ]]>
 	</sql>
 	
-	<select id="obterTodos" resultMap="parametroMap">
-		<include refid="selectParametro"/>
-	</select>
-
 	<select id="obterPorDominio" resultMap="parametroMap">
 		<include refid="selectParametro"/>
 		WHERE TIPO = #{id}

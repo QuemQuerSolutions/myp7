@@ -9,8 +9,8 @@ public class Parametro implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private DominioParametro dominio;
-	private TipoParametro tipo;
+	private ParametroDominio parametroDominio;
+	private ParametroTipo tipo;
 	private String nome;
 	private String auxiliar;
 	
@@ -20,16 +20,16 @@ public class Parametro implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public DominioParametro getDominio() {
-		return dominio;
+	public ParametroDominio getParametroDominio() {
+		return parametroDominio;
 	}
-	public void setDominio(DominioParametro dominio) {
-		this.dominio = dominio;
+	public void setParametroDominio(ParametroDominio parametroDominio) {
+		this.parametroDominio = parametroDominio;
 	}
-	public TipoParametro getTipo() {
+	public ParametroTipo getTipo() {
 		return tipo;
 	}
-	public void setTipo(TipoParametro tipo) {
+	public void setTipo(ParametroTipo tipo) {
 		this.tipo = tipo;
 	}
 	public String getNome() {

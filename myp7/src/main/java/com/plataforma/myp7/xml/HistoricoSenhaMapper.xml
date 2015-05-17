@@ -5,8 +5,8 @@
 
 	<resultMap id="historicoSenhaMap" type="HistoricoSenha">
 		<id property="senha" 			column="SENHA"/>
-		<id property="usuario" 			column="USUARIO"/>
 		<id property="dataInclusao" 	column="DATA_INCLUSAO"/>
+		<association property="usuario" column="USUARIO" select="Usuario.obterPorId"/>
 	</resultMap>
 
 	<sql id="selectHistoricoSenha">
@@ -15,10 +15,6 @@
 			FROM MYP7_HISTORICO_SENHA
 		  ]]>
 	</sql>
-	
-	<select id="obterTodos" resultMap="historicoSenhaMap">
-		<include refid="selectHistoricoSenha"/>
-	</select>
 
 	<select id="obterPorUsuarioELimit" resultMap="historicoSenhaMap">
 		<include refid="selectHistoricoSenha"/>

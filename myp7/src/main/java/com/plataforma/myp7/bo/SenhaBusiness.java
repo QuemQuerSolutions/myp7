@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.plataforma.myp7.DAO.HistoricoSenhaDAO;
 import com.plataforma.myp7.DAO.ParametroDAO;
-import com.plataforma.myp7.data.DominioParametro;
+import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
 import com.plataforma.myp7.data.Usuario;
@@ -19,7 +19,7 @@ public class SenhaBusiness {
 	 * @return Boolean
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
-	public Boolean valida(String senha, Usuario usuario, DominioParametro dominio){
+	public Boolean valida(String senha, Usuario usuario, ParametroDominio dominio){
 		ParametroDAO parametroDAO = new ParametroDAO();
 		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
 		
