@@ -14,9 +14,7 @@ public class MyBatisConnectionFactory {
  
     static {
         try {
- 
             String resource = "com/plataforma/myp7/config/SqlMapConfig.xml";
-            
             
             Reader reader = Resources.getResourceAsReader(resource);
  
@@ -33,7 +31,6 @@ public class MyBatisConnectionFactory {
     }
  
     public static SqlSessionFactory getSqlSessionFactory() {
- 
         return sqlSessionFactory;
     }
 }

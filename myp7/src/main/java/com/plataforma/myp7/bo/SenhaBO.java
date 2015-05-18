@@ -9,7 +9,7 @@ import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
 import com.plataforma.myp7.data.Usuario;
 
-public class SenhaBusiness {
+public class SenhaBO {
 	
 	/**
 	 * 
@@ -19,15 +19,16 @@ public class SenhaBusiness {
 	 * @return Boolean
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
-	public Boolean valida(String senha, Usuario usuario, ParametroDominio dominio){
+	public boolean valida(String senha, Usuario usuario, ParametroDominio dominio){
+		//TODO: Se já não passou em alguma validação, não deveria fazer outra
 		ParametroDAO parametroDAO = new ParametroDAO();
 		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
 		
-		Boolean validacaoNumeros 		= false;
-		Boolean validacaoLetras 		= false;
-		Boolean validacaoLetraMaiuscula = false;
-		Boolean validacaoQtdeMinima 	= false;
-		Boolean validacaoQtdeRepeticao 	= false;
+		boolean validacaoNumeros 		= false;
+		boolean validacaoLetras 		= false;
+		boolean validacaoLetraMaiuscula = false;
+		boolean validacaoQtdeMinima 	= false;
+		boolean validacaoQtdeRepeticao 	= false;
 		
 //		List<Parametro> parametros = new ArrayList<Parametro>(); 
 		List<Parametro> parametros = parametroDAO.selecionarPorDominio(dominio);
@@ -54,11 +55,11 @@ public class SenhaBusiness {
 		for(Parametro p : parametros){
 			switch(p.getNome().toUpperCase()){
 				/**
-				 * Valida se há ao menos um número na senha
+				 * Valida se há ao menos um numero na senha
 				 */			
 				case "NUMEROS":
 					for(char letra : senha.toCharArray()){
-						if(Character.isLetter(letra)){
+						if(Character.isLetter(letra)){ //TODO: Essa verificação está correta? Não deveria ver numeros?
 							validacaoNumeros = true;
 							break;
 						}
@@ -70,7 +71,7 @@ public class SenhaBusiness {
 				 */
 				case "LETRAS":
 					for(char letra : senha.toCharArray()){
-						if(Character.isDigit(letra)){
+						if(Character.isDigit(letra)){  //TODO: Essa verificação está correta? Não deveria ver letras?
 							validacaoLetras = true;
 							break;
 						}
@@ -93,9 +94,9 @@ public class SenhaBusiness {
 				 * Valida se a senha tem a quantidade mínima de caracteres requeridos
 				 */
 				case "QTDE MINIMA":
-					if(senha.toCharArray().length >= Integer.parseInt(p.getAuxiliar())){
+					if(senha.toCharArray().length >= Integer.parseInt(p.getAuxiliar())){ // TODO: Verificar a necessidade da conversão para Array
 						validacaoQtdeMinima = true;
-						break;
+						break; //TODO: Pra que serve esse break?
 					}
 					break;
 					

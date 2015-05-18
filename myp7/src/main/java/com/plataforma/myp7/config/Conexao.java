@@ -1,9 +1,6 @@
-package com.plataforma.myp7.conexao;
+package com.plataforma.myp7.config;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.plataforma.myp7.config.MyBatisConnectionFactory;
 
 public class Conexao {
 	
@@ -15,14 +12,18 @@ public class Conexao {
 		this.sqlSession = MyBatisConnectionFactory.getSqlSessionFactory().openSession();
 	}
 	
-	public static Conexao getInstance(){
+	private static Conexao getInstance(){
 		if(Conexao.instance == null){
 			return new Conexao();
 		}
 		return Conexao.instance;
 	}
 	
-	public SqlSession getSqlSession(){
+	private SqlSession getSqlSession(){
 		return this.sqlSession;
+	}
+	
+	public static SqlSession getConexao(){
+		return Conexao.getInstance().getSqlSession();
 	}
 }
