@@ -1,1 +1,25 @@
 /*Styles*/
+
+
+div.flex-align {
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 100%;
+}
+
+div.content-center{
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    width: 560px;
+    padding: 20px;
+    margin-left: -300px; /* por causa do posicionamento absoluto temos que usar margem negativa para centralizar o site */
+    background: #FFF; /* fundo branco para navegadores que não suportam rgba */
+    background: rgba(255,255,255,0.8); /* fundo branco com um pouco de transparência */
+}
