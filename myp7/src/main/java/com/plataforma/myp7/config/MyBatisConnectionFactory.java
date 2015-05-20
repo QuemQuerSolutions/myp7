@@ -14,9 +14,7 @@ public class MyBatisConnectionFactory {
  
     static {
         try {
-            String resource = "com/plataforma/myp7/config/SqlMapConfig.xml";
-            
-            Reader reader = Resources.getResourceAsReader(resource);
+            Reader reader = Resources.getResourceAsReader("com/plataforma/myp7/config/SqlMapConfig.xml");
  
             if (sqlSessionFactory == null) {
                 sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
