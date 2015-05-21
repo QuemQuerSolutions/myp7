@@ -14,21 +14,26 @@ import com.plataforma.myp7.data.Usuario;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value="/")
-	public String test(HttpServletResponse response) throws IOException{
+//	@RequestMapping(value="/")
+//	public String test(HttpServletResponse response) throws IOException{
 		
-		SenhaBO sb = new SenhaBO();
-		ParametroDominio dominio = new ParametroDominio();
-		Usuario usuario = new Usuario();	
+//		SenhaBO sb = new SenhaBO();
+//		ParametroDominio dominio = new ParametroDominio();
+//		Usuario usuario = new Usuario();	
+//		
+//		dominio.setId(1);
+//		usuario.setIdUsuario(1L);
+//		if(sb.isValido("a1B1@", usuario, dominio)){
+//			System.out.println("Passou");
+//		}else{
+//			System.out.println("Não Passou");
+//		}
 		
-		dominio.setId(1);
-		usuario.setIdUsuario(1L);
-		if(sb.isValido("a1B1@", usuario, dominio)){
-			System.out.println("Passou");
-		}else{
-			System.out.println("Não Passou");
-		}
-		
-		return "login";
+//		return "login";
+//	}
+	
+	@RequestMapping(value="/home")
+	public String home(){
+		return "home";
 	}
 }
