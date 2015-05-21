@@ -27,4 +27,12 @@ public class HistoricoSenhaDAO {
 		
 		return historicoSenha;
 	}
+	
+	public static void main(String[] args) {
+		HistoricoSenhaDAO dao = new HistoricoSenhaDAO();
+		Usuario u = new Usuario();
+		u.setIdUsuario(1L);
+		
+		dao.selecionarPorUsuario(u, 3);
+	}
 }

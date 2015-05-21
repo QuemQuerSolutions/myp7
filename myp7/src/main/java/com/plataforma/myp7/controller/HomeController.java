@@ -29,6 +29,6 @@ public class HomeController {
 			System.out.println("Não Passou");
 		}
 		
-		return "teste";
+		return "login";
 	}
 }
