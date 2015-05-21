@@ -7,20 +7,32 @@
 		<id property="id" 				column="ID_PARAMETRO"/>
 		<result property="nome" 		column="NOME"/>
 		<result property="auxiliar" 	column="AUXILIAR"/>
-		<association property="tipo" 	column="TIPO" 		select="ParametroTipo.obterPorId"/>
-		<association property="dominio" column="DOMINIO" 	select="ParametroDominio.obterPorId"/>
+		<association property="tipo" column="TIPO" javaType="ParametroTipo" select="obterPorTipo" />
+		<association property="dominio" column="DOMINIO" javaType="ParametroDominio" select="obterPorDominio"/>
 	</resultMap>
 
 	<sql id="selectParametro">
 		<![CDATA[
-			SELECT ID_PARAMETRO, DOMINIO, TIPO, NOME, AUXILIAR
+			SELECT ID_PARAMETRO, NOME, AUXILIAR
 			FROM MYP7_PARAMETRO
 		  ]]>
 	</sql>
 	
-	<select id="obterPorDominio" resultMap="parametroMap">
+	<select id="obterParametro" resultMap="parametroMap">
 		<include refid="selectParametro"/>
-		WHERE TIPO = #{id}
+		WHERE DOMINIO = #{id}
+	</select>
+	
+	<select id="obterPorTipo" resultType="ParametroTipo">
+			SELECT id, descricao
+			FROM myp7_parametro_tipo 
+			WHERE id = #{TIPO}
+	</select>
+	
+	<select id="obterPorDominio" resultType="ParametroDominio">
+			SELECT id, descricao
+			FROM myp7_parametro_dominio
+			WHERE id = #{DOMINIO}
 	</select>
 	
 </mapper>

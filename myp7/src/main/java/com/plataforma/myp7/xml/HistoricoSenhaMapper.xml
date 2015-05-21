@@ -6,7 +6,7 @@
 	<resultMap id="historicoSenhaMap" type="HistoricoSenha">
 		<id property="senha" 			column="SENHA"/>
 		<id property="dataInclusao" 	column="DATA_INCLUSAO"/>
-		<association property="usuario" column="USUARIO" select="Usuario.obterPorId"/>
+		<association property="usuario" column="USUARIO"  javaType="Usuario" select="obterUsuarioPorId"/>
 	</resultMap>
 
 	<sql id="selectHistoricoSenha">
@@ -19,6 +19,12 @@
 	<select id="obterPorUsuarioELimit" resultMap="historicoSenhaMap">
 		<include refid="selectHistoricoSenha"/>
 		WHERE USUARIO = #{usuario} ORDER BY DATA_INCLUSAO DESC LIMIT #{qtd}
+	</select>
+	
+	<select id="obterUsuarioPorId" resultType="Usuario">
+		   SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA
+			 FROM MYP7_USUARIO
+			WHERE ID_USUARIO = #{USUARIO}
 	</select>
 	
 </mapper>
