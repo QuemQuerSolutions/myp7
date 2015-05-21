@@ -1,4 +1,4 @@
-package com.plataforma.myp7.DTO;
+package com.plataforma.myp7.dto;
 
 public class HistoricoSenhaUsuarioLimit {
 	private long usuario;

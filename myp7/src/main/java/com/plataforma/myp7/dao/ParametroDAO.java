@@ -1,4 +1,4 @@
-package com.plataforma.myp7.DAO;
+package com.plataforma.myp7.dao;
 
 import static com.plataforma.myp7.config.Conexao.getConexao;
 
