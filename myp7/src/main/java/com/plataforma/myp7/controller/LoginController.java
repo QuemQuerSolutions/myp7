@@ -1,10 +1,8 @@
 package com.plataforma.myp7.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.data.Usuario;
@@ -14,7 +12,7 @@ public class LoginController {
 	
 
 	@RequestMapping("efetuaLogin")
-	public String efetuaLogin(Usuario usuario, HttpSession session , HttpServletRequest req) { 
+	public String efetuaLogin(Usuario usuario, HttpSession session) { 
 		
 		if ("1".equals("1"))
 		{
@@ -26,12 +24,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/")
-	public String loginbarra(Model model, HttpServletRequest req) { 
+	public String loginbarra() { 
 		return "redirect:login";
 	}
 	
 	@RequestMapping("/login")
-	public String login(Model model, HttpServletRequest req) {
+	public String login() {
 		return "login";
 	}
 	
