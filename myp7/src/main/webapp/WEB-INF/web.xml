@@ -26,6 +26,10 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>com.plataforma.myp7</param-value>
 		</init-param>
+<!-- 	    <init-param> -->
+<!-- 	      <param-name>contextConfigLocation</param-name> -->
+<!-- 	      <param-value>/WEB-INF/spring-context.xml</param-value> -->
+<!-- 	    </init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
