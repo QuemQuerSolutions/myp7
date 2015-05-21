@@ -5,6 +5,10 @@
 
 	<c:import url="aImports.jsp" />
 	
+<script type="text/javascript">
+function onLogin(){	document.getElementById("frmLogin").submit(); }
+</script>
+	
 <body>
 
 <div class="flex-align">
@@ -12,7 +16,7 @@
         <div class="row">
 			<h5 align="center"><b>Bem vindo ao Portal Fornecedor</b></h5><br>
 		</div>
-			<form action="efetuaLogin" method="POST">
+			<form id="frmLogin" action="efetuaLogin" method="POST">
 			<div class="row">
   				<div class="col-md-11 margin14px">
 					
@@ -38,7 +42,9 @@
   			
 			<div class="col-md-11 margin14px">
 				<div class="row">
-					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning">OK</button>
+					<button type="button" 
+							class="btn btn-primary btn-lg btn-block btn-warning"
+							onclick="onLogin();">Entrar</button>
 				</div>
 			</div>
 			</form>
