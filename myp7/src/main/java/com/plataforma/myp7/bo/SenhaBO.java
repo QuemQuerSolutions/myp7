@@ -19,7 +19,7 @@ public class SenhaBO {
 	 * @return Boolean
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
-	public boolean valida(String senha, Usuario usuario, ParametroDominio dominio){
+	public boolean isValido(String senha, Usuario usuario, ParametroDominio dominio){
 		//TODO: Se já não passou em alguma validação, não deveria fazer outra
 		ParametroDAO parametroDAO = new ParametroDAO();
 		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
@@ -59,11 +59,12 @@ public class SenhaBO {
 				 */			
 				case "NUMEROS":
 					for(char letra : senha.toCharArray()){
-						if(Character.isLetter(letra)){ //TODO: Essa verificação está correta? Não deveria ver numeros?
+						if(Character.isDigit(letra)){ 
 							validacaoNumeros = true;
 							break;
 						}
 					}
+					if(!validacaoNumeros) return validacaoNumeros;
 					break;
 					
 				/**
@@ -71,11 +72,12 @@ public class SenhaBO {
 				 */
 				case "LETRAS":
 					for(char letra : senha.toCharArray()){
-						if(Character.isDigit(letra)){  //TODO: Essa verificação está correta? Não deveria ver letras?
+						if(Character.isLetter(letra)){ 
 							validacaoLetras = true;
 							break;
 						}
 					}
+					if(!validacaoLetras) return validacaoLetras;
 					break;
 				
 				/**
@@ -88,15 +90,15 @@ public class SenhaBO {
 							break;
 						}
 					}
+					if(!validacaoLetraMaiuscula) return validacaoLetraMaiuscula;
 					break;
 					
 				/**
 				 * Valida se a senha tem a quantidade mínima de caracteres requeridos
 				 */
 				case "QTDE MINIMA":
-					if(senha.toCharArray().length >= Integer.parseInt(p.getAuxiliar())){ // TODO: Verificar a necessidade da conversão para Array
-						validacaoQtdeMinima = true;
-						break; //TODO: Pra que serve esse break?
+					if(senha.length() < Integer.parseInt(p.getAuxiliar())){ 
+						return false;
 					}
 					break;
 					
@@ -113,22 +115,15 @@ public class SenhaBO {
 //					hs.setSenha("a1A");
 //					senhasAnteriores.add(hs);
 					
-					boolean achouIgual = false;
 					for(HistoricoSenha senhaAnterior : senhasAnteriores){
 						if(senhaAnterior.getSenha().equals(senha)){
-							achouIgual = true;
-							break;
+							return false;
 						}
 					}
-					validacaoQtdeRepeticao = !achouIgual;
 					break;
 			}
 		}
 		
-		return validacaoNumeros 
-				&& validacaoLetras 
-				&& validacaoLetraMaiuscula 
-				&& validacaoQtdeMinima 
-				&& validacaoQtdeRepeticao;
+		return true;
 	}
 }

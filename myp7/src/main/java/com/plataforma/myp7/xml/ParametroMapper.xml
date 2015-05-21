@@ -7,8 +7,8 @@
 		<id property="id" 				column="ID_PARAMETRO"/>
 		<result property="nome" 		column="NOME"/>
 		<result property="auxiliar" 	column="AUXILIAR"/>
-		<association property="tipo" 	column="TIPO" select="ParametroTipo.obterPorId"/>
-		<association property="dominio" column="DOMINIO" select="ParametroDominio.obterPorId"/>
+		<association property="tipo" 	column="TIPO" 		select="ParametroTipo.obterPorId"/>
+		<association property="dominio" column="DOMINIO" 	select="ParametroDominio.obterPorId"/>
 	</resultMap>
 
 	<sql id="selectParametro">

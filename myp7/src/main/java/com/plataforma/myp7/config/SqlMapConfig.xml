@@ -20,7 +20,7 @@
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/myp7db"/>
                 <property name="username" value="root"/>
-                <property name="password" value="nashuatec10"/>
+                <property name="password" value="1234"/>
             </dataSource>
        </environment>
     </environments>
