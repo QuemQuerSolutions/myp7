@@ -2,11 +2,11 @@ package com.plataforma.myp7.bo;
 
 import java.util.List;
 
-import com.plataforma.myp7.DAO.HistoricoSenhaDAO;
-import com.plataforma.myp7.DAO.ParametroDAO;
-import com.plataforma.myp7.data.ParametroDominio;
+import com.plataforma.myp7.dao.HistoricoSenhaDAO;
+import com.plataforma.myp7.dao.ParametroDAO;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
+import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
 
 public class SenhaBO {
@@ -20,110 +20,84 @@ public class SenhaBO {
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
 	public boolean isValido(String senha, Usuario usuario, ParametroDominio dominio){
-		//TODO: Se já não passou em alguma validação, não deveria fazer outra
 		ParametroDAO parametroDAO = new ParametroDAO();
-		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
-		
-		boolean validacaoNumeros 		= false;
-		boolean validacaoLetras 		= false;
-		boolean validacaoLetraMaiuscula = false;
-		boolean validacaoQtdeMinima 	= false;
-		boolean validacaoQtdeRepeticao 	= false;
-		
-//		List<Parametro> parametros = new ArrayList<Parametro>(); 
 		List<Parametro> parametros = parametroDAO.selecionarPorDominio(dominio);
 		
-		//MOCK
-//		Parametro param1 = new Parametro();
-//		Parametro param2 = new Parametro();
-//		Parametro param3 = new Parametro();
-//		Parametro param4 = new Parametro();
-//		Parametro param5 = new Parametro();
-//		param1.setNome("NUMEROS");
-//		param2.setNome("LETRAS");
-//		param3.setNome("UMA LETRA MAIUSCULA");
-//		param4.setNome("QTDE MINIMA");
-//		param4.setAuxiliar("5");
-//		param5.setNome("QTDE REPETICAO");
-//		param5.setAuxiliar("1");
-//		parametros.add(param1);
-//		parametros.add(param2);
-//		parametros.add(param3);
-//		parametros.add(param4);
-//		parametros.add(param5);
+		boolean retorno = true;
+		for(Parametro parametro : parametros){
+			retorno = retorno && this.casesValidacao(senha, usuario, parametro);
+			if(!retorno)
+				break;
+		}
+		return retorno;
+	}
+	
+	private boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
+		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
 		
-		for(Parametro p : parametros){
-			switch(p.getNome().toUpperCase()){
-				/**
-				 * Valida se há ao menos um numero na senha
-				 */			
-				case "NUMEROS":
-					for(char letra : senha.toCharArray()){
-						if(Character.isDigit(letra)){ 
-							validacaoNumeros = true;
-							break;
-						}
+		switch(parametro.getNome().toUpperCase()){
+			/**
+			 * Valida se há ao menos um numero na senha
+			 */			
+			case "NUMEROS":
+				for(char letra : senha.toCharArray()){
+					if(Character.isDigit(letra)){ 
+						return true;
 					}
-					if(!validacaoNumeros) return validacaoNumeros;
-					break;
-					
-				/**
-				 * Valida se há ao menos uma letra na senha
-				 */
-				case "LETRAS":
-					for(char letra : senha.toCharArray()){
-						if(Character.isLetter(letra)){ 
-							validacaoLetras = true;
-							break;
-						}
-					}
-					if(!validacaoLetras) return validacaoLetras;
-					break;
+				}
+				return false;
 				
-				/**
-				 * Valida se há ao menos uma letra maúscula na senha
-				 */
-				case "UMA LETRA MAIUSCULA":
-					for(char letra : senha.toCharArray()){
-						if(Character.isUpperCase(letra)){
-							validacaoLetraMaiuscula = true;
-							break;
-						}
+			/**
+			 * Valida se há ao menos uma letra na senha
+			 */
+			case "LETRAS":
+				for(char letra : senha.toCharArray()){
+					if(Character.isLetter(letra)){ 
+						return true;
 					}
-					if(!validacaoLetraMaiuscula) return validacaoLetraMaiuscula;
-					break;
-					
-				/**
-				 * Valida se a senha tem a quantidade mínima de caracteres requeridos
-				 */
-				case "QTDE MINIMA":
-					if(senha.length() < Integer.parseInt(p.getAuxiliar())){ 
-						return false;
+				}
+				return false;
+			
+			/**
+			 * Valida se há ao menos uma letra maúscula na senha
+			 */
+			case "UMA LETRA MAIUSCULA":
+				for(char letra : senha.toCharArray()){
+					if(Character.isUpperCase(letra)){
+						return true;
 					}
-					break;
+				}
+				return false;
+				
+			/**
+			 * Valida se a senha tem a quantidade mínima de caracteres requeridos
+			 */
+			case "QTDE MINIMA":
+				if(senha.length() < Integer.parseInt(parametro.getAuxiliar())){ 
+					return false;
+				}
+				return true;
+				
+			/**
+			 * Valida se a quantidade de senhas anteriores igual à da especificado no parametro não repete a senha
+			 * que esta sendo informada
+			 */
+			case "QTDE REPETICAO":
+				try{
+					String senhaHash = CriptografarBO.criptografar(senha);
 					
-				/**
-				 * Valida se a quantidade de senhas anteriores igual à da especificado no parametro não repete a senha
-				 * que esta sendo informada
-				 */
-				case "QTDE REPETICAO":
-//					List<HistoricoSenha> senhasAnteriores = new ArrayList<HistoricoSenha>();
-					List<HistoricoSenha> senhasAnteriores = historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(p.getAuxiliar()));
-					
-					//MOCK
-//					HistoricoSenha hs = new HistoricoSenha();
-//					hs.setSenha("a1A");
-//					senhasAnteriores.add(hs);
+					List<HistoricoSenha> senhasAnteriores = historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(parametro.getAuxiliar()));
 					
 					for(HistoricoSenha senhaAnterior : senhasAnteriores){
-						if(senhaAnterior.getSenha().equals(senha)){
-							return false;
+						if(senhaHash.equals(senhaAnterior.getSenha())){
+							throw new Exception();
 						}
 					}
-					break;
-			}
+				}catch(Exception e){
+					return false;
+				}
+				return true;
 		}
-		
 		return true;
 	}
 }

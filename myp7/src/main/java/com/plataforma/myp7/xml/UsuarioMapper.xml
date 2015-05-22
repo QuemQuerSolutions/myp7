@@ -28,4 +28,9 @@
 		WHERE ID_USUARIO = #{id}
 	</select>
 	
+	<select id="obterPorEmail" resultMap="usuarioMap">
+		<include refid="selectUsuario"/>
+		WHERE USU_EMAIL = #{email}
+	</select>	
+	
 </mapper>

@@ -3,10 +3,18 @@
 
 <html>
 
-	<c:import url="aImports.jsp" />
+<c:import url="components/imports.jsp" />
 	
 <script type="text/javascript">
-function onLogin(){	document.getElementById("frmLogin").submit(); }
+	function onLogin(){	
+		if(document.getElementById("email").value.trim() == ""){
+			humane.log("Favor preencher o campo Usuário.");
+		}else if(document.getElementById("senha").value.trim() == ""){
+			humane.log("Favor preencher o campo Senha.");
+		}else{
+			document.getElementById("frmLogin").submit(); 
+		}
+	}
 </script>
 	
 <body>
@@ -25,7 +33,7 @@ function onLogin(){	document.getElementById("frmLogin").submit(); }
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						  </span>
-						  <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1">
+						  <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1" name="email" id="email">
 						</div>
 					</div>
 					
@@ -34,8 +42,11 @@ function onLogin(){	document.getElementById("frmLogin").submit(); }
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 						  </span>
-						  <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1">
+						  <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
 						</div>
+					</div>
+					<div style="text-align: center; color: red;">
+						<label>${mensagemRetorno}</label>
 					</div>
 				</div>
   			</div>
