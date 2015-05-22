@@ -8,9 +8,11 @@
 	<link href="resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/hack.css" rel="stylesheet" type="text/css"/>
+	<link href="resources/css/menu.css" rel="stylesheet" type="text/css"/>
 	
 	<script src="resources/js/jquery-2.1.4.min.js" type="text/javascript">	</script>
 	<script src="resources/node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="resources/js/humane.min.js" 		type="text/javascript"> </script>
+	<script src="resources/js/common.js" 		type="text/javascript"> </script>
 	
 </head>

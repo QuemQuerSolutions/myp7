@@ -1,5 +1,10 @@
 /*Styles*/
 
+.theme-orange{background-color: rgba(240, 173, 78, 1);}
+.theme-blue{background-color: rgba(78, 185, 240, 1);}
+.theme-grey{background-color: rgba(202, 205, 207, 1);}
+.theme-red{background-color: rgba(242, 15, 15, 0.78);}
+.theme-green{background-color: rgba(96, 200, 68, 0.78);}
 
 div.flex-align {
   display: -webkit-flexbox;
@@ -15,6 +20,7 @@ div.flex-align {
 
 .orange{color: rgba(240, 173, 78, 1);}
 
+
 div.content-center{
     position: absolute;
     border-radius: 6px;
@@ -29,7 +35,15 @@ div.content-center{
     background: rgba(252, 250, 250, 0.8);
 }
 
-#header{margin: 0; background-color: rgba(240, 173, 78, 1); }
+#header{margin: 0;}
 #header h1 {padding-top: 10px; padding-left: 20px; margin: 0 !important; color: #FFF;}
 #header small {color: #FFF;}
-
+#footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 0;
+	z-index: 500;
+	padding-top: 20;
+}
