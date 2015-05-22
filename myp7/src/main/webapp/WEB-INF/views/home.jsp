@@ -6,9 +6,7 @@
 <body>
 	<c:import url="components/header.jsp" />
 
-<footer id="footer" class="theme-orange">
-	&nbsp;
-</footer>
 
+	<c:import url="components/footer.jsp" />
 </body>
 </html>
