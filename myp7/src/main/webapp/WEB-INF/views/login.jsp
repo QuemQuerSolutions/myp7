@@ -6,15 +6,21 @@
 <c:import url="components/imports.jsp" />
 	
 <script type="text/javascript">
-	function onLogin(){	
-		if(document.getElementById("email").value.trim() == ""){
-			humane.log("Favor preencher o campo Usuário.");
-		}else if(document.getElementById("senha").value.trim() == ""){
-			humane.log("Favor preencher o campo Senha.");
-		}else{
-			document.getElementById("frmLogin").submit(); 
+	$(document).ready(function(){
+		$("#entrar").click(function(){
+			if($.trim($("#email").val()) == ""){
+				humane.log("Favor preencher o campo Usuário.");
+			}else if($.trim($("#senha").val()) == ""){
+				humane.log("Favor preencher o campo Senha.");
+			}else{
+				$("#frmLogin").submit();
+			}
+		});
+	
+		if($("#mensagem").val() != ""){
+			humane.log($("#mensagem").val());
 		}
-	}
+	});
 </script>
 	
 <body>
@@ -45,16 +51,14 @@
 						  <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
 						</div>
 					</div>
-					<div style="text-align: center; color: red;">
-						<label>${mensagemRetorno}</label>
-					</div>
+					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				</div>
   			</div>
   			
 			<div class="col-md-11 margin14px">
 				<div class="row">
 					<button type="button" class="btn btn-link" data-toggle="modal" data-target="#cadastroModal">Criar uma conta</button>
-					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning" onclick="onLogin();">Entrar</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning" id="entrar">Entrar</button>
 				</div>
 			</div>
 			</form>

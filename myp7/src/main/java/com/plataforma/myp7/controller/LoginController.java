@@ -7,9 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.CriptografarBO;
-import com.plataforma.myp7.bo.SenhaBO;
 import com.plataforma.myp7.dao.UsuarioDAO;
-import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
 
 @Controller
