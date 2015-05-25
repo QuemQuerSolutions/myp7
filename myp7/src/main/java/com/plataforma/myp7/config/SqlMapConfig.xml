@@ -20,14 +20,14 @@
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/myp7db"/>
                 <property name="username" value="root"/>
-                <property name="password" value="1234"/>
+                <property name="password" value="nashuatec10"/>
             </dataSource>
        </environment>
     </environments>
  
     <mappers>
        <mapper resource="com/plataforma/myp7/xml/UsuarioMapper.xml"/>
-       <mapper resource="com/plataforma/myp7/xml/HistoricoSenhaMapper.xml"/>
+	   <mapper resource="com/plataforma/myp7/xml/HistoricoSenhaMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/ParametroMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/ParametroDominioMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/ParametroTipoMapper.xml"/>

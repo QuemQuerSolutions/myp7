@@ -6,21 +6,21 @@
 <c:import url="components/imports.jsp" />
 	
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#entrar").click(function(){
-			if($.trim($("#email").val()) == ""){
-				humane.log("Favor preencher o campo Usuário.");
-			}else if($.trim($("#senha").val()) == ""){
-				humane.log("Favor preencher o campo Senha.");
-			}else{
-				$("#frmLogin").submit();
-			}
-		});
-	
-		if($("#mensagem").val() != ""){
-			humane.log($("#mensagem").val());
+$(document).ready(function(){
+	$("#entrar").click(function(){
+		if($.trim($("#email").val()) === ""){
+			alerta("Favor preencher o campo usuário.", "warning");
+		}else if($.trim($("#senha").val()) === ""){
+			alerta("Favor preencher o campo senha.", "warning");
+		}else{
+			$("#frmLogin").submit();
 		}
 	});
+
+	if($("#mensagem").val() !== ""){
+		alerta($("#mensagem").val(), "warning");
+	}
+});
 </script>
 	
 <body>

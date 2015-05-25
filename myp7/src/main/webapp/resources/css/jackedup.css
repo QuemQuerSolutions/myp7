@@ -68,6 +68,19 @@ body {
   color: #fff;
   text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
 }
+
+.humane.humane-jackedup-warning,
+.humane-jackedup.humane-jackedup-warning {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADICAYAAAAp8ov1AAAABmJLR0QA/wD/AP+gvaeTAAAASElEQVQokc2SMQ4AIAgDD9/K/79QVzWaENTownAJbWnA5SqACkA/Aiy59hczrGVC30Q7y57EmNU5NL5zwln50IMsfZMel+UBKtFBQSLWM9wLAAAAAElFTkSuQmCC');
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FDFC94), color-stop(1, #FDFC94)) no-repeat;
+  background: -moz-linear-gradient(top, #FDFC94 0%, #FDFC94 100%) no-repeat;
+  background: -webkit-linear-gradient(top, #FDFC94 0%, #FDFC94 100%) no-repeat;
+  background: -ms-linear-gradient(top, #FDFC94 0%, #FDFC94 100%) no-repeat;
+  background: -o-linear-gradient(top, #FDFC94 0%, #FDFC94 100%) no-repeat;
+  background: linear-gradient(top, #FDFC94 0%, #FDFC94 100%) no-repeat;
+  background-color: #FDFC94;
+  color: #000;
+}
 .humane.humane-jackedup-success,
 .humane-jackedup.humane-jackedup-success {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADICAYAAAAp8ov1AAAABmJLR0QA/wD/AP+gvaeTAAAASElEQVQokc2SMQ4AIAgDD9/K/79QVzWaENTownAJbWnA5SqACkA/Aiy59hczrGVC30Q7y57EmNU5NL5zwln50IMsfZMel+UBKtFBQSLWM9wLAAAAAElFTkSuQmCC');

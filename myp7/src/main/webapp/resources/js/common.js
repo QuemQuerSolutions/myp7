@@ -39,3 +39,8 @@ $(document).ready(function () {
   };
   
 });
+
+
+function alerta(msg, type) {
+	humane.log(msg, { baseCls: 'humane-jackedup', addnCls: 'humane-jackedup-'+type });
+}
