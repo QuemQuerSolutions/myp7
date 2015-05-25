@@ -57,7 +57,7 @@
   			
 			<div class="col-md-11 margin14px">
 				<div class="row">
-					<button type="button" class="btn btn-link" data-toggle="modal" data-target="#cadastroModal">Criar uma conta</button>
+<!-- 					<button type="button" class="btn btn-link" data-toggle="modal" data-target="#cadastroModal">Criar uma conta</button> -->
 					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning" id="entrar">Entrar</button>
 				</div>
 			</div>
