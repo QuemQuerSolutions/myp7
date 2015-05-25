@@ -22,7 +22,7 @@ public class LoginController {
 			
 			if(usuBanco == null){
 				model.addAttribute("mensagemRetorno", "O usuário não existe!");
-				throw new Exception();
+				return "login";
 			}
 			
 			String senhaHash = CriptografarBO.criptografar(usuario.getSenha());
@@ -32,7 +32,7 @@ public class LoginController {
 				return "home";
 			}else{
 				model.addAttribute("mensagemRetorno", "A senha informada está incorreta!");
-				throw new Exception();
+				return "login";
 			}
 		} catch (Exception e) {
 			return "login";
