@@ -2,7 +2,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 	<title>Plataforma MYP7</title>
-<!-- 	<link href="resources/imagens/escri352.ico" rel="shortcut icon"> //TODO: Colocar Icone -->
+	<link href="resources/img/favicon.ico" rel="shortcut icon">
 	
 	<link href='resources/css/jackedup.css' rel='stylesheet' />
 	<link href="resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
