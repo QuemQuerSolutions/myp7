@@ -6,39 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.plataforma.myp7.bo.CriptografarBO;
-import com.plataforma.myp7.dao.UsuarioDAO;
+import com.plataforma.myp7.bo.LoginBO;
 import com.plataforma.myp7.data.Usuario;
 
 @Controller
 public class LoginController {
 	
+	private LoginBO loginBO;
+	
+	private LoginController(){
+		this.loginBO = new LoginBO();
+	}
 
 	@RequestMapping("efetuaLogin")
 	public String efetuaLogin(Usuario usuario, HttpSession session, Model model) { 
-		try {
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			Usuario usuBanco = usuarioDAO.selecionarPorEmail(usuario.getEmail());
-			
-			if(usuBanco == null){
-				model.addAttribute("mensagemRetorno", "O usuário não existe!");
-				return "login";
-			}
-			
-			String senhaHash = CriptografarBO.criptografar(usuario.getSenha());
-			
-			if(senhaHash.equals(usuBanco.getSenha())){
-				session.setAttribute("usuarioLogado", usuBanco);
-				return "home";
-			}else{
-				model.addAttribute("mensagemRetorno", "A senha informada está incorreta!");
-				return "login";
-			}
-		} catch (Exception e) {
-			return "login";
-		} 
+		return this.loginBO.getDestinoLogin(usuario, session, model); 
 	}
-	
+
 	@RequestMapping("/")
 	public String loginbarra() { 
 		return "redirect:login";
