@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.dao.UsuarioDAO;
@@ -14,13 +13,14 @@ import com.plataforma.myp7.data.Usuario;
 
 public class LoginBO {
 
-	@Autowired
 	private UsuarioDAO usuarioDAO;
 	
-	public String getDestinoLogin(Usuario usuario, HttpSession session,
-			Model model) {
+	public LoginBO(){
+		this.usuarioDAO = new UsuarioDAO();
+	}
+	
+	public String getDestinoLogin(Usuario usuario, HttpSession session,	Model model) {
 		try {
-			this.usuarioDAO = new UsuarioDAO();
 			Usuario usuBanco = this.usuarioDAO.selecionarPorEmail(usuario.getEmail());
 			
 			if(Objects.isNull(usuBanco)){
@@ -37,6 +37,7 @@ public class LoginBO {
 			return "home";
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "login";
 		}
 	}
