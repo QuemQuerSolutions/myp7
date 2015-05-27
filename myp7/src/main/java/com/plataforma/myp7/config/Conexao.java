@@ -1,5 +1,7 @@
 package com.plataforma.myp7.config;
 
+import java.util.Objects;
+
 import org.apache.ibatis.session.SqlSession;
 
 public class Conexao {
@@ -13,7 +15,7 @@ public class Conexao {
 	}
 	
 	private static Conexao getInstance(){
-		if(Conexao.instance == null){
+		if(Objects.isNull(Conexao.instance)){
 			return new Conexao();
 		}
 		return Conexao.instance;
