@@ -10,7 +10,7 @@
 	<div id="menu">
 		<ul id="menu-nav" class="box">
 			<li ><a href="#"><span class="glyphicon glyphicon-plus"></span> &nbsp;Produto</a></li>
-	    	<li ><a href="#"><span class="glyphicon glyphicon-barcode"></span> &nbsp;Embalagem</a></li>
+	    	<li ><a href="Embalagem" target="_self"><span class="glyphicon glyphicon-barcode"></span> &nbsp;Embalagem</a></li>
 	    	<li ><a href="#"><span class="glyphicon glyphicon-cog"></span> &nbsp;Configurações</a></li>
 		</ul>
 	</div>

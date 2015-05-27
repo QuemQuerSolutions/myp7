@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EmbalagemMapper">
+
+	<resultMap id="embalagemMap" type="Embalagem">
+		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
+		<result property="siglaEmbalagem"  		column="SIGLA_EMBALAGEM" />
+		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
+		<result property="nomeEmbalagemCompra" 	column="NOME_EMBALAGEM_COMPRA" />
+		<result property="nomeEmbalagem" 		column="NOME_EMBALAGEM"/>
+	</resultMap>
+
+	<sql id="selectEmbalagem">
+		<![CDATA[
+			SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM, NOME_EMBALAGEM_COMPRA, NOME_EMBALAGEM
+			FROM MYP7_Embalagem
+		  ]]>
+	</sql>
+	
+	<select id="obterTodasEmbalagens" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+	</select>
+
+	<select id="obterEmbalagensPorSigla" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+		WHERE SIGLA_EMBALAGEM = #{sigla}
+	</select>
+	
+	<select id="obterEmbalagensPorDescricao" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+		WHERE NOME_EMBALAGEM = #{descricao}
+	</select>
+	
+	<select id="obterEmbalagensPorSiglaDescricao" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+		WHERE SIGLA_EMBALAGEM = #{sigla} AND NOME_EMBALAGEM = #{descricao}
+	</select>	
+	
+</mapper>
