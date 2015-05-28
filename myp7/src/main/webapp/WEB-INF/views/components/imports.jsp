@@ -7,6 +7,7 @@
 	<link href='resources/css/jackedup.css' rel='stylesheet' />
 	<link href="resources/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="resources/css/objects.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/hack.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/menu.css" rel="stylesheet" type="text/css"/>
 	

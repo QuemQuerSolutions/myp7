@@ -3,7 +3,7 @@
 
 <html>
 
-<c:import url="components/imports.jsp" />
+<c:import url="imports.jsp" />
 	
 <script type="text/javascript">
 $(document).ready(function(){

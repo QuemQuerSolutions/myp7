@@ -9,4 +9,3 @@
 		</a>
 	</h1>
 </div>
-<c:import url="components/menu.jsp" />

@@ -1,5 +1,5 @@
 <div id="side-bar">
-	<div>
+	<div> 
 		<div id="title-menu" class="">
 			<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>&nbsp;Menu
 		</div>

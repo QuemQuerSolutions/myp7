@@ -25,20 +25,20 @@ public class LoginBO {
 			
 			if(Objects.isNull(usuBanco)){
 				setMsgRetorno(model, "O usuário não existe!");
-				return "login";
+				return "components/login";
 			}
 			
 			if(!CriptografarBO.criptografar(usuario.getSenha()).equals(usuBanco.getSenha())){
 				setMsgRetorno(model, "A senha informada está incorreta!");
-				return "login";
+				return "components/login";
 			}
 			
 			session.setAttribute("usuarioLogado", usuBanco);
-			return "home";
+			return "components/home";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "login";
+			return "components/login";
 		}
 	}
 }

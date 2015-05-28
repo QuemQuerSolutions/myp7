@@ -1,0 +1,30 @@
+/*---------------
+	Header
+----------------*/
+#header{margin: 0;}
+#header h1 {padding-top: 10px; padding-left: 20px; margin: 0 !important; color: #FFF;}
+#header small {color: #FFF;}
+#header span {font-size: medium;}
+#header #logout{float: right; margin-right: 20px; font-size: 20px; cursor: pointer;}
+
+/*---------------
+	Footer
+----------------*/
+#footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 0;
+	z-index: 500;
+}
+#footer #btnNovo{
+	float: right;
+  	margin-right: 20px;
+}
+#footer button{
+ 	font-size: 17px;
+ 	padding-left: 40px;
+  	padding-right: 40px;
+}
+
