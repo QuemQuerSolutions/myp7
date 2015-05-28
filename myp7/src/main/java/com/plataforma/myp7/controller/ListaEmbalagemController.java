@@ -1,6 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ public class ListaEmbalagemController {
 		
 		model.addAttribute("lista", embalagens);
 		
-		return "listaEmbalagem";
+		return "EmbalagemLista";
 	}
 	
 	@RequestMapping("CarregaListaEmbalagem")
@@ -31,7 +30,7 @@ public class ListaEmbalagemController {
 		
 		model.addAttribute("lista", embalagens);
 		
-		return "listaEmbalagem";
+		return "EmbalagemLista";
 	}
 	
 	private List<Embalagem> carregaLista(ParametrosPesquisaEmbalagens parametros){
