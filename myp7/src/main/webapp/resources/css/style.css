@@ -1,6 +1,6 @@
 /*Styles*/
 
-.theme-orange{background-color: rgba(240, 173, 78, 1);}
+.theme-orange{background-color: rgba(240, 173, 78, 1);color: white;}
 .theme-blue{background-color: rgba(78, 185, 240, 1);}
 .theme-grey{background-color: rgba(202, 205, 207, 1);}
 .theme-red{background-color: rgba(242, 15, 15, 0.78);}
@@ -33,4 +33,9 @@ div.content-center{
     margin-left: -300px; 
     background: #FFF; /* fundo branco para navegadores que não suportam rgba */
     background: rgba(252, 250, 250, 0.8);
+}
+
+.modal-header{
+	border-top-right-radius: 6px !important;
+  	border-top-left-radius: 6px !important;
 }
