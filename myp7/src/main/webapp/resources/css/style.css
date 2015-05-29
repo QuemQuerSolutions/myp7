@@ -20,7 +20,6 @@ div.flex-align {
 
 .orange{color: rgba(240, 173, 78, 1);}
 
-
 div.content-center{
     position: absolute;
     border-radius: 6px;
@@ -35,7 +34,20 @@ div.content-center{
     background: rgba(252, 250, 250, 0.8);
 }
 
-.modal-header{
-	border-top-right-radius: 6px !important;
-  	border-top-left-radius: 6px !important;
+
+#content{
+  margin-left: 60px;
+  margin-top: 10px;
+  width: 95%;
+  border: 1px solid;
+  border-color: rgb(242, 241, 241);
+  border-radius: 5px;
+}
+
+#content-title{
+	padding-left: 15px;
+	padding-top: 1px;
+  	margin-bottom: 10px;
+  	border-bottom: 1px solid #e5e5e5;
+  	background-color: rgb(244, 243, 243);
 }

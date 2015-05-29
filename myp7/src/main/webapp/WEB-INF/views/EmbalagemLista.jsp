@@ -18,7 +18,13 @@
 <body>
 	<c:import url="components/header.jsp" />
 	<c:import url="components/menu.jsp" /> 
-		<table style="margin-left: 60px; margin-top: 10px;" border="1" width="95%">
+
+	<div id="content">
+		<div id="content-title">
+			<h4>Inserir Embalagem</h4>
+		</div>
+		
+		<table border="1">
 			<tr>
 				<td colspan="4">
 					Embalagem
@@ -57,7 +63,9 @@
 		</table>
 		
 		<c:import url="EmbalagemInserir.jsp" />
-		<c:import url="components/footer.jsp">
+	
+	</div>
+	<c:import url="components/footer.jsp">
 		<c:param name="novo" value="nova_embalagem" />
 	</c:import>
 </body>

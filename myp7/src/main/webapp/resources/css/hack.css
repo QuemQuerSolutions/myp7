@@ -1,3 +1,8 @@
 .margin0{margin: 0 !important;}
 .margin14px{margin-left: 14px !important;}
 .paddingleft30px{padding-left: 30px !important;}
+
+.modal-header{
+	border-top-right-radius: 6px !important;
+  	border-top-left-radius: 6px !important;
+}

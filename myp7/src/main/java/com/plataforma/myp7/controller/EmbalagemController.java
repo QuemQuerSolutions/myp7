@@ -13,11 +13,17 @@ import com.plataforma.myp7.data.Embalagem;
 import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 
 @Controller
-public class ListaEmbalagemController {
+public class EmbalagemController {
+	
+	private EmbalagemBO embalagemBO;
+	
+	public EmbalagemController() {
+		this.embalagemBO = new EmbalagemBO();
+	}
 
 	@RequestMapping("Embalagem")
 	public String inicio(HttpSession session, Model model){
-		List<Embalagem> embalagens = this.carregaLista(null, null);
+		List<Embalagem> embalagens = this.carregaLista();
 		
 		model.addAttribute("lista", embalagens);
 		
@@ -34,12 +40,12 @@ public class ListaEmbalagemController {
 	}
 	
 	private List<Embalagem> carregaLista(ParametrosPesquisaEmbalagens parametros, Model model){
-		EmbalagemBO embalagemBO = new EmbalagemBO();
-		
-		if(parametros != null){
-			return embalagemBO.selecionaPorParametros(parametros, model);
-		}else{
-			return embalagemBO.selecionaTodos();
-		}
+		return this.embalagemBO.selecionaPorParametros(parametros, model);
 	}
+	
+	private List<Embalagem> carregaLista(){
+		return this.embalagemBO.selecionaTodos();
+	}
+	
+	
 }

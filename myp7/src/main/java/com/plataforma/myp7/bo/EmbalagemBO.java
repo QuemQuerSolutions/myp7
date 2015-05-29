@@ -1,5 +1,6 @@
 package com.plataforma.myp7.bo;
 
+import static com.plataforma.myp7.Util.Utils.emptyToNull;
 import static com.plataforma.myp7.Util.Utils.setMsgRetorno;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 import com.plataforma.myp7.enums.GeralEnum;
 
 public class EmbalagemBO {
+	
 	private EmbalagemDAO embalagemDAO;
 	
 	public EmbalagemBO(){
@@ -19,13 +21,14 @@ public class EmbalagemBO {
 	}
 	
 	public List<Embalagem> selecionaPorParametros(ParametrosPesquisaEmbalagens parametros, Model model){
-		corrigeParametros(parametros);
-		if(this.count(parametros) < GeralEnum.LIMITE_COUNT.getValor()){
-			return this.embalagemDAO.selecionaPorParametros(parametros);
-		}else{
-			setMsgRetorno(model, "O resultado de sua pesquisa é muito grando! Por favor, refine sua pesquisa.");
+		this.corrigeParametros(parametros);
+		
+		if(this.count(parametros) > GeralEnum.LIMITE_COUNT.getValor()){
+			setMsgRetorno(model, "Refine sua pesquisa.");
+			return null;
 		}
-		return null;
+		
+		return this.embalagemDAO.selecionaPorParametros(parametros);
 	}
 	
 	public List<Embalagem> selecionaTodos(){
@@ -37,12 +40,11 @@ public class EmbalagemBO {
 	}
 	
 	private void corrigeParametros(ParametrosPesquisaEmbalagens parametros){
-		if(parametros.getDescricao().trim().equals("")){
-			parametros.setDescricao(null);
-		}
-		
-		if(parametros.getSigla().trim().equals("")){
-			parametros.setSigla(null);
-		}
+		parametros.setDescricao(emptyToNull(parametros.getDescricao()));
+		parametros.setSigla(emptyToNull(parametros.getSigla()));
 	}
+	
+	
+	
+	
 }
