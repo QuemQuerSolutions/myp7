@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.plataforma.myp7.dao.EmbalagemDAO;
+import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.data.Embalagem;
 import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 
@@ -17,7 +17,7 @@ public class ListaEmbalagemController {
 
 	@RequestMapping("Embalagem")
 	public String inicio(HttpSession session, Model model){
-		List<Embalagem> embalagens = carregaLista(null);
+		List<Embalagem> embalagens = this.carregaLista(null, null);
 		
 		model.addAttribute("lista", embalagens);
 		
@@ -26,20 +26,20 @@ public class ListaEmbalagemController {
 	
 	@RequestMapping("CarregaListaEmbalagem")
 	public String consulta(ParametrosPesquisaEmbalagens parametros, HttpSession session, Model model){
-		List<Embalagem> embalagens = carregaLista(parametros);
+		List<Embalagem> embalagens = this.carregaLista(parametros, model);
 		
 		model.addAttribute("lista", embalagens);
 		
 		return "EmbalagemLista";
 	}
 	
-	private List<Embalagem> carregaLista(ParametrosPesquisaEmbalagens parametros){
-		EmbalagemDAO embalagemDAO = new EmbalagemDAO();
+	private List<Embalagem> carregaLista(ParametrosPesquisaEmbalagens parametros, Model model){
+		EmbalagemBO embalagemBO = new EmbalagemBO();
 		
 		if(parametros != null){
-			return embalagemDAO.selecionaPorParametros(parametros);
+			return embalagemBO.selecionaPorParametros(parametros, model);
 		}else{
-			return embalagemDAO.selecionaTodos();
+			return embalagemBO.selecionaTodos();
 		}
 	}
 }

@@ -17,18 +17,14 @@ public class EmbalagemDAO {
 	}
 	
 	public List<Embalagem> selecionaPorParametros(ParametrosPesquisaEmbalagens parametros){
-		if(!parametros.getSigla().equals("") && !parametros.getDescricao().equals("")){
-			return this.session.selectList("obterEmbalagensPorSiglaDescricao", parametros);
-		}else if(!parametros.getSigla().equals("")){
-			return this.session.selectList("obterEmbalagensPorSigla", parametros.getSigla());
-		}else if(!parametros.getDescricao().equals("")){
-			return this.session.selectList("obterEmbalagensPorDescricao", parametros.getDescricao());
-		}
-		
-		return null;
+		return this.session.selectList("obterEmbalagens", parametros);
 	}
 	
 	public List<Embalagem> selecionaTodos(){
 		return this.session.selectList("obterTodasEmbalagens");
+	}
+
+	public Integer count(ParametrosPesquisaEmbalagens parametros) {
+		return (Integer) this.session.selectOne("countEmbalagem", parametros);
 	}
 }

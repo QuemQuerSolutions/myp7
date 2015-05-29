@@ -22,19 +22,28 @@
 		<include refid="selectEmbalagem"/>
 	</select>
 
-	<select id="obterEmbalagensPorSigla" resultMap="embalagemMap">
+	<select id="obterEmbalagens" resultMap="embalagemMap">
 		<include refid="selectEmbalagem"/>
-		WHERE SIGLA_EMBALAGEM = #{sigla}
+		WHERE 1=1
+		<if test="sigla != null">
+			AND SIGLA_EMBALAGEM = #{sigla} 
+		</if>
+		<if test="descricao != null">
+			AND NOME_EMBALAGEM = #{descricao}
+		</if>
 	</select>
 	
-	<select id="obterEmbalagensPorDescricao" resultMap="embalagemMap">
-		<include refid="selectEmbalagem"/>
-		WHERE NOME_EMBALAGEM = #{descricao}
-	</select>
-	
-	<select id="obterEmbalagensPorSiglaDescricao" resultMap="embalagemMap">
-		<include refid="selectEmbalagem"/>
-		WHERE SIGLA_EMBALAGEM = #{sigla} AND NOME_EMBALAGEM = #{descricao}
+	<select id="countEmbalagem" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM MYP7_Embalagem
+		WHERE 1=1
+		<if test="sigla != null">
+			AND SIGLA_EMBALAGEM = #{sigla} 
+		</if>
+		<if test="descricao != null">
+			AND NOME_EMBALAGEM = #{descricao}
+		</if>
 	</select>	
+	
+	
 	
 </mapper>

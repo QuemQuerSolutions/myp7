@@ -8,19 +8,31 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#entrar").click(function(){
-		if($.trim($("#email").val()) === ""){
-			alerta("Favor preencher o campo usuário.", "warning");
-		}else if($.trim($("#senha").val()) === ""){
-			alerta("Favor preencher o campo senha.", "warning");
-		}else{
-			$("#frmLogin").submit();
-		}
+		login();
 	});
 
-	if($("#mensagem").val() !== ""){
+	$(".campo-login").keypress(function(e){
+	    if(e.which == 13) {
+	        login();
+	    }
+	});
+
+	$("#email").focus();
+	
+	if($("#mensagem").val() != ""){
 		alerta($("#mensagem").val(), "warning");
 	}
 });
+
+function login(){
+	if($.trim($("#email").val()) === ""){
+		alerta("Favor preencher o campo usuário.", "warning");
+	}else if($.trim($("#senha").val()) === ""){
+		alerta("Favor preencher o campo senha.", "warning");
+	}else{
+		$("#frmLogin").submit();
+	}
+}
 </script>
 	
 <body>
@@ -39,7 +51,7 @@ $(document).ready(function(){
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						  </span>
-						  <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1" name="email" id="email">
+						  <input type="text" class="form-control campo-login" placeholder="Usuário" aria-describedby="basic-addon1" name="email" id="email">
 						</div>
 					</div>
 					
@@ -48,7 +60,7 @@ $(document).ready(function(){
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 						  </span>
-						  <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
+						  <input type="password" class="form-control campo-login" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
 						</div>
 					</div>
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
