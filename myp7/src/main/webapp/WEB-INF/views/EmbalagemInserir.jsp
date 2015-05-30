@@ -15,8 +15,6 @@
 		    }
 		});
 
-		$("#sigla").focus();
-		
 		if($("#mensagem").val() != ""){
 			alerta($("#mensagem").val(), "warning");
 		}		

@@ -49,7 +49,7 @@ public class EmbalagemBO {
 		
 		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() != 0){
 			setMsgRetorno(model, "Embalagem já existente.");
-			return "EmbalagemInserir";
+			return "EmbalagemLista";
 		}else{
 			return null;
 		}

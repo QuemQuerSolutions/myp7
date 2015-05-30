@@ -11,7 +11,11 @@
 		});
 
 		if($("#mensagem").val() != ""){
-			alerta($("#mensagem").val(), "warning");
+			if($("#outraPagina").val() != ""){
+				$("#btnNovo").click();
+			}else{
+				alerta($("#mensagem").val(), "warning");
+			}
 		}
 	});
 </script>
@@ -34,11 +38,12 @@
 				<td  colspan="4">
 					<form action="CarregaListaEmbalagem" name="frmEmbalagem">
 						<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+						<input type="hidden" id="outraPagina" value="${outraPagina}" />
 						
 						<table width="100%">
 							<tr>
-								<td>Sigla <br /><input type="text" name="sigla"></td>
-								<td>Descrição <br /><input type="text" name="descricao"></td>
+								<td>Sigla <br /><input type="text" name="siglaEmbalagem"></td>
+								<td>Descrição <br /><input type="text" name="nomeEmbalagem"></td>
 								<td><input type="submit" value="Pesquisar" /></td>
 								<td><input type="button" value="Limpar" /></td>
 							</tr>
