@@ -9,6 +9,12 @@
 			salvar();
 		});
 
+		$(".limpar").click(function(){
+			$("#sigla").val("");
+			$("#descricao").val("");
+			$("#quantidade").val("");
+		});
+
 		$(".campo-salvar").keypress(function(e){
 		    if(e.which == 13) {
 		        salvar();
@@ -37,7 +43,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header theme-orange">
-				<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="close limpar" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -50,13 +56,13 @@
 						<div class="col-md-3">
 							<div class="form-group">
 						   		<label for="sigla">Sigla</label>
-						    	<input type="text" class="form-control campo-salvar" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla">
+						    	<input type="text" class="form-control campo-salvar" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla" value="${embalagem.siglaEmbalagem}">
 						  	</div>
 						</div>
 	  					<div class="col-md-8">
 							<div class="form-group">
 						   		<label for="descricao">Descrição</label>
-						    	<input type="text" class="form-control campo-salvar" id="descricao" name="nomeEmbalagem" maxlength="100" placeholder="Insira descrição">
+						    	<input type="text" class="form-control campo-salvar" id="descricao" name="nomeEmbalagem" maxlength="100" placeholder="Insira descrição" value="${embalagem.nomeEmbalagem}">
 						  	</div>
 	  					</div>
 					</div>
@@ -64,14 +70,14 @@
 						<div class="col-md-3">
 							<div class="form-group">
 						   		<label for="quantidade">Quantidade</label>
-						    	<input type="text" class="form-control campo-salvar" id="quantidade" name="qtdEmbalagem" maxlength="2" placeholder="Quantidade">
+						    	<input type="text" class="form-control campo-salvar" id="quantidade" name="qtdEmbalagem" maxlength="2" placeholder="Quantidade" value="${embalagem.qtdEmbalagem}">
 						  	</div>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-default limpar" data-dismiss="modal">Cancelar</button>
 				<button type="button" class="btn btn-warning" id="salvar">Salvar</button>
 			</div>
 		</div>

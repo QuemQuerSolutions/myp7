@@ -49,10 +49,12 @@ public class EmbalagemController {
 			}else{
 				setMsgRetorno(model, "Erro ao inserir a embalagem.");
 				model.addAttribute("outraPagina", "insert");
+				model.addAttribute("embalagem", embalagem);
 				return "EmbalagemLista";
 			}
 		}else{
 			model.addAttribute("outraPagina", "insert");
+			model.addAttribute("embalagem", embalagem);
 			return validacao;
 		}
 	}
