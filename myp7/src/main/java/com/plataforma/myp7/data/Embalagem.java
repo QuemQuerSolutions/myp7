@@ -37,6 +37,13 @@ public class Embalagem implements Serializable{
 	public void setQtdEmbalagem(Integer qtdEmbalagem) {
 		this.qtdEmbalagem = qtdEmbalagem;
 	}
+	public void setQtdEmbalagem(String qtdEmbalagem) {
+		try{
+			this.qtdEmbalagem = Integer.valueOf(qtdEmbalagem.trim());
+		}catch(Exception e){
+			this.qtdEmbalagem = 0;
+		}
+	}
 	public String getNomeEmbalagemCompra() {
 		return nomeEmbalagemCompra;
 	}

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.dao.EmbalagemDAO;
 import com.plataforma.myp7.data.Embalagem;
-import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 import com.plataforma.myp7.enums.GeralEnum;
 
 public class EmbalagemBO {
@@ -20,31 +19,48 @@ public class EmbalagemBO {
 		this.embalagemDAO = new EmbalagemDAO();
 	}
 	
-	public List<Embalagem> selecionaPorParametros(ParametrosPesquisaEmbalagens parametros, Model model){
-		this.corrigeParametros(parametros);
+	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
+		this.corrigeParametros(embalagem);
 		
-		if(this.count(parametros) > GeralEnum.LIMITE_COUNT.getValor()){
+		if(this.count(embalagem) > GeralEnum.LIMITE_COUNT.getValor()){
 			setMsgRetorno(model, "Refine sua pesquisa.");
 			return null;
 		}
 		
-		return this.embalagemDAO.selecionaPorParametros(parametros);
+		return this.embalagemDAO.selecionaPorParametros(embalagem);
 	}
 	
 	public List<Embalagem> selecionaTodos(){
 		return this.embalagemDAO.selecionaTodos();
 	}
 	
-	public Integer count(ParametrosPesquisaEmbalagens parametros){
-		return this.embalagemDAO.count(parametros);
+	public Integer count(Embalagem embalagem){
+		return this.embalagemDAO.count(embalagem);
 	}
 	
-	private void corrigeParametros(ParametrosPesquisaEmbalagens parametros){
-		parametros.setDescricao(emptyToNull(parametros.getDescricao()));
-		parametros.setSigla(emptyToNull(parametros.getSigla()));
+	private void corrigeParametros(Embalagem embalagem){
+		embalagem.setNomeEmbalagem(emptyToNull(embalagem.getNomeEmbalagem()));
+		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem()));
 	}
 	
+	public String validaInsert(Embalagem embalagem, Model model){
+		Embalagem embalagemConsulta = new Embalagem();
+		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
+		
+		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() != 0){
+			setMsgRetorno(model, "Embalagem já existente.");
+			return "EmbalagemInserir";
+		}else{
+			return null;
+		}
+	}
 	
-	
-	
+	public Boolean salvar(Embalagem embalagem) {
+		try{
+			this.embalagemDAO.salvar(embalagem);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
 }

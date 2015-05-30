@@ -25,25 +25,29 @@
 	<select id="obterEmbalagens" resultMap="embalagemMap">
 		<include refid="selectEmbalagem"/>
 		WHERE 1=1
-		<if test="sigla != null">
-			AND SIGLA_EMBALAGEM = #{sigla} 
+		<if test="siglaEmbalagem != null">
+			AND SIGLA_EMBALAGEM = #{siglaEmbalagem} 
 		</if>
-		<if test="descricao != null">
-			AND NOME_EMBALAGEM = #{descricao}
+		<if test="nomeEmbalagem != null">
+			AND NOME_EMBALAGEM = #{nomeEmbalagem}
 		</if>
 	</select>
 	
 	<select id="countEmbalagem" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM MYP7_Embalagem
 		WHERE 1=1
-		<if test="sigla != null">
-			AND SIGLA_EMBALAGEM = #{sigla} 
+		<if test="siglaEmbalagem != null">
+			AND SIGLA_EMBALAGEM = #{siglaEmbalagem} 
 		</if>
-		<if test="descricao != null">
-			AND NOME_EMBALAGEM = #{descricao}
+		<if test="nomeEmbalagem != null">
+			AND NOME_EMBALAGEM = #{nomeEmbalagem}
 		</if>
 	</select>	
 	
-	
-	
+	<insert  id="salvarEmbalagem" keyProperty="ID_EMBALAGEM" keyColumn="ID_EMBALAGEM" useGeneratedKeys="true">
+		INSERT INTO MYP7_Embalagem 
+			(SIGLA_EMBALAGEM, QTD_EMBALAGEM, NOME_EMBALAGEM_COMPRA, NOME_EMBALAGEM)
+		VALUES
+			(#{siglaEmbalagem}, #{qtdEmbalagem}, #{nomeEmbalagem}, #{nomeEmbalagem}) 
+	</insert>
 </mapper>

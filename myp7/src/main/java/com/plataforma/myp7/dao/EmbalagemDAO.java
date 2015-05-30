@@ -16,15 +16,20 @@ public class EmbalagemDAO {
 		this.session = getConexao();
 	}
 	
-	public List<Embalagem> selecionaPorParametros(ParametrosPesquisaEmbalagens parametros){
-		return this.session.selectList("obterEmbalagens", parametros);
+	public List<Embalagem> selecionaPorParametros(Embalagem embalagem){
+		return this.session.selectList("obterEmbalagens", embalagem);
 	}
 	
 	public List<Embalagem> selecionaTodos(){
 		return this.session.selectList("obterTodasEmbalagens");
 	}
 
-	public Integer count(ParametrosPesquisaEmbalagens parametros) {
-		return (Integer) this.session.selectOne("countEmbalagem", parametros);
+	public Integer count(Embalagem embalagem) {
+		return (Integer) this.session.selectOne("countEmbalagem", embalagem);
+	}
+
+	public void salvar(Embalagem embalagem) throws Exception {
+		this.session.selectOne("salvarEmbalagem", embalagem);
+		this.session.commit(true);
 	}
 }

@@ -1,5 +1,7 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.Util.Utils.setMsgRetorno;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.data.Embalagem;
-import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 
 @Controller
 public class EmbalagemController {
@@ -31,7 +32,7 @@ public class EmbalagemController {
 	}
 	
 	@RequestMapping("CarregaListaEmbalagem")
-	public String consulta(ParametrosPesquisaEmbalagens parametros, HttpSession session, Model model){
+	public String consulta(Embalagem parametros, HttpSession session, Model model){
 		List<Embalagem> embalagens = this.carregaLista(parametros, model);
 		
 		model.addAttribute("lista", embalagens);
@@ -39,7 +40,22 @@ public class EmbalagemController {
 		return "EmbalagemLista";
 	}
 	
-	private List<Embalagem> carregaLista(ParametrosPesquisaEmbalagens parametros, Model model){
+	@RequestMapping("InserirEmbalagem")
+	public String salvar(Embalagem embalagem, Model model){
+		String validacao = this.embalagemBO.validaInsert(embalagem, model);
+		if(validacao == null){
+			if(this.embalagemBO.salvar(embalagem)){
+				return "redirect:Embalagem";
+			}else{
+				setMsgRetorno(model, "Erro ao inserir a embalagem.");
+				return "EmbalagemInserir";
+			}
+		}else{
+			return validacao;
+		}
+	}
+	
+	private List<Embalagem> carregaLista(Embalagem parametros, Model model){
 		return this.embalagemBO.selecionaPorParametros(parametros, model);
 	}
 	
