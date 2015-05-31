@@ -1,7 +1,7 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.Util.Utils.emptyToNull;
-import static com.plataforma.myp7.Util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.plataforma.myp7.Util;
+package com.plataforma.myp7.util;
 
 import org.springframework.ui.Model;
 

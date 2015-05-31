@@ -7,11 +7,11 @@ import java.util.Objects;
 
 import org.springframework.ui.Model;
 
-import com.plataforma.myp7.Util.Utils;
 import com.plataforma.myp7.dao.UsuarioDAO;
 import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
+import com.plataforma.myp7.util.Utils;
 
 public class UsuarioBO {
 	

@@ -1,6 +1,6 @@
 package com.plataforma.myp7.controller;
 
-import static com.plataforma.myp7.Util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 import java.util.Objects;
