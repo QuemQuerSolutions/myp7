@@ -108,3 +108,11 @@ function FormatarCnpj(cnpj) {
     cnpj = cnpj.replace( /(\d{4})(\d)/ , "$1-$2"); //Coloca um hífen depois do bloco de quatro dígitos
     return cnpj;
 }
+
+
+function validaEmail(email){
+	var validar = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	if (!validar.test(email))
+		return false;
+	return true;
+}

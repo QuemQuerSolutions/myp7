@@ -11,6 +11,8 @@ $(document).ready(function() {
 		$("#inputCnpj").val(FormatarCnpj($.trim($("#inputCnpj").val())));
 	});
 
+
+	
 	$("#fechar").click(function(){
 		removeClass();
 		limpaCampos();
@@ -21,16 +23,17 @@ $(document).ready(function() {
 		if(!validaCamposObrigatorios()){
 			alerta("Favor preencher os campos obrigatórios.", "warning");
 		}else{
-			
 			if(!validarCNPJ($.trim($("#inputCnpj").val()))){
 				alerta("CNPJ inválido", "warning");
 				$("#divCnpj").attr("class","form-group has-error");
+			}else if(!validaEmail($("#inputEmail").val())){
+				alerta("Não é um endereço de e-mail válido.", "warning");
+				$("#divEmail").attr("class","form-group has-error");
 			}else{
 				$("#inputCnpj").val($("#inputCnpj").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
 				$("#frmCadastroModal").submit();
 				$(this).attr('data-dismiss','modal');
 				limpaCampos();
-				
 			}
 		}	
 	});
@@ -77,6 +80,8 @@ $(document).ready(function() {
 		$("#divSenha").attr("class","form-group");
 		
 	}
+
+	
 });
 
 </script>

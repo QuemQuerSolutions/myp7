@@ -10,6 +10,7 @@ $(document).ready(function(){
 
 
 	$("#btnCadastrar").click(function(){
+		limpaCampos();
 		$(this).attr('data-toggle','modal');
 		$(this).attr('data-target','#cadastroModal');
 	});
@@ -17,7 +18,7 @@ $(document).ready(function(){
 	$("#entrar").click(function(){
 		login();
 	});
-
+	
 	$(".campo-login").keypress(function(e){
 	    if(e.which == 13) {
 	        login();
@@ -28,6 +29,13 @@ $(document).ready(function(){
 	
 	if($("#mensagem").val() != ""){
 		alerta($("#mensagem").val(), "warning");
+	}
+
+	function limpaCampos(){
+		$("#inputRzSocial").val("");
+		$("#inputCnpj").val("");
+		$("#inputEmail").val("");
+		$("#inputSenha").val("");
 	}
 
 });
