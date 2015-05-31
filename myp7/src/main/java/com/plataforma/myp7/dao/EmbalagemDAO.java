@@ -29,6 +29,6 @@ public class EmbalagemDAO {
 
 	public void salvar(Embalagem embalagem) throws Exception {
 		this.session.selectOne("salvarEmbalagem", embalagem);
-		this.session.commit(true);
+		this.session.commit();
 	}
 }

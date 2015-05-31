@@ -21,6 +21,6 @@ public class UsuarioDAO {
 	
 	public void inserir(Usuario usuario) throws SQLException{
 		this.session.insert("incluir", usuario);
-		this.session.commit(true);
+		this.session.commit();
 	}
 }

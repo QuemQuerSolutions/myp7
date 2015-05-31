@@ -8,7 +8,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-
 	$("#btnCadastrar").click(function(){
 		limpaCampos();
 		$(this).attr('data-toggle','modal');
@@ -27,8 +26,8 @@ $(document).ready(function(){
 
 	$("#email").focus();
 	
-	if($("#mensagem").val() != ""){
-		alerta($("#mensagem").val(), "warning");
+	if($("#mensagem").val() !== ""){
+		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
 	function limpaCampos(){

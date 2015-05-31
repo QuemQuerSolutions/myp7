@@ -25,14 +25,14 @@ public class UsuarioBO {
 		this.senhaBO = new SenhaBO();
 	}
 	
-	
 	public void inserir(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
-
 		if(this.isValid(usuario, model)){
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
 			this.usuarioDAO.inserir(usuario);
 			Utils.setMsgRetorno(model, "Usuario inserido com sucesso.");
 			Utils.setCodRetorno(model, 0);
+		}else{
+			Utils.setCodRetorno(model, -1);
 		}
 	}
 	
@@ -40,7 +40,6 @@ public class UsuarioBO {
 		
 		if(!Objects.isNull(this.usuarioDAO.selecionarPorEmail(usuario.getEmail()))){
 			Utils.setMsgRetorno(model, "Email já cadastrado.");
-			Utils.setCodRetorno(model, -1);
 			return false;
 		}
 		
@@ -50,7 +49,6 @@ public class UsuarioBO {
 		
 		if(!this.senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
 			Utils.setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
-			Utils.setCodRetorno(model, -1);
 			return false;
 		}
 		

@@ -36,9 +36,6 @@ $(document).ready(function() {
 		}	
 	});
 
-	if($("#mensagemCadastro").val() !== ""){
-		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
-	}
 	function limpaCampos(){
 		$("#inputRzSocial").val("");
 		$("#inputCnpj").val("");
