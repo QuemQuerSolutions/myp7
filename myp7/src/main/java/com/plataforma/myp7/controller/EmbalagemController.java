@@ -3,6 +3,7 @@ package com.plataforma.myp7.controller;
 import static com.plataforma.myp7.Util.Utils.setMsgRetorno;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
@@ -43,7 +44,7 @@ public class EmbalagemController {
 	@RequestMapping("InserirEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
 		String validacao = this.embalagemBO.validaInsert(embalagem, model);
-		if(validacao == null){
+		if(Objects.isNull(validacao)){
 			if(this.embalagemBO.salvar(embalagem)){
 				return "redirect:Embalagem";
 			}else{

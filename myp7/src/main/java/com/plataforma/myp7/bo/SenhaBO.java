@@ -32,7 +32,7 @@ public class SenhaBO {
 		return retorno;
 	}
 	
-	private boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
+	public boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
 		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
 		
 		switch(parametro.getNome().toUpperCase()){
@@ -45,6 +45,7 @@ public class SenhaBO {
 						return true;
 					}
 				}
+				
 				return false;
 				
 			/**

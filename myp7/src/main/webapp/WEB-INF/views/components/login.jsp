@@ -7,6 +7,13 @@
 	
 <script type="text/javascript">
 $(document).ready(function(){
+
+
+	$("#btnCadastrar").click(function(){
+		$(this).attr('data-toggle','modal');
+		$(this).attr('data-target','#cadastroModal');
+	});
+	
 	$("#entrar").click(function(){
 		login();
 	});
@@ -22,6 +29,7 @@ $(document).ready(function(){
 	if($("#mensagem").val() != ""){
 		alerta($("#mensagem").val(), "warning");
 	}
+
 });
 
 function login(){
@@ -33,6 +41,8 @@ function login(){
 		$("#frmLogin").submit();
 	}
 }
+
+	
 </script>
 	
 <body>
@@ -69,60 +79,14 @@ function login(){
   			
 			<div class="col-md-11 margin14px">
 				<div class="row">
-<!-- 					<button type="button" class="btn btn-link" data-toggle="modal" data-target="#cadastroModal">Criar uma conta</button> -->
+					<button type="button" class="btn btn-link" id="btnCadastrar">Cadastra - se </button>
 					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning" id="entrar">Entrar</button>
 				</div>
 			</div>
 			</form>
-			<div class="modal fade bs-example-modal-lg" id="cadastroModal" role="dialog">
-				<div class="modal-dialog modal-lg" >
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Cadastro de Usuário</h4>
-						</div>
-						<div class="modal-body">
-							<form class="form-horizontal">
-								<div class="form-group">
-									<label for="inputRzSocial" class="col-sm-3 control-label">Razao Social</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" id="inputRzSocial">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputEmail" class="col-sm-3 control-label">Email</label>
-									<div class="col-sm-4">
-										<input type="email" class="form-control" id="inputEmail">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputSenha" class="col-sm-3 control-label">Senha</label>
-									<div class="col-sm-4">
-										<input type="password" class="form-control"
-											id="inputSenha" >
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputCnpj" class="col-sm-3 control-label">CNPJ</label>
-									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputCnpj">
-									</div>
-								</div>
-								
-							</form>
-						</div>
-						<div class="modal-footer" >
-							<button type="submit" class="btn btn-default">Adicionar</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-							
-						</div>
-					</div>
-
-				</div>
-			</div>
+			<c:import url="../CadastroUsuario.jsp" />
         </div>
+        
     </div>
 
 </body>

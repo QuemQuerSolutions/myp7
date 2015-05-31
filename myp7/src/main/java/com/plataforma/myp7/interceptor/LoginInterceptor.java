@@ -13,7 +13,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object controller) throws Exception {
 
 		String uri = request.getRequestURI();
-		if (uri.endsWith("login") || uri.endsWith("efetuaLogin") || uri.contains("resources"))
+		if (uri.endsWith("login") || uri.endsWith("efetuaLogin") || uri.contains("resources") || uri.endsWith("cadastroUsuario"))
 			return true;
 
 		if (!isNull(request.getSession().getAttribute("usuarioLogado")))

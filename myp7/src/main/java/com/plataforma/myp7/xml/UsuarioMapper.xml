@@ -30,7 +30,22 @@
 	
 	<select id="obterPorEmail" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
-		WHERE USU_EMAIL = #{email}
+		WHERE USU_EMAIL = #{email} and USU_ATIVO = 'A';
 	</select>	
+	
+	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
+     	INSERT INTO myp7_usuario(  razao_social,
+            					   usu_cnpj,
+            					   usu_email,
+            					   usu_ativo,
+            					   usu_senha
+            					   )
+    						VALUES (#{razaoSocial}, 
+    								#{nDocumento},
+    								#{email}, 
+    								'A', 
+    								#{senha}
+            						)
+        </insert>
 	
 </mapper>
