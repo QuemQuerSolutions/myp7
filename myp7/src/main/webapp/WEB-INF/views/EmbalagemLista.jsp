@@ -25,7 +25,7 @@
 
 	<div id="content">
 		<div id="content-title">
-			<h4>Inserir Embalagem</h4>
+			<h4>Embalagem</h4>
 		</div>
 		
 		<table border="1">

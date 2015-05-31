@@ -80,19 +80,20 @@ function login(){
 						  </span>
 						  <input type="password" class="form-control campo-login" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
 						</div>
+						<button type="button" class="btn btn-link paddingleft0" id="btnCadastrar">Cadastre-se </button>
 					</div>
+					
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				</div>
   			</div>
   			
 			<div class="col-md-11 margin14px">
 				<div class="row">
-					<button type="button" class="btn btn-link" id="btnCadastrar">Cadastra - se </button>
 					<button type="button" class="btn btn-primary btn-lg btn-block btn-warning" id="entrar">Entrar</button>
 				</div>
 			</div>
 			</form>
-			<c:import url="../CadastroUsuario.jsp" />
+			<c:import url="../UsuarioInserir.jsp" />
         </div>
         
     </div>

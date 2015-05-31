@@ -19,7 +19,7 @@ public class SenhaBO {
 	 * @return Boolean
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
-	public boolean isValido(String senha, Usuario usuario, ParametroDominio dominio){
+	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
 		ParametroDAO parametroDAO = new ParametroDAO();
 		List<Parametro> parametros = parametroDAO.selecionarPorDominio(dominio);
 		

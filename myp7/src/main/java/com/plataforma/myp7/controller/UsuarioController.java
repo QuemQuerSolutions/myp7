@@ -24,19 +24,12 @@ public class UsuarioController {
 	
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model){
-		String pagina = "";
 		try {
-			pagina = usuarioBO.inserir(usuario, model);
-		} catch (SQLException e) {
+			this.usuarioBO.inserir(usuario, model);
+		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			Utils.setMsgRetorno(model, "Falha na operação.");
-			model.addAttribute("codMsgem", -1);
-		} catch (NoSuchAlgorithmException e) {
-			Utils.setMsgRetorno(model, "Falha na operação.");
-			model.addAttribute("codMsgem", -1);
-		} catch (UnsupportedEncodingException e) {
-			Utils.setMsgRetorno(model, "Falha na operação.");
-			model.addAttribute("codMsgem", -1);
+			Utils.setCodRetorno(model, -1);
 		}
-		return pagina;
+		return "components/login";
 	}
 }

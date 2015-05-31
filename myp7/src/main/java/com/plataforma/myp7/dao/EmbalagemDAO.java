@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.plataforma.myp7.data.Embalagem;
-import com.plataforma.myp7.dto.ParametrosPesquisaEmbalagens;
 
 public class EmbalagemDAO {
 	private SqlSession session;

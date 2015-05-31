@@ -4,39 +4,61 @@
 <html>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#salvar").click(function(){
-			salvar();
-		});
-
-		$(".limpar").click(function(){
-			$("#sigla").val("");
-			$("#descricao").val("");
-			$("#quantidade").val("");
-		});
-
-		$(".campo-salvar").keypress(function(e){
-		    if(e.which == 13) {
-		        salvar();
-		    }
-		});
-
-		if($("#mensagem").val() != ""){
-			alerta($("#mensagem").val(), "warning");
-		}		
+$(document).ready(function() {
+	$("#salvar").click(function(){
+		salvar();
 	});
 
-	function salvar(){
-		if($.trim($("#sigla").val()) == ""){
-			alerta("Favor preencher o campo sigla.", "warning");
-		}else if($.trim($("#descricao").val()) == ""){
-			alerta("Favor preencher o campo descrição.", "warning");
-		}else if($.trim($("#quantidade").val()) == ""){
-			alerta("Favor preencher o campo quantidade.", "warning");
-		}else{
-			$("#frmInserirEmbalagem").submit();
-		}
+	$(".limpar").click(function(){
+		$("#sigla").val("");
+		$("#descricao").val("");
+		$("#quantidade").val("");
+	});
+
+	$(".campo-salvar").keypress(function(e){
+	    if(e.which == 13) {
+	        salvar();
+	    }
+	});
+
+	if($("#mensagem").val() !== ""){
+		alerta($("#mensagem").val(), "warning");
+	}		
+});
+
+function salvar(){
+	removeClass();
+	if(!validaCamposObrigatorios()){
+		alerta("Favor preencher os campos obrigatórios.", "warning");
+	}else{
+		$("#frmInserirEmbalagem").submit();
 	}
+}
+
+function validaCamposObrigatorios(){
+	var isValid = true;
+	if($.trim($("#sigla").val()) == ""){
+		$("#divsigla").attr("class","form-group has-error");
+		isValid = false;
+	}
+	if($.trim($("#descricao").val()) == ""){
+		$("#divdescricao").attr("class","form-group has-error");
+		isValid = false;
+	}
+	if($.trim($("#quantidade").val()) == ""){	
+		$("#divquantidade").attr("class","form-group has-error");
+		isValid = false;
+	}
+	
+	return isValid;
+}
+
+function removeClass(){
+	$("#divsigla").attr("class","form-group");
+	$("#divdescricao").attr("class","form-group");
+	$("#divquantidade").attr("class","form-group");
+}
+
 </script>
 
 <div class="modal fade" id="nova_embalagem">
@@ -54,22 +76,22 @@
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 					<div class="row">
 						<div class="col-md-3">
-							<div class="form-group">
-						   		<label for="sigla">Sigla</label>
+							<div class="form-group" id="divsigla">
+						   		<label for="sigla" class="control-label">Sigla</label>
 						    	<input type="text" class="form-control campo-salvar" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla" value="${embalagem.siglaEmbalagem}">
 						  	</div>
 						</div>
 	  					<div class="col-md-8">
-							<div class="form-group">
-						   		<label for="descricao">Descrição</label>
+							<div class="form-group" id="divdescricao">
+						   		<label for="descricao" class="control-label">Descrição</label>
 						    	<input type="text" class="form-control campo-salvar" id="descricao" name="nomeEmbalagem" maxlength="100" placeholder="Insira descrição" value="${embalagem.nomeEmbalagem}">
 						  	</div>
 	  					</div>
 					</div>
 					<div class="row">
 						<div class="col-md-3">
-							<div class="form-group">
-						   		<label for="quantidade">Quantidade</label>
+							<div class="form-group" id="divquantidade">
+						   		<label for="quantidade" class="control-label">Quantidade</label>
 						    	<input type="text" class="form-control campo-salvar" id="quantidade" name="qtdEmbalagem" maxlength="2" placeholder="Quantidade" value="${embalagem.qtdEmbalagem}">
 						  	</div>
 						</div>

@@ -8,6 +8,10 @@ public class Utils {
 		model.addAttribute("mensagemRetorno", msg);
 	}
 	
+	public static void setCodRetorno(Model model, final int cod) {
+		model.addAttribute("codMsgem", cod);
+	}
+	
 	public static String emptyToNull(String value){
 		return (value.trim().equals("") ? null : value.trim());
 	}

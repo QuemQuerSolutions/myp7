@@ -10,8 +10,6 @@ $(document).ready(function() {
 	$("#inputCnpj").change(function(){
 		$("#inputCnpj").val(FormatarCnpj($.trim($("#inputCnpj").val())));
 	});
-
-
 	
 	$("#fechar").click(function(){
 		removeClass();
@@ -38,7 +36,7 @@ $(document).ready(function() {
 		}	
 	});
 
-	if($("#mensagemCadastro").val() != ""){
+	if($("#mensagemCadastro").val() !== ""){
 		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 	function limpaCampos(){
@@ -78,15 +76,13 @@ $(document).ready(function() {
 		$("#divCnpj").attr("class","form-group");
 		$("#divEmail").attr("class","form-group");
 		$("#divSenha").attr("class","form-group");
-		
 	}
-
 	
 });
 
 </script>
 <div class="modal fade bs-example-modal-lg" id="cadastroModal" >
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header theme-orange">
 				<button type="button" class="close" data-dismiss="modal" id="fechar" >&times;</button>
@@ -99,28 +95,28 @@ $(document).ready(function() {
 						<input type="hidden" id="codMsgem" value="${codMsgem}" />
 						<div class="form-group" id="divRzSocial">
 							<label for="inputRzSocial" class="col-sm-3 control-label">Razão	Social</label>
-							<div class="col-sm-6">
+							<div class="col-sm-8">
 								<input type="text" class="form-control campo-salvar" id="inputRzSocial" 
-								maxlength="200" name ="razaoSocial" placeholder="Razão Social" value="${usuario.razaoSocial}">	
+								maxlength="200" name ="razaoSocial" placeholder="razão social" value="${usuario.razaoSocial}">	
 							</div>
 						</div>
 						<div class="form-group" id="divCnpj">
 							<label for="inputCnpj" class="col-sm-3 control-label">CNPJ</label>
-							<div class="col-sm-4">
+							<div class="col-sm-6">
 								<input type="text" class="form-control campo-salvar" name="nDocumento"
 									placeholder="00.000.000/0000-00" id="inputCnpj" maxlength="14" value="${usuario.nDocumento}">
 							</div>
 						</div>
 						<div class="form-group" id="divEmail">
 							<label for="inputEmail" class="col-sm-3 control-label">E-mail</label>
-							<div class="col-sm-4">
+							<div class="col-sm-6">
 								<input type="email" class="form-control campo-salvar" id="inputEmail" name="email"
-									maxlength="100" placeholder="Email" value="${usuario.email}">
+									maxlength="100" placeholder="e-mail" value="${usuario.email}">
 							</div>
 						</div>
 						<div class="form-group" id="divSenha">
 							<label for="inputSenha" class="col-sm-3 control-label">Senha</label>
-							<div class="col-sm-4">
+							<div class="col-sm-6">
 								<input type="password" class="form-control campo-salvar" id="inputSenha" name="senha"
 									placeholder="********" value="${usuario.senha}">
 							</div>
@@ -129,9 +125,7 @@ $(document).ready(function() {
 				</form>
 			</div>
 			<div class="modal-footer">
-				<div class="col-sm-offset-2 col-sm-5">
-					<button type="button" id="cadastrar" class="btn btn-default btn-lg btn-warning">Cadastrar</button>
-				</div>
+				<button type="button" id="cadastrar" class="btn btn-warning">Cadastrar</button>
 			</div>
 		</div>
 	</div>

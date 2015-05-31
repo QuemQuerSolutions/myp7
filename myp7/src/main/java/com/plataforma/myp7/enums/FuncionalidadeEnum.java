@@ -1,7 +1,7 @@
 package com.plataforma.myp7.enums;
 
 public enum FuncionalidadeEnum {
-	USUARIO_Fun(1,"Usuario");
+	USUARIO_FUN(1,"Usuario");
 	
 	private String descFunc;
 	private Integer codFunc;
