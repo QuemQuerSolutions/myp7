@@ -43,7 +43,9 @@ public class EmbalagemController {
 	
 	@RequestMapping("InserirEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
-		String validacao = this.embalagemBO.validaInsert(embalagem, model);
+		
+		
+		String validacao = this.embalagemBO.isInsertValido(embalagem, model);
 		if(Objects.isNull(validacao)){
 			if(this.embalagemBO.salvar(embalagem)){
 				return "redirect:Embalagem";

@@ -43,7 +43,7 @@ public class EmbalagemBO {
 		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem()));
 	}
 	
-	public String validaInsert(Embalagem embalagem, Model model){
+	public String isInsertValido(Embalagem embalagem, Model model){
 		Embalagem embalagemConsulta = new Embalagem();
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
 		
