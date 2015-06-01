@@ -11,6 +11,12 @@ import com.plataforma.myp7.data.Usuario;
 
 public class SenhaBO {
 	
+	private HistoricoSenhaDAO historicoSenhaDAO;
+	
+	public SenhaBO(){
+		historicoSenhaDAO = new HistoricoSenhaDAO();
+	}
+	
 	/**
 	 * 
 	 * @param senha - Senha digitada
@@ -32,9 +38,7 @@ public class SenhaBO {
 		return retorno;
 	}
 	
-	public boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
-		HistoricoSenhaDAO historicoSenhaDAO = new HistoricoSenhaDAO();
-		
+	private boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
 		switch(parametro.getNome().toUpperCase()){
 			/**
 			 * Valida se há ao menos um numero na senha
@@ -74,31 +78,29 @@ public class SenhaBO {
 			 * Valida se a senha tem a quantidade mínima de caracteres requeridos
 			 */
 			case "QTDE MINIMA":
-				if(senha.length() < Integer.parseInt(parametro.getAuxiliar())){ 
-					return false;
-				}
-				return true;
-				
-			/**
-			 * Valida se a quantidade de senhas anteriores igual à da especificado no parametro não repete a senha
-			 * que esta sendo informada
-			 */
-			case "QTDE REPETICAO":
-				try{
-					String senhaHash = CriptografarBO.criptografar(senha);
-					
-					List<HistoricoSenha> senhasAnteriores = historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(parametro.getAuxiliar()));
-					
-					for(HistoricoSenha senhaAnterior : senhasAnteriores){
-						if(senhaHash.equals(senhaAnterior.getSenha())){
-							throw new Exception();
-						}
-					}
-				}catch(Exception e){
-					return false;
-				}
-				return true;
+				return (!(senha.length() < Integer.parseInt(parametro.getAuxiliar())));
 		}
 		return true;
 	}
+	
+	/**
+	 * Valida se a quantidade de senhas anteriores igual à da especificado no parametro não repete a senha
+	 * que esta sendo informada
+	 * @param usuario 
+	 * @param parametro 
+	 */
+	public boolean isRepeat(String senha, Usuario usuario, Parametro parametro){
+		String senhaHash = CriptografarBO.criptografar(senha);
+		
+		List<HistoricoSenha> senhasAnteriores = this.historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(parametro.getAuxiliar()));
+		
+		for(HistoricoSenha senhaAnterior : senhasAnteriores){
+			if(senhaHash.equals(senhaAnterior.getSenha())){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 }

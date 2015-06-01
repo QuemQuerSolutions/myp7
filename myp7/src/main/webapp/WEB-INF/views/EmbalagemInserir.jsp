@@ -23,7 +23,11 @@ $(document).ready(function() {
 
 	if($("#mensagem").val() !== ""){
 		alerta($("#mensagem").val(), "warning");
-	}		
+	}
+
+	$('#nova_embalagem').on('shown.bs.modal', function () {
+		  $('#sigla').focus();
+	});
 });
 
 function salvar(){
@@ -78,7 +82,7 @@ function removeClass(){
 						<div class="col-md-3">
 							<div class="form-group" id="divsigla">
 						   		<label for="sigla" class="control-label">Sigla</label>
-						    	<input type="text" class="form-control campo-salvar" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla" value="${embalagem.siglaEmbalagem}">
+						    	<input type="text" class="form-control campo-salvar" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla" value="${embalagem.siglaEmbalagem}" >
 						  	</div>
 						</div>
 	  					<div class="col-md-8">

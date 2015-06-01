@@ -4,20 +4,26 @@
 	<c:import url="components/imports.jsp" />
 	
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#btnNovo").click(function(){
-			$(this).attr('data-toggle','modal');
-			$(this).attr('data-target','#nova_embalagem');
-		});
-
-		if($("#mensagem").val() != ""){
-			if($("#outraPagina").val() != ""){
-				$("#btnNovo").click();
-			}else{
-				alerta($("#mensagem").val(), "warning");
-			}
-		}
+$(document).ready(function(){
+	$("#btnNovo").click(function(){
+		$(this).attr('data-toggle','modal');
+		$(this).attr('data-target','#nova_embalagem');
 	});
+
+	if($("#mensagem").val() !== ""){
+		if($("#outraPagina").val() !== ""){
+			$("#btnNovo").click();
+		}else{
+			alerta($("#mensagem").val(), "warning");
+		}
+	}
+
+	$("#limpar").click(function(){
+		$("#siglaEmbalagem").val("");
+		$("#nomeEmbalagem").val("");
+	});
+	
+});
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -28,45 +34,71 @@
 			<h4>Embalagem</h4>
 		</div>
 		
-		<table border="1">
-			<tr>
-				<td colspan="4">
-					Embalagem
-				</td>
-			</tr>
-			<tr>
-				<td  colspan="4">
-					<form action="CarregaListaEmbalagem" name="frmEmbalagem">
-						<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
-						<input type="hidden" id="outraPagina" value="${outraPagina}" />
-						
-						<table width="100%">
-							<tr>
-								<td>Sigla <br /><input type="text" name="siglaEmbalagem"></td>
-								<td>Descrição <br /><input type="text" name="nomeEmbalagem"></td>
-								<td><input type="submit" value="Pesquisar" /></td>
-								<td><input type="button" value="Limpar" /></td>
-							</tr>
-						</table>
-					</form>
-				</td>
-			</tr>
-			<tr style="text-align: center">
-				<th>Sigla</th>
-				<th>Descrição</th>
-				<th>Quantidade</th>
-				<th>Funções</th>
-			</tr>
-			<tr>
-				<c:forEach items="${lista}" var="embalagem">
-					<td>${embalagem.siglaEmbalagem}</td>
-					<td>${embalagem.nomeEmbalagem}</td>
-					<td>${embalagem.qtdEmbalagem}</td>
-					<td><a href="editar?id=${embalagem.idEmbalagem}">Editar</a></td>
-				</c:forEach>
-			</tr>
-		</table>
+		<div id="content-header">
+			<div class="row">
+				<div class="col-md-1">
+					<label for="sigla" class="control-label">Sigla</label>
+				</div>
+				<div class="col-md-8">
+					<label for="descricao" class="control-label">Descrição</label>
+				</div>
+			</div>
+			
+			<form action="CarregaListaEmbalagem" name="frmEmbalagem">
+				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+				<input type="hidden" id="outraPagina" value="${outraPagina}" />
+				
+				<div class="row">	
+					<div class="col-md-1">
+						<div class="form-group" id="divsigla">
+					    	<input type="text" class="form-control" id="siglaEmbalagem" name="siglaEmbalagem" maxlength="2" autofocus="autofocus">
+					  	</div>
+					</div>
+					
+					<div class="col-md-7">
+						<div class="form-group" id="divdescricao">
+					    	<input type="text" class="form-control" id="nomeEmbalagem" name="nomeEmbalagem" maxlength="100">
+					  	</div>
+					</div>
+					
+					<div class="col-md-1" id="btnpesquisar">
+						<div class="form-group">
+							<button type="submit" class="btn btn-warning" id="pesquisar">Pesquisar</button>
+						</div>
+					</div>
+					
+					<div class="col-md-1" id="btnlimpar">
+						<div class="form-group">
+							<button type="button" class="btn btn-default limpar" data-dismiss="modal" id="limpar">Limpar</button>
+						</div>
+					</div>
+					
+				</div>
+			</form>
+		</div>
 		
+		<div id="content-body">
+			<table  class="table table-hover table-bordered table-striped">
+				<thead>
+					<tr style="text-align: center">
+						<th>Sigla</th>
+						<th>Descrição</th>
+						<th>Quantidade</th>
+	<!-- 					<th>Funções</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${lista}" var="embalagem">
+						<tr>
+							<td>${embalagem.siglaEmbalagem}</td>
+							<td>${embalagem.nomeEmbalagem}</td>
+							<td>${embalagem.qtdEmbalagem}</td>
+	<%-- 						<td><a href="editar?id=${embalagem.idEmbalagem}">Editar</a></td> --%>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 		<c:import url="EmbalagemInserir.jsp" />
 	
 	</div>
