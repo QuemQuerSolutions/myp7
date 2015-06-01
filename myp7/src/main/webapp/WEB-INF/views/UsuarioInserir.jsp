@@ -42,6 +42,8 @@ $(document).ready(function() {
 		$("#inputEmail").val("");
 		$("#inputSenha").val("");
 	}
+
+	
 	
 	function validaCamposObrigatorios(){
 		var isValid = true;

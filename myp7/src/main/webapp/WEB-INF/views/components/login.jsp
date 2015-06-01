@@ -27,6 +27,7 @@ $(document).ready(function(){
 	$("#email").focus();
 	
 	if($("#mensagem").val() !== ""){
+		if($("#codMsgem").val() == "-1") $("#btnCadastrar").click();
 		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
