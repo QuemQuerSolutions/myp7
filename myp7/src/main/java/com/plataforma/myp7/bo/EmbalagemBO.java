@@ -1,7 +1,7 @@
 package com.plataforma.myp7.bo;
 
 import static com.plataforma.myp7.util.Utils.emptyToNull;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.List;
 
@@ -43,24 +43,21 @@ public class EmbalagemBO {
 		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem()));
 	}
 	
-	public String isInsertValido(Embalagem embalagem, Model model){
+	public boolean isInsertValido(Embalagem embalagem, Model model){
 		Embalagem embalagemConsulta = new Embalagem();
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
 		
-		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() != 0){
+		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() > 0){
 			setMsgRetorno(model, "Embalagem já existente.");
-			return "EmbalagemLista";
-		}else{
-			return null;
-		}
-	}
-	
-	public Boolean salvar(Embalagem embalagem) {
-		try{
-			this.embalagemDAO.salvar(embalagem);
-			return true;
-		}catch(Exception e){
+			setCodRetorno(model, -1);
 			return false;
 		}
+		
+		return true;
+	}
+	
+	public void salvar(Embalagem embalagem, Model model) throws Exception {
+		if(this.isInsertValido(embalagem, model))
+			this.embalagemDAO.salvar(embalagem);
 	}
 }

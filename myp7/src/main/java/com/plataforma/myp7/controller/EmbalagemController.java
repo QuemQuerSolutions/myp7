@@ -3,7 +3,6 @@ package com.plataforma.myp7.controller;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,22 +43,14 @@ public class EmbalagemController {
 	
 	@RequestMapping("InserirEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
-		
-		
-		String validacao = this.embalagemBO.isInsertValido(embalagem, model);
-		if(Objects.isNull(validacao)){
-			if(this.embalagemBO.salvar(embalagem)){
-				return "redirect:Embalagem";
-			}else{
-				setMsgRetorno(model, "Erro ao inserir a embalagem.");
-				model.addAttribute("outraPagina", "insert");
-				model.addAttribute("embalagem", embalagem);
-				return "EmbalagemLista";
-			}
-		}else{
+		try{
+			this.embalagemBO.salvar(embalagem, model);
+			return "redirect:Embalagem";
+		}catch(Exception e){
+			setMsgRetorno(model, "Erro ao inserir a embalagem.");
 			model.addAttribute("outraPagina", "insert");
 			model.addAttribute("embalagem", embalagem);
-			return validacao;
+			return "EmbalagemLista";
 		}
 	}
 	

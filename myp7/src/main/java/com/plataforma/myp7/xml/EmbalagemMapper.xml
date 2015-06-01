@@ -20,6 +20,7 @@
 	
 	<select id="obterTodasEmbalagens" resultMap="embalagemMap">
 		<include refid="selectEmbalagem"/>
+		ORDER BY SIGLA_EMBALAGEM,  QTD_EMBALAGEM
 	</select>
 
 	<select id="obterEmbalagens" resultMap="embalagemMap">
@@ -31,6 +32,7 @@
 		<if test="nomeEmbalagem != null">
 			AND NOME_EMBALAGEM like #{nomeEmbalagem}
 		</if>
+		ORDER BY SIGLA_EMBALAGEM,  QTD_EMBALAGEM
 	</select>
 	
 	<select id="countEmbalagem" parameterType="int" resultType="int">
