@@ -51,13 +51,24 @@ $(document).ready(function(){
 				<div class="row">	
 					<div class="col-md-1">
 						<div class="form-group" id="divsigla">
-					    	<input type="text" class="form-control" id="siglaEmbalagem" name="siglaEmbalagem" maxlength="2" autofocus="autofocus">
+					    	<input type="text" 
+					    			class="form-control upper" 
+					    			id="siglaEmbalagem" 
+					    			name="siglaEmbalagem" 
+					    			maxlength="2" 
+					    			autofocus="autofocus"
+					    			value="${emb.siglaEmbalagem}" />
 					  	</div>
 					</div>
 					
 					<div class="col-md-7">
 						<div class="form-group" id="divdescricao">
-					    	<input type="text" class="form-control" id="nomeEmbalagem" name="nomeEmbalagem" maxlength="100">
+					    	<input type="text" 
+					    			class="form-control" 
+					    			id="nomeEmbalagem" 
+					    			name="nomeEmbalagem" 
+					    			maxlength="100" 
+					    			value="${emb.nomeEmbalagem}"/>
 					  	</div>
 					</div>
 					
@@ -84,7 +95,6 @@ $(document).ready(function(){
 						<th>Sigla</th>
 						<th>Descrição</th>
 						<th>Quantidade</th>
-	<!-- 					<th>Funções</th> -->
 					</tr>
 				</thead>
 				<tbody>

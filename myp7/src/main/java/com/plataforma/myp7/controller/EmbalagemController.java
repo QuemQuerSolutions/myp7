@@ -37,6 +37,7 @@ public class EmbalagemController {
 		List<Embalagem> embalagens = this.carregaLista(parametros, model);
 		
 		model.addAttribute("lista", embalagens);
+		model.addAttribute("emb", parametros);
 		
 		return "EmbalagemLista";
 	}

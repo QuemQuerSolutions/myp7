@@ -1,5 +1,7 @@
 package com.plataforma.myp7.util;
 
+import java.util.Objects;
+
 import org.springframework.ui.Model;
 
 public class Utils {
@@ -14,5 +16,13 @@ public class Utils {
 	
 	public static String emptyToNull(String value){
 		return (value.trim().equals("") ? null : value.trim());
+	}
+	
+	public static String toLike(String campo){
+		return (!Objects.isNull(campo) ? String.format("%s%s%s", "%", campo, "%") : campo);
+	}
+	
+	public static String cleanLike(String campo){
+		return (Objects.isNull(campo) ? null : campo.replaceAll("%", ""));
 	}
 }

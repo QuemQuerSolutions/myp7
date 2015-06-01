@@ -26,10 +26,10 @@
 		<include refid="selectEmbalagem"/>
 		WHERE 1=1
 		<if test="siglaEmbalagem != null">
-			AND SIGLA_EMBALAGEM = #{siglaEmbalagem} 
+			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
 		</if>
 		<if test="nomeEmbalagem != null">
-			AND NOME_EMBALAGEM = #{nomeEmbalagem}
+			AND NOME_EMBALAGEM like #{nomeEmbalagem}
 		</if>
 	</select>
 	
@@ -37,10 +37,10 @@
 		SELECT COUNT(*) FROM MYP7_Embalagem
 		WHERE 1=1
 		<if test="siglaEmbalagem != null">
-			AND SIGLA_EMBALAGEM = #{siglaEmbalagem} 
+			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
 		</if>
 		<if test="nomeEmbalagem != null">
-			AND NOME_EMBALAGEM = #{nomeEmbalagem}
+			AND NOME_EMBALAGEM like #{nomeEmbalagem}
 		</if>
 	</select>	
 	

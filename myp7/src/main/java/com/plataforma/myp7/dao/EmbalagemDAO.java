@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.plataforma.myp7.data.Embalagem;
+import com.plataforma.myp7.util.Utils;
 
 public class EmbalagemDAO {
 	private SqlSession session;
@@ -15,8 +16,21 @@ public class EmbalagemDAO {
 		this.session = getConexao();
 	}
 	
+	private void setLike(Embalagem embalagem){
+		embalagem.setNomeEmbalagem(Utils.toLike(embalagem.getNomeEmbalagem()));
+		embalagem.setSiglaEmbalagem(Utils.toLike(embalagem.getSiglaEmbalagem()));
+	}
+	
+	private void cleanLike(Embalagem embalagem) {
+		embalagem.setSiglaEmbalagem(Utils.cleanLike(embalagem.getSiglaEmbalagem()));
+		embalagem.setNomeEmbalagem(Utils.cleanLike(embalagem.getNomeEmbalagem()));
+	}
+	
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem){
-		return this.session.selectList("obterEmbalagens", embalagem);
+		this.setLike(embalagem);
+		List <Embalagem> lista = this.session.selectList("obterEmbalagens", embalagem);
+		this.cleanLike(embalagem);
+		return lista;
 	}
 	
 	public List<Embalagem> selecionaTodos(){
@@ -24,7 +38,10 @@ public class EmbalagemDAO {
 	}
 
 	public Integer count(Embalagem embalagem) {
-		return (Integer) this.session.selectOne("countEmbalagem", embalagem);
+		this.setLike(embalagem);
+		Integer count = (Integer) this.session.selectOne("countEmbalagem", embalagem);
+		this.cleanLike(embalagem);
+		return count;
 	}
 
 	public void salvar(Embalagem embalagem) throws Exception {
