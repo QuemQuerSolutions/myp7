@@ -57,11 +57,14 @@ public class EmbalagemBO {
 		return true;
 	}
 	
-	public void salvar(Embalagem embalagem, Model model) throws Exception {
+	public boolean salvar(Embalagem embalagem, Model model) throws Exception {
 		if(this.isInsertValido(embalagem, model)){
+			embalagem.setSiglaEmbalagem(embalagem.getSiglaEmbalagem().toUpperCase());
 			this.embalagemDAO.salvar(embalagem);
 			setMsgRetorno(model, "Embalagem salva com sucesso");
 			setCodRetorno(model, 0);
+			return true;
 		}
+		return false;
 	}
 }

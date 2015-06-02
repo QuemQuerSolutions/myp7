@@ -45,8 +45,10 @@ public class EmbalagemController {
 	@RequestMapping("InserirEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
 		try{
-			this.embalagemBO.salvar(embalagem, model);
-			return "redirect:Embalagem";
+			if(this.embalagemBO.salvar(embalagem, model))
+				return "redirect:Embalagem";
+
+			return "EmbalagemLista";
 		}catch(Exception e){
 			setMsgRetorno(model, "Erro ao inserir a embalagem");
 			setCodRetorno(model, -1);

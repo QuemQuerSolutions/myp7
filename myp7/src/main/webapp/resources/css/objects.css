@@ -1,7 +1,7 @@
 /*---------------
 	Header
 ----------------*/
-#header{margin: 0;}
+#header{margin: 0;position: fixed; width: 100%; top: 0;z-index: 1000;}
 #header h1 {padding-top: 10px; padding-left: 20px; margin: 0 !important; color: #FFF;}
 #header small {color: #FFF;}
 #header span {font-size: medium;}

@@ -22,7 +22,7 @@ $(document).ready(function() {
 	});
 
 	if($("#mensagem").val() !== ""){
-		alerta($("#mensagem").val(), "warning");
+		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
 	$('#nova_embalagem').on('shown.bs.modal', function () {
