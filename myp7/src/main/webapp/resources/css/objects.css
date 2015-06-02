@@ -32,10 +32,8 @@
 	margin-right: 50px;
 }
 #btnpesquisar button{
-	padding-left: 40px;
-  	padding-right: 40px;
+	width: 130px;
 }
 #btnlimpar button{
-	padding-left: 45px;
-  	padding-right: 45px;
+	width: 130px;
 }

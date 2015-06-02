@@ -21,14 +21,12 @@ $(document).ready(function() {
 	    }
 	});
 
-	if($("#mensagem").val() !== ""){
-		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
-	}
-
 	$('#nova_embalagem').on('shown.bs.modal', function () {
-		$("#sigla").val("");
-		$("#descricao").val("");
-		$("#quantidade").val("");
+		if($("#codMsgem").val() == "0"){
+			$("#sigla").val("");
+			$("#descricao").val("");
+			$("#quantidade").val("");
+		}
 		$('#sigla').focus();
 	});
 });
@@ -45,15 +43,15 @@ function salvar(){
 function validaCamposObrigatorios(){
 	var isValid = true;
 	if($.trim($("#sigla").val()) == ""){
-		$("#divsigla").attr("class","form-group has-error");
+		$("#divsiglamodal").attr("class","form-group has-error");
 		isValid = false;
 	}
 	if($.trim($("#descricao").val()) == ""){
-		$("#divdescricao").attr("class","form-group has-error");
+		$("#divdescricaomodal").attr("class","form-group has-error");
 		isValid = false;
 	}
 	if($.trim($("#quantidade").val()) == ""){	
-		$("#divquantidade").attr("class","form-group has-error");
+		$("#divquantidademodal").attr("class","form-group has-error");
 		isValid = false;
 	}
 	
@@ -61,9 +59,9 @@ function validaCamposObrigatorios(){
 }
 
 function removeClass(){
-	$("#divsigla").attr("class","form-group");
-	$("#divdescricao").attr("class","form-group");
-	$("#divquantidade").attr("class","form-group");
+	$("#divsiglamodal").attr("class","form-group");
+	$("#divdescricaomodal").attr("class","form-group");
+	$("#divquantidademodal").attr("class","form-group");
 }
 
 </script>
@@ -79,17 +77,18 @@ function removeClass(){
 				<h4 class="modal-title">Inserir Embalagem</h4>
 			</div>
 			<div class="modal-body">
-				<form action="InserirEmbalagem" id="frmInserirEmbalagem">
+				<form action="InserirEmbalagem" id="frmInserirEmbalagem" method="POST">
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+					<input type="hidden" id="codMsgem" value="${codMsgem}" />
 					<div class="row">
 						<div class="col-md-3">
-							<div class="form-group" id="divsigla">
+							<div class="form-group" id="divsiglamodal">
 						   		<label for="sigla" class="control-label">Sigla</label>
 						    	<input type="text" class="form-control campo-salvar upper" id="sigla" name="siglaEmbalagem" maxlength="2" placeholder="Insira sigla" value="${embalagem.siglaEmbalagem}" >
 						  	</div>
 						</div>
 	  					<div class="col-md-8">
-							<div class="form-group" id="divdescricao">
+							<div class="form-group" id="divdescricaomodal">
 						   		<label for="descricao" class="control-label">Descrição</label>
 						    	<input type="text" class="form-control campo-salvar" id="descricao" name="nomeEmbalagem" maxlength="100" placeholder="Insira descrição" value="${embalagem.nomeEmbalagem}">
 						  	</div>
@@ -97,7 +96,7 @@ function removeClass(){
 					</div>
 					<div class="row">
 						<div class="col-md-3">
-							<div class="form-group" id="divquantidade">
+							<div class="form-group" id="divquantidademodal">
 						   		<label for="quantidade" class="control-label">Quantidade</label>
 						    	<input type="text" class="form-control campo-salvar" id="quantidade" name="qtdEmbalagem" maxlength="2" placeholder="Quantidade" value="${embalagem.qtdEmbalagem}">
 						  	</div>

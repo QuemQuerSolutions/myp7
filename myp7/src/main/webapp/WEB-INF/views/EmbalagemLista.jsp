@@ -11,10 +11,10 @@ $(document).ready(function(){
 	});
 
 	if($("#mensagem").val() !== ""){
+		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+
 		if($("#outraPagina").val() !== ""){
 			$("#btnNovo").click();
-		}else{
-			alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 		}
 	}
 
@@ -46,6 +46,7 @@ $(document).ready(function(){
 			
 			<form action="CarregaListaEmbalagem" name="frmEmbalagem">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<input type="hidden" id="outraPagina" value="${outraPagina}" />
 				
 				<div class="row">	

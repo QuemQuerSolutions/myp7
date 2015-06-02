@@ -26,6 +26,11 @@
 	<select id="obterEmbalagens" resultMap="embalagemMap">
 		<include refid="selectEmbalagem"/>
 		WHERE 1=1
+		
+		<if test="qtdEmbalagem > 0">
+			AND QTD_EMBALAGEM = #{qtdEmbalagem} 
+		</if>
+		
 		<if test="siglaEmbalagem != null">
 			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
 		</if>

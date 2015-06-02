@@ -39,12 +39,14 @@ public class EmbalagemBO {
 	
 	private void corrigeParametros(Embalagem embalagem){
 		embalagem.setNomeEmbalagem(emptyToNull(embalagem.getNomeEmbalagem()));
-		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem()));
+		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem().toUpperCase()));
 	}
 	
 	public boolean isInsertValido(Embalagem embalagem, Model model){
+		
 		Embalagem embalagemConsulta = new Embalagem();
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
+		embalagemConsulta.setQtdEmbalagem(embalagem.getQtdEmbalagem());
 		
 		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() > 0){
 			setMsgRetorno(model, "Embalagem já existente");
@@ -53,7 +55,6 @@ public class EmbalagemBO {
 			model.addAttribute("embalagem", embalagem);
 			return false;
 		}
-		
 		return true;
 	}
 	
