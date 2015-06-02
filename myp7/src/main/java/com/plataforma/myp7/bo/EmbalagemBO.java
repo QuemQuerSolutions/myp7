@@ -1,6 +1,5 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.emptyToNull;
 import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.List;
@@ -48,8 +47,10 @@ public class EmbalagemBO {
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
 		
 		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() > 0){
-			setMsgRetorno(model, "Embalagem já existente.");
+			setMsgRetorno(model, "Embalagem já existente");
 			setCodRetorno(model, -1);
+			model.addAttribute("outraPagina", "insert");
+			model.addAttribute("embalagem", embalagem);
 			return false;
 		}
 		
@@ -57,7 +58,10 @@ public class EmbalagemBO {
 	}
 	
 	public void salvar(Embalagem embalagem, Model model) throws Exception {
-		if(this.isInsertValido(embalagem, model))
+		if(this.isInsertValido(embalagem, model)){
 			this.embalagemDAO.salvar(embalagem);
+			setMsgRetorno(model, "Embalagem salva com sucesso");
+			setCodRetorno(model, 0);
+		}
 	}
 }

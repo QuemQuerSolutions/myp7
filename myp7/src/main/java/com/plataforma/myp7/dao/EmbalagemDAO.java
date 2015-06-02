@@ -45,7 +45,7 @@ public class EmbalagemDAO {
 	}
 
 	public void salvar(Embalagem embalagem) throws Exception {
-		this.session.selectOne("salvarEmbalagem", embalagem);
+		this.session.insert("salvarEmbalagem", embalagem);
 		this.session.commit();
 	}
 }

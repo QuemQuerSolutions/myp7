@@ -1,5 +1,6 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
@@ -47,7 +48,8 @@ public class EmbalagemController {
 			this.embalagemBO.salvar(embalagem, model);
 			return "redirect:Embalagem";
 		}catch(Exception e){
-			setMsgRetorno(model, "Erro ao inserir a embalagem.");
+			setMsgRetorno(model, "Erro ao inserir a embalagem");
+			setCodRetorno(model, -1);
 			model.addAttribute("outraPagina", "insert");
 			model.addAttribute("embalagem", embalagem);
 			return "EmbalagemLista";

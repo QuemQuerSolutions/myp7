@@ -14,7 +14,7 @@ $(document).ready(function(){
 		if($("#outraPagina").val() !== ""){
 			$("#btnNovo").click();
 		}else{
-			alerta($("#mensagem").val(), "warning");
+			alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 		}
 	}
 
