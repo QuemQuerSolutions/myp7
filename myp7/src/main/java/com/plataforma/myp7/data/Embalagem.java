@@ -13,6 +13,7 @@ public class Embalagem implements Serializable{
 	private String siglaEmbalagem;
 	private Integer qtdEmbalagem;
 	private String nomeEmbalagemCompra;
+	
 	public Long getIdEmbalagem() {
 		return idEmbalagem;
 	}
