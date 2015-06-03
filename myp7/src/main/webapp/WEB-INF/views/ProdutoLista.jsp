@@ -20,7 +20,7 @@ $(document).ready(function(){
 	</div>
 	
 	<c:import url="components/footer.jsp">
-		<c:param name="novo" value="nova_embalagem" />
+		<c:param name="novo" value="novo_produto" />
 	</c:import>
 </body>
 </html>
