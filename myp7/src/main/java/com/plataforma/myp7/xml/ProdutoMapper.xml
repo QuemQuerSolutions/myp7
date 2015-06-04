@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProdutoMapper">
+	<resultMap id="produtoMap" type="Produto">
+		<id property="idProduto" 				column="ID_PRODUTO" />
+		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterPorId" />
+		<result property="desProduto" 			column="DESCRICAO" />
+		<result property="codIndustria" 		column="CODIGO_INDUSTRIA" />
+		<result property="pesoBruto" 			column="DESCRICAO" />
+		<result property="pesoLiquido" 			column="DESCRICAO" />
+		<result property="alturaProduto" 		column="DESCRICAO" />
+		<result property="larguraProduto" 		column="DESCRICAO" />
+		<result property="profunProduto" 		column="DESCRICAO" />
+		<result property="imagem" 				column="IMAGEM_PRODUTO" />
+		<result property="codBarraProd" 		column="IMAGEM_PRODUTO" />
+		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterPorId" />
+		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterPorId" />
+	</resultMap>
+
+	<sql id="selectProduto">
+		<![CDATA[
+			SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
+		    FROM prd_usuario_produto
+		  ]]>
+	</sql>
+	
+	<select id="obterTodos" resultMap="produtoMap">
+		<include refid="selectProduto"/>
+	</select>
+	
+	<select id="obterProdutos" resultMap="produtoMap">
+		<include refid="selectProduto" />
+		WHERE = 1=1
+		<if test="idProduto != 0">
+			AND ID_PRODUTO=#{idProduto}
+		</if>
+		<if test="desProduto != null">
+			AND DESCRICAO LIKE #{desProduto}
+		</if>
+	</select>
+</mapper>
