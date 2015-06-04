@@ -1,7 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.ProdutoBO;
-import com.plataforma.myp7.data.Embalagem;
 import com.plataforma.myp7.data.Produto;
 
 @Controller
@@ -25,10 +22,15 @@ public class ProdutoController {
 		return "ProdutoLista";
 	}
 	
+	@RequestMapping("NovoProduto")
+	public String novo(HttpSession session, Model model){
+		return "ProdutoInserir";
+	}
+	
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model){
-		produtoBO.salvar(produto);
+		produtoBO.salvar(produto, model);
 		
-		return "ProdutoLista";
+		return "ProdutoInserir";
 	}
 }

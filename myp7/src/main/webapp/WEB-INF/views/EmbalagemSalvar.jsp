@@ -23,7 +23,7 @@ $(document).ready(function() {
 	});
 
 	$('#nova_embalagem').on('shown.bs.modal', function () {
-		if($("#codMsgem").val() === "0" || $("#idEmbalagem").val() === "0"){
+		if($("#codMsgem").val() == "0" || $("#idEmbalagem").val() == "0"){
 			$("#sigla").val("");
 			$("#descricao").val("");
 			$("#quantidade").val("");

@@ -6,8 +6,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#btnNovo").click(function(){
-		$(this).attr('data-toggle','modal');
-		$(this).attr('data-target','#novo_produto');
+		window.open('NovoProduto','_self');
 	});
 });
 </script>
@@ -16,7 +15,6 @@ $(document).ready(function(){
 	<c:import url="components/menu.jsp" /> 
 	
 	<div id="content">	
-		<c:import url="ProdutoInserir.jsp" />
 	</div>
 	
 	<c:import url="components/footer.jsp">

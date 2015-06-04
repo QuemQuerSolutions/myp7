@@ -62,7 +62,7 @@ public class Produto implements Serializable{
 	
 	public void setPesoBruto(String pesoBruto) {
 		try{
-			this.pesoBruto = BigDecimal.valueOf(Long.parseLong(pesoBruto));
+			this.pesoBruto = new BigDecimal(pesoBruto);
 		}catch(Exception e){
 			this.pesoBruto = null;
 		}		
@@ -78,7 +78,7 @@ public class Produto implements Serializable{
 	
 	public void setPesoLiquido(String pesoLiquido) {
 		try{
-			this.pesoLiquido = BigDecimal.valueOf(Long.parseLong(pesoLiquido));
+			this.pesoLiquido = new BigDecimal(pesoLiquido);
 		}catch(Exception e){
 			this.pesoLiquido = null;
 		}			
@@ -94,7 +94,7 @@ public class Produto implements Serializable{
 	
 	public void setAlturaProduto(String alturaProduto) {
 		try{
-			this.alturaProduto = BigDecimal.valueOf(Long.parseLong(alturaProduto));
+			this.alturaProduto = new BigDecimal(alturaProduto);
 		}catch(Exception e){
 			this.alturaProduto = null;
 		}			
@@ -110,7 +110,7 @@ public class Produto implements Serializable{
 	
 	public void setLarguraProduto(String larguraProduto) {
 		try{
-			this.larguraProduto = BigDecimal.valueOf(Long.parseLong(larguraProduto));
+			this.larguraProduto = new BigDecimal(larguraProduto);
 		}catch(Exception e){
 			this.larguraProduto = null;
 		}		
@@ -126,7 +126,7 @@ public class Produto implements Serializable{
 	
 	public void setProfunProduto(String profunProduto) {
 		try{
-			this.profunProduto = BigDecimal.valueOf(Long.parseLong(profunProduto));
+			this.profunProduto = new BigDecimal(profunProduto);
 		}catch(Exception e){
 			this.profunProduto = null;
 		}
