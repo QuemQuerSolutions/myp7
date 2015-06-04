@@ -83,3 +83,5 @@ thead{
 .upper:-moz-placeholder {text-transform: capitalize;}
 .upper::-moz-placeholder {text-transform: capitalize;}
 .upper:-ms-input-placeholder {text-transform: capitalize;}
+
+.mouse-click tbody tr{cursor: pointer;}

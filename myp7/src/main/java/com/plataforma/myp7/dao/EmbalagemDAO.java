@@ -44,8 +44,13 @@ public class EmbalagemDAO {
 		return count;
 	}
 
-	public void salvar(Embalagem embalagem) throws Exception {
-		this.session.insert("salvarEmbalagem", embalagem);
+	public void update(final Embalagem embalagem){
+		this.session.update("salvarEmbalagem", embalagem);
+		this.session.commit();
+	}
+	
+	public void insert(final Embalagem embalagem){
+		this.session.insert("atualizarEmbalagem", embalagem);
 		this.session.commit();
 	}
 }

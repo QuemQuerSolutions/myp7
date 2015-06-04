@@ -42,7 +42,7 @@ public class EmbalagemController {
 		return "EmbalagemLista";
 	}
 	
-	@RequestMapping("InserirEmbalagem")
+	@RequestMapping("SalvarEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
 		try{
 			this.embalagemBO.salvar(embalagem, model);

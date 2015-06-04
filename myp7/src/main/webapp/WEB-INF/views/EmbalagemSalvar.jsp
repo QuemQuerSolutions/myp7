@@ -10,6 +10,7 @@ $(document).ready(function() {
 	});
 
 	$(".limpar").click(function(){
+		$("#idEmbalagem").val("");
 		$("#sigla").val("");
 		$("#descricao").val("");
 		$("#quantidade").val("");
@@ -22,7 +23,7 @@ $(document).ready(function() {
 	});
 
 	$('#nova_embalagem').on('shown.bs.modal', function () {
-		if($("#codMsgem").val() == "0"){
+		if($("#codMsgem").val() === "0" || $("#idEmbalagem").val() === "0"){
 			$("#sigla").val("");
 			$("#descricao").val("");
 			$("#quantidade").val("");
@@ -80,6 +81,7 @@ function removeClass(){
 				<form action="InserirEmbalagem" id="frmInserirEmbalagem" method="POST">
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 					<input type="hidden" id="codMsgem" value="${codMsgem}" />
+					<input type="hidden" id="idEmbalagem" value="0" />
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group" id="divsiglamodal">

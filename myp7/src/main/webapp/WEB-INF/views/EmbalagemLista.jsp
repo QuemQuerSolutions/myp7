@@ -24,6 +24,17 @@ $(document).ready(function(){
 	});
 	
 });
+
+function onClickLine(id,sigla,nome,qtd){
+	$("#btnNovo").click();
+	
+	$("#idEmbalagem").val(id);
+	$("#sigla").val(sigla);
+	$("#descricao").val(nome);
+	$("#quantidade").val(qtd);
+}
+
+
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -90,7 +101,7 @@ $(document).ready(function(){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped">
+			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr style="text-align: center">
 						<th>Sigla</th>
@@ -99,18 +110,17 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${lista}" var="embalagem">
-						<tr>
-							<td>${embalagem.siglaEmbalagem}</td>
-							<td>${embalagem.nomeEmbalagem}</td>
-							<td>${embalagem.qtdEmbalagem}</td>
-	<%-- 						<td><a href="editar?id=${embalagem.idEmbalagem}">Editar</a></td> --%>
+					<c:forEach items="${lista}" var="e">
+						<tr onclick="onClickLine('${e.idEmbalagem}','${e.siglaEmbalagem}','${e.nomeEmbalagem}','${e.qtdEmbalagem}')">
+							<td>${e.siglaEmbalagem}</td>
+							<td>${e.nomeEmbalagem}</td>
+							<td>${e.qtdEmbalagem}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-		<c:import url="EmbalagemInserir.jsp" />
+		<c:import url="EmbalagemSalvar.jsp" />
 	
 	</div>
 	<c:import url="components/footer.jsp">
