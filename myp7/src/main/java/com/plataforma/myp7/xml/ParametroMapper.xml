@@ -14,7 +14,7 @@
 	<sql id="selectParametro">
 		<![CDATA[
 			SELECT ID_PARAMETRO, NOME, AUXILIAR
-			FROM MYP7_PARAMETRO
+			FROM PRM_PARAMETRO
 		  ]]>
 	</sql>
 	
@@ -25,13 +25,13 @@
 	
 	<select id="obterPorTipo" resultType="ParametroTipo">
 			SELECT id, descricao
-			FROM myp7_parametro_tipo 
+			FROM prm_parametro_tipo 
 			WHERE id = #{TIPO}
 	</select>
 	
 	<select id="obterPorDominio" resultType="ParametroDominio">
 			SELECT id, descricao
-			FROM myp7_parametro_dominio
+			FROM prm_parametro_dominio
 			WHERE id = #{DOMINIO}
 	</select>
 	

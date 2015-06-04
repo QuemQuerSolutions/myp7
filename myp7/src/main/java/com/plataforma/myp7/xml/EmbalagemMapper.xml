@@ -7,14 +7,13 @@
 		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
 		<result property="siglaEmbalagem"  		column="SIGLA_EMBALAGEM" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
-		<result property="nomeEmbalagemCompra" 	column="NOME_EMBALAGEM_COMPRA" />
-		<result property="nomeEmbalagem" 		column="NOME_EMBALAGEM"/>
+		<result property="nomeEmbalagem" 	column="NOME_EMBALAGEM" />
 	</resultMap>
 
 	<sql id="selectEmbalagem">
 		<![CDATA[
-			SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM, NOME_EMBALAGEM_COMPRA, NOME_EMBALAGEM
-			FROM MYP7_Embalagem
+			SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
+			FROM prd_embalagem
 		  ]]>
 	</sql>
 	
@@ -41,7 +40,7 @@
 	</select>
 	
 	<select id="countEmbalagem" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM MYP7_Embalagem
+		SELECT COUNT(*) FROM prd_embalagem
 		WHERE 1=1
 		<if test="siglaEmbalagem != null">
 			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
@@ -52,9 +51,9 @@
 	</select>	
 	
 	<insert  id="salvarEmbalagem" keyProperty="ID_EMBALAGEM" keyColumn="ID_EMBALAGEM" useGeneratedKeys="true">
-		INSERT INTO MYP7_Embalagem 
-			(SIGLA_EMBALAGEM, QTD_EMBALAGEM, NOME_EMBALAGEM_COMPRA, NOME_EMBALAGEM)
+		INSERT INTO prd_embalagem 
+			(SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM)
 		VALUES
-			(#{siglaEmbalagem}, #{qtdEmbalagem}, #{nomeEmbalagem}, #{nomeEmbalagem}) 
+			(#{siglaEmbalagem}, #{qtdEmbalagem}, #{nomeEmbalagem}) 
 	</insert>
 </mapper>

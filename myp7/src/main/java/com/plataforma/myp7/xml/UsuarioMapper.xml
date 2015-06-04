@@ -15,7 +15,7 @@
 	<sql id="selectUsuario">
 		<![CDATA[
 			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA
-			FROM MYP7_USUARIO
+			FROM USU_USUARIO
 		  ]]>
 	</sql>
 	
@@ -34,7 +34,7 @@
 	</select>	
 	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
-     	INSERT INTO myp7_usuario(  razao_social,
+     	INSERT INTO usu_usuario(  razao_social,
             					   usu_cnpj,
             					   usu_email,
             					   usu_ativo,

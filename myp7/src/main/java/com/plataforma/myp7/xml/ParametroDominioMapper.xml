@@ -11,7 +11,7 @@
 	<sql id="selectParametroDominio">
 		<![CDATA[
 			SELECT id, descricao
-			FROM myp7_parametro_dominio
+			FROM prm_parametro_dominio
 		  ]]>
 	</sql>
 	

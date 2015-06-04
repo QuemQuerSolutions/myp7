@@ -16,7 +16,7 @@ public class Produto implements Serializable{
 	private BigDecimal alturaProduto;
 	private BigDecimal larguraProduto;
 	private BigDecimal profunProduto;
-	private Imagem imagem;
+	private String imagem;
 	private NCM ncmProduto;
 	private Embalagem embalagem;
 	
@@ -132,13 +132,13 @@ public class Produto implements Serializable{
 		}
 	}	
 	
-	public Imagem getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 	
-//	public void setImagem(Imagem imagem) {
-//		this.imagem = imagem;
-//	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
 	
 	public NCM getNcmProduto() {
 		return ncmProduto;

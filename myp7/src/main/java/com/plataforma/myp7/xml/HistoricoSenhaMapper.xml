@@ -12,7 +12,7 @@
 	<sql id="selectHistoricoSenha">
 		<![CDATA[
 			SELECT USUARIO, SENHA, DATA_INCLUSAO
-			FROM MYP7_HISTORICO_SENHA
+			FROM USU_HISTORICO_SENHA
 		  ]]>
 	</sql>
 
@@ -23,7 +23,7 @@
 	
 	<select id="obterUsuarioPorId" resultType="Usuario">
 		   SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA
-			 FROM MYP7_USUARIO
+			 FROM USU_USUARIO
 			WHERE ID_USUARIO = #{USUARIO}
 	</select>
 	
