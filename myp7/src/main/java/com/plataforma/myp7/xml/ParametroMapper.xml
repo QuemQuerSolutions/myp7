@@ -34,5 +34,10 @@
 			FROM prm_parametro_dominio
 			WHERE id = #{DOMINIO}
 	</select>
-	
+
+	<select id="obterParametroPorNome" resultMap="parametroMap">
+		<include refid="selectParametro"/>
+		WHERE NOME = #{nome}
+	</select>
+
 </mapper>

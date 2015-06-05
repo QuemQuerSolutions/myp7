@@ -21,7 +21,7 @@ public class EmbalagemBO {
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
 		this.corrigeParametros(embalagem);
 		
-		if(this.count(embalagem) > GeralEnum.LIMITE_COUNT.getValor()){
+		if(this.count(embalagem) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			setMsgRetorno(model, "Refine sua pesquisa.");
 			return null;
 		}

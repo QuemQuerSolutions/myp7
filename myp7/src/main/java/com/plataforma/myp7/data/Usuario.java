@@ -17,7 +17,14 @@ public class Usuario implements Serializable{
 	private String nDocumento;
 	private String ativo;
 	private String senha;
-
+	private String theme;
+	
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
