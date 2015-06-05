@@ -78,10 +78,10 @@ function removeClass(){
 				<h4 class="modal-title">Inserir Embalagem</h4>
 			</div>
 			<div class="modal-body">
-				<form action="InserirEmbalagem" id="frmInserirEmbalagem" method="POST">
+				<form action="SalvarEmbalagem" id="frmInserirEmbalagem" method="POST">
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 					<input type="hidden" id="codMsgem" value="${codMsgem}" />
-					<input type="hidden" id="idEmbalagem" value="0" />
+					<input type="hidden" id="idEmbalagem" name="idEmbalagem" value="0" />
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group" id="divsiglamodal">

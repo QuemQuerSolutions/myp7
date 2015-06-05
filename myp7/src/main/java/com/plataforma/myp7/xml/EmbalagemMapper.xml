@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="countEmbalagem" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM prd_embalagem
+		SELECT COUNT(1) FROM prd_embalagem
 		WHERE 1=1
 		<if test="siglaEmbalagem != null">
 			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
@@ -56,4 +56,11 @@
 		VALUES
 			(#{siglaEmbalagem}, #{qtdEmbalagem}, #{nomeEmbalagem}) 
 	</insert>
+	
+	<update id="atualizarEmbalagem">
+		UPDATE prd_embalagem
+		   SET SIGLA_EMBALAGEM=#{siglaEmbalagem}, QTD_EMBALAGEM=#{qtdEmbalagem}, NOME_EMBALAGEM=#{nomeEmbalagem}
+		WHERE ID_EMBALAGEM=#{idEmbalagem}
+	</update>
+	
 </mapper>

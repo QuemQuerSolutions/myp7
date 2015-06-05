@@ -49,6 +49,7 @@ public class EmbalagemController {
 			model.addAttribute("lista", this.carregaLista());
 			return "EmbalagemLista";
 		}catch(Exception e){
+			e.printStackTrace();
 			setMsgRetorno(model, "Erro ao inserir a embalagem");
 			setCodRetorno(model, -1);
 			model.addAttribute("outraPagina", "insert");
