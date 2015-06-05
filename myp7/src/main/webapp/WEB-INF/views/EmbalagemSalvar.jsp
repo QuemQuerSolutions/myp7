@@ -23,10 +23,18 @@ $(document).ready(function() {
 	});
 
 	$('#nova_embalagem').on('shown.bs.modal', function () {
-		if($("#codMsgem").val() == "0" || $("#idEmbalagem").val() == "0"){
+		if(($("#codMsgem").val() == "0" && $("#idEmbalagem").val() == "0") ||
+			($("#codMsgem").val() == "" && $("#idEmbalagem").val() == "")){
 			$("#sigla").val("");
 			$("#descricao").val("");
 			$("#quantidade").val("");
+			$("#sigla").removeClass("disabled");
+			$("#quantidade").removeClass("disabled");
+		}
+
+		if($("#idEmbalagem").val() !== "0" && $("#idEmbalagem").val() !== ""){
+			$("#sigla").addClass("disabled");
+			$("#quantidade").addClass("disabled");
 		}
 		$('#sigla').focus();
 	});

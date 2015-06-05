@@ -59,19 +59,18 @@ public class EmbalagemBO {
 	}
 	
 	public boolean salvar(Embalagem embalagem, Model model) throws Exception {
-		if(this.isInsertValido(embalagem, model)){
 			embalagem.setSiglaEmbalagem(embalagem.getSiglaEmbalagem().toUpperCase());
 			
 			if(embalagem.getIdEmbalagem() != 0)
 				this.embalagemDAO.update(embalagem);
-			else
+			else{
+				if(!this.isInsertValido(embalagem, model))
+					return false;
 				this.embalagemDAO.insert(embalagem);
-			
+			}
 			setMsgRetorno(model, "Embalagem salva com sucesso");
 			setCodRetorno(model, 0);
 			return true;
-		}
-		return false;
 	}
 	
 }
