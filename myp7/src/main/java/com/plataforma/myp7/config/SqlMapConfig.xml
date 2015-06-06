@@ -12,7 +12,7 @@
         <typeAlias alias="ParametroDominio" type="com.plataforma.myp7.data.ParametroDominio"/>
         <typeAlias alias="ParametroTipo" type="com.plataforma.myp7.data.ParametroTipo"/>
         <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Embalagem"/>
-        <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Produto"/>
+        <typeAlias alias="Produto" 	type="com.plataforma.myp7.data.Produto"/>
     </typeAliases>
  
  	<environments default="development">
