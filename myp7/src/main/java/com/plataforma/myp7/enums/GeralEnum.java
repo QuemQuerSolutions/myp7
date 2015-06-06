@@ -1,21 +1,14 @@
 package com.plataforma.myp7.enums;
 
 public enum GeralEnum {
-	LIMITE_COUNT(50);
+	LIMITE_COUNT("50"),
+	THEME_DEFAULT(ThemeEnum.THEME_ORANGE.getValorCSS());
 	
-	private Integer valor;
+	private String valor;
 
-	GeralEnum(Integer valor){
+	GeralEnum(String valor){
 		this.valor = valor;
 	}
 	
-	public Integer getValor() {
-		return valor;
-	}
-
-	public void setValor(Integer valor) {
-		this.valor = valor;
-	}
-	
-	
+	public String getValor() { return valor; }
 }

@@ -3,6 +3,8 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.plataforma.myp7.bo.EmbalagemBO;
+
 public class Produto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +19,7 @@ public class Produto implements Serializable{
 	private BigDecimal larguraProduto;
 	private BigDecimal profunProduto;
 	private String imagem;
+	private String eanDunProduto;
 	private NCM ncmProduto;
 	private Embalagem embalagem;
 	
@@ -163,14 +166,26 @@ public class Produto implements Serializable{
 		this.embalagem = embalagem;
 	}
 	
+	public String getEanDunProduto() {
+		return eanDunProduto;
+	}
+
+	public void setEanDunProduto(String eanDunProduto) {
+		this.eanDunProduto = eanDunProduto;
+	}
+	
 	public void setEmbalagemST(String embalagemST) {
-		Embalagem emb = new Embalagem();
 		try{
-			emb.setIdEmbalagem(Long.parseLong(embalagemST));
+			this.embalagem = new EmbalagemBO().selecionaPorId(Long.parseLong(embalagemST));
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		
-		this.embalagem = emb;
+	}
+	
+	public void setQtdEmbalagem(String qtdEmbalagem) {
+		if(this.embalagem == null){
+			this.embalagem = new Embalagem();
+		}
+		this.embalagem.setQtdEmbalagem(qtdEmbalagem);
 	}
 }

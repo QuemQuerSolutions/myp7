@@ -11,16 +11,17 @@ import com.plataforma.myp7.data.Usuario;
 public class UsuarioDAO {
 	private SqlSession session;
 	
-	public UsuarioDAO(){
-		this.session = getConexao();
-	}
-	
 	public Usuario selecionarPorEmail(String email){
-		return this.session.selectOne("obterPorEmail", email);
+		this.session = getConexao();
+		Usuario user = this.session.selectOne("obterPorEmail", email);
+		this.session.close();
+		return user;
 	}
 	
 	public void inserir(Usuario usuario) throws SQLException{
+		this.session = getConexao();
 		this.session.insert("incluir", usuario);
 		this.session.commit();
+		this.session.close();
 	}
 }

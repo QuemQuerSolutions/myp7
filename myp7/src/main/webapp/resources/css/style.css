@@ -85,3 +85,5 @@ thead{
 .upper:-ms-input-placeholder {text-transform: capitalize;}
 
 .mouse-click tbody tr{cursor: pointer;}
+
+.disabled{background-color: rgb(244, 243, 243);}

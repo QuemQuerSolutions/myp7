@@ -45,12 +45,16 @@ public class EmbalagemDAO {
 	}
 
 	public void update(final Embalagem embalagem){
-		this.session.update("salvarEmbalagem", embalagem);
-		this.session.commit();
+		this.session.update("atualizarEmbalagem", embalagem);
+		this.session.commit(true);
 	}
 	
 	public void insert(final Embalagem embalagem){
-		this.session.insert("atualizarEmbalagem", embalagem);
-		this.session.commit();
+		this.session.insert("salvarEmbalagem", embalagem);
+		this.session.commit(true);
+	}
+
+	public Embalagem selecionaPorId(Long id) {
+		return this.session.selectOne("obterEmbalagemPorId", id);
 	}
 }

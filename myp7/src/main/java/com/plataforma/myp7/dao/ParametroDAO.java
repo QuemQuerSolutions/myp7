@@ -19,4 +19,8 @@ public class ParametroDAO {
 	public List<Parametro> selecionarPorDominio(ParametroDominio dominio){
 		return this.session.selectList("obterParametro", dominio.getId());
 	}
+	
+	public Parametro obterParametroPorNome(final String nome){
+		return this.session.selectOne("obterParametroPorNome", nome);
+	}
 }

@@ -21,7 +21,7 @@ public class EmbalagemBO {
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
 		this.corrigeParametros(embalagem);
 		
-		if(this.count(embalagem) > GeralEnum.LIMITE_COUNT.getValor()){
+		if(this.count(embalagem) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			setMsgRetorno(model, "Refine sua pesquisa.");
 			return null;
 		}
@@ -31,6 +31,10 @@ public class EmbalagemBO {
 	
 	public List<Embalagem> selecionaTodos(){
 		return this.embalagemDAO.selecionaTodos();
+	}
+	
+	public Embalagem selecionaPorId(Long id){
+		return this.embalagemDAO.selecionaPorId(id);
 	}
 	
 	public Integer count(Embalagem embalagem){
@@ -59,19 +63,18 @@ public class EmbalagemBO {
 	}
 	
 	public boolean salvar(Embalagem embalagem, Model model) throws Exception {
-		if(this.isInsertValido(embalagem, model)){
 			embalagem.setSiglaEmbalagem(embalagem.getSiglaEmbalagem().toUpperCase());
 			
 			if(embalagem.getIdEmbalagem() != 0)
 				this.embalagemDAO.update(embalagem);
-			else
+			else{
+				if(!this.isInsertValido(embalagem, model))
+					return false;
 				this.embalagemDAO.insert(embalagem);
-			
+			}
 			setMsgRetorno(model, "Embalagem salva com sucesso");
 			setCodRetorno(model, 0);
 			return true;
-		}
-		return false;
 	}
 	
 }

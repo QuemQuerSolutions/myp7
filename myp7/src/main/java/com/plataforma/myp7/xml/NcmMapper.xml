@@ -12,7 +12,7 @@
 	<sql id="selectNcm">
 		<![CDATA[
 			SELECT ID_NCM, CODIGO_NCM, DESCRICAO_NCM
-			FROM MYP7_ncm
+			FROM gbl_ncm
 		  ]]>
 	</sql>
 	

@@ -23,10 +23,18 @@ $(document).ready(function() {
 	});
 
 	$('#nova_embalagem').on('shown.bs.modal', function () {
-		if($("#codMsgem").val() == "0" || $("#idEmbalagem").val() == "0"){
+		if(($("#codMsgem").val() == "0" && $("#idEmbalagem").val() == "0") ||
+			($("#codMsgem").val() == "" && $("#idEmbalagem").val() == "")){
 			$("#sigla").val("");
 			$("#descricao").val("");
 			$("#quantidade").val("");
+			$("#sigla").removeClass("disabled");
+			$("#quantidade").removeClass("disabled");
+		}
+
+		if($("#idEmbalagem").val() !== "0" && $("#idEmbalagem").val() !== ""){
+			$("#sigla").addClass("disabled");
+			$("#quantidade").addClass("disabled");
 		}
 		$('#sigla').focus();
 	});
@@ -78,10 +86,10 @@ function removeClass(){
 				<h4 class="modal-title">Inserir Embalagem</h4>
 			</div>
 			<div class="modal-body">
-				<form action="InserirEmbalagem" id="frmInserirEmbalagem" method="POST">
+				<form action="SalvarEmbalagem" id="frmInserirEmbalagem" method="POST">
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 					<input type="hidden" id="codMsgem" value="${codMsgem}" />
-					<input type="hidden" id="idEmbalagem" value="0" />
+					<input type="hidden" id="idEmbalagem" name="idEmbalagem" value="0" />
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group" id="divsiglamodal">

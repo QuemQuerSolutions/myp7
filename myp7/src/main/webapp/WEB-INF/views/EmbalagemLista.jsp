@@ -55,7 +55,7 @@ function onClickLine(id,sigla,nome,qtd){
 				</div>
 			</div>
 			
-			<form action="CarregaListaEmbalagem" name="frmEmbalagem">
+			<form action="CarregaListaEmbalagem" name="frmEmbalagem" method="GET">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<input type="hidden" id="outraPagina" value="${outraPagina}" />

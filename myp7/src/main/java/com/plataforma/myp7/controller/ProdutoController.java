@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.data.Produto;
 
@@ -24,13 +25,21 @@ public class ProdutoController {
 	
 	@RequestMapping("NovoProduto")
 	public String novo(HttpSession session, Model model){
+		this.carregaSelectEmbalagem(model);
 		return "ProdutoInserir";
 	}
 	
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model){
-		produtoBO.salvar(produto, model);
+		if(!produtoBO.salvar(produto, model)){
+			model.addAttribute("produto", produto);
+		}
 		
+		this.carregaSelectEmbalagem(model);
 		return "ProdutoInserir";
+	}
+	
+	private void carregaSelectEmbalagem(Model model){
+		model.addAttribute("embalagens", new EmbalagemBO().selecionaTodos());
 	}
 }
