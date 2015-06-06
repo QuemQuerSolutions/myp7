@@ -12,16 +12,17 @@
         <typeAlias alias="ParametroDominio" type="com.plataforma.myp7.data.ParametroDominio"/>
         <typeAlias alias="ParametroTipo" type="com.plataforma.myp7.data.ParametroTipo"/>
         <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Embalagem"/>
+        <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Produto"/>
     </typeAliases>
  
-    <environments default="development">
+ 	<environments default="development">
         <environment id="development">
           <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/myp7db"/>
                 <property name="username" value="root"/>
-                <property name="password" value="nashuatec10"/>
+                <property name="password" value="admin"/>
             </dataSource>
        </environment>
     </environments>
@@ -33,6 +34,7 @@
        <mapper resource="com/plataforma/myp7/xml/ParametroDominioMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/ParametroTipoMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/EmbalagemMapper.xml"/>
+       <mapper resource="com/plataforma/myp7/xml/ProdutoMapper.xml"/>
     </mappers>
  
 </configuration>
