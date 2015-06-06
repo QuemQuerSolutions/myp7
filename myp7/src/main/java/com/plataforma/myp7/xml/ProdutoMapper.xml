@@ -12,9 +12,9 @@
 		<result property="larguraProduto" 		column="DESCRICAO" />
 		<result property="profunProduto" 		column="DESCRICAO" />
 		<result property="imagem" 				column="IMAGEM_PRODUTO" />
-		<result property="codBarraProd" 		column="IMAGEM_PRODUTO" />
+		<result property="codBarraProd" 		column="EANDUN" />
 		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterPorId" />
-		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterPorId" />
+		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorId" />
 	</resultMap>
 
 	<sql id="selectProduto">

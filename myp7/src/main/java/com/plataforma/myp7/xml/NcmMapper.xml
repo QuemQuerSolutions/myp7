@@ -20,4 +20,11 @@
 		<include refid="selectNcm"/>
 		WHERE CODIGO_NCM = #{codNcm}
 	</select>
+	
+	<select id="obterPorId" resultMap="ncmMap">
+		<include refid="selectNcm"/>
+		WHERE id_ncm = #{idNcm}
+	</select>
+	
+	
 </mapper>

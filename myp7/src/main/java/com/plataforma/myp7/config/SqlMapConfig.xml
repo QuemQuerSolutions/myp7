@@ -13,6 +13,7 @@
         <typeAlias alias="ParametroTipo" type="com.plataforma.myp7.data.ParametroTipo"/>
         <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Embalagem"/>
         <typeAlias alias="Produto" 	type="com.plataforma.myp7.data.Produto"/>
+        <typeAlias alias="NCM" 	type="com.plataforma.myp7.data.NCM"/>
     </typeAliases>
  
  	<environments default="development">
@@ -35,6 +36,7 @@
        <mapper resource="com/plataforma/myp7/xml/ParametroTipoMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/EmbalagemMapper.xml"/>
        <mapper resource="com/plataforma/myp7/xml/ProdutoMapper.xml"/>
+       <mapper resource="com/plataforma/myp7/xml/NcmMapper.xml"/>
     </mappers>
  
 </configuration>
