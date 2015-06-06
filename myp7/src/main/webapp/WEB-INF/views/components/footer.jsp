@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<footer id="footer" class="theme-orange">
+<footer id="footer" class="${theme}">
 
 	<c:choose>
 		<c:when test="${not empty param.novo}">

@@ -14,14 +14,14 @@ public class Conexao {
 		this.sqlSession = MyBatisConnectionFactory.getSqlSessionFactory().openSession();
 	}
 	
-	private static Conexao getInstance(){
+	public static Conexao getInstance(){
 		if(Objects.isNull(Conexao.instance)){
 			return new Conexao();
 		}
 		return Conexao.instance;
 	}
 	
-	private SqlSession getSqlSession(){
+	public SqlSession getSqlSession(){
 		return this.sqlSession;
 	}
 	

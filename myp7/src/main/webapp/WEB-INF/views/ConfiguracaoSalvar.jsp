@@ -13,7 +13,7 @@ $(document).ready(function(){
 	<c:import url="components/menu.jsp" /> 
 	
 	<div id="content">	
-		Tema escolhido: ${theme}
+		Tema atual: ${theme}
 	</div>
 	
 	<c:import url="components/footer.jsp" />

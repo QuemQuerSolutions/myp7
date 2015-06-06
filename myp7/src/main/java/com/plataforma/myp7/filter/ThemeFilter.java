@@ -26,14 +26,13 @@ public class ThemeFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession();
 		Object usuerLogado = session.getAttribute(ATTR_USUARIO);
-		Usuario usuario = null;
+		
+		session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
 		
 		if(!Objects.isNull(usuerLogado)){
-			usuario = (Usuario) usuerLogado;
+			Usuario usuario = (Usuario) usuerLogado;
 			
-			if(Objects.isNull(usuario.getTheme()))
-				session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
-			else
+			if(!Objects.isNull(usuario.getTheme()))
 				session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuario.getTheme()));
 		}
 		

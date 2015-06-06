@@ -10,10 +10,13 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.dao.UsuarioDAO;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ThemeEnum;
 
 public class LoginBO {
 
 	private UsuarioDAO usuarioDAO;
+	private static final String ATTR_THEME = "theme";
 	
 	public LoginBO(){
 		this.usuarioDAO = new UsuarioDAO();
@@ -21,7 +24,8 @@ public class LoginBO {
 	
 	public String getDestinoLogin(Usuario usuario, HttpSession session,	Model model) {
 		try {
-			Usuario usuBanco = this.usuarioDAO.selecionarPorEmail(usuario.getEmail());
+			Usuario usuBanco = new Usuario(); 
+			usuBanco = this.usuarioDAO.selecionarPorEmail(usuario.getEmail());
 			
 			if(Objects.isNull(usuBanco)){
 				setMsgRetorno(model, "O usuário não existe!");
@@ -32,6 +36,11 @@ public class LoginBO {
 				setMsgRetorno(model, "A senha informada está incorreta!");
 				return "components/login";
 			}
+			
+			if(!Objects.isNull(usuBanco.getTheme()))
+				session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuBanco.getTheme()));
+			else
+				session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
 			
 			session.setAttribute("usuarioLogado", usuBanco);
 			return "components/home";
