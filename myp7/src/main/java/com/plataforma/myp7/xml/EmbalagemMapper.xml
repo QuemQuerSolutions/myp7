@@ -63,4 +63,8 @@
 		WHERE ID_EMBALAGEM=#{idEmbalagem}
 	</update>
 	
+	<select id="obterEmbalagemPorId" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+		WHERE ID_EMBALAGEM = #{ID} 
+	</select>
 </mapper>

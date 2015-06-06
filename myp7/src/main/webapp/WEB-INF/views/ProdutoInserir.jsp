@@ -63,11 +63,11 @@ function validaCamposObrigatorios(){
 		$("#divpesoliquidomodal").attr("class","form-group has-error");
 		isValid = false;
 	}		
-	if($.trim($("#embalagemST").val()) == ""){	
+	if($.trim($("#embalagemST").val()) == "-1"){	
 		$("#divembalagemmodal").attr("class","form-group has-error");
 		isValid = false;
 	}			
-	if($.trim($("#qtdProduto").val()) == ""){	
+	if($.trim($("#qtdEmbalagem").val()) == ""){	
 		$("#divqtdmodal").attr("class","form-group has-error");
 		isValid = false;
 	}	
@@ -96,12 +96,8 @@ function validaCamposNumericos(){
 	if(!$.isNumeric($("#pesoLiquido").val())){	
 		$("#divpesoliquidomodal").attr("class","form-group has-error");
 		isValid = false;
-	}		
-	if(!$.isNumeric($("#embalagemST").val())){	
-		$("#divembalagemmodal").attr("class","form-group has-error");
-		isValid = false;
-	}			
-	if(!$.isNumeric($("#qtdProduto").val())){	
+	}					
+	if(!$.isNumeric($("#qtdEmbalagem").val())){	
 		$("#divqtdmodal").attr("class","form-group has-error");
 		isValid = false;
 	}	
@@ -160,19 +156,19 @@ function removeClass(){
  					<div class="col-md-3">
 						<div class="form-group" id="divcodigomodal">
 					   		<label for="codProduto" class="control-label">Código</label>
-					    	<input type="text" class="form-control campo-salvar" id="codProduto" name="codProduto" maxlength="100" placeholder="Insira código" value="">
+					    	<input type="text" class="form-control campo-salvar" id="codProduto" name="codProduto" maxlength="100" placeholder="Insira código" value="${produto.codProduto}">
 					  	</div>
  					</div>
  					<div class="col-md-3">
 						<div class="form-group" id="divcodigoindustriamodal">
 					   		<label for="codIndustria" class="control-label">Código da Indústria</label>
-					    	<input type="text" class="form-control campo-salvar" id="codIndustria" name="codIndustria" maxlength="100" placeholder="Insira código da indústria" value="">
+					    	<input type="text" class="form-control campo-salvar" id="codIndustria" name="codIndustria" maxlength="100" placeholder="Insira código da indústria" value="${produto.codIndustria}">
 					  	</div>
  					</div>
  					<div class="col-md-3">
 						<div class="form-group" id="diveandunmodal">
 					   		<label for="eanDunProduto" class="control-label">EAN/DUN</label>
-					    	<input type="text" class="form-control campo-salvar" id="eanDunProduto" name="eanDunProduto" maxlength="100" placeholder="Insira EAN/DUN" value="">
+					    	<input type="text" class="form-control campo-salvar" id="eanDunProduto" name="eanDunProduto" maxlength="100" placeholder="Insira EAN/DUN" value="${produto.eanDunProduto}">
 					  	</div>
  					</div>
 				</div>
@@ -180,7 +176,7 @@ function removeClass(){
 					<div class="col-md-12">
 						<div class="form-group" id="divdescricaomodal">
 					   		<label for="desProduto" class="control-label">Descrição</label>
-					    	<input type="text" class="form-control campo-salvar" id="desProduto" name="desProduto" maxlength="100" placeholder="Insira a descrição do produto" value="">
+					    	<input type="text" class="form-control campo-salvar" id="desProduto" name="desProduto" maxlength="100" placeholder="Insira a descrição do produto" value="${produto.desProduto}">
 					  	</div>
 					</div>
 				</div>
@@ -188,19 +184,19 @@ function removeClass(){
 					<div class="col-md-6">
 						<div class="form-group" id="divncmmodal">
 					   		<label for="ncmProdutoST" class="control-label">NCM</label>
-					    	<input type="text" class="form-control campo-salvar" id="ncmProdutoST" name="ncmProdutoST" maxlength="100" placeholder="Insira o NCM do produto" value="">
+					    	<input type="text" class="form-control campo-salvar" id="ncmProdutoST" name="ncmProdutoST" maxlength="100" placeholder="Insira o NCM do produto" value="${produto.ncmProduto.codNcm}">
 					  	</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group" id="divpesobrutomodal">
 					   		<label for="pesoBruto" class="control-label">Peso Bruto</label>
-					    	<input type="text" class="form-control campo-salvar" id="pesoBruto" name="pesoBruto" maxlength="100" placeholder="Insira o peso bruto" value="">
+					    	<input type="text" class="form-control campo-salvar" id="pesoBruto" name="pesoBruto" maxlength="100" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
 					  	</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group" id="divpesoliquidomodal">
 					   		<label for="pesoLiquido" class="control-label">Peso Líquido</label>
-					    	<input type="text" class="form-control campo-salvar" id="pesoLiquido" name="pesoLiquido" maxlength="100" placeholder="Insira o peso líquido" value="">
+					    	<input type="text" class="form-control campo-salvar" id="pesoLiquido" name="pesoLiquido" maxlength="100" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
 					  	</div>
 					</div>												
 				</div>			
@@ -208,31 +204,43 @@ function removeClass(){
 					<div class="col-md-4">
 						<div class="form-group" id="divembalagemmodal">
 					   		<label for="embalagemST" class="control-label">Embalagem Compra</label>
-					    	<input type="text" class="form-control campo-salvar" id="embalagemST" name="embalagemST" maxlength="100" value="">
+					  		<select id="embalagemST" name="embalagemST" class="form-control">
+					  			<option value="-1">Selecione uma Embalagem</option>
+					  			<c:forEach var="emabalagem" items="${embalagens}">
+					  				<c:choose>
+  										<c:when test="${emabalagem.idEmbalagem == produto.embalagem.idEmbalagem}">
+											<option value="${emabalagem.idEmbalagem}" selected="selected">${emabalagem.siglaEmbalagem}</option>
+										</c:when>
+					  					<c:otherwise>
+					  						<option value="${emabalagem.idEmbalagem}">${emabalagem.siglaEmbalagem}</option>
+					  					</c:otherwise>
+					  				</c:choose>
+    							</c:forEach>
+					  		</select>
 					  	</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group" id="divqtdmodal">
-					   		<label for="qtdProduto" class="control-label">Qtd. Emb.</label>
-					    	<input type="text" class="form-control campo-salvar" id="qtdProduto" name="qtdProduto" maxlength="100" placeholder="Qtd" value="">
+					   		<label for="qtdEmbalagem" class="control-label">Qtd. Emb.</label>
+					    	<input type="text" class="form-control campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="100" placeholder="Qtd" value="${produto.embalagem.qtdEmbalagem}">
 					  	</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group" id="divalturamodal">
 					   		<label for="alturaProduto" class="control-label">Altura</label>
-					    	<input type="text" class="form-control campo-salvar" id="alturaProduto" name="alturaProduto" maxlength="100" placeholder="Altura" value="">
+					    	<input type="text" class="form-control campo-salvar" id="alturaProduto" name="alturaProduto" maxlength="100" placeholder="Altura" value="${produto.alturaProduto}">
 					  	</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group" id="divlarguramodal">
 					   		<label for="larguraProduto" class="control-label">Largura</label>
-					    	<input type="text" class="form-control campo-salvar" id="larguraProduto" name="larguraProduto" maxlength="100" placeholder="Largura" value="">
+					    	<input type="text" class="form-control campo-salvar" id="larguraProduto" name="larguraProduto" maxlength="100" placeholder="Largura" value="${produto.larguraProduto}">
 					  	</div>
 					</div>	
 					<div class="col-md-2">
 						<div class="form-group" id="divprofundidademodal">
 					   		<label for="profunProduto" class="control-label">Profundidade</label>
-					    	<input type="text" class="form-control campo-salvar" id="profunProduto" name="profunProduto" maxlength="100" placeholder="Profundidade" value="">
+					    	<input type="text" class="form-control campo-salvar" id="profunProduto" name="profunProduto" maxlength="100" placeholder="Profundidade" value="${produto.profunProduto}">
 					  	</div>
 					</div>	
 				</div>

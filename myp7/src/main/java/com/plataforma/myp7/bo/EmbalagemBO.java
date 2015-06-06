@@ -33,6 +33,10 @@ public class EmbalagemBO {
 		return this.embalagemDAO.selecionaTodos();
 	}
 	
+	public Embalagem selecionaPorId(Long id){
+		return this.embalagemDAO.selecionaPorId(id);
+	}
+	
 	public Integer count(Embalagem embalagem){
 		return this.embalagemDAO.count(embalagem);
 	}

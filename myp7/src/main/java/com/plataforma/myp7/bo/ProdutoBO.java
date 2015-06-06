@@ -19,6 +19,6 @@ public class ProdutoBO {
 	}
 
 	public Boolean isInsertValido(Produto produto, Model model) {
-		return new NcmBO().validaNcm(produto.getNcmProduto());
+		return new NcmBO().validaNcm(produto.getNcmProduto(), model);
 	}
 }

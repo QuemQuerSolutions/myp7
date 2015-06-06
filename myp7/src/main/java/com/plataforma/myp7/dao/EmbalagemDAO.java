@@ -53,4 +53,8 @@ public class EmbalagemDAO {
 		this.session.insert("salvarEmbalagem", embalagem);
 		this.session.commit(true);
 	}
+
+	public Embalagem selecionaPorId(Long id) {
+		return this.session.selectOne("obterEmbalagemPorId", id);
+	}
 }
