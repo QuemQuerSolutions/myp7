@@ -27,13 +27,4 @@
 	    <error-code>404</error-code>
 	    <location>/404</location>
 	  </error-page>
-	  
-	  <filter>
-	    <filter-name>theme</filter-name>
-	    <filter-class>com.plataforma.myp7.filter.ThemeFilter</filter-class>
-	  </filter>
-	  <filter-mapping>
-	    <filter-name>theme</filter-name>
-	    <url-pattern>/*</url-pattern>
-	  </filter-mapping>
 </web-app>

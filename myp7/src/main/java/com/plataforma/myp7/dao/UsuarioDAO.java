@@ -24,4 +24,12 @@ public class UsuarioDAO {
 		this.session.commit();
 		this.session.close();
 	}
+	
+	
+	public void updateTheme(Usuario usuario) throws SQLException{
+		this.session = getConexao();
+		this.session.update("updateTheme", usuario);
+		this.session.commit();
+		this.session.close();
+	}
 }

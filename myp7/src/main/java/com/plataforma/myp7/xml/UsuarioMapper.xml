@@ -46,6 +46,12 @@
     								'A', 
     								#{senha}
             						)
-        </insert>
+     </insert>
+	
+	<update id="updateTheme">
+		UPDATE usu_usuario
+		   SET THEME=#{theme}
+		WHERE ID_USUARIO=#{idUsuario}
+	</update>
 	
 </mapper>

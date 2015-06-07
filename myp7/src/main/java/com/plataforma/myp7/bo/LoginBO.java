@@ -37,10 +37,7 @@ public class LoginBO {
 				return "components/login";
 			}
 			
-			if(!Objects.isNull(usuBanco.getTheme()))
-				session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuBanco.getTheme()));
-			else
-				session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
+			this.setTheme(session, usuBanco);
 			
 			session.setAttribute("usuarioLogado", usuBanco);
 			return "components/home";
@@ -49,5 +46,12 @@ public class LoginBO {
 			e.printStackTrace();
 			return "components/login";
 		}
+	}
+	
+	private void setTheme(HttpSession session, Usuario usuBanco){
+		if(!Objects.isNull(usuBanco.getTheme()))
+			session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuBanco.getTheme()));
+		else
+			session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
 	}
 }

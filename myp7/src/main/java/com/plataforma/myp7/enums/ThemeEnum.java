@@ -1,5 +1,6 @@
 package com.plataforma.myp7.enums;
 
+
 public enum ThemeEnum {
 
 	THEME_ORANGE("ORANGE","theme-orange"),
@@ -27,6 +28,15 @@ public enum ThemeEnum {
 			}
 		}
 		return GeralEnum.THEME_DEFAULT.getValor();	
+	}
+	
+	public static String getValorBD(String valorCSS) {
+		for(ThemeEnum e : ThemeEnum.values()){
+			if(valorCSS.equals(e.getValorCSS())){
+				return e.getValorBD();
+			}
+		}
+		return null;	
 	}
 
 }
