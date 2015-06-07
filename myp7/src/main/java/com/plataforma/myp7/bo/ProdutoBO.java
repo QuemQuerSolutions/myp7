@@ -36,7 +36,7 @@ public class ProdutoBO {
 	public List<Produto> obterProdutos(Produto produto, Model model) throws SQLException{
 		
 		if(this.produtoDAO.count(produto) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
-			Utils.setMsgRetorno(model, "Refina sua pesquisa.");
+			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);
 			return null;
 		}
