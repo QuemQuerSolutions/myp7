@@ -258,7 +258,7 @@ function removeClass(){
 	</div>
 	
 	<c:import url="components/footer.jsp">
-		<c:param name="novo" value="novo_produto" />
+		<c:param name="salvar" value="salvar" />
 	</c:import>
 </body>
 </html>

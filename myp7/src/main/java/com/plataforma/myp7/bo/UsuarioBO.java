@@ -66,7 +66,7 @@ public class UsuarioBO {
 			this.usuarioDAO.updateTheme(usuario);
 			
 			session.setAttribute(ATTR_THEME, theme);
-			Utils.setMsgRetorno(model, "Usuario inserido com sucesso.");
+			Utils.setMsgRetorno(model, "Tema alterado com sucesso.");
 			Utils.setCodRetorno(model, 0);
 		}catch(SQLException e){
 			e.printStackTrace();

@@ -7,6 +7,11 @@
 	
 <script type="text/javascript">
 $(document).ready(function(){
+
+	if($("#mensagem").val() != ""){
+		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+	}
+	
 	$("#btnSalvar").click(function(){
 		if(!$("#themeselected").val()){
 			alerta("Selecione um tema.", "warning");
@@ -30,6 +35,8 @@ function onClickTheme(tema){
 		</div>
 		<form action="SalvarTema" id="frmTheme" method="POST">
 			<input type="hidden" id="themeselected" name="themeselected" value="" />
+			<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+			<input type="hidden" id="codMsgem" value="${codMsgem}" />
 		</form>
 		<div class="row">
 			<div class="col-md-1">&nbsp;</div>
