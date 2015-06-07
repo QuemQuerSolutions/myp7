@@ -2,29 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="NcmMapper">
-
 	<resultMap id="ncmMap" type="NCM">
 		<id property="idNcm" 			column="ID_NCM"/>
 		<result property="codNcm"  		column="CODIGO_NCM" />
 		<result property="descNcm" 		column="DESCRICAO_NCM" />
 	</resultMap>
-
 	<sql id="selectNcm">
 		<![CDATA[
 			SELECT ID_NCM, CODIGO_NCM, DESCRICAO_NCM
 			FROM gbl_ncm
 		  ]]>
 	</sql>
-	
 	<select id="obterNcmPorCodigo" resultMap="ncmMap">
 		<include refid="selectNcm"/>
 		WHERE CODIGO_NCM = #{codNcm}
 	</select>
-	
 	<select id="obterPorId" resultMap="ncmMap">
 		<include refid="selectNcm"/>
-		WHERE id_ncm = #{idNcm}
+		WHERE ID_NCM = #{idNcm}
 	</select>
-	
-	
 </mapper>

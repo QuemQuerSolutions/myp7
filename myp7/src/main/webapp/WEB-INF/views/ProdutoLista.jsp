@@ -14,13 +14,19 @@ $(document).ready(function(){
 		$("#descricaoProduto").val("");
 	});
 
+	if($("#mensagem").val() !== ""){
+		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+	}
+	
 	$("#pesquisar").click(function(){
 		if($("#codigoProduto").val() == "" &&  $("#descricaoProduto").val() == ""){
 			alerta("Preencha um dos campos de pesquisa.", "warning");
 		}else{
-			$("frmProduto").submit();
+			$("#frmProduto").submit();
 		}
 	});
+
+	  
 
 });
 </script>
@@ -34,44 +40,44 @@ $(document).ready(function(){
 		</div>
 		<div id="content-header">
 			<div class="row">
-				<div class="col-md-1">
-					<label for="codigo" class="control-label">Código</label>
+				<div class="col-md-2">
+					<label for="codigoProduto" class="control-label">Código</label>
 				</div>
 				<div class="col-md-8">
-					<label for="descricao" class="control-label">Descrição</label>
+					<label for="descricaoProduto" class="control-label">Descrição</label>
 				</div>
 			</div>
-			
-			<form action="" name="frmProduto">
+			<form action="carregaProdutos" id="frmProduto" method="GET">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
-				<input type="hidden" id="outraPagina" value="${outraPagina}" />
 				<div class="row">	
-					<div class="col-md-1">
+					<div class="col-md-2">
 						<div class="form-group" id="">
 					    	<input type="text" 
-					    			class="form-control upper" 
-					    			id="codigoProduto" 
-					    			maxlength="10"
+					    			class="form-control" 
+					    			id="codigoProduto"
+					    			name="codigoProduto"
+					    			maxlength="11"
 					    			autofocus="autofocus"
-					    			value="${emb.siglaEmbalagem}" />
+					    			value="${produto.idProduto}" />
 					  	</div>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<div class="form-group" id="">
 					    	<input type="text" 
 					    			class="form-control" 
 					    			id="descricaoProduto" 
+					    			name="descricaoProduto"
 					    			maxlength="100" 
-					    			value="${emb.nomeEmbalagem}"/>
+					    			value="${produto.desProduto}"/>
 					  	</div>
 					</div>
-					<div class="col-md-1" id="btnpesquisar">
+					<div class="col-md-1">
 						<div class="form-group">
-							<button type="button" class="btn btn-warning" id="pesquisar">Pesquisar</button>
+							<button type="button" class="btn ${theme}" id="pesquisar">Pesquisar</button>
 						</div>
 					</div>
-					<div class="col-md-1" id="btnlimpar">
+					<div class="col-md-1">
 						<div class="form-group">
 							<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
 						</div>
@@ -82,20 +88,24 @@ $(document).ready(function(){
 		</div>	
 	</div>
 	
-	<div id="content-body">
-			<table class="table table-hover table-bordered table-striped mouse-click">
-				<thead>
+	<div id="content">
+		<table class="table table-hover table-bordered table-striped mouse-click">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Descrição</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${produtos}" var="e">
 					<tr>
-						<th>Código</th>
-						<th>Descrição</th>
+						<td>${e.idProduto}</td>
+						<td>${e.desProduto}</td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="" var="e">
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	
 	<c:import url="components/footer.jsp">
 		<c:param name="novo" value="novo_produto" />
