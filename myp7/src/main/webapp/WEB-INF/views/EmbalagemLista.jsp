@@ -86,7 +86,7 @@ function onClickLine(id,sigla,nome,qtd){
 					
 					<div class="col-md-1" id="btnpesquisar">
 						<div class="form-group">
-							<button type="submit" class="btn btn-warning" id="pesquisar">Pesquisar</button>
+							<button type="submit" class="btn ${theme}" id="pesquisar">Pesquisar</button>
 						</div>
 					</div>
 					

@@ -10,4 +10,10 @@ public class ConfiguracaoController {
 	public String salvar(){
 		return "ConfiguracaoSalvar";
 	}
+	
+	@RequestMapping("SalvarTema")
+	public String salvarTema(String themeselected){
+		System.out.println(themeselected);
+		return "ConfiguracaoSalvar";
+	}
 }

@@ -12,8 +12,6 @@ public class Usuario implements Serializable{
 	private Long idUsuario;
 	private String razaoSocial;
 	private String email;
-	
-	//cnpj ou cpf
 	private String nDocumento;
 	private String ativo;
 	private String senha;

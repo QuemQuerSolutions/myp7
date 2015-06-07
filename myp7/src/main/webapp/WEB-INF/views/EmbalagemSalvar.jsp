@@ -78,12 +78,12 @@ function removeClass(){
 <div class="modal fade" id="nova_embalagem">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header theme-orange">
+			<div class="modal-header ${theme}">
 				<button type="button" class="close limpar" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Inserir Embalagem</h4>
+				<h4 class="modal-title">Embalagem</h4>
 			</div>
 			<div class="modal-body">
 				<form action="SalvarEmbalagem" id="frmInserirEmbalagem" method="POST">
@@ -116,7 +116,7 @@ function removeClass(){
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default limpar" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-warning" id="salvar">Salvar</button>
+				<button type="button" class="btn ${theme}" id="salvar">Salvar</button>
 			</div>
 		</div>
 	</div>

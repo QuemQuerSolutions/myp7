@@ -22,6 +22,11 @@
 	float: right;
   	margin-right: 20px;
 }
+#footer #btnSalvar{
+	float: right;
+  	margin-right: 20px;
+}
+
 #footer button{
  	font-size: 17px;
  	padding-left: 40px;
@@ -36,4 +41,52 @@
 }
 #btnlimpar button{
 	width: 130px;
+}
+
+#option-theme-box {
+  border-right: 1px solid #DFDADA;
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+  border-color: #DFDADA;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+#option-theme-header{
+	border: 1px solid;
+	border-color: transparent;
+	border-top-left-radius: 5px;
+  	border-top-right-radius: 5px;
+  	height: 13px;
+}
+
+#option-theme-menu{
+  width: 10px;
+  height: 137px;
+  float: left;
+  background-color: #E8E7E7;
+}
+
+#option-theme-content{
+  width: 150px;
+  height: 50px;
+  margin: 30px;
+  font-size: large;
+}
+#option-theme-footer{
+  height: 13px;
+  width: 200px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#option-theme-footer label{color: black;}
+
+#option-theme-click{
+  width: 200px;
+  border-radius: 5px;
+}
+#option-theme-click:hover{
+	cursor: pointer;
+	background-color: #FDFCFC;
 }

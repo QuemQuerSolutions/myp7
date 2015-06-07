@@ -6,6 +6,9 @@
 		<c:when test="${not empty param.novo}">
 			<button type="button" class="btn btn-default navbar-btn" id="btnNovo">Novo</button>
 		</c:when>
+		<c:when test="${not empty param.salvar}">
+			<button type="button" class="btn btn-default navbar-btn" id="btnSalvar">Salvar</button>
+		</c:when>
 		<c:otherwise>
 			<div style="padding-top: 20px">&nbsp;</div>	
 		</c:otherwise>

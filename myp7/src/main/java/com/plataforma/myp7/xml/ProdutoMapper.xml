@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="ProdutoMapper">
+
 	<resultMap id="produtoMap" type="Produto">
 		<id property="idProduto" 				column="ID_PRODUTO" />
-		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterPorId" />
+		
 		<result property="desProduto" 			column="DESCRICAO" />
 		<result property="codIndustria" 		column="CODIGO_INDUSTRIA" />
 		<result property="pesoBruto" 			column="DESCRICAO" />
@@ -13,6 +15,7 @@
 		<result property="profunProduto" 		column="DESCRICAO" />
 		<result property="imagem" 				column="IMAGEM_PRODUTO" />
 		<result property="codBarraProd" 		column="EANDUN" />
+		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterPorId" />
 		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterPorId" />
 		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorId" />
 	</resultMap>

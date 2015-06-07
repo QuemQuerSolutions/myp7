@@ -22,7 +22,17 @@ public class Produto implements Serializable{
 	private String eanDunProduto;
 	private NCM ncmProduto;
 	private Embalagem embalagem;
+	private Usuario usuario;
 	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Long getIdProduto() {
 		return idProduto;
 	}
