@@ -86,26 +86,25 @@ $(document).ready(function(){
 					
 				</div>
 			</form>
-		</div>	
-	</div>
-	
-	<div id="content">
-		<table class="table table-hover table-bordered table-striped">
-			<thead>
-				<tr>
-					<th>Código</th>
-					<th>Descrição</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${produtos}" var="e">
+		</div>
+		<div id="content-body">
+			<table class="table table-hover table-bordered table-striped">
+				<thead>
 					<tr>
-						<td>${e.idProduto}</td>
-						<td>${e.desProduto}</td>
+						<th>Código</th>
+						<th>Descrição</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach items="${produtos}" var="e">
+						<tr>
+							<td>${e.idProduto}</td>
+							<td>${e.desProduto}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>		
 	</div>
 	
 	<c:import url="components/footer.jsp">
