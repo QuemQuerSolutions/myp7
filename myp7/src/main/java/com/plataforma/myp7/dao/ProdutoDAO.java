@@ -2,7 +2,6 @@ package com.plataforma.myp7.dao;
 
 import static com.plataforma.myp7.config.Conexao.getConexao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,14 +20,14 @@ public class ProdutoDAO {
 		return this.session.selectList("obterTodos");
 	}
 	
-	public List<Produto> obterProdutos(Produto produto) throws SQLException{
+	public List<Produto> obterProdutos(Produto produto) throws Exception{
 		this.setLike(produto);
 		List<Produto> lstProduto = this.session.selectList("obterProdutos", produto);
 		this.cleanLike(produto);
 		return lstProduto;
 	}
 	
-	public Integer count(Produto produto) {
+	public Integer count(Produto produto) throws Exception{
 		this.setLike(produto);
 		Integer count = (Integer) this.session.selectOne("countProduto", produto);
 		this.cleanLike(produto);

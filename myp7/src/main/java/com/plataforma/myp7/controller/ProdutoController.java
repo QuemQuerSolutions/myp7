@@ -1,7 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -49,15 +47,13 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("carregaProdutos")
-	public String obterEmbalagens(Produto produto,Model model){
+	public String obterEmbalagens(HttpSession session, Produto produto,Model model){
 		try {
-			System.out.println("Valor id: "+produto.getIdProduto());
-			System.out.println("Valor Desc: "+produto.getDesProduto());
 			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
-			model.addAttribute("produto", produto);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);
+			e.printStackTrace();
 		}
 		return "ProdutoLista";
 	}

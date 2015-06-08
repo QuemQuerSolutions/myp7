@@ -3,7 +3,6 @@ package com.plataforma.myp7.bo;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -33,8 +32,8 @@ public class ProdutoBO {
 		return new NcmBO().validaNcm(produto.getNcmProduto(), model);
 	} 
 	
-	public List<Produto> obterProdutos(Produto produto, Model model) throws SQLException{
-		
+	public List<Produto> obterProdutos(Produto produto, Model model) throws Exception{
+		System.out.println("Quantidades de produtos: " + this.produtoDAO.count(produto));
 		if(this.produtoDAO.count(produto) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);

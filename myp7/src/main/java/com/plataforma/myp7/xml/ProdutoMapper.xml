@@ -7,15 +7,15 @@
 		<id property="idProduto" 				column="ID_PRODUTO" />
 		<result property="desProduto" 			column="DESCRICAO" />
 		<result property="codIndustria" 		column="CODIGO_INDUSTRIA" />
-		<result property="pesoBruto" 			column="DESCRICAO" />
-		<result property="pesoLiquido" 			column="DESCRICAO" />
-		<result property="alturaProduto" 		column="DESCRICAO" />
-		<result property="larguraProduto" 		column="DESCRICAO" />
-		<result property="profunProduto" 		column="DESCRICAO" />
+		<result property="pesoBruto" 			column="PESO_BRUTO" />
+		<result property="pesoLiquido" 			column="PESO_LIQUIDO" />
+		<result property="alturaProduto" 		column="ALTURA" />
+		<result property="larguraProduto" 		column="LARGURA" />
+		<result property="profunProduto" 		column="PROFUNDIDADE" />
 		<result property="imagem" 				column="IMAGEM_PRODUTO" />
-		<result property="codBarraProd" 		column="EANDUN" />
-		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterPorId" />
-		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterPorId" />
+		<result property="eanDunProduto" 		column="EANDUN" />
+		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterUsuarioPorId" />
+		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterNCMporId" />
 		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorId" />
 	</resultMap>
 
@@ -38,17 +38,33 @@
 			AND ID_PRODUTO=#{idProduto}
 		</if>
 		<if test="desProduto != null">
-			AND DESCRICAO LIKE #{desProduto}
+			AND DESCRICAO like #{desProduto}
 		</if>
 	</select>
 	<select id="countProduto" parameterType="int" resultType="int">
 		SELECT COUNT(1) FROM prd_usuario_produto
 		WHERE 1=1
-		<if test="idProduto != 0">
+		<if test="idProduto != null">
 			AND ID_PRODUTO=#{idProduto} 
 		</if>
 		<if test="desProduto != null">
 			AND DESCRICAO LIKE #{desProduto}
 		</if>
+	</select>
+	
+	<select id="obterNCMporId" resultType="NCM">
+		SELECT ID_NCM FROM gbl_ncm
+		WHERE ID_NCM = #{ID_NCM}
+	</select>
+	
+	<select id="obterUsuarioPorId" resultType="Usuario">
+		   SELECT ID_USUARIO
+			 FROM USU_USUARIO
+			WHERE ID_USUARIO = #{ID_USUARIO}
+	</select>
+	
+	<select id="obterEmbalagemPorId" resultType="Embalagem">
+		SELECT ID_EMBALAGEM FROM prd_embalagem
+		WHERE ID_EMBALAGEM = #{ID_EMBALAGEM} 
 	</select>
 </mapper>

@@ -10,8 +10,8 @@ $(document).ready(function(){
 	});
 
 	$("#limpar").click(function(){
-		$("#codigoProduto").val("");
-		$("#descricaoProduto").val("");
+		$("#idProduto").val("");
+		$("#desProduto").val("");
 	});
 
 	if($("#mensagem").val() !== ""){
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	}
 	
 	$("#pesquisar").click(function(){
-		if($("#codigoProduto").val() == "" &&  $("#descricaoProduto").val() == ""){
+		if($("#desProduto").val() == "" &&  $("#idProduto").val() == ""){
 			alerta("Preencha um dos campos de pesquisa.", "warning");
 		}else{
 			$("#frmProduto").submit();
@@ -41,10 +41,10 @@ $(document).ready(function(){
 		<div id="content-header">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="codigoProduto" class="control-label">Código</label>
+					<label for="idProduto" class="control-label">Código</label>
 				</div>
-				<div class="col-md-8">
-					<label for="descricaoProduto" class="control-label">Descrição</label>
+				<div class="col-md-10">
+					<label for="desProduto" class="control-label">Descrição</label>
 				</div>
 			</div>
 			<form action="carregaProdutos" id="frmProduto" method="GET">
@@ -55,19 +55,19 @@ $(document).ready(function(){
 						<div class="form-group" id="">
 					    	<input type="text" 
 					    			class="form-control" 
-					    			id="codigoProduto"
-					    			name="codigoProduto"
+					    			id="idProduto"
+					    			name="idProduto"
 					    			maxlength="11"
 					    			autofocus="autofocus"
 					    			value="${produto.idProduto}" />
 					  	</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-8">
 						<div class="form-group" id="">
 					    	<input type="text" 
 					    			class="form-control" 
-					    			id="descricaoProduto" 
-					    			name="descricaoProduto"
+					    			id="desProduto" 
+					    			name="desProduto"
 					    			maxlength="100" 
 					    			value="${produto.desProduto}"/>
 					  	</div>
