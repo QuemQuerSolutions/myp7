@@ -108,7 +108,14 @@ function removeClass(){
 						<div class="col-md-3">
 							<div class="form-group" id="divquantidademodal">
 						   		<label for="quantidade" class="control-label">Quantidade</label>
-						    	<input type="text" class="form-control campo-salvar" id="quantidade" name="qtdEmbalagem" maxlength="2" placeholder="Quantidade" value="${embalagem.qtdEmbalagem}">
+						    	<input type="number" 
+						    		   class="form-control campo-salvar onlyNumber" 
+						    		   id="quantidade" 
+						    		   name="qtdEmbalagem" 
+						    		   max="99"
+						    		   min="0"
+						    		   placeholder="Quantidade" 
+						    		   value="${embalagem.qtdEmbalagem}">
 						  	</div>
 						</div>
 					</div>

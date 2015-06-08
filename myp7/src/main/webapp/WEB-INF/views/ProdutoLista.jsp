@@ -19,7 +19,7 @@ $(document).ready(function(){
 	}
 	
 	$("#pesquisar").click(function(){
-		if($("#desProduto").val() == "" &&  $("#idProduto").val() == ""){
+		if($("#desProduto").val() === "" &&  $("#idProduto").val() === ""){
 			alerta("Preencha um dos campos de pesquisa.", "warning");
 		}else{
 			$("#frmProduto").submit();
@@ -54,10 +54,11 @@ $(document).ready(function(){
 					<div class="col-md-2">
 						<div class="form-group" id="">
 					    	<input type="number" 
-					    			class="form-control" 
+					    			class="form-control onlyNumber" 
 					    			id="idProduto"
 					    			name="idProduto"
-					    			maxlength="11"
+					    			min="0"
+					    			max="99999999999"
 					    			autofocus="autofocus"
 					    			value="${produto.idProduto}" />
 					  	</div>

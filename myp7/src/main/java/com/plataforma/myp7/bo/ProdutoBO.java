@@ -33,11 +33,21 @@ public class ProdutoBO {
 	} 
 	
 	public List<Produto> obterProdutos(Produto produto, Model model) throws Exception{
-		if(this.produtoDAO.count(produto) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
+		
+		Integer count = this.produtoDAO.count(produto);
+		
+		if(count == 0){
+			setMsgRetorno(model, "Nenhum registro localizado.");
+			setCodRetorno(model, -1);
+			return null;
+		}
+		
+		if(count > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);
 			return null;
 		}
+		
 		return produtoDAO.obterProdutos(produto);	
 	}
 }

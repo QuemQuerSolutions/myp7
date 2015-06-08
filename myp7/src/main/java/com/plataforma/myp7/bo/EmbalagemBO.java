@@ -20,9 +20,17 @@ public class EmbalagemBO {
 	
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
 		this.corrigeParametros(embalagem);
+		Integer count = this.count(embalagem);
 		
-		if(this.count(embalagem) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
+		if(count == 0){
+			setMsgRetorno(model, "Nenhum registro localizado.");
+			setCodRetorno(model, -1);
+			return null;
+		}
+		
+		if(count > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			setMsgRetorno(model, "Refine sua pesquisa.");
+			setCodRetorno(model, -1);
 			return null;
 		}
 		
