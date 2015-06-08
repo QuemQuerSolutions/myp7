@@ -90,7 +90,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div id="content">
-		<table class="table table-hover table-bordered table-striped mouse-click">
+		<table class="table table-hover table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Código</th>
