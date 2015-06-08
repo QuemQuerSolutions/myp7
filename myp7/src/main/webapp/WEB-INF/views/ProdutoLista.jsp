@@ -53,7 +53,7 @@ $(document).ready(function(){
 				<div class="row">	
 					<div class="col-md-2">
 						<div class="form-group" id="">
-					    	<input type="text" 
+					    	<input type="number" 
 					    			class="form-control" 
 					    			id="idProduto"
 					    			name="idProduto"

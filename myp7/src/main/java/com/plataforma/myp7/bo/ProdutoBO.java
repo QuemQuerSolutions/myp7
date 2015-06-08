@@ -33,7 +33,6 @@ public class ProdutoBO {
 	} 
 	
 	public List<Produto> obterProdutos(Produto produto, Model model) throws Exception{
-		System.out.println("Quantidades de produtos: " + this.produtoDAO.count(produto));
 		if(this.produtoDAO.count(produto) > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
 			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);
