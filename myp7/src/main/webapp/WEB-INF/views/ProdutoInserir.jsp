@@ -37,81 +37,64 @@ function salvar(){
 
 function validaCamposObrigatorios(){
 	var isValid = true;
-	if($.trim($("#codIndustria").val()) == ""){
-		$("#divcodigoindustria").attr("class","form-group has-error");
-		isValid = false;
-	}
-	if($.trim($("#eanDunProduto").val()) == ""){	
-		$("#diveandun").attr("class","form-group has-error");
-		isValid = false;
-	}
-	if($.trim($("#desProduto").val()) == ""){	
-		$("#divdescricao").attr("class","form-group has-error");
-		isValid = false;
-	}
-	if($.trim($("#ncmProdutoST").val()) == ""){	
-		$("#divncm").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if($.trim($("#pesoBruto").val()) == ""){	
-		$("#divpesobruto").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if($.trim($("#pesoLiquido").val()) == ""){	
-		$("#divpesoliquido").attr("class","form-group has-error");
-		isValid = false;
-	}		
-	if($.trim($("#embalagemST").val()) == "-1"){	
-		$("#divembalagem").attr("class","form-group has-error");
-		isValid = false;
-	}			
-	if($.trim($("#qtdEmbalagem").val()) == ""){	
-		$("#divqtd").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if($.trim($("#alturaProduto").val()) == ""){	
-		$("#divaltura").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if($.trim($("#larguraProduto").val()) == ""){	
-		$("#divlargura").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if($.trim($("#profunProduto").val()) == ""){	
-		$("#divprofundidade").attr("class","form-group has-error");
-		isValid = false;
-	}							
 	
+	if(isEmpty("#codIndustria"))
+		isValid = addRequired("#divcodigoindustria");
+	
+	if(isEmpty("#eanDunProduto"))	
+		isValid = addRequired("#diveandun");
+	
+	if(isEmpty("#desProduto"))	
+		isValid = addRequired("#divdescricao");
+	
+	if(isEmpty("#ncmProdutoST"))	
+		isValid = addRequired("#divncm");
+		
+	if(isEmpty("#pesoBruto"))	
+		isValid = addRequired("#divpesobruto");
+		
+	if(isEmpty("#pesoLiquido"))	
+		isValid = addRequired("#divpesoliquido");
+			
+	if($.trim($("#embalagemST").val()) == "-1")	
+		isValid = addRequired("#divembalagem");
+				
+	if(isEmpty("#qtdEmbalagem"))	
+		isValid = addRequired("#divqtd");
+		
+	if(isEmpty("#alturaProduto"))	
+		isValid = addRequired("#divaltura");
+		
+	if(isEmpty("#larguraProduto"))	
+		isValid = addRequired("#divlargura");
+		
+	if(isEmpty("#profunProduto"))	
+		isValid = addRequired("#divprofundidade");
+								
 	return isValid;
 }
 
 function validaCamposNumericos(){
-	var isValid = true;	
-	if(!$.isNumeric($("#pesoBruto").val())){	
-		$("#divpesobruto").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if(!$.isNumeric($("#pesoLiquido").val())){	
-		$("#divpesoliquido").attr("class","form-group has-error");
-		isValid = false;
-	}					
-	if(!$.isNumeric($("#qtdEmbalagem").val())){	
-		$("#divqtd").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if(!$.isNumeric($("#alturaProduto").val())){	
-		$("#divaltura").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if(!$.isNumeric($("#larguraProduto").val())){	
-		$("#divlargura").attr("class","form-group has-error");
-		isValid = false;
-	}	
-	if(!$.isNumeric($("#profunProduto").val())){	
-		$("#divprofundidade").attr("class","form-group has-error");
-		isValid = false;
-	}	
-
+	var isValid = true;
+	
+	if(!$.isNumeric($("#pesoBruto").val()))	
+		isValid = addRequired("#divpesobruto");
+		
+	if(!$.isNumeric($("#pesoLiquido").val()))	
+		isValid = addRequired("#divpesoliquido");
+						
+	if(!$.isNumeric($("#qtdEmbalagem").val()))	
+		isValid = addRequired("#divqtd");
+		
+	if(!$.isNumeric($("#alturaProduto").val()))	
+		isValid = addRequired("#divaltura");
+		
+	if(!$.isNumeric($("#larguraProduto").val()))	
+		isValid = addRequired("#divlargura");
+		
+	if(!$.isNumeric($("#profunProduto").val()))	
+		isValid = addRequired("#divprofundidade");
+		
 	return isValid;	
 }
 
