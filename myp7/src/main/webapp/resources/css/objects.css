@@ -39,6 +39,9 @@
   	padding-right: 40px;
 }
 
+/*---------------
+	Botões
+----------------*/
 #btnpesquisar{
 	margin-right: 50px;
 }
@@ -49,6 +52,9 @@
 	width: 130px;
 }
 
+/*---------------
+	Theme Option
+----------------*/
 #option-theme-box {
   border-right: 1px solid #DFDADA;
   width: 200px;
@@ -96,3 +102,8 @@
 	cursor: pointer;
 	background-color: #FDFCFC;
 }
+
+/*---------------
+	Foto
+----------------*/
+#image-product{ border: 1px solid #CCC; border-radius: 5px; height: 200px }

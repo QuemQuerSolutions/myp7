@@ -38,7 +38,8 @@ $(document).ready(function () {
       $('#side-bar').removeClass('active');
   };
   
-  $("input[type=number]").keyup(function(){
+  $("input[type=number]").keyup(function(e){
+	  e.preventDefault();
 	  var max = $(this).attr("max").length;
 	  var atual = $(this).val().length;
 	  if(atual > max){
@@ -64,7 +65,10 @@ $(document).ready(function () {
   
 });
 
-
+function refreshDisabled(){
+	$("input").each(function(){ $(this).attr("readonly", false); });
+	$(".disabled").each(function(){ $(this).attr("readonly", true);	});
+}
 function alerta(msg, type) {
 	humane.log(msg, { baseCls: 'humane-jackedup', addnCls: 'humane-jackedup-'+type });
 }

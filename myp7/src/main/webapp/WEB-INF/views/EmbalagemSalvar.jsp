@@ -37,6 +37,7 @@ $(document).ready(function() {
 			$("#quantidade").addClass("disabled");
 		}
 		$('#sigla').focus();
+		refreshDisabled();
 	});
 });
 
