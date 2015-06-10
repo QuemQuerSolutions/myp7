@@ -6,6 +6,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#btnNovo").click(function(){
+		
 		window.open('NovoProduto','_self');
 	});
 
@@ -26,9 +27,13 @@ $(document).ready(function(){
 		}
 	});
 
-	  
-
+	
 });
+
+function onClickLineProduto(id){
+	$("#btnNovo").click();
+	
+}
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -83,7 +88,6 @@ $(document).ready(function(){
 							<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
 						</div>
 					</div>
-					
 				</div>
 			</form>
 		</div>
@@ -97,7 +101,7 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
 					<c:forEach items="${produtos}" var="e">
-						<tr>
+						<tr onclick="onClickLineProduto('${e.idProduto}')">
 							<td>${e.idProduto}</td>
 							<td>${e.desProduto}</td>
 						</tr>

@@ -85,4 +85,8 @@ public class EmbalagemBO {
 			return true;
 	}
 	
+	public Embalagem obterEmbalagemPorId(Long id){
+		return this.embalagemDAO.selecionaPorId(id);
+	}
+	
 }

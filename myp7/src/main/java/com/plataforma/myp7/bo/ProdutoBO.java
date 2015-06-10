@@ -22,10 +22,10 @@ public class ProdutoBO {
 	
 	public Boolean salvar(Produto produto, Model model) {
 		if(this.isInsertValido(produto, model)){
-			if(new ProdutoDAO().salvar(produto)){
+			if(produtoDAO.salvar(produto)){
 				return true;
 			}
-			setMsgRetorno(model, "Erro ao inserir o produto.");
+			setMsgRetorno(model, "Falha na Operação.");
 			setCodRetorno(model, 1);
 		}
 		return false;
@@ -58,5 +58,9 @@ public class ProdutoBO {
 		}
 		
 		return produtoDAO.obterProdutos(produto);	
+	}
+	
+	public Produto obterPorId(Long id){
+		return this.produtoDAO.obterPorId(id);
 	}
 }

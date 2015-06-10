@@ -28,6 +28,11 @@
 		  ]]>
 	</sql>
 	
+	<select id="obterPorId" resultMap="produtoMap">
+		<include refid="selectProduto"/>
+		WHERE ID_PRODUTO=#{idProduto}
+	</select>
+	
 	<select id="obterTodos" resultMap="produtoMap">
 		<include refid="selectProduto"/>
 	</select>
@@ -78,4 +83,13 @@
 			#{pesoLiquido},#{alturaProduto},#{larguraProduto},#{profunProduto},#{ncmProduto.idNcm},#{embalagem.idEmbalagem},
 			#{qtdEmbalagem},#{eanDunProduto}) 
 	</insert>
+	
+	<update id="atualizaProduto">
+		UPDATE prd_usuario_produto 
+			SET  DESCRICAO=#{desProduto}, CODIGO_INDUSTRIA=#{codIndustria}, PESO_BRUTO=#{pesoBruto},
+				PESO_LIQUIDO=#{pesoLiquido}, ALTURA=#{alturaProduto}, LARGURA=#{larguraProduto},
+				PROFUNDIDADE=#{profunProduto}, QTD_EMBALAGEM=#{qtdEmbalagem}, EANDUN=#{eanDunProduto}
+				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}
+			WHERE ID_PRODUTO=#{idProduto}
+	</update>
 </mapper>

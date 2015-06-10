@@ -3,6 +3,7 @@ package com.plataforma.myp7.dao;
 import static com.plataforma.myp7.config.Conexao.getConexao;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -42,14 +43,23 @@ public class ProdutoDAO {
 		produto.setDesProduto(Utils.cleanLike(produto.getDesProduto()));
 		
 	}
+	
+	public Produto obterPorId(Long id){
+		return this.session.selectOne("obterPorId", id);
+	}
 
-	public Boolean salvar(Produto produto) {
+	public Boolean salvar(final Produto produto) {
 		try{
-			this.session.insert("salvarProduto", produto);
+			if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
+				this.session.update("atualizaProduto", produto);
+			}else{
+				this.session.insert("salvarProduto", produto);
+			}
 			this.session.commit(true);
 			
 			return true;
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}
