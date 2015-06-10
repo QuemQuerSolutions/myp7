@@ -41,16 +41,16 @@ function validaCamposObrigatorios(){
 	if($.trim($("#embalagemST").val()) == "-1")	
 		isValid = addRequired("#divembalagem");
 
-	 getEmptyValidation("#divcodigoindustria",
-							 "#diveandun",
-							 "#divdescricao",
-							 "#divncm",
-							 "#divpesobruto",
-							 "#divpesoliquido",
-							 "#divqtd",
-							 "#divaltura",
-							 "#divlargura",
-							 "#divprofundidade");
+	isValid = getEmptyValidation("#divcodigoindustria",
+								 "#diveandun",
+								 "#divdescricao",
+								 "#divncm",
+								 "#divpesobruto",
+								 "#divpesoliquido",
+								 "#divqtd",
+								 "#divaltura",
+								 "#divlargura",
+								 "#divprofundidade");
 	 return isValid;
 }
 
