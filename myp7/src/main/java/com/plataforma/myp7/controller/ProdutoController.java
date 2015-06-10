@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -34,6 +35,8 @@ public class ProdutoController {
 	
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model){
+		produto.setUsuario((Usuario) session.getAttribute("usuarioLogado"));
+		
 		if(!produtoBO.salvar(produto, model)){
 			model.addAttribute("produto", produto);
 		}

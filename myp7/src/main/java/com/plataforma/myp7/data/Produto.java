@@ -18,6 +18,7 @@ public class Produto implements Serializable{
 	private BigDecimal alturaProduto;
 	private BigDecimal larguraProduto;
 	private BigDecimal profunProduto;
+	private Integer qtdEmbalagem;
 	private String imagem;
 	private String eanDunProduto;
 	private NCM ncmProduto;
@@ -191,11 +192,20 @@ public class Produto implements Serializable{
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public Integer getQtdEmbalagem() {
+		return qtdEmbalagem;
+	}
+
+	public void setQtdEmbalagem(Integer qtdEmbalagem) {
+		this.qtdEmbalagem = qtdEmbalagem;
+	}
 	
 	public void setQtdEmbalagem(String qtdEmbalagem) {
-		if(this.embalagem == null){
-			this.embalagem = new Embalagem();
+		try{
+			this.qtdEmbalagem = Integer.parseInt(qtdEmbalagem);
+		}catch(Exception e){
+			this.qtdEmbalagem = 0;
 		}
-		this.embalagem.setQtdEmbalagem(qtdEmbalagem);
-	}
+	}	
 }

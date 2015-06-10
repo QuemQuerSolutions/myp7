@@ -168,10 +168,10 @@ function removeClass(){
 							  			<c:forEach var="emabalagem" items="${embalagens}">
 							  				<c:choose>
 		  										<c:when test="${emabalagem.idEmbalagem == produto.embalagem.idEmbalagem}">
-													<option value="${emabalagem.idEmbalagem}" selected="selected">${emabalagem.siglaEmbalagem}</option>
+													<option value="${emabalagem.idEmbalagem}" selected="selected">${emabalagem.siglaEmbalagem} ${emabalagem.qtdEmbalagem}</option>
 												</c:when>
 							  					<c:otherwise>
-							  						<option value="${emabalagem.idEmbalagem}">${emabalagem.siglaEmbalagem}</option>
+							  						<option value="${emabalagem.idEmbalagem}">${emabalagem.siglaEmbalagem} ${emabalagem.qtdEmbalagem}</option>
 							  					</c:otherwise>
 							  				</c:choose>
 		    							</c:forEach>
