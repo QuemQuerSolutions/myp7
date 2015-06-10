@@ -4,6 +4,7 @@ import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.ui.Model;
 
@@ -21,13 +22,17 @@ public class ProdutoBO {
 	
 	public Boolean salvar(Produto produto, Model model) {
 		if(this.isInsertValido(produto, model)){
-			return new ProdutoDAO().salvar(produto, model);
+			if(new ProdutoDAO().salvar(produto)){
+				return true;
+			}
+			setMsgRetorno(model, "Erro ao inserir o produto.");
+			setCodRetorno(model, 1);
 		}
 		return false;
 	}
 
 	public Boolean isInsertValido(Produto produto, Model model) {
-		if(produto.getNcmProduto() == null){
+		if(Objects.isNull(produto.getNcmProduto())){
 			setMsgRetorno(model, "NCM não encontrado.");
 			setCodRetorno(model, 1);
 			

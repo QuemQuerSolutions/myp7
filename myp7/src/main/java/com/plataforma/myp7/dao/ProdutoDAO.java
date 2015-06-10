@@ -1,13 +1,10 @@
 package com.plataforma.myp7.dao;
 
 import static com.plataforma.myp7.config.Conexao.getConexao;
-import static com.plataforma.myp7.util.Utils.setCodRetorno;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.util.Utils;
@@ -46,19 +43,13 @@ public class ProdutoDAO {
 		
 	}
 
-	public Boolean salvar(Produto produto, Model model) {
+	public Boolean salvar(Produto produto) {
 		try{
 			this.session.insert("salvarProduto", produto);
 			this.session.commit(true);
 			
-			setMsgRetorno(model, "Produto salvo com sucesso");
-			setCodRetorno(model, 0);
-			
 			return true;
 		}catch(Exception e){
-			setMsgRetorno(model, "Erro ao inserir o produto.");
-			setCodRetorno(model, 1);
-			
 			return false;
 		}
 	}

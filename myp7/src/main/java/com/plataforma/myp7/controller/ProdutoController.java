@@ -1,5 +1,10 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+
+import java.util.Objects;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +21,7 @@ import com.plataforma.myp7.util.Utils;
 public class ProdutoController {
 	private ProdutoBO produtoBO;
 	private EmbalagemBO embalagemBO;
+	private String sucessoInsert;
 	
 	public ProdutoController() {
 		this.produtoBO = new ProdutoBO();
@@ -24,6 +30,10 @@ public class ProdutoController {
 	
 	@RequestMapping("Produto")
 	public String inicio(HttpSession session, Model model){
+		if(!Objects.isNull(this.sucessoInsert)){
+			setMsgRetorno(model, this.sucessoInsert);
+			setCodRetorno(model, 0);
+		}
 		return "ProdutoLista";
 	}
 	
@@ -42,7 +52,7 @@ public class ProdutoController {
 			this.carregaSelectEmbalagem(model);
 			return "ProdutoInserir";
 		}
-		
+		this.sucessoInsert = "Produto salvo com sucesso";
 		return "redirect:Produto";
 	}
 	
