@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.plataforma.myp7.bo.EmbalagemBO;
+import com.plataforma.myp7.bo.NcmBO;
 
 public class Produto implements Serializable{
 
@@ -166,7 +167,11 @@ public class Produto implements Serializable{
 		NCM ncm = new NCM();
 		ncm.setCodNcm(ncmProdutoST);
 		
-		this.ncmProduto = ncm;
+		try{
+			this.ncmProduto = new NcmBO().selecionaPorCodigo(ncm);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}		
 	}	
 	
 	public Embalagem getEmbalagem() {

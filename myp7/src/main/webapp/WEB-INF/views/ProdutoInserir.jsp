@@ -9,6 +9,10 @@ $(document).ready(function() {
 		salvar();
 	});
 
+	$("#btnCancelar").click(function(){
+		window.open('Produto','_self');
+	});
+
 	$(".campo-salvar").keypress(function(e){
 	    if(e.which == 13) {
 	        salvar();

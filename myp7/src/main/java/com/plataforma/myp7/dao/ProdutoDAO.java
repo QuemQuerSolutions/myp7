@@ -51,12 +51,12 @@ public class ProdutoDAO {
 			this.session.insert("salvarProduto", produto);
 			this.session.commit(true);
 			
-			setMsgRetorno(model, "Embalagem salva com sucesso");
+			setMsgRetorno(model, "Produto salvo com sucesso");
 			setCodRetorno(model, 0);
 			
 			return true;
 		}catch(Exception e){
-			setMsgRetorno(model, "Embalagem salva com sucesso");
+			setMsgRetorno(model, "Erro ao inserir o produto.");
 			setCodRetorno(model, 1);
 			
 			return false;

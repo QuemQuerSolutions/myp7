@@ -39,10 +39,11 @@ public class ProdutoController {
 		
 		if(!produtoBO.salvar(produto, model)){
 			model.addAttribute("produto", produto);
+			this.carregaSelectEmbalagem(model);
+			return "ProdutoInserir";
 		}
 		
-		this.carregaSelectEmbalagem(model);
-		return "ProdutoInserir";
+		return "redirect:Produto";
 	}
 	
 	private void carregaSelectEmbalagem(Model model){

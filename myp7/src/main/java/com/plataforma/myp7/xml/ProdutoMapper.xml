@@ -16,7 +16,7 @@
 		<result property="eanDunProduto" 		column="EANDUN" />
 		<association property="usuario" 		column="ID_USUARIO" 	javaType="Usuario" 	select="obterUsuarioPorId" />
 		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterNCMporId" />
-		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorId" />
+		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorIdP" />
 	</resultMap>
 
 	<sql id="selectProduto">
@@ -63,7 +63,7 @@
 			WHERE ID_USUARIO = #{ID_USUARIO}
 	</select>
 	
-	<select id="obterEmbalagemPorId" resultType="Embalagem">
+	<select id="obterEmbalagemPorIdP" resultType="Embalagem">
 		SELECT ID_EMBALAGEM FROM prd_embalagem
 		WHERE ID_EMBALAGEM = #{ID_EMBALAGEM} 
 	</select>

@@ -27,7 +27,13 @@ public class ProdutoBO {
 	}
 
 	public Boolean isInsertValido(Produto produto, Model model) {
-		return new NcmBO().validaNcm(produto.getNcmProduto(), model);
+		if(produto.getNcmProduto() == null){
+			setMsgRetorno(model, "NCM não encontrado.");
+			setCodRetorno(model, 1);
+			
+			return false;
+		}
+		return true;
 	} 
 	
 	public List<Produto> obterProdutos(Produto produto, Model model) throws Exception{
