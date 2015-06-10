@@ -17,8 +17,15 @@ function addRequired(div){
 	return false;
 }
 
-function setValidation(){
-	
+function getEmptyValidation(){
+	var qtd = arguments.length;
+	var isValid = true;
+	for (var i = 0; i < qtd; i++){
+		var div = arguments[i];
+		if(isEmpty("#".concat($(div.concat(" > input")).attr("id"))))
+			isValid = addRequired(div);
+	}
+	return isValid;
 }
 
 function validarCNPJ(cnpj) {

@@ -37,41 +37,21 @@ function salvar(){
 
 function validaCamposObrigatorios(){
 	var isValid = true;
-	
-	if(isEmpty("#codIndustria"))
-		isValid = addRequired("#divcodigoindustria");
-	
-	if(isEmpty("#eanDunProduto"))	
-		isValid = addRequired("#diveandun");
-	
-	if(isEmpty("#desProduto"))	
-		isValid = addRequired("#divdescricao");
-	
-	if(isEmpty("#ncmProdutoST"))	
-		isValid = addRequired("#divncm");
-		
-	if(isEmpty("#pesoBruto"))	
-		isValid = addRequired("#divpesobruto");
-		
-	if(isEmpty("#pesoLiquido"))	
-		isValid = addRequired("#divpesoliquido");
-			
+
 	if($.trim($("#embalagemST").val()) == "-1")	
 		isValid = addRequired("#divembalagem");
-				
-	if(isEmpty("#qtdEmbalagem"))	
-		isValid = addRequired("#divqtd");
-		
-	if(isEmpty("#alturaProduto"))	
-		isValid = addRequired("#divaltura");
-		
-	if(isEmpty("#larguraProduto"))	
-		isValid = addRequired("#divlargura");
-		
-	if(isEmpty("#profunProduto"))	
-		isValid = addRequired("#divprofundidade");
-								
-	return isValid;
+
+	 getEmptyValidation("#divcodigoindustria",
+							 "#diveandun",
+							 "#divdescricao",
+							 "#divncm",
+							 "#divpesobruto",
+							 "#divpesoliquido",
+							 "#divqtd",
+							 "#divaltura",
+							 "#divlargura",
+							 "#divprofundidade");
+	 return isValid;
 }
 
 function validaCamposNumericos(){
