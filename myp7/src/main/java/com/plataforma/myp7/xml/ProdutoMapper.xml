@@ -67,4 +67,15 @@
 		SELECT ID_EMBALAGEM FROM prd_embalagem
 		WHERE ID_EMBALAGEM = #{ID_EMBALAGEM} 
 	</select>
+	
+	<insert  id="salvarProduto" keyProperty="ID_PRODUTO" keyColumn="ID_PRODUTO" useGeneratedKeys="true">
+		INSERT INTO prd_usuario_produto 
+			(ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN)
+		VALUES
+			(#{usuario.idUsuario}, #{desProduto}, #{codIndustria}, #{pesoBruto},
+			#{pesoLiquido},#{alturaProduto},#{larguraProduto},#{profunProduto},#{ncmProduto.idNcm},#{embalagem.idEmbalagem},
+			#{qtdEmbalagem},#{eanDunProduto}) 
+	</insert>
 </mapper>

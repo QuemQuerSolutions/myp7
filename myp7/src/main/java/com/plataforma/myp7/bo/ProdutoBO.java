@@ -21,9 +21,7 @@ public class ProdutoBO {
 	
 	public Boolean salvar(Produto produto, Model model) {
 		if(this.isInsertValido(produto, model)){
-			setMsgRetorno(model, "Embalagem salva com sucesso");
-			setCodRetorno(model, 0);
-			return true;
+			return new ProdutoDAO().salvar(produto, model);
 		}
 		return false;
 	}
