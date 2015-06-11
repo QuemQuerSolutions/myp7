@@ -39,7 +39,7 @@ public class LoginBO {
 			
 			this.setTheme(session, usuBanco);
 			
-			session.setAttribute("usuarioLogado", usuBanco);
+			session.setAttribute(GeralEnum.USUARIO_LOGADO.getValor(), usuBanco);
 			return "components/home";
 			
 		} catch (Exception e) {

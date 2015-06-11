@@ -22,7 +22,6 @@
 	
 	<resultMap id="ncmMap" type="NCM">
 		<id property="idNcm" 			column="ID_NCM"/>
-		<result property="codNcm"  		column="CODIGO_NCM" />
 	</resultMap>
 	
 	<resultMap id="embalagemMap" type="Embalagem">
@@ -38,21 +37,27 @@
 			SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
 		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
 		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
-		    FROM prd_usuario_produto
 		  ]]>
 	</sql>
 	
 	<select id="obterProdutoPorId" resultMap="produtoMap">
 		<include refid="selectProduto"/>
+		FROM prd_usuario_produto
 		WHERE ID_PRODUTO=#{idProduto}
 	</select>
 	
 	<select id="obterTodos" resultMap="produtoMap">
 		<include refid="selectProduto"/>
+		FROM prd_usuario_produto
 	</select>
+	
 	<select id="obterProdutos" resultMap="produtoMap">
 		<include refid="selectProduto" />
-		WHERE 1=1
+		
+		FROM PRD_USUARIO_PRODUTO, USU_USUARIO
+		 WHERE PRD_USUARIO_PRODUTO.ID_USUARIO = USU_USUARIO.ID_USUARIO
+		   AND USU_USUARIO.USU_CNPJ=#{usuario.nDocumento} 
+		   
 		<if test="idProduto != null">
 			AND ID_PRODUTO=#{idProduto}
 		</if>
@@ -60,9 +65,12 @@
 			AND DESCRICAO like #{desProduto}
 		</if>
 	</select>
-	<select id="countProduto" parameterType="int" resultType="int">
-		SELECT COUNT(1) FROM prd_usuario_produto
-		WHERE 1=1
+	
+	<select id="countProduto" resultType="int">
+		SELECT COUNT(1) 
+		  FROM PRD_USUARIO_PRODUTO, USU_USUARIO
+		 WHERE PRD_USUARIO_PRODUTO.ID_USUARIO = USU_USUARIO.ID_USUARIO
+		   AND USU_USUARIO.USU_CNPJ=#{usuario.nDocumento} 
 		<if test="idProduto != null">
 			AND ID_PRODUTO=#{idProduto} 
 		</if>
@@ -86,7 +94,7 @@
 		UPDATE prd_usuario_produto 
 			SET  DESCRICAO=#{desProduto}, CODIGO_INDUSTRIA=#{codIndustria}, PESO_BRUTO=#{pesoBruto},
 				PESO_LIQUIDO=#{pesoLiquido}, ALTURA=#{alturaProduto}, LARGURA=#{larguraProduto},
-				PROFUNDIDADE=#{profunProduto}, QTD_EMBALAGEM=#{qtdEmbalagem}, EANDUN=#{eanDunProduto}
+				PROFUNDIDADE=#{profunProduto}, QTD_EMBALAGEM=#{qtdEmbalagem}, EANDUN=#{eanDunProduto},
 				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
