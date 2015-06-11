@@ -24,7 +24,7 @@ $(document).ready(function() {
 	}
 
 	$('#desProduto').focus();
-	$("#codProduto").addClass("disabled");
+	$("#idProduto").addClass("disabled");
 	refreshDisabled();
 });
 

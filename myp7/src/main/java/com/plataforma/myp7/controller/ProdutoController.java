@@ -34,6 +34,7 @@ public class ProdutoController {
 		if(!Objects.isNull(this.sucessoInsert)){
 			setMsgRetorno(model, this.sucessoInsert);
 			setCodRetorno(model, 0);
+			this.sucessoInsert = null;
 		}
 		return "ProdutoLista";
 	}
