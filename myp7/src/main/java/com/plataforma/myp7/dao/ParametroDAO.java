@@ -12,15 +12,17 @@ import com.plataforma.myp7.data.ParametroDominio;
 public class ParametroDAO {
 	private SqlSession session;
 	
-	public ParametroDAO(){
-		this.session = getConexao();
-	}
-	
 	public List<Parametro> selecionarPorDominio(ParametroDominio dominio){
-		return this.session.selectList("obterParametro", dominio.getId());
+		this.session = getConexao();
+		List<Parametro> lista = this.session.selectList("obterParametro", dominio.getId());
+		this.session.close();
+		return lista;
 	}
 	
 	public Parametro obterParametroPorNome(final String nome){
-		return this.session.selectOne("obterParametroPorNome", nome);
+		this.session = getConexao();
+		Parametro parametro = this.session.selectOne("obterParametroPorNome", nome);
+		this.session.close();
+		return parametro;
 	}
 }

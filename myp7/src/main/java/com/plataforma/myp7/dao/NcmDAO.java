@@ -9,15 +9,19 @@ import com.plataforma.myp7.data.NCM;
 public class NcmDAO {
 	private SqlSession session;
 	
-	public NcmDAO(){
-		this.session = getConexao();
-	}
-	
 	public NCM selecionaPorCodigo(NCM ncmConsulta) {
-		return this.session.selectOne("obterNcmPorCodigo", ncmConsulta);
+		this.session = getConexao();
+		NCM ncm = this.session.selectOne("obterNcmPorCodigo", ncmConsulta);
+		this.session.commit(true);
+		this.session.close();
+		return ncm;
 	}
 	
 	public NCM obterNCMPorId(Long id){
-		return this.session.selectOne("obterNcmPorId", id);
+		this.session = getConexao();
+		NCM ncm = this.session.selectOne("obterNcmPorId", id);
+		this.session.commit(true);
+		this.session.close();
+		return ncm;
 	}
 }

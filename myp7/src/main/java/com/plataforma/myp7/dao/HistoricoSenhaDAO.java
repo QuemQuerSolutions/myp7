@@ -13,17 +13,15 @@ import com.plataforma.myp7.dto.HistoricoSenhaUsuarioLimit;
 public class HistoricoSenhaDAO {
 	private SqlSession session;
 	
-	public HistoricoSenhaDAO(){
-		this.session = getConexao();
-	}
-	
 	public List<HistoricoSenha> selecionarPorUsuario(Usuario usuario, int qtdLinhas){
 		
 		HistoricoSenhaUsuarioLimit historico = new HistoricoSenhaUsuarioLimit();
 		historico.setQtd(qtdLinhas);
 		historico.setUsuario(usuario.getIdUsuario());
 		
+		this.session = getConexao();
 		List<HistoricoSenha> historicoSenha = this.session.selectList("obterPorUsuarioELimit", historico);
+		this.session.close();
 		
 		return historicoSenha;
 	}
