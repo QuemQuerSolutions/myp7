@@ -69,7 +69,7 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("carregaProdutos")
-	public String obterEmbalagens(HttpSession session, Produto produto,Model model){
+	public String carregaProdutos(HttpSession session, Produto produto,Model model){
 		try {
 			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
 		} catch (Exception e) {
