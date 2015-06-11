@@ -16,4 +16,8 @@ public class NcmDAO {
 	public NCM selecionaPorCodigo(NCM ncmConsulta) {
 		return this.session.selectOne("obterNcmPorCodigo", ncmConsulta);
 	}
+	
+	public NCM obterNCMPorId(Long id){
+		return this.session.selectOne("obterNcmPorId", id);
+	}
 }
