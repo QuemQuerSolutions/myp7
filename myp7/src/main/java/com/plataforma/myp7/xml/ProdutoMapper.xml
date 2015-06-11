@@ -15,11 +15,24 @@
 		<result property="imagem" 				column="IMAGEM_PRODUTO" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
 		<result property="eanDunProduto" 		column="EANDUN" />
-		<association property="usuario" 		column="ID_USUARIO"  	javaType="Usuario" 	select="obterUsuarioPorId" />
-		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" select="obterNCMporId" />
-		<association property="embalagem" 		column="ID_EMBALAGEM" 	javaType="Embalagem" select="obterEmbalagemPorIdP" />
+		<association property="usuario" 		resultMap="usuarioMap" />
+		<association property="ncmProduto" 		resultMap="ncmMap"	/>
+		<association property="embalagem"		resultMap="embalagemMap" />
+	</resultMap>
+	
+	<resultMap id="ncmMap" type="NCM">
+		<id property="idNcm" 			column="ID_NCM"/>
+		<result property="codNcm"  		column="CODIGO_NCM" />
+	</resultMap>
+	
+	<resultMap id="embalagemMap" type="Embalagem">
+		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
 	</resultMap>
 
+	<resultMap id="usuarioMap" type="Usuario">
+		<id property="idUsuario" 		column="ID_USUARIO"/>
+	</resultMap>
+	
 	<sql id="selectProduto">
 		<![CDATA[
 			SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
@@ -58,23 +71,6 @@
 		</if>
 	</select>
 	
-	<select id="obterNCMporId" resultType="NCM">
-		SELECT ID_NCM, CODIGO_NCM FROM gbl_ncm
-		WHERE ID_NCM = #{ncmProduto.idNcm}
-	</select>
-	
-	<select id="obterUsuarioPorId" resultType="Usuario">
-		   SELECT ID_USUARIO
-			 FROM USU_USUARIO
-			WHERE ID_USUARIO=#{usuario.idUsuario}
-	</select>
-	
-	<select id="obterEmbalagemPorIdP" resultType="Embalagem">
-		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
-			FROM prd_embalagem
-		WHERE ID_EMBALAGEM=#{embalagem} 
-	</select>
-	
 	<insert  id="salvarProduto" keyProperty="ID_PRODUTO" keyColumn="ID_PRODUTO" useGeneratedKeys="true">
 		INSERT INTO prd_usuario_produto 
 			(ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
@@ -94,4 +90,21 @@
 				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
+	
+	<select id="obterNCMporId" resultMap="ncmMap">	
+		SELECT ID_NCM, CODIGO_NCM FROM gbl_ncm
+		WHERE ID_NCM = #{ncmProduto.idNcm}
+	</select>
+	
+	<select id="obterUsuarioPorId" resultMap="ncmMap">
+		   SELECT ID_USUARIO
+			 FROM USU_USUARIO
+			WHERE ID_USUARIO=#{usuario.idUsuario}
+	</select>
+	
+	<select id="obterEmbalagemPorIdP" resultMap="embalagemMap">
+		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
+			FROM prd_embalagem
+		WHERE ID_EMBALAGEM=#{embalagem.idEmbalagem} 
+	</select>
 </mapper>

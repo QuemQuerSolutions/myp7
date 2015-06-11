@@ -39,11 +39,8 @@ public class ProdutoController {
 	
 	@RequestMapping("EditarProduto")
 	public String editar(Model model, Long codProduto){
-		System.out.println("valor id produto: " + codProduto);
-		
 		Produto produto = produtoBO.obterPorId(codProduto);
 		this.carregaSelectEmbalagem(model);
-		System.out.println("Valor do produto id:" + produto.getPesoBruto());
 		model.addAttribute("produto", produto);
 		return "ProdutoInserir";
 	}
