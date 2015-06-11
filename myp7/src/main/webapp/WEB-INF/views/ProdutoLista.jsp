@@ -31,8 +31,8 @@ $(document).ready(function(){
 });
 
 function onClickLineProduto(id){
-	$("#btnNovo").click();
-	
+	$("#codProduto").val(id);
+	$("#frmEditarProdutos").submit();
 }
 </script>
 <body>
@@ -52,6 +52,11 @@ function onClickLineProduto(id){
 					<label for="desProduto" class="control-label">Descrição</label>
 				</div>
 			</div>
+			
+			<form action="EditarProduto" id="frmEditarProdutos" method="POST">
+				<input type="hidden" id="codProduto" name="codProduto" value="" />
+			</form>
+			
 			<form action="carregaProdutos" id="frmProduto" method="GET">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />

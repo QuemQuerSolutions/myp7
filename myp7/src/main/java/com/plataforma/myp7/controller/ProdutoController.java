@@ -37,16 +37,20 @@ public class ProdutoController {
 		return "ProdutoLista";
 	}
 	
+	@RequestMapping("EditarProduto")
+	public String editar(Model model, Long codProduto){
+		System.out.println("valor id produto: " + codProduto);
+		
+		Produto produto = produtoBO.obterPorId(codProduto);
+		this.carregaSelectEmbalagem(model);
+		System.out.println("Valor do produto id:" + produto.getPesoBruto());
+		model.addAttribute("produto", produto);
+		return "ProdutoInserir";
+	}
+	
 	@RequestMapping("NovoProduto")
 	public String novo(Produto produto, HttpSession session, Model model){
-		System.out.println("Estaá entrando aqui?"+ produto.getIdProduto());
-		if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
-			produto = produtoBO.obterPorId(produto.getIdProduto());
-			this.carregaEmbalagemPorId(model, produto.getEmbalagem().getIdEmbalagem());
-			model.addAttribute("produto", produto);
-		}else{
-			this.carregaSelectEmbalagem(model);
-		}
+		this.carregaSelectEmbalagem(model);
 		return "ProdutoInserir";
 	}
 	
@@ -78,10 +82,5 @@ public class ProdutoController {
 		}
 		return "ProdutoLista";
 	}
-	
-	private void carregaEmbalagemPorId(Model model, Long id){
-		model.addAttribute("embalagens", this.embalagemBO.obterEmbalagemPorId(id));
-	}
-	
 	
 }

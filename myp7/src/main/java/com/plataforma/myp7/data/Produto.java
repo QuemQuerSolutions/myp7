@@ -11,7 +11,6 @@ public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long idProduto;
-	private String codProduto;
 	private String desProduto;
 	private String codIndustria;
 	private BigDecimal pesoBruto;
@@ -26,6 +25,11 @@ public class Produto implements Serializable{
 	private Embalagem embalagem;
 	private Usuario usuario;
 	
+//	public Produto(){
+//		ncmProduto = new NCM();
+//		embalagem = new Embalagem();
+//		usuario = new Usuario();
+//	}
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -41,14 +45,6 @@ public class Produto implements Serializable{
 	
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
-	}
-	
-	public String getCodProduto() {
-		return codProduto;
-	}
-	
-	public void setCodProduto(String codProduto) {
-		this.codProduto = codProduto;
 	}
 	
 	public String getDesProduto() {

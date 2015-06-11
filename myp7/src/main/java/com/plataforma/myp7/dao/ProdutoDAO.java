@@ -45,10 +45,10 @@ public class ProdutoDAO {
 	}
 	
 	public Produto obterPorId(Long id){
-		return this.session.selectOne("obterPorId", id);
+		return this.session.selectOne("obterProdutoPorId", id);
 	}
 
-	public Boolean salvar(final Produto produto) {
+	public boolean salvar(final Produto produto) {
 		try{
 			if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
 				this.session.update("atualizaProduto", produto);

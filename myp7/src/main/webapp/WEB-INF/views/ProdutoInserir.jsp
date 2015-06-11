@@ -185,7 +185,7 @@ function removeClass(){
 							<div class="col-md-2">
 								<div class="form-group" id="divqtd">
 							   		<label for="qtdEmbalagem" class="control-label">Qtd. Emb.</label>
-							    	<input type="text" class="form-control campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="100" placeholder="Qtd" value="${produto.embalagem.qtdEmbalagem}">
+							    	<input type="text" class="form-control campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="100" placeholder="Qtd" value="${produto.qtdEmbalagem}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
