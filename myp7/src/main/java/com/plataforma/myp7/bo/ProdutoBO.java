@@ -8,7 +8,9 @@ import java.util.Objects;
 
 import org.springframework.ui.Model;
 
+import com.plataforma.myp7.dao.NcmDAO;
 import com.plataforma.myp7.dao.ProdutoDAO;
+import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.enums.GeralEnum;
 import com.plataforma.myp7.util.Utils;
@@ -16,8 +18,10 @@ import com.plataforma.myp7.util.Utils;
 public class ProdutoBO {
 
 	private ProdutoDAO produtoDAO;
+	private NcmDAO ncmDAO;
 	public ProdutoBO(){
 		produtoDAO = new ProdutoDAO();
+		ncmDAO = new NcmDAO();
 	}
 	
 	public Boolean salvar(Produto produto, Model model) {
@@ -61,6 +65,9 @@ public class ProdutoBO {
 	}
 	
 	public Produto obterPorId(Long id){
-		return this.produtoDAO.obterPorId(id);
+		Produto produto = produtoDAO.obterPorId(id);
+		NCM ncm = this.ncmDAO.obterNCMPorId(produto.getNcmProduto().getIdNcm());
+		produto.setNcmProduto(ncm);
+		return produto;
 	}
 }
