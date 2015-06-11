@@ -24,15 +24,10 @@ public class ProdutoBO {
 		ncmDAO = new NcmDAO();
 	}
 	
-	public Boolean salvar(Produto produto, Model model) {
+	public void salvar(Produto produto, Model model) throws Exception {
 		if(this.isInsertValido(produto, model)){
-			if(produtoDAO.salvar(produto)){
-				return true;
-			}
-			setMsgRetorno(model, "Falha na Operação.");
-			setCodRetorno(model, 1);
+			this.produtoDAO.salvar(produto);
 		}
-		return false;
 	}
 
 	private Boolean isInsertValido(Produto produto, Model model) {

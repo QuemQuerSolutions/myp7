@@ -55,14 +55,19 @@ public class ProdutoController {
 	
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model){
-		produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
-		
-		if(!produtoBO.salvar(produto, model)){
+		try{
+			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
+			this.produtoBO.salvar(produto, model);
 			model.addAttribute("produto", produto);
 			this.carregaSelectEmbalagem(model);
+			this.sucessoInsert = "Produto salvo com sucesso";
+			
 			return "ProdutoInserir";
+		}catch(Exception e){
+			Utils.setMsgRetorno(model, "Falha na operação.");
+			Utils.setCodRetorno(model, -1);
+			e.printStackTrace();
 		}
-		this.sucessoInsert = "Produto salvo com sucesso";
 		return "redirect:Produto";
 	}
 	

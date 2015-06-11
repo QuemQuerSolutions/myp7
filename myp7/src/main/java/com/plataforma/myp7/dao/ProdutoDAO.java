@@ -18,20 +18,27 @@ public class ProdutoDAO {
 	}
 	
 	public List<Produto> obterTodos(){
-		return this.session.selectList("obterTodos");
+		this.session = getConexao();
+		List<Produto> lista = this.session.selectList("obterTodos");
+		this.session.close();
+		return lista;
 	}
 	
 	public List<Produto> obterProdutos(Produto produto) throws Exception{
+		this.session = getConexao();
 		this.setLike(produto);
 		List<Produto> lstProduto = this.session.selectList("obterProdutos", produto);
 		this.cleanLike(produto);
+		this.session.close();
 		return lstProduto;
 	}
 	
 	public Integer count(Produto produto) throws Exception{
+		this.session = getConexao();
 		this.setLike(produto);
 		Integer count = (Integer) this.session.selectOne("countProduto", produto);
 		this.cleanLike(produto);
+		this.session.close();
 		return count;
 	}
 	
@@ -45,23 +52,19 @@ public class ProdutoDAO {
 	}
 	
 	public Produto obterPorId(Long id){
-		return this.session.selectOne("obterProdutoPorId", id);
+		this.session = getConexao();
+		Produto produto = this.session.selectOne("obterProdutoPorId", id);
+		this.session.close();
+		return produto;
 	}
 
-	public boolean salvar(final Produto produto) {
-		try{
-			if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
-				this.session.update("atualizaProduto", produto);
-			}else{
-				this.session.insert("salvarProduto", produto);
-			}
-			this.session.commit(true);
-			
-			return true;
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
+	public void salvar(final Produto produto) {
+		if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
+			this.session.update("atualizaProduto", produto);
+		}else{
+			this.session.insert("salvarProduto", produto);
 		}
+		this.session.commit(true);
 	}
 	
 }
