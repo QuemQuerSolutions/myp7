@@ -59,12 +59,14 @@ public class ProdutoDAO {
 	}
 
 	public void salvar(final Produto produto) {
+		this.session = getConexao();
 		if(!Objects.isNull(produto.getIdProduto()) && produto.getIdProduto() != 0L){
 			this.session.update("atualizaProduto", produto);
 		}else{
 			this.session.insert("salvarProduto", produto);
 		}
 		this.session.commit(true);
+		this.session.close();
 	}
 	
 }
