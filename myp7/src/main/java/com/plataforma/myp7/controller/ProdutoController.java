@@ -5,6 +5,7 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -54,15 +55,17 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("InserirProduto")
-	public String salvar(Produto produto, HttpSession session, Model model){
+	public String salvar(Produto produto, HttpSession session, Model model, HttpServletRequest req){
 		try{
 			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
-			this.produtoBO.salvar(produto, model);
-			model.addAttribute("produto", produto);
-			this.carregaSelectEmbalagem(model);
-			this.sucessoInsert = "Produto salvo com sucesso";
 			
-			return "ProdutoInserir";
+			if(!this.produtoBO.salvar(produto, model)){
+				this.carregaSelectEmbalagem(model);
+				model.addAttribute("produto", produto);
+				return "ProdutoInserir";
+			}
+			
+			this.sucessoInsert = "Produto salvo com sucesso";
 		}catch(Exception e){
 			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);

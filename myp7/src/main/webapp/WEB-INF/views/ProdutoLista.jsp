@@ -6,13 +6,18 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#btnNovo").click(function(){
-		
 		window.open('NovoProduto','_self');
 	});
 
 	$("#limpar").click(function(){
 		$("#idProduto").val("");
 		$("#desProduto").val("");
+	});
+
+	$(".campo-buscar").keypress(function(e){
+	    if(e.which == 13) {
+	    	$("#pesquisar").click();
+	    }
 	});
 
 	if($("#mensagem").val() !== ""){
@@ -64,7 +69,7 @@ function onClickLineProduto(id){
 					<div class="col-md-2">
 						<div class="form-group" id="">
 					    	<input type="number" 
-					    			class="form-control onlyNumber" 
+					    			class="form-control onlyNumber campo-buscar" 
 					    			id="idProduto"
 					    			name="idProduto"
 					    			min="0"
@@ -76,7 +81,7 @@ function onClickLineProduto(id){
 					<div class="col-md-8">
 						<div class="form-group" id="">
 					    	<input type="text" 
-					    			class="form-control" 
+					    			class="form-control campo-buscar" 
 					    			id="desProduto" 
 					    			name="desProduto"
 					    			maxlength="100" 
@@ -97,7 +102,7 @@ function onClickLineProduto(id){
 			</form>
 		</div>
 		<div id="content-body">
-			<table class="table table-hover table-bordered table-striped">
+			<table class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr>
 						<th>Código</th>

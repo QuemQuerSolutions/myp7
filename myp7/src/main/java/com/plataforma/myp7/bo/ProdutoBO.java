@@ -24,17 +24,18 @@ public class ProdutoBO {
 		ncmDAO = new NcmDAO();
 	}
 	
-	public void salvar(Produto produto, Model model) throws Exception {
+	public boolean salvar(Produto produto, Model model) throws Exception {
 		if(this.isInsertValido(produto, model)){
 			this.produtoDAO.salvar(produto);
+			return true;
 		}
+		return false;
 	}
 
-	private Boolean isInsertValido(Produto produto, Model model) {
+	private boolean isInsertValido(Produto produto, Model model) {
 		if(Objects.isNull(produto.getNcmProduto())){
 			setMsgRetorno(model, "NCM não encontrado.");
-			setCodRetorno(model, 1);
-			
+			setCodRetorno(model, -1);
 			return false;
 		}
 		return true;
