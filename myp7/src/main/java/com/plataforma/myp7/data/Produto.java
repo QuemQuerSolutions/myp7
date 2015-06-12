@@ -3,6 +3,8 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.NcmBO;
 
@@ -19,7 +21,8 @@ public class Produto implements Serializable{
 	private BigDecimal larguraProduto;
 	private BigDecimal profunProduto;
 	private Integer qtdEmbalagem;
-	private String imagem;
+	private MultipartFile imagem;
+	private String caminhoImagem;
 	private String eanDunProduto;
 	private NCM ncmProduto;
 	private Embalagem embalagem;
@@ -137,14 +140,6 @@ public class Produto implements Serializable{
 		}
 	}	
 	
-	public String getImagem() {
-		return imagem;
-	}
-	
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
-	
 	public NCM getNcmProduto() {
 		return ncmProduto;
 	}
@@ -202,4 +197,20 @@ public class Produto implements Serializable{
 			this.qtdEmbalagem = 0;
 		}
 	}	
+	
+	public MultipartFile getImagem() {
+		return imagem;
+	}
+	
+	public void setImagem(MultipartFile imagem) {
+		this.imagem = imagem;
+	}
+	
+	public String getCaminhoImagem() {
+		return caminhoImagem;
+	}
+
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
+	}
 }

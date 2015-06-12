@@ -1,5 +1,7 @@
 package com.plataforma.myp7.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.ui.Model;
@@ -24,5 +26,13 @@ public class Utils {
 	
 	public static String cleanLike(String campo){
 		return (Objects.isNull(campo) ? null : campo.replaceAll("%", ""));
+	}
+	
+	public static String getDataAtualString(String formato) {
+		return new SimpleDateFormat(formato).format(new Date());
+	}
+	
+	public static String getExtensaoArq(String arquivo){
+		return arquivo.substring(arquivo.lastIndexOf('.'), arquivo.length());
 	}
 }

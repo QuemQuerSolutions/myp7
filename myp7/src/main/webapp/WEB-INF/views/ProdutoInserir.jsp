@@ -97,7 +97,7 @@ function removeClass(){
 		</div>
 		
 		<div id="content-body">
-			<form action="InserirProduto" id="frmInserirProduto" method="POST">
+			<form action="InserirProduto" id="frmInserirProduto" method="POST" enctype="multipart/form-data">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<div class="row">
@@ -107,7 +107,7 @@ function removeClass(){
 							<div class="col-md-3">
 								<div class="form-group" id="divimagem">
 							    	<div id="image-product">
-							    		&nbsp;
+							    		<input type ="file" id="imagem" name ="imagem" />
 							    	</div>
 							  	</div>
 							</div>

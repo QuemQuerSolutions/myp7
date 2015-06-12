@@ -59,7 +59,7 @@ public class ProdutoController {
 		try{
 			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
 			
-			if(!this.produtoBO.salvar(produto, model)){
+			if(!this.produtoBO.salvar(produto, session, model)){
 				this.carregaSelectEmbalagem(model);
 				model.addAttribute("produto", produto);
 				return "ProdutoInserir";

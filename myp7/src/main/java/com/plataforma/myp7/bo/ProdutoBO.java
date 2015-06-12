@@ -3,8 +3,11 @@ package com.plataforma.myp7.bo;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
@@ -13,6 +16,7 @@ import com.plataforma.myp7.dao.ProdutoDAO;
 import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.util.Upload;
 import com.plataforma.myp7.util.Utils;
 
 public class ProdutoBO {
@@ -24,10 +28,15 @@ public class ProdutoBO {
 		ncmDAO = new NcmDAO();
 	}
 	
-	public boolean salvar(Produto produto, Model model) throws Exception {
+	public boolean salvar(Produto produto, HttpSession session, Model model) throws Exception {
 		if(this.isInsertValido(produto, model)){
-			this.produtoDAO.salvar(produto);
-			return true;
+			try{
+				Upload up = new Upload();
+				produto.setCaminhoImagem(up.armazenar(session, produto).getName());
+				
+				this.produtoDAO.salvar(produto);
+				return true;
+			}catch(Exception e){ }
 		}
 		return false;
 	}
