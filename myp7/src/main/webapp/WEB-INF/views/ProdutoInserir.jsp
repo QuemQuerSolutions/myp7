@@ -23,11 +23,31 @@ $(document).ready(function() {
 		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
+	$("#imagem-product-ft").click(function(){
+ 		$("#imagem").click();
+	});
+
+	$("#imagem").change(function(){
+		enviar_imagem(this);
+	});
+
 	$('#desProduto').focus();
 	$("#idProduto").addClass("disabled");
 	refreshDisabled();
 });
 
+function enviar_imagem(input) {
+  	if (input.files && input.files[0]) {
+     	var reader = new FileReader();
+
+        reader.onload = function (e) {
+    		$('#imagem-product-ft').attr('src', e.target.result);
+    	}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+	
 function salvar(){
 	removeClass();
 	if(!validaCamposObrigatorios()){
@@ -107,7 +127,8 @@ function removeClass(){
 							<div class="col-md-3">
 								<div class="form-group" id="divimagem">
 							    	<div id="image-product">
-							    		<input type ="file" id="imagem" name ="imagem" />
+							    		<img src="${produto.caminhoImagem}" height="100%" width="100%" id="imagem-product-ft">
+							    		<input type ="file" id="imagem" name ="imagem" style="visibility:hidden;" />
 							    	</div>
 							  	</div>
 							</div>
