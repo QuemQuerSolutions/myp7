@@ -106,4 +106,9 @@
 /*---------------
 	Foto
 ----------------*/
-#image-product{ border: 1px solid #CCC; border-radius: 5px; height: 200px }
+#image-product {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	height: 200px;
+	cursor: pointer;
+}
