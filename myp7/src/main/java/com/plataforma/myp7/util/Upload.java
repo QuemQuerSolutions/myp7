@@ -21,8 +21,13 @@ public class Upload {
 		
 		try {
 			byte[] bytes = produto.getImagem().getBytes();
+			
 			String dataHoraAtual = Utils.getDataAtualString("yyyyMMddHHmmss");
-
+			
+			//verifica se não teve nenhum input de imagem
+			if(produto.getImagem().getOriginalFilename().equals("")) 
+				return new File("");
+			
 			String dir = session.getServletContext().getRealPath("resources/upload");
 			String nomeArquivo = dir + File.separator + produto.getCodIndustria() + "_" + dataHoraAtual + Utils.getExtensaoArq(produto.getImagem().getOriginalFilename());
 			File arq = new File(nomeArquivo);

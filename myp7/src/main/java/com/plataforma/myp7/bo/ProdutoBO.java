@@ -31,12 +31,17 @@ public class ProdutoBO {
 		if(this.isInsertValido(produto, model)){
 			try{
 				Upload up = new Upload();
-				if(!Objects.isNull(produto.getIdProduto())) Utils.removeArquivo(session,imagemAnterior);
-				produto.setCaminhoImagem(up.armazenar(session, produto).getName());
+				produto.setCaminhoImagem(up.armazenar(session, produto).getName().equals("")?imagemAnterior:up.armazenar(session, produto).getName());
 				
+				//remove o arquivo se nao houver id e se a imagem nao for a mesma.
+				if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
+					Utils.removeArquivo(session,imagemAnterior);
 				this.produtoDAO.salvar(produto);
 				return true;
-			}catch(Exception e){ }
+			}catch(Exception e){ 
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			}
 		}
 		return false;
 	}
