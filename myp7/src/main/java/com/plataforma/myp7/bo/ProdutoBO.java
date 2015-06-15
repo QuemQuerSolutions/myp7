@@ -3,7 +3,6 @@ package com.plataforma.myp7.bo;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ import com.plataforma.myp7.util.Upload;
 import com.plataforma.myp7.util.Utils;
 
 public class ProdutoBO {
-
+	
 	private ProdutoDAO produtoDAO;
 	private NcmDAO ncmDAO;
 	public ProdutoBO(){
@@ -28,10 +27,11 @@ public class ProdutoBO {
 		ncmDAO = new NcmDAO();
 	}
 	
-	public boolean salvar(Produto produto, HttpSession session, Model model) throws Exception {
+	public boolean salvar(Produto produto, HttpSession session, Model model, String imagemAnterior) throws Exception {
 		if(this.isInsertValido(produto, model)){
 			try{
 				Upload up = new Upload();
+				if(!Objects.isNull(produto.getIdProduto())) Utils.removeArquivo(session,imagemAnterior);
 				produto.setCaminhoImagem(up.armazenar(session, produto).getName());
 				
 				this.produtoDAO.salvar(produto);

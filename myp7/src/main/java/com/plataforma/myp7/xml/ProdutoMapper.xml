@@ -97,7 +97,8 @@
 			SET  DESCRICAO=#{desProduto}, CODIGO_INDUSTRIA=#{codIndustria}, PESO_BRUTO=#{pesoBruto},
 				PESO_LIQUIDO=#{pesoLiquido}, ALTURA=#{alturaProduto}, LARGURA=#{larguraProduto},
 				PROFUNDIDADE=#{profunProduto}, QTD_EMBALAGEM=#{qtdEmbalagem}, EANDUN=#{eanDunProduto},
-				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}
+				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}, IMAGEM_PRODUTO=#{caminhoImagem}
+				
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
 	

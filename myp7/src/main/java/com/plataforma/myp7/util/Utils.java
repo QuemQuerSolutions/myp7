@@ -1,8 +1,11 @@
 package com.plataforma.myp7.util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
@@ -34,5 +37,10 @@ public class Utils {
 	
 	public static String getExtensaoArq(String arquivo){
 		return arquivo.substring(arquivo.lastIndexOf('.'), arquivo.length());
+	}
+	
+	public static void removeArquivo(HttpSession session, String caminhoImagem){
+		String diretorio = session.getServletContext().getRealPath("resources/upload");
+		new File(diretorio+"\\"+caminhoImagem).delete();
 	}
 }

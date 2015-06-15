@@ -127,7 +127,7 @@ function removeClass(){
 							<div class="col-md-3">
 								<div class="form-group" id="divimagem">
 							    	<div id="image-product">
-							    		<img src="${produto.caminhoImagem}" height="100%" width="100%" id="imagem-product-ft">
+							    		<img src="/resources/upload/${produto.caminhoImagem}" height="100%" width="100%" id="imagem-product-ft" />
 							    		<input type ="file" id="imagem" name ="imagem" style="visibility:hidden;" />
 							    	</div>
 							  	</div>

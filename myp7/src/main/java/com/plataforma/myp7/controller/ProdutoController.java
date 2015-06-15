@@ -24,6 +24,7 @@ public class ProdutoController {
 	private ProdutoBO produtoBO;
 	private EmbalagemBO embalagemBO;
 	private String sucessoInsert;
+	private String imagemAnterior;
 	
 	public ProdutoController() {
 		this.produtoBO = new ProdutoBO();
@@ -43,6 +44,7 @@ public class ProdutoController {
 	@RequestMapping("EditarProduto")
 	public String editar(Model model, Long codProduto){
 		Produto produto = produtoBO.obterPorId(codProduto);
+		this.imagemAnterior = produto.getCaminhoImagem();
 		this.carregaSelectEmbalagem(model);
 		model.addAttribute("produto", produto);
 		return "ProdutoInserir";
@@ -59,7 +61,7 @@ public class ProdutoController {
 		try{
 			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
 			
-			if(!this.produtoBO.salvar(produto, session, model)){
+			if(!this.produtoBO.salvar(produto, session, model, imagemAnterior)){
 				this.carregaSelectEmbalagem(model);
 				model.addAttribute("produto", produto);
 				return "ProdutoInserir";
@@ -73,6 +75,8 @@ public class ProdutoController {
 		}
 		return "redirect:Produto";
 	}
+	
+	
 	
 	private void carregaSelectEmbalagem(Model model){
 		model.addAttribute("embalagens", this.embalagemBO.selecionaTodos());
