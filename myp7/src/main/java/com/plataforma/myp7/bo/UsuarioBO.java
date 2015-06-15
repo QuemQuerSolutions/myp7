@@ -13,7 +13,7 @@ import com.plataforma.myp7.dao.UsuarioDAO;
 import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
-import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 import com.plataforma.myp7.util.Utils;
 
@@ -62,7 +62,7 @@ public class UsuarioBO {
 		try{
 			Usuario usuario = new Usuario();
 			usuario.setTheme(ThemeEnum.getValorBD(theme));
-			Usuario userSession = (Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor());
+			Usuario userSession = (Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor());
 			usuario.setIdUsuario(userSession.getIdUsuario());
 			this.usuarioDAO.updateTheme(usuario);
 			

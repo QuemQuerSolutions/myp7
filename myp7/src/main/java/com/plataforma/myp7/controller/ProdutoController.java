@@ -16,7 +16,7 @@ import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
-import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -59,7 +59,7 @@ public class ProdutoController {
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model, HttpServletRequest req){
 		try{
-			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
+			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
 			
 			if(!this.produtoBO.salvar(produto, session, model, imagemAnterior)){
 				this.carregaSelectEmbalagem(model);
@@ -85,7 +85,7 @@ public class ProdutoController {
 	@RequestMapping("carregaProdutos")
 	public String carregaProdutos(HttpSession session, Produto produto, Model model){
 		try {
-			produto.setUsuario((Usuario) session.getAttribute(GeralEnum.USUARIO_LOGADO.getValor()));
+			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
 			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
 		} catch (Exception e) {
 			Utils.setMsgRetorno(model, "Falha na operação.");

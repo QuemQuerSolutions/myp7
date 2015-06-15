@@ -14,7 +14,7 @@ import com.plataforma.myp7.dao.NcmDAO;
 import com.plataforma.myp7.dao.ProdutoDAO;
 import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
-import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.util.Upload;
 import com.plataforma.myp7.util.Utils;
 
@@ -41,7 +41,6 @@ public class ProdutoBO {
 				return true;
 			}catch(Exception e){ 
 				e.printStackTrace();
-				System.out.println(e.getMessage());
 			}
 		}
 		return false;
@@ -66,7 +65,7 @@ public class ProdutoBO {
 			return null;
 		}
 		
-		if(count > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
+		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
 			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);
 			return null;

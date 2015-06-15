@@ -27,7 +27,7 @@ public enum ThemeEnum {
 				return e.getValorCSS();
 			}
 		}
-		return GeralEnum.THEME_DEFAULT.getValor();	
+		return ConfigEnum.THEME_DEFAULT.getValor();	
 	}
 	
 	public static String getValorBD(String valorCSS) {

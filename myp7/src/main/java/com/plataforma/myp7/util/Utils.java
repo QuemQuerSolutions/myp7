@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
+import com.plataforma.myp7.enums.ConfigEnum;
+
 public class Utils {
 	
 	public static void setMsgRetorno(Model model, final String msg) {
@@ -40,7 +42,14 @@ public class Utils {
 	}
 	
 	public static void removeArquivo(HttpSession session, String caminhoImagem){
-		String diretorio = session.getServletContext().getRealPath("resources/upload");
+		String diretorio = session.getServletContext().getRealPath(ConfigEnum.FOLDER_UPLOAD_DEFAULT.getValor());
 		new File(diretorio+"\\"+caminhoImagem).delete();
+	}
+	
+	public static void verificaPastaExistente(String caminho){
+		File file = new File(caminho);
+	    
+		if(!file.exists())
+			file.mkdirs();
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.dao.EmbalagemDAO;
 import com.plataforma.myp7.data.Embalagem;
-import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ConfigEnum;
 
 public class EmbalagemBO {
 	
@@ -28,7 +28,7 @@ public class EmbalagemBO {
 			return null;
 		}
 		
-		if(count > Integer.parseInt(GeralEnum.LIMITE_COUNT.getValor())){
+		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
 			setMsgRetorno(model, "Refine sua pesquisa.");
 			setCodRetorno(model, -1);
 			return null;

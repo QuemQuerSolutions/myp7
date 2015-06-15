@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.dao.UsuarioDAO;
 import com.plataforma.myp7.data.Usuario;
-import com.plataforma.myp7.enums.GeralEnum;
+import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 
 public class LoginBO {
@@ -39,7 +39,7 @@ public class LoginBO {
 			
 			this.setTheme(session, usuBanco);
 			
-			session.setAttribute(GeralEnum.USUARIO_LOGADO.getValor(), usuBanco);
+			session.setAttribute(ConfigEnum.USUARIO_LOGADO.getValor(), usuBanco);
 			return "components/home";
 			
 		} catch (Exception e) {
@@ -52,6 +52,6 @@ public class LoginBO {
 		if(!Objects.isNull(usuBanco.getTheme()))
 			session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuBanco.getTheme()));
 		else
-			session.setAttribute(ATTR_THEME, GeralEnum.THEME_DEFAULT.getValor());
+			session.setAttribute(ATTR_THEME, ConfigEnum.THEME_DEFAULT.getValor());
 	}
 }

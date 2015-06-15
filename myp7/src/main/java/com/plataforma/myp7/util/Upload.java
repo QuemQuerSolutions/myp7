@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import javax.servlet.http.HttpSession;
 
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.enums.ConfigEnum;
 
 public class Upload {
 
@@ -28,8 +29,10 @@ public class Upload {
 			if(produto.getImagem().getOriginalFilename().equals("")) 
 				return new File("");
 			
-			String dir = session.getServletContext().getRealPath("resources/upload");
-			String nomeArquivo = dir + File.separator + produto.getCodIndustria() + "_" + dataHoraAtual + Utils.getExtensaoArq(produto.getImagem().getOriginalFilename());
+			String dir = session.getServletContext().getRealPath(ConfigEnum.FOLDER_UPLOAD_DEFAULT.getValor());
+			Utils.verificaPastaExistente(dir);
+			
+			String nomeArquivo = dir + File.separator + produto.getIdProduto() + "_" + dataHoraAtual + Utils.getExtensaoArq(produto.getImagem().getOriginalFilename());
 			File arq = new File(nomeArquivo);
 			
 			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(arq));
