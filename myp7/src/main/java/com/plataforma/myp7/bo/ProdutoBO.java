@@ -31,7 +31,8 @@ public class ProdutoBO {
 		if(this.isInsertValido(produto, model)){
 			try{
 				Upload up = new Upload();
-				produto.setCaminhoImagem(up.armazenar(session, produto).getName().equals("")?imagemAnterior:up.armazenar(session, produto).getName());
+				String imagemAtual = up.armazenar(session, produto).getName();
+				produto.setCaminhoImagem(imagemAtual.equals("")?imagemAnterior:imagemAtual);
 				
 				//remove o arquivo se nao houver id e se a imagem nao for a mesma.
 				if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
