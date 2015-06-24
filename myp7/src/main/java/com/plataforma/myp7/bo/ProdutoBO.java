@@ -43,6 +43,9 @@ public class ProdutoBO {
 				e.printStackTrace();
 			}
 		}
+		
+		//se o retorno do insert não for valido ele pega o caminho da ultima imagem
+		produto.setCaminhoImagem(imagemAnterior);
 		return false;
 	}
 
