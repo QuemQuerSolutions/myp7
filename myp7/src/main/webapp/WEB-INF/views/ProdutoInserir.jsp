@@ -50,13 +50,28 @@ function enviar_imagem(input) {
 	
 function salvar(){
 	removeClass();
-	if(!validaCamposObrigatorios()){
-		alerta("Favor preencher os campos obrigatórios.", "warning");
-	}else if(!validaCamposNumericos()){
-		alerta("Os campos selecionados aceitam apenas números.", "warning");
-	}else{
-		$("#frmInserirProduto").submit();
-	}
+	validaNcm();
+}
+
+function validaNcm(){
+	$.ajax({
+		type: "POST",
+        data: { ncm:$("#ncmProdutoST").val() },
+        url : 'ajax',
+        success : function(data) {
+        	if(data == "false"){
+        		alerta("NCM não encontrado.", "warning");
+        	}else{
+	       	 	if(!validaCamposObrigatorios()){
+	        		alerta("Favor preencher os campos obrigatórios.", "warning");
+	        	}else if(!validaCamposNumericos()){
+	        		alerta("Os campos selecionados aceitam apenas números.", "warning");
+	        	}else{
+	        		$("#frmInserirProduto").submit();
+	        	}
+            }
+        }
+    });
 }
 
 function validaCamposObrigatorios(){

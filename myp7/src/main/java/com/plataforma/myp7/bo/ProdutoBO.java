@@ -49,7 +49,7 @@ public class ProdutoBO {
 		return false;
 	}
 
-	private boolean isInsertValido(Produto produto, Model model) {
+	public boolean isInsertValido(Produto produto, Model model) {
 		if(Objects.isNull(produto.getNcmProduto())){
 			setMsgRetorno(model, "NCM não encontrado.");
 			setCodRetorno(model, -1);

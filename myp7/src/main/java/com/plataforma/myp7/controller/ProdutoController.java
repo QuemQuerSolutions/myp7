@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.ProdutoBO;
@@ -76,8 +77,6 @@ public class ProdutoController {
 		return "redirect:Produto";
 	}
 	
-	
-	
 	private void carregaSelectEmbalagem(Model model){
 		model.addAttribute("embalagens", this.embalagemBO.selecionaTodos());
 	}
@@ -95,4 +94,15 @@ public class ProdutoController {
 		return "ProdutoLista";
 	}
 	
+	@RequestMapping("ajax")
+	public @ResponseBody 
+	String validaNcmAjax(String ncm, Model model) {
+		Produto produto = new Produto();
+		produto.setNcmProdutoST(ncm);
+		
+		if(this.produtoBO.isInsertValido(produto, model)){
+			return "true";
+		}
+        return "false";
+    }
 }
