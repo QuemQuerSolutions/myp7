@@ -57,7 +57,7 @@ function validaNcm(){
 	$.ajax({
 		type: "POST",
         data: { ncm:$("#ncmProdutoST").val() },
-        url : 'ajax',
+        url : 'validaNcm',
         success : function(data) {
         	if(data == "false"){
         		alerta("NCM não encontrado.", "warning");
