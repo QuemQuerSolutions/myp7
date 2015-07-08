@@ -32,4 +32,11 @@ public class UsuarioDAO {
 		this.session.commit();
 		this.session.close();
 	}
+
+	public Usuario selecionarPorId(Long id) {
+		this.session = getConexao();
+		Usuario user = this.session.selectOne("obterPorId", id);
+		this.session.close();
+		return user;
+	}
 }

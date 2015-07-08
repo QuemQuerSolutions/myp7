@@ -28,6 +28,14 @@ public class UsuarioBO {
 		this.senhaBO = new SenhaBO();
 	}
 	
+	public Usuario obterPorId(Long id){
+		try{
+			return this.usuarioDAO.selecionarPorId(id);
+		}catch(Exception e){
+			return null;
+		}
+	}
+	
 	public void inserir(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		if(this.isValidInsert(usuario, model)){
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
