@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.plataforma.myp7.dao.ParametroDAO;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
 import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.mapper.HistoricoSenhaMapper;
+import com.plataforma.myp7.mapper.ParametroMapper;
 
 @Service
 public class SenhaBO {
@@ -18,6 +18,8 @@ public class SenhaBO {
 	@Autowired
 	private HistoricoSenhaMapper historicoSenhaMapper;
 	
+	@Autowired
+	private ParametroMapper parametroMapper;
 	/**
 	 * 
 	 * @param senha - Senha digitada
@@ -27,8 +29,7 @@ public class SenhaBO {
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
 	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
-		ParametroDAO parametroDAO = new ParametroDAO();
-		List<Parametro> parametros = parametroDAO.selecionarPorDominio(dominio);
+		List<Parametro> parametros = parametroMapper.obterParametro(dominio.getId());
 		
 		boolean retorno = true;
 		for(Parametro parametro : parametros){
