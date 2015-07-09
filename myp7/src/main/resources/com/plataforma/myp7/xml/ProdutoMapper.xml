@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.ProdutoMapper">
+
+	<resultMap id="produtoMap" type="com.plataforma.myp7.data.Produto">
+		<id property="idProduto" 				column="ID_PRODUTO" />
+		<result property="desProduto" 			column="DESCRICAO" />
+		<result property="codIndustria" 		column="CODIGO_INDUSTRIA" />
+		<result property="pesoBruto" 			column="PESO_BRUTO" />
+		<result property="pesoLiquido" 			column="PESO_LIQUIDO" />
+		<result property="alturaProduto" 		column="ALTURA" />
+		<result property="larguraProduto" 		column="LARGURA" />
+		<result property="profunProduto" 		column="PROFUNDIDADE" />
+		<result property="caminhoImagem"		column="IMAGEM_PRODUTO" />
+		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
+		<result property="eanDunProduto" 		column="EANDUN" />
+		<association property="usuario" 		resultMap="usuarioMap" />
+		<association property="ncmProduto" 		resultMap="ncmMap"	/>
+		<association property="embalagem"		resultMap="embalagemProdutoMap" />
+	</resultMap>
+	
+	<resultMap id="ncmMap" type="NCM">
+		<id property="idNcm" 			column="ID_NCM"/>
+	</resultMap>
+	
+	<resultMap id="embalagemProdutoMap" type="Embalagem">
+		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
+	</resultMap>
+
+	<resultMap id="usuarioMap" type="Usuario">
+		<id property="idUsuario" 		column="ID_USUARIO"/>
+	</resultMap>
+	
+	<sql id="selectProduto">
+		<![CDATA[
+			SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
+		  ]]>
+	</sql>
+	
+	<select id="obterProdutoPorId" resultMap="produtoMap">
+		<include refid="selectProduto"/>
+		FROM prd_usuario_produto
+		WHERE ID_PRODUTO=#{idProduto}
+	</select>
+	
+	<select id="obterTodos" resultMap="produtoMap">
+		<include refid="selectProduto"/>
+		FROM prd_usuario_produto
+	</select>
+	
+	<select id="obterProdutos" resultMap="produtoMap">
+	 SELECT ID_PRODUTO, USU_USUARIO.ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
+		
+		FROM PRD_USUARIO_PRODUTO, USU_USUARIO
+		 WHERE PRD_USUARIO_PRODUTO.ID_USUARIO = USU_USUARIO.ID_USUARIO
+		   AND USU_USUARIO.USU_CNPJ=#{usuario.nDocumento} 
+		   
+		<if test="idProduto != null">
+			AND ID_PRODUTO=#{idProduto}
+		</if>
+		<if test="desProduto != null">
+			AND DESCRICAO like #{desProduto}
+		</if>
+	</select>
+	
+	<select id="countProduto" resultType="int">
+		SELECT COUNT(1) 
+		  FROM PRD_USUARIO_PRODUTO, USU_USUARIO
+		 WHERE PRD_USUARIO_PRODUTO.ID_USUARIO = USU_USUARIO.ID_USUARIO
+		   AND USU_USUARIO.USU_CNPJ=#{usuario.nDocumento} 
+		<if test="idProduto != null">
+			AND ID_PRODUTO=#{idProduto} 
+		</if>
+		<if test="desProduto != null">
+			AND DESCRICAO LIKE #{desProduto}
+		</if>
+	</select>
+	
+	<insert  id="salvarProduto" keyProperty="ID_PRODUTO" keyColumn="ID_PRODUTO" useGeneratedKeys="true">
+		INSERT INTO prd_usuario_produto 
+			(ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO)
+		VALUES
+			(#{usuario.idUsuario}, #{desProduto}, #{codIndustria}, #{pesoBruto},
+			#{pesoLiquido},#{alturaProduto},#{larguraProduto},#{profunProduto},#{ncmProduto.idNcm},#{embalagem.idEmbalagem},
+			#{qtdEmbalagem},#{eanDunProduto},#{caminhoImagem}) 
+	</insert>
+	
+	<update id="atualizaProduto">
+		UPDATE prd_usuario_produto 
+			SET  DESCRICAO=#{desProduto}, CODIGO_INDUSTRIA=#{codIndustria}, PESO_BRUTO=#{pesoBruto},
+				PESO_LIQUIDO=#{pesoLiquido}, ALTURA=#{alturaProduto}, LARGURA=#{larguraProduto},
+				PROFUNDIDADE=#{profunProduto}, QTD_EMBALAGEM=#{qtdEmbalagem}, EANDUN=#{eanDunProduto},
+				ID_EMBALAGEM=#{embalagem.idEmbalagem}, ID_NCM=#{ncmProduto.idNcm}, IMAGEM_PRODUTO=#{caminhoImagem}
+				
+			WHERE ID_PRODUTO=#{idProduto}
+	</update>
+	
+	<select id="obterNCMporId" resultMap="ncmMap">	
+		SELECT ID_NCM, CODIGO_NCM FROM gbl_ncm
+		WHERE ID_NCM = #{ncmProduto.idNcm}
+	</select>
+	
+	<select id="obterUsuarioPorId" resultMap="ncmMap">
+		   SELECT ID_USUARIO
+			 FROM USU_USUARIO
+			WHERE ID_USUARIO=#{usuario.idUsuario}
+	</select>
+	
+	<select id="obterEmbalagemPorIdP" resultMap="embalagemProdutoMap">
+		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
+			FROM prd_embalagem
+		WHERE ID_EMBALAGEM=#{embalagem.idEmbalagem} 
+	</select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.HistoricoSenhaMapper">
+
+	<resultMap id="historicoSenhaMap" type="com.plataforma.myp7.data.HistoricoSenha">
+		<id property="senha" 			column="SENHA"/>
+		<id property="dataInclusao" 	column="DATA_INCLUSAO"/>
+		<association property="usuario" column="USUARIO"  javaType="Usuario" select="obterUsuarioPorId"/>
+	</resultMap>
+
+	<sql id="selectHistoricoSenha">
+		<![CDATA[
+			SELECT USUARIO, SENHA, DATA_INCLUSAO
+			FROM USU_HISTORICO_SENHA
+		  ]]>
+	</sql>
+
+	<select id="obterPorUsuarioELimit" resultMap="historicoSenhaMap">
+		<include refid="selectHistoricoSenha"/>
+		WHERE USUARIO = #{usuario} ORDER BY DATA_INCLUSAO DESC LIMIT #{qtd}
+	</select>
+	
+	<select id="obterUsuarioPorId" resultType="Usuario">
+		   SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA
+			 FROM USU_USUARIO
+			WHERE ID_USUARIO = #{USUARIO}
+	</select>
+	
+</mapper>
