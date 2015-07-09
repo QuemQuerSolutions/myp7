@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,13 @@ import com.plataforma.myp7.util.Utils;
 
 @Controller
 public class ProdutoController {
+	
+	@Autowired
 	private ProdutoBO produtoBO;
+	
+	@Autowired
 	private EmbalagemBO embalagemBO;
+	
 	private String sucessoInsert;
 	private String imagemAnterior;
 	

@@ -2,20 +2,21 @@ package com.plataforma.myp7.bo;
 
 import java.util.List;
 
-import com.plataforma.myp7.dao.HistoricoSenhaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.plataforma.myp7.dao.ParametroDAO;
 import com.plataforma.myp7.data.HistoricoSenha;
 import com.plataforma.myp7.data.Parametro;
 import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.mapper.HistoricoSenhaMapper;
 
+@Service
 public class SenhaBO {
 	
-	private HistoricoSenhaDAO historicoSenhaDAO;
-	
-	public SenhaBO(){
-		historicoSenhaDAO = new HistoricoSenhaDAO();
-	}
+	@Autowired
+	private HistoricoSenhaMapper historicoSenhaMapper;
 	
 	/**
 	 * 
@@ -92,7 +93,7 @@ public class SenhaBO {
 	public boolean isRepeat(String senha, Usuario usuario, Parametro parametro){
 		String senhaHash = CriptografarBO.criptografar(senha);
 		
-		List<HistoricoSenha> senhasAnteriores = this.historicoSenhaDAO.selecionarPorUsuario(usuario, Integer.parseInt(parametro.getAuxiliar()));
+		List<HistoricoSenha> senhasAnteriores = this.historicoSenhaMapper.obterPorUsuarioELimit(usuario.getIdUsuario(), Integer.parseInt(parametro.getAuxiliar()));
 		
 		for(HistoricoSenha senhaAnterior : senhasAnteriores){
 			if(senhaHash.equals(senhaAnterior.getSenha())){

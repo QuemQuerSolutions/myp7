@@ -6,26 +6,27 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.plataforma.myp7.dao.UsuarioDAO;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
+import com.plataforma.myp7.mapper.UsuarioMapper;
 
+@Service
 public class LoginBO {
 
-	private UsuarioDAO usuarioDAO;
-	private static final String ATTR_THEME = "theme";
+	@Autowired
+	private UsuarioMapper usuarioMapper;
 	
-	public LoginBO(){
-		this.usuarioDAO = new UsuarioDAO();
-	}
+	private static final String ATTR_THEME = "theme";
 	
 	public String getDestinoLogin(Usuario usuario, HttpSession session,	Model model) {
 		try {
 			Usuario usuBanco = new Usuario(); 
-			usuBanco = this.usuarioDAO.selecionarPorEmail(usuario.getEmail());
+			usuBanco = this.usuarioMapper.obterPorEmail(usuario.getEmail());
 			
 			if(Objects.isNull(usuBanco)){
 				setMsgRetorno(model, "O usuário não existe!");
@@ -33,7 +34,7 @@ public class LoginBO {
 			}
 			
 			if(!CriptografarBO.criptografar(usuario.getSenha()).equals(usuBanco.getSenha())){
-				setMsgRetorno(model, "A senha informada está incorreta!");
+				setMsgRetorno(model, "A senha informada estï¿½ incorreta!");
 				return "components/login";
 			}
 			

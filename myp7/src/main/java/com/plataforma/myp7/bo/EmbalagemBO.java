@@ -1,22 +1,24 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.*;
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.plataforma.myp7.dao.EmbalagemDAO;
 import com.plataforma.myp7.data.Embalagem;
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.mapper.EmbalagemMapper;
 
+@Service
 public class EmbalagemBO {
 	
-	private EmbalagemDAO embalagemDAO;
-	
-	public EmbalagemBO(){
-		this.embalagemDAO = new EmbalagemDAO();
-	}
+	@Autowired
+	private EmbalagemMapper embalagemMapper;
 	
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
 		this.corrigeParametros(embalagem);
@@ -34,19 +36,19 @@ public class EmbalagemBO {
 			return null;
 		}
 		
-		return this.embalagemDAO.selecionaPorParametros(embalagem);
+		return this.embalagemMapper.obterEmbalagens(embalagem);
 	}
 	
 	public List<Embalagem> selecionaTodos(){
-		return this.embalagemDAO.selecionaTodos();
+		return this.embalagemMapper.obterTodasEmbalagens();
 	}
 	
 	public Embalagem selecionaPorId(Long id){
-		return this.embalagemDAO.selecionaPorId(id);
+		return this.embalagemMapper.obterEmbalagemPorId(id);
 	}
 	
 	public Integer count(Embalagem embalagem){
-		return this.embalagemDAO.count(embalagem);
+		return this.embalagemMapper.countEmbalagem(embalagem);
 	}
 	
 	private void corrigeParametros(Embalagem embalagem){
@@ -60,7 +62,7 @@ public class EmbalagemBO {
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
 		embalagemConsulta.setQtdEmbalagem(embalagem.getQtdEmbalagem());
 		
-		if(this.embalagemDAO.selecionaPorParametros(embalagemConsulta).size() > 0){
+		if(this.embalagemMapper.obterEmbalagens(embalagemConsulta).size() > 0){
 			setMsgRetorno(model, "Embalagem já existente");
 			setCodRetorno(model, -1);
 			model.addAttribute("outraPagina", "insert");
@@ -74,11 +76,11 @@ public class EmbalagemBO {
 			embalagem.setSiglaEmbalagem(embalagem.getSiglaEmbalagem().toUpperCase());
 			
 			if(embalagem.getIdEmbalagem() != 0)
-				this.embalagemDAO.update(embalagem);
+				this.embalagemMapper.atualizarEmbalagem(embalagem);
 			else{
 				if(!this.isInsertValido(embalagem, model))
 					return false;
-				this.embalagemDAO.insert(embalagem);
+				this.embalagemMapper.salvarEmbalagem(embalagem);
 			}
 			setMsgRetorno(model, "Embalagem salva com sucesso");
 			setCodRetorno(model, 0);
@@ -86,7 +88,7 @@ public class EmbalagemBO {
 	}
 	
 	public Embalagem obterEmbalagemPorId(Long id){
-		return this.embalagemDAO.selecionaPorId(id);
+		return this.embalagemMapper.obterEmbalagemPorId(id);
 	}
 	
 }

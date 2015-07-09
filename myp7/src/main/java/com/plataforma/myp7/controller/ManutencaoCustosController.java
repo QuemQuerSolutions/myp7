@@ -1,11 +1,11 @@
 package com.plataforma.myp7.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +16,11 @@ import com.plataforma.myp7.bo.RepresentanteBO;
 @Controller
 public class ManutencaoCustosController {
 
+	@Autowired
 	private EmpresaBO empresaBO;
-	private RepresentanteBO representanteBO;
 	
-	public ManutencaoCustosController(){
-		this.empresaBO = new EmpresaBO();
-		this.representanteBO = new RepresentanteBO();
-	}
+	@Autowired
+	private RepresentanteBO representanteBO;
 	
 	@RequestMapping("ManutencaoCustos")
 	public String inicio(HttpSession session, Model model){

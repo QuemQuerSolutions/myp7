@@ -2,17 +2,19 @@ package com.plataforma.myp7.bo;
 
 import java.util.List;
 
-import com.plataforma.myp7.dao.EmpresaDAO;
-import com.plataforma.myp7.data.Empresa;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.plataforma.myp7.data.Empresa;
+import com.plataforma.myp7.mapper.EmpresaMapper;
+
+@Service
 public class EmpresaBO {
-	private EmpresaDAO empresaDAO;
 	
-	public EmpresaBO(){
-		this.empresaDAO = new EmpresaDAO();
-	}
+	@Autowired
+	private EmpresaMapper empresaMapper;
 	
 	public List<Empresa> selecionaTodos(){
-		return this.empresaDAO.selecionaTodos();
+		return this.empresaMapper.obterTodasEmpresas();
 	}
 }

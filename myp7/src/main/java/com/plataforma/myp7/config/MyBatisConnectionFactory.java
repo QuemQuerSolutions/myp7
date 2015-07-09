@@ -12,21 +12,21 @@ public class MyBatisConnectionFactory {
 	 
     private static SqlSessionFactory sqlSessionFactory;
  
-    static {
-        try {
-            Reader reader = Resources.getResourceAsReader("com/plataforma/myp7/config/SqlMapConfig.xml");
- 
-            if (sqlSessionFactory == null) {
-                sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        }
-        catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-    }
+//    static {
+//        try {
+//            Reader reader = Resources.getResourceAsReader("com/plataforma/myp7/config/SqlMapConfig.xml");
+// 
+//            if (sqlSessionFactory == null) {
+//                sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//            }
+//        }
+//        catch (FileNotFoundException fileNotFoundException) {
+//            fileNotFoundException.printStackTrace();
+//        }
+//        catch (IOException iOException) {
+//            iOException.printStackTrace();
+//        }
+//    }
  
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;

@@ -13,9 +13,9 @@ import com.plataforma.myp7.util.Utils;
 public class ProdutoDAO {
 	private SqlSession session;
 	
-	public ProdutoDAO(){
-		this.session = getConexao();
-	}
+//	public ProdutoDAO(){
+//		this.session = getConexao();
+//	}
 	
 	public List<Produto> obterTodos(){
 		this.session = getConexao();
