@@ -77,10 +77,28 @@ public class ProdutoBO {
 		return produtoDAO.obterProdutos(produto);	
 	}
 	
+	
+	
 	public Produto obterPorId(Long id){
 		Produto produto = produtoDAO.obterPorId(id);
 		NCM ncm = this.ncmDAO.obterNCMPorId(produto.getNcmProduto().getIdNcm());
 		produto.setNcmProduto(ncm);
 		return produto;
+	}
+	
+public List<Produto> consultaProdutoService(Produto produto) throws Exception{
+		
+	
+		Integer count = this.produtoDAO.count(produto);
+		
+		if(count == 0){
+			return null;
+		}
+		
+		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
+			return null;
+		}
+		
+		return produtoDAO.obterProdutos(produto);	
 	}
 }
