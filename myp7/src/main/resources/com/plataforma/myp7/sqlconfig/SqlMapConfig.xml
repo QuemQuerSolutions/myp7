@@ -16,27 +16,4 @@
         <typeAlias alias="NCM" 	type="com.plataforma.myp7.data.NCM"/>
     </typeAliases>
  
-<!--  	<environments default="development"> -->
-<!--         <environment id="development"> -->
-<!--           <transactionManager type="JDBC"/> -->
-<!--             <dataSource type="POOLED"> -->
-<!--                 <property name="driver" value="com.mysql.jdbc.Driver"/> -->
-<!--                 <property name="url" value="jdbc:mysql://localhost:3306/myp7db"/> -->
-<!--                 <property name="username" value="root"/> -->
-<!--                 <property name="password" value="nashuatec10"/> -->
-<!--             </dataSource> -->
-<!--        </environment> -->
-<!--     </environments>  -->
- 
-<!--     <mappers> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/UsuarioMapper.xml"/> -->
-<!-- 	   <mapper resource="com/plataforma/myp7/xml/HistoricoSenhaMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/ParametroMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/ParametroDominioMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/ParametroTipoMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/EmbalagemMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/ProdutoMapper.xml"/> -->
-<!--        <mapper resource="com/plataforma/myp7/xml/NcmMapper.xml"/> -->
-<!--     </mappers> -->
- 
 </configuration>

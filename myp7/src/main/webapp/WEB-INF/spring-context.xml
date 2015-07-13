@@ -15,14 +15,9 @@
 						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 						http://mybatis.org/schema/mybatis-spring 
 						http://mybatis.org/schema/mybatis-spring.xsd">
-	
-<!-- 	<mybatis:scan base-package="com.plataforma.myp7.mapper" /> -->
-	
-	
+
 	<context:component-scan base-package="com.plataforma.myp7" />
 	
-	<context:annotation-config />
-	  
 	<mvc:annotation-driven />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -57,8 +52,5 @@
          <!-- setting maximum upload size -->
         <property name="maxUploadSize" value="1000000" />
     </bean>
-
-
-	
 	
 </beans>
