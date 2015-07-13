@@ -3,11 +3,13 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.bo.NcmBO;
 
+@Alias("Produto")
 public class Produto implements Serializable{
 
 	private static final long serialVersionUID = 1L;

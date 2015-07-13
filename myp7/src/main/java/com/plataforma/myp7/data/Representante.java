@@ -1,7 +1,10 @@
 package com.plataforma.myp7.data;
 
+import org.apache.ibatis.type.Alias;
+
 import com.plataforma.myp7.bo.UsuarioBO;
 
+@Alias("Representante")
 public class Representante {
 	private Long idRepresentante;
 	private String apelido;

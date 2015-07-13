@@ -3,6 +3,9 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("HistoricoSenha")
 public class HistoricoSenha implements Serializable{
 	/**
 	 * 

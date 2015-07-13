@@ -1,5 +1,8 @@
 package com.plataforma.myp7.data;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Empresa")
 public class Empresa {
 	private Long idEmpresa;
 	private String nomeReduzido;

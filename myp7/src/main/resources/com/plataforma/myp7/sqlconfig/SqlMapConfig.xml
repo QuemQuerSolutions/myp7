@@ -6,14 +6,7 @@
 <configuration>
  
     <typeAliases>
-        <typeAlias alias="Usuario" type="com.plataforma.myp7.data.Usuario"/>
-        <typeAlias alias="Parametro" type="com.plataforma.myp7.data.Parametro"/>
-        <typeAlias alias="HistoricoSenha" type="com.plataforma.myp7.data.HistoricoSenha"/>
-        <typeAlias alias="ParametroDominio" type="com.plataforma.myp7.data.ParametroDominio"/>
-        <typeAlias alias="ParametroTipo" type="com.plataforma.myp7.data.ParametroTipo"/>
-        <typeAlias alias="Embalagem" type="com.plataforma.myp7.data.Embalagem"/>
-        <typeAlias alias="Produto" 	type="com.plataforma.myp7.data.Produto"/>
-        <typeAlias alias="NCM" 	type="com.plataforma.myp7.data.NCM"/>
+    	<package name="com.plataforma.myp7.data"/>
     </typeAliases>
  
 </configuration>

@@ -2,6 +2,9 @@ package com.plataforma.myp7.data;
 
 import java.io.Serializable;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Embalagem")
 public class Embalagem implements Serializable{
 	/**
 	 * 

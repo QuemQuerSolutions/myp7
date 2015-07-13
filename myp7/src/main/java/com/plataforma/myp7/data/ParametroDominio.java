@@ -2,6 +2,9 @@ package com.plataforma.myp7.data;
 
 import java.io.Serializable;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("ParametroDominio")
 public class ParametroDominio implements Serializable{
 	/**
 	 * 
