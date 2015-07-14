@@ -1,4 +1,4 @@
-package service;
+package com.plataforma.myp7.service;
 
 import java.util.List;
 
