@@ -76,7 +76,7 @@ public class ProdutoController {
 			
 			this.sucessoInsert = "Produto salvo com sucesso";
 		}catch(Exception e){
-			Utils.setMsgRetorno(model, "Falha na operaï¿½ï¿½o.");
+			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);
 			e.printStackTrace();
 		}
@@ -93,7 +93,7 @@ public class ProdutoController {
 			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
 			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
 		} catch (Exception e) {
-			Utils.setMsgRetorno(model, "Falha na operaï¿½ï¿½o.");
+			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);
 			e.printStackTrace();
 		}

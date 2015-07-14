@@ -13,7 +13,7 @@ public interface EmbalagemMapper {
 	
 	List<Embalagem> obterEmbalagens(Embalagem embalagem);
 	
-	int countEmbalagem(Embalagem embalagem);
+	int countEmbalagem(final Embalagem embalagem);
 	
 	void salvarEmbalagem(Embalagem embalagem);
 	

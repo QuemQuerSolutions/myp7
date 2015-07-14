@@ -6,16 +6,16 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("Embalagem")
 public class Embalagem implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 8876963048283964005L;
+
 	private Long idEmbalagem;
 	private String nomeEmbalagem;
 	private String siglaEmbalagem;
 	private Integer qtdEmbalagem;
 	private String nomeEmbalagemCompra;
+	
+	public Embalagem(){}
 	
 	public Long getIdEmbalagem() {
 		return idEmbalagem;

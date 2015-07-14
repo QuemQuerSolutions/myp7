@@ -1,6 +1,8 @@
 package com.plataforma.myp7.bo;
 
 import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.toLike;
+import static com.plataforma.myp7.util.Utils.cleanLike;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
@@ -25,18 +27,27 @@ public class EmbalagemBO {
 		Integer count = this.count(embalagem);
 		
 		if(count == 0){
+			cleanLikeEmbalagem(embalagem);
 			setMsgRetorno(model, "Nenhum registro localizado.");
 			setCodRetorno(model, -1);
 			return null;
 		}
 		
 		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
+			cleanLikeEmbalagem(embalagem);
 			setMsgRetorno(model, "Refine sua pesquisa.");
 			setCodRetorno(model, -1);
 			return null;
 		}
 		
-		return this.embalagemMapper.obterEmbalagens(embalagem);
+		List<Embalagem> lista = this.embalagemMapper.obterEmbalagens(embalagem);
+		cleanLikeEmbalagem(embalagem);
+		return lista;
+	}
+
+	private void cleanLikeEmbalagem(Embalagem embalagem) {
+		embalagem.setNomeEmbalagem(cleanLike(embalagem.getNomeEmbalagem()));
+		embalagem.setSiglaEmbalagem(cleanLike(embalagem.getSiglaEmbalagem()));
 	}
 	
 	public List<Embalagem> selecionaTodos(){
@@ -52,8 +63,8 @@ public class EmbalagemBO {
 	}
 	
 	private void corrigeParametros(Embalagem embalagem){
-		embalagem.setNomeEmbalagem(emptyToNull(embalagem.getNomeEmbalagem()));
-		embalagem.setSiglaEmbalagem(emptyToNull(embalagem.getSiglaEmbalagem().toUpperCase()));
+		embalagem.setNomeEmbalagem(emptyToNull(toLike(embalagem.getNomeEmbalagem())));
+		embalagem.setSiglaEmbalagem(emptyToNull(toLike(embalagem.getSiglaEmbalagem().toUpperCase())));
 	}
 	
 	public boolean isInsertValido(Embalagem embalagem, Model model){

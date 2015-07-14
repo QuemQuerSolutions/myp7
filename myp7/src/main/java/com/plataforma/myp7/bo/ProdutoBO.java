@@ -1,13 +1,16 @@
 package com.plataforma.myp7.bo;
 
+import static com.plataforma.myp7.util.Utils.cleanLike;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -22,7 +25,10 @@ import com.plataforma.myp7.util.Utils;
 @Service
 public class ProdutoBO {
 	
+	@Autowired
 	private ProdutoMapper produtoMapper;
+	
+	@Autowired
 	private NcmMapper ncmMapper;
 	
 	public boolean salvar(Produto produto, HttpSession session, Model model, String imagemAnterior) throws Exception {
@@ -57,22 +63,26 @@ public class ProdutoBO {
 	} 
 	
 	public List<Produto> obterProdutos(Produto produto, Model model) throws Exception{
-		
+		produto.setDesProduto(toLike(produto.getDesProduto()));
 		Integer count = this.produtoMapper.countProduto(produto);
 		
 		if(count == 0){
+			produto.setDesProduto(cleanLike(produto.getDesProduto()));
 			setMsgRetorno(model, "Nenhum registro localizado.");
 			setCodRetorno(model, -1);
 			return null;
 		}
 		
 		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
+			produto.setDesProduto(cleanLike(produto.getDesProduto()));
 			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
 			Utils.setCodRetorno(model, -1);
 			return null;
 		}
 		
-		return produtoMapper.obterProdutos(produto);	
+		List<Produto> lista = produtoMapper.obterProdutos(produto);
+		produto.setDesProduto(cleanLike(produto.getDesProduto()));
+		return 	lista;
 	}
 	
 	public Produto obterPorId(Long id){

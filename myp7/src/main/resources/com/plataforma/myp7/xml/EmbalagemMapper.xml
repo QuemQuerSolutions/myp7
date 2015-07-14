@@ -3,7 +3,7 @@
 
 <mapper namespace="com.plataforma.myp7.mapper.EmbalagemMapper">
 
-	<resultMap id="embalagemMap" type="com.plataforma.myp7.data.Embalagem">
+	<resultMap id="embalagemMap" type="Embalagem">
 		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
 		<result property="siglaEmbalagem"  		column="SIGLA_EMBALAGEM" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
@@ -22,8 +22,12 @@
 		ORDER BY SIGLA_EMBALAGEM,  QTD_EMBALAGEM
 	</select>
 
-	<select id="obterEmbalagens" resultMap="embalagemMap">
-		<include refid="selectEmbalagem"/>
+	<select id="obterEmbalagens" resultMap="embalagemMap" parameterType="Embalagem">
+<!-- 		<include refid="selectEmbalagem"/> -->
+		
+		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM, NOME_EMBALAGEM
+		FROM prd_embalagem
+		
 		WHERE 1=1
 		
 		<if test="qtdEmbalagem > 0">
@@ -34,19 +38,20 @@
 			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
 		</if>
 		<if test="nomeEmbalagem != null">
-			AND NOME_EMBALAGEM like #{nomeEmbalagem}
+			AND NOME_EMBALAGEM like #{nomeEmbalagem} 
 		</if>
 		ORDER BY SIGLA_EMBALAGEM,  QTD_EMBALAGEM
 	</select>
 	
-	<select id="countEmbalagem" parameterType="int" resultType="int">
+	<select id="countEmbalagem" resultType="int" parameterType="Embalagem">
 		SELECT COUNT(1) FROM prd_embalagem
 		WHERE 1=1
+		
 		<if test="siglaEmbalagem != null">
-			AND SIGLA_EMBALAGEM like #{siglaEmbalagem} 
+			AND SIGLA_EMBALAGEM like #{siglaEmbalagem}  
 		</if>
 		<if test="nomeEmbalagem != null">
-			AND NOME_EMBALAGEM like #{nomeEmbalagem}
+			AND NOME_EMBALAGEM like #{nomeEmbalagem} 
 		</if>
 	</select>	
 	
