@@ -14,6 +14,7 @@
 			FROM gbl_ncm
 		  ]]>
 	</sql>
+	
 	<select id="obterNcmPorCodigo" resultMap="ncmMap">
 		<include refid="selectNcm"/>
 		WHERE CODIGO_NCM = #{codNcm}
@@ -24,5 +25,4 @@
 		WHERE ID_NCM = #{idNcm}
 	</select>
 	
-
 </mapper>

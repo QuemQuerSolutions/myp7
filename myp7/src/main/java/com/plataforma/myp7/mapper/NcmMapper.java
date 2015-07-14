@@ -7,7 +7,7 @@ import com.plataforma.myp7.data.NCM;
 @Component
 public interface NcmMapper {
 	
-	NCM obterNcmPorCodigo(NCM ncm);
+	NCM obterNcmPorCodigo(NCM codNcm);
 	
 	NCM obterNcmPorId(Long idNcm);
 }

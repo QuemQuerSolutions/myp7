@@ -3,7 +3,7 @@
 
 <mapper namespace="com.plataforma.myp7.mapper.EmbalagemMapper">
 
-	<resultMap id="embalagemMap" type="Embalagem">
+	<resultMap id="embalagemMap" type="com.plataforma.myp7.data.Embalagem">
 		<id property="idEmbalagem" 				column="ID_EMBALAGEM"/>
 		<result property="siglaEmbalagem"  		column="SIGLA_EMBALAGEM" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />

@@ -1,5 +1,6 @@
 package com.plataforma.myp7.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class SenhaBO {
 	 * Método para validar se a senha esta de acordo com os parametros.
 	 */
 	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
-		List<Parametro> parametros = parametroMapper.obterParametro(dominio.getId());
+		List<Parametro> parametros;
+		try {
+			parametros = parametroMapper.obterParametro(dominio.getId());
+		} catch (Exception e) {
+			parametros = new ArrayList<Parametro>();
+		}
 		
 		boolean retorno = true;
 		for(Parametro parametro : parametros){
