@@ -93,17 +93,6 @@ public class ProdutoBO {
 	}
 	
 	public List<Produto> consultaProdutoService(Produto produto) throws Exception{
-		
-			Integer count = this.produtoMapper.countProduto(produto);
-			
-			if(count == 0){
-				return null;
-			}
-			
-			if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
-				return null;
-			}
-			
-			return produtoMapper.obterProdutos(produto);	
+			return this.produtoMapper.obterProdutos(produto);	
 		}
 	}
