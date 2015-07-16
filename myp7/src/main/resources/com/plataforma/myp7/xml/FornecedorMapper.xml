@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.FornecedorMapper">
+
+	<resultMap id="fornecedorMap" type="com.plataforma.myp7.data.Fornecedor">
+		<id property="idFornecedor" 			column="ID_FORNECEDOR"/>
+		<result property="statusFornecedor"  	column="STATUS" />
+		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
+	</resultMap>
+	<sql id="selectFornecedor">
+		<![CDATA[
+			SELECT ID_FORNECEDOR, STATUS, UTILIZA_TABCUSTO FROM frn_fornecedor
+		  ]]>
+	</sql>
+	
+	
+	
+	<select id="obterFornecedorPorId" resultMap="fornecedorMap">
+		<include refid="selectFornecedor"/>
+		WHERE ID_FORNECEDOR = #{idFornecedor}
+	</select>
+	
+	<select id="obterTodos" resultMap="fornecedorMap">
+		<include refid="selectFornecedor"/>
+	</select>
+	
+	
+</mapper>
