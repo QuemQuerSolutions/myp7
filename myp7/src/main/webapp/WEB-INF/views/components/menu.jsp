@@ -1,3 +1,5 @@
+<%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
+
 <div id="side-bar">
 	<div> 
 		<div id="title-menu" class="">
@@ -9,9 +11,10 @@
 	</div>
 	<div id="menu">
 		<ul id="menu-nav" class="box">
-			<li ><a href="Produto" target="_self"><span class="glyphicon glyphicon-plus"></span> &nbsp;Produto</a></li>
-	    	<li ><a href="Embalagem" target="_self"><span class="glyphicon glyphicon-barcode"></span> &nbsp;Embalagem</a></li>
-	    	<li ><a href="Configuracao" target="_self"><span class="glyphicon glyphicon-cog"></span> &nbsp;Configurações</a></li>
+			<myp7:itemMenu label="Produto" link="Produto" icon="glyphicon-plus" />
+			<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
+			<myp7:itemMenu label="Manutenção de Custos" link="ManutencaoCustos" icon="glyphicon-usd"/>
+			<myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
 		</ul>
 	</div>
 </div>

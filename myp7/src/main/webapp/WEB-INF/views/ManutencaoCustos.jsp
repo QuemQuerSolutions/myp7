@@ -1,12 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
+	<c:import url="components/imports.jsp" />
+	
+	
 <body>
+	<c:import url="components/header.jsp" />
+	<c:import url="components/menu.jsp" /> 
 
+	<div id="content">
+		<div id="content-title">
+			<h4>Manutenção de Custos</h4>
+		</div>
+		
+		<div id="content-header">
+		</div>
+		
+		<div id="content-body">
+			<table class="table table-hover table-bordered table-striped">
+				<thead>
+					<tr style="text-align: center">
+						<th>&nbsp;</th>
+						<th>Código</th>
+						<th>Descrição</th>
+						<th>Valor Anterior</th>
+						<th>Valor Novo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<c:import url="components/footer.jsp">
+		<c:param name="salvar" value="salvar" />
+	</c:import>
 </body>
 </html>
