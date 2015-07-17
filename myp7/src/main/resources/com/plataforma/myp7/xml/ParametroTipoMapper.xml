@@ -11,13 +11,13 @@
 	<sql id="selectParametroTipo">
 		<![CDATA[
 			SELECT id, descricao
+			FROM prm_parametro_tipo
 		  ]]>
 	</sql>
 	
 	<select id="obterPorId" resultMap="parametroTipoMap">
 		<include refid="selectParametroTipo"/>
-			SELECT id, descricao
-			FROM prm_parametro_tipo WHERE id = #{id}
+			 WHERE id = #{id}
 	</select>
 	
 </mapper>

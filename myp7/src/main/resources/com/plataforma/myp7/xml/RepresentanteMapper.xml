@@ -7,7 +7,7 @@
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
 		<result property="status"  			column="STATUS" />
 		<result property="apelido" 			column="APELIDO" />
-		<association property="usuario" 	column="ID_USUARIO"  javaType="Usuario" select="obterUsuarioPorId"/>
+		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
 
 	<sql id="selectRepresentante">

@@ -8,13 +8,12 @@
 		<result property="statusFornecedor"  	column="STATUS" />
 		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
 	</resultMap>
+
 	<sql id="selectFornecedor">
 		<![CDATA[
 			SELECT ID_FORNECEDOR, STATUS, UTILIZA_TABCUSTO FROM frn_fornecedor
 		  ]]>
 	</sql>
-	
-	
 	
 	<select id="obterFornecedorPorId" resultMap="fornecedorMap">
 		<include refid="selectFornecedor"/>

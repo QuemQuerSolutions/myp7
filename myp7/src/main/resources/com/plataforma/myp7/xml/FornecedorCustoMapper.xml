@@ -8,8 +8,8 @@
 		<result property="idEmpresa"  		column="ID_EMPRESA" />
 		<result property="valor"  			column="VALOR" />
 		<result property="idRepresentante"  column="ID_REPRESENTANTE" />
-		<association property="fornecedor" 	column="ID_FORNECEDOR"  javaType="Fornecedor" select="obterFornecedorPorId"/>
-		<association property="produto" 	column="ID_PRODUTO"  javaType="Produto" select="obterProdutoPorId"/>
+		<association property="fornecedor" 	column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
+		<association property="produto" 	column="ID_PRODUTO" select="com.plataforma.myp7.mapper.ProdutoMapper.obterProdutoPorId"/>
 	</resultMap>
 	
 	<sql id="selectFornecedorCusto">
@@ -24,19 +24,6 @@
 		<include refid="selectFornecedorCusto"/>
 	</select>
 	
-	<select id="obterFornecedorPorId" resultType="Fornecedor">
-		SELECT ID_FORNECEDOR, STATUS, UTILIZA_TABCUSTO 
-		FROM frn_fornecedor
-		WHERE ID_FORNECEDOR = #{fornecedor}
-	</select>	
-	
-	<select id="obterProdutoPorId" resultType="Produto">
-		SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
-		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
-		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
-		FROM prd_usuario_produto
-		WHERE ID_PRODUTO=#{produto}
-	</select>	
 </mapper>
 
 
