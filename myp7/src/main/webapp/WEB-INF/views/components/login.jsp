@@ -80,7 +80,7 @@ function login(){
 						  </span>
 						  <input type="password" class="form-control campo-login" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
 						</div>
-						<button type="button" class="btn btn-link paddingleft0" id="btnCadastrar">Cadastre-se </button>
+<!-- 						<button type="button" class="btn btn-link paddingleft0" id="btnCadastrar">Cadastre-se </button> -->
 					</div>
 					
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
