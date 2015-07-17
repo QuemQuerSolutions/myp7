@@ -15,9 +15,9 @@
 		<result property="caminhoImagem"		column="IMAGEM_PRODUTO" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
 		<result property="eanDunProduto" 		column="EANDUN" />
-		<association property="usuario" 		resultMap="usuarioMap" />
-		<association property="ncmProduto" 		resultMap="ncmMap"	/>
-		<association property="embalagem"		resultMap="embalagemProdutoMap" />
+		<association property="usuario" 		column="ID_USUARIO"		javaType="Usuario" 		select="obterUsuarioPorId"/>
+		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" 			select="obterNCMporId"/>
+		<association property="embalagem"		column="ID_EMBALAGEM" 	javaType="Embalagem" 	select="obterEmbalagemPorIdP"/>
 	</resultMap>
 	
 	<resultMap id="ncmMap" type="NCM">
@@ -102,20 +102,20 @@
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
 	
-	<select id="obterNCMporId" resultMap="ncmMap">	
+	<select id="obterNCMporId" resultType="NCM">	
 		SELECT ID_NCM, CODIGO_NCM FROM gbl_ncm
-		WHERE ID_NCM = #{ncmProduto.idNcm}
+		WHERE ID_NCM = #{ncmProduto}
 	</select>
 	
-	<select id="obterUsuarioPorId" resultMap="ncmMap">
+	<select id="obterUsuarioPorId" resultType="Usuario">
 		   SELECT ID_USUARIO
 			 FROM USU_USUARIO
-			WHERE ID_USUARIO=#{usuario.idUsuario}
+			WHERE ID_USUARIO=#{usuario}
 	</select>
 	
-	<select id="obterEmbalagemPorIdP" resultMap="embalagemProdutoMap">
+	<select id="obterEmbalagemPorIdP" resultType="Embalagem">
 		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
 			FROM prd_embalagem
-		WHERE ID_EMBALAGEM=#{embalagem.idEmbalagem} 
+		WHERE ID_EMBALAGEM=#{embalagem} 
 	</select>
 </mapper>

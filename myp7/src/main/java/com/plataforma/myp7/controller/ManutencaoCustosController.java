@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.EmpresaBO;
+import com.plataforma.myp7.bo.FornecedorCustoBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
 
 @Controller
@@ -22,11 +24,16 @@ public class ManutencaoCustosController {
 	@Autowired
 	private RepresentanteBO representanteBO;
 	
+	@Autowired
+	private FornecedorCustoBO fornecedorCustoBO;
+	
 	@RequestMapping("ManutencaoCustos")
 	public String inicio(HttpSession session, Model model){
 		this.carregaComboEmpresas(model);
 		this.carregaComboRepresentantes(model);
 		this.carregaComboFiltro(model);
+		this.consulta(model);
+		
 		return "ManutencaoCustos";
 	}
 	
@@ -44,5 +51,14 @@ public class ManutencaoCustosController {
 		filtro.put(2, "EAN/DUN");
 		
 		model.addAttribute("filtros", filtro);
+	}
+	
+	@RequestMapping("consulta")
+	public @ResponseBody void consultaAJAX(Model model) {
+		this.consulta(model);
+	}
+
+	private void consulta(Model model) {
+		model.addAttribute("fornecedorCusto", this.fornecedorCustoBO.seleciona());
 	}
 }

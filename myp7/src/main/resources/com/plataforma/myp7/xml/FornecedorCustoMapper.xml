@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.FornecedorCustoMapper">
+
+	<resultMap id="fornecedorCustoMap" type="com.plataforma.myp7.data.FornecedorCusto">
+		<id property="idTabCustoFornecedor" column="ID_TAB_CUSTO_FORNECEDOR" />
+		<result property="idEmpresa"  		column="ID_EMPRESA" />
+		<result property="valor"  			column="VALOR" />
+		<result property="idRepresentante"  column="ID_REPRESENTANTE" />
+		<association property="fornecedor" 	column="ID_FORNECEDOR"  javaType="Fornecedor" select="obterFornecedorPorId"/>
+		<association property="produto" 	column="ID_PRODUTO"  javaType="Produto" select="obterProdutoPorId"/>
+	</resultMap>
+	
+	<sql id="selectFornecedorCusto">
+		<![CDATA[
+			SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
+			ID_PRODUTO, VALOR, ID_REPRESENTANTE 
+			FROM tab_custo_fornecedor
+		  ]]>
+	</sql>
+	
+	<select id="obterTodos" resultMap="fornecedorCustoMap">
+		<include refid="selectFornecedorCusto"/>
+	</select>
+	
+	<select id="obterFornecedorPorId" resultType="Fornecedor">
+		SELECT ID_FORNECEDOR, STATUS, UTILIZA_TABCUSTO 
+		FROM frn_fornecedor
+		WHERE ID_FORNECEDOR = #{fornecedor}
+	</select>	
+	
+	<select id="obterProdutoPorId" resultType="Produto">
+		SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
+		FROM prd_usuario_produto
+		WHERE ID_PRODUTO=#{produto}
+	</select>	
+</mapper>
+
+

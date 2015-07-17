@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Forncedor")
+@Alias("Fornecedor")
 public class Fornecedor implements Serializable{
 	/**
 	 * 
@@ -21,11 +21,11 @@ public class Fornecedor implements Serializable{
 	public void setIdFornecedor(Long idFornecedor) {
 		this.idFornecedor = idFornecedor;
 	}
-	public String getStatusForncedor() {
+	public String getStatusFornecedor() {
 		return statusFornecedor;
 	}
-	public void setStatusForncedor(String statusForncedor) {
-		this.statusFornecedor = statusForncedor;
+	public void setStatusFornecedor(String statusFornecedor) {
+		this.statusFornecedor = statusFornecedor;
 	}
 	public String getUtilTabCustoFornc() {
 		return utilTabCustoFornc;

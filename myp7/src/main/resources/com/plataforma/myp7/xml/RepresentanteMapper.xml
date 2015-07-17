@@ -13,7 +13,7 @@
 	<sql id="selectRepresentante">
 		<![CDATA[
 			SELECT ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO
-			FROM frn_Representante
+			FROM rpr_Representante
 		  ]]>
 	</sql>
 	

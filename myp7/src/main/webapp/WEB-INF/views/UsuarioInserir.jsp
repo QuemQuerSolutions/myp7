@@ -85,7 +85,7 @@ $(document).ready(function() {
 		<div class="modal-content">
 			<div class="modal-header theme-orange">
 				<button type="button" class="close" data-dismiss="modal" id="fechar" >&times;</button>
-				<h4 class="modal-title">Cadastro no Portal Forncedor</h4>
+				<h4 class="modal-title">Cadastro no Portal Fornecedor</h4>
 			</div>
 			<div class="modal-body">
 				<form action="cadastroUsuario" id="frmCadastroModal" method="POST">
