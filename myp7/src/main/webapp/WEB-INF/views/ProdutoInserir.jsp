@@ -61,6 +61,7 @@ function validaNcm(){
         success : function(data) {
         	if(data == "false"){
         		alerta("NCM não encontrado.", "warning");
+        		addRequired("#divncm");
         	}else{
 	       	 	if(!validaCamposObrigatorios()){
 	        		alerta("Favor preencher os campos obrigatórios.", "warning");

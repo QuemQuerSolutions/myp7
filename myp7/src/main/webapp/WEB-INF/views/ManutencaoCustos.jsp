@@ -20,7 +20,6 @@
 			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr style="text-align: center">
-						<th>&nbsp;</th>
 						<th>Código</th>
 						<th>Descrição</th>
 						<th>Valor Anterior</th>
@@ -29,7 +28,6 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>

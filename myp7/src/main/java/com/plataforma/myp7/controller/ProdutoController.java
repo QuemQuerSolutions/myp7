@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.EmbalagemBO;
+import com.plataforma.myp7.bo.NcmBO;
 import com.plataforma.myp7.bo.ProdutoBO;
+import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
@@ -29,6 +31,9 @@ public class ProdutoController {
 	
 	@Autowired
 	private EmbalagemBO embalagemBO;
+	
+	@Autowired
+	private NcmBO ncmBO;
 	
 	private String sucessoInsert;
 	private String imagemAnterior;
@@ -66,7 +71,6 @@ public class ProdutoController {
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model, HttpServletRequest req){
 		try{
-			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
 			
 			if(!this.produtoBO.salvar(produto, session, model, imagemAnterior)){
 				this.carregaSelectEmbalagem(model);
@@ -103,7 +107,7 @@ public class ProdutoController {
 	@RequestMapping("validaNcm")
 	public @ResponseBody String validaNcmAjax(String ncm, Model model) {
 		Produto produto = new Produto();
-		produto.setNcmProdutoST(ncm);
+		produto.setNcmProduto(this.ncmBO.selecionaPorCodigo(new NCM(ncm)));
 		
 		if(this.produtoBO.isInsertValido(produto, model)){
 			return "true";

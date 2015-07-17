@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.plataforma.myp7.bo.EmbalagemBO;
-import com.plataforma.myp7.bo.NcmBO;
-
 @Alias("Produto")
 public class Produto implements Serializable{
 
@@ -29,6 +26,11 @@ public class Produto implements Serializable{
 	private NCM ncmProduto;
 	private Embalagem embalagem;
 	private Usuario usuario;
+	
+	public Produto(){
+		ncmProduto = new NCM();
+		embalagem = new Embalagem();
+	}
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -151,13 +153,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setNcmProdutoST(String ncmProdutoST) {
-		NCM ncm = new NCM();
-		ncm.setCodNcm(ncmProdutoST);
-		try{
-			this.ncmProduto = new NcmBO().selecionaPorCodigo(ncm);
-		}catch(Exception e){
-			e.printStackTrace();
-		}		
+		this.ncmProduto.setCodNcm(ncmProdutoST);
 	}	
 	
 	public Embalagem getEmbalagem() {
@@ -177,11 +173,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setEmbalagemST(String embalagemST) {
-		try{
-			this.embalagem = new EmbalagemBO().selecionaPorId(Long.parseLong(embalagemST));
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
+		this.embalagem.setIdEmbalagem(Long.parseLong(embalagemST));
 	}
 
 	public Integer getQtdEmbalagem() {

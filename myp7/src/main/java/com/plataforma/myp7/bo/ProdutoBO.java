@@ -31,17 +31,21 @@ public class ProdutoBO {
 	@Autowired
 	private NcmMapper ncmMapper;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
+	
 	public boolean salvar(Produto produto, HttpSession session, Model model, String imagemAnterior) throws Exception {
 		if(this.isInsertValido(produto, model)){
 			try{
-				Upload up = new Upload();
-				String imagemAtual = up.armazenar(session, produto).getName();
-				produto.setCaminhoImagem(imagemAtual.equals("")?imagemAnterior:imagemAtual);
+				this.setCaminhoImagem(produto, session, imagemAnterior);
+				produto.setUsuario(this.usuarioBO.getUserSession(session));
+				produto.setNcmProduto(this.ncmMapper.obterNcmPorCodigo(produto.getNcmProduto()));
 				
-				//remove o arquivo se nao houver id e se a imagem nao for a mesma.
-				if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
-					Utils.removeArquivo(session,imagemAnterior);
-				this.produtoMapper.salvarProduto(produto);
+				if(Objects.isNull(produto.getIdProduto()))
+					this.produtoMapper.salvarProduto(produto);
+				else
+					this.produtoMapper.atualizaProduto(produto);
+				
 				return true;
 			}catch(Exception e){ 
 				e.printStackTrace();
@@ -51,6 +55,16 @@ public class ProdutoBO {
 		//se o retorno do insert não for valido ele pega o caminho da ultima imagem
 		produto.setCaminhoImagem(imagemAnterior);
 		return false;
+	}
+
+	private void setCaminhoImagem(Produto produto, HttpSession session,	String imagemAnterior) {
+		Upload up = new Upload();
+		String imagemAtual = up.armazenar(session, produto).getName();
+		produto.setCaminhoImagem(imagemAtual.equals("")?imagemAnterior:imagemAtual);
+		
+		//remove o arquivo se nao houver id e se a imagem nao for a mesma.
+		if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
+			Utils.removeArquivo(session,imagemAnterior);
 	}
 
 	public boolean isInsertValido(Produto produto, Model model) {

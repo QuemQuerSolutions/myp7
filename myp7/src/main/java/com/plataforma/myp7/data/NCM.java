@@ -15,6 +15,12 @@ public class NCM implements Serializable{
 	private String codNcm;
 	private String descNcm;
 	
+	public NCM(){}
+	
+	public NCM(String codNcm){
+		this.codNcm = codNcm;
+	}
+	
 	public Long getIdNcm() {
 		return idNcm;
 	}

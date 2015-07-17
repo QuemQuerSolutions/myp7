@@ -15,9 +15,10 @@
 		<result property="caminhoImagem"		column="IMAGEM_PRODUTO" />
 		<result property="qtdEmbalagem" 		column="QTD_EMBALAGEM" />
 		<result property="eanDunProduto" 		column="EANDUN" />
-		<association property="usuario" 		column="ID_USUARIO"		javaType="Usuario" 		select="obterUsuarioPorId"/>
-		<association property="ncmProduto" 		column="ID_NCM" 		javaType="NCM" 			select="obterNCMporId"/>
-		<association property="embalagem"		column="ID_EMBALAGEM" 	javaType="Embalagem" 	select="obterEmbalagemPorIdP"/>
+		
+		<association property="usuario" 		column="ID_USUARIO"	select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
+		<association property="ncmProduto" 		column="ID_NCM"	select="com.plataforma.myp7.mapper.NcmMapper.obterNcmPorId"/>
+		<association property="embalagem"		column="ID_EMBALAGEM" select="com.plataforma.myp7.mapper.EmbalagemMapper.obterEmbalagemPorId"/>
 	</resultMap>
 	
 	<resultMap id="ncmMap" type="NCM">
@@ -102,20 +103,4 @@
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
 	
-	<select id="obterNCMporId" resultType="NCM">	
-		SELECT ID_NCM, CODIGO_NCM FROM gbl_ncm
-		WHERE ID_NCM = #{ncmProduto}
-	</select>
-	
-	<select id="obterUsuarioPorId" resultType="Usuario">
-		   SELECT ID_USUARIO
-			 FROM USU_USUARIO
-			WHERE ID_USUARIO=#{usuario}
-	</select>
-	
-	<select id="obterEmbalagemPorIdP" resultType="Embalagem">
-		SELECT ID_EMBALAGEM, SIGLA_EMBALAGEM, QTD_EMBALAGEM,NOME_EMBALAGEM
-			FROM prd_embalagem
-		WHERE ID_EMBALAGEM=#{embalagem} 
-	</select>
 </mapper>

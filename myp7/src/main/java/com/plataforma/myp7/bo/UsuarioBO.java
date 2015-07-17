@@ -34,6 +34,10 @@ public class UsuarioBO {
 		}
 	}
 	
+	public Usuario getUserSession(HttpSession session){
+		return (Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor());
+	}
+	
 	public void inserir(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		if(this.isValidInsert(usuario, model)){
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
