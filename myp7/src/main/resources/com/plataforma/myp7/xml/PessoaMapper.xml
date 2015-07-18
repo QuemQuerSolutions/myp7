@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.PessoaMapper">
+
+	<resultMap id="pessoaMap" type="com.plataforma.myp7.data.Pessoa">
+		<id property="idPessoa" 					column="ID_PESSOA"/>
+		<result property="razao" 					column="RAZAO"/>
+		<result property="fantasia" 				column="FANTASIA"/>
+		<result property="fisicaJuridica" 			column="FISICA_JURIDICA"/>
+		<result property="sexo" 					column="SEXO"/>
+		<result property="cep" 						column="CEP"/>
+		<result property="cidade" 					column="CIDADE"/>
+		<result property="uf" 						column="UF"/>
+		<result property="bairro" 					column="BAIRRO"/>
+		<result property="logradouro" 				column="LOGRADOURO"/>
+		<result property="logradouroNro" 			column="LOGRADOURO_NRO"/>
+		<result property="logradrouroCompl" 		column="LOGRADROURO_COMPL"/>
+		<result property="fone1" 					column="FONE1"/>
+		<result property="fone2" 					column="FONE2"/>
+		<result property="fone3" 					column="FONE3"/>
+		<result property="nroCpfCnpj" 				column="NRO_CPF_CNPJ"/>
+		<result property="digCpfCnpj" 				column="DIG_CPF_CNPJ"/>
+		<result property="nroRgInscrEstadual" 		column="NRO_RG_INSCR_ESTADUAL"/>
+	</resultMap>
+	
+	<resultMap type="java.lang.String" id="ufString">
+     	<result property="uf" 						column="UF"/>
+  	</resultMap>
+
+	<sql id="selectPessoa">
+		<![CDATA[
+			SELECT ID_PESSOA, RAZAO, FANTASIA, FISICA_JURIDICA, SEXO, CEP,
+			CIDADE, UF, BAIRRO, LOGRADOURO, LOGRADOURO_NRO, LOGRADROURO_COMPL,
+			FONE1, FONE2, FONE3, NRO_CPF_CNPJ, DIG_CPF_CNPJ, NRO_RG_INSCR_ESTADUAL,
+			FROM emp_empresa
+		  ]]>
+	</sql>
+	
+	<select id="obterTodasPessoas" resultMap="pessoaMap">
+		<include refid="selectPessoa"/>
+		ORDER BY ID_PESSOA
+	</select>
+	
+	<select id="obterPessoaPorId" resultMap="pessoaMap">
+		<include refid="selectPessoa"/>
+		WHERE ID_PESSOA = #{id}
+	</select>
+	
+	<select id="obterTodasUF" resultMap="ufString">
+		SELECT p.uf 
+		  FROM gbl_pessoa p, emp_empresa e 
+		 WHERE p.id_pessoa = e.id_pessoa
+		 ORDER BY p.uf
+	</select>
+</mapper>

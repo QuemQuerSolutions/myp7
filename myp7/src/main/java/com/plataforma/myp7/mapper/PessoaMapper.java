@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.plataforma.myp7.data.Empresa;
 
 @Component
-public interface EmpresaMapper {
+public interface PessoaMapper {
 
-	List<Empresa> obterTodasEmpresas();
+	List<String> obterTodasUF();
 }

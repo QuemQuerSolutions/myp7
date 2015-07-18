@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 public class Empresa {
 	private Long idEmpresa;
 	private String nomeReduzido;
-	private Long idPessoa;
+	private Pessoa pessoa;
 	
 	public Long getIdEmpresa() {
 		return idEmpresa;
@@ -24,11 +24,11 @@ public class Empresa {
 		this.nomeReduzido = nomeReduzido;
 	}
 	
-	public Long getIdPessoa() {
-		return idPessoa;
+	public Pessoa getIdPessoa() {
+		return pessoa;
 	}
 	
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setIdPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 }

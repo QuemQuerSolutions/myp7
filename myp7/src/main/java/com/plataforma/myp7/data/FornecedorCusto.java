@@ -40,6 +40,15 @@ public class FornecedorCusto {
 	public BigDecimal getValor() {
 		return valor;
 	}
+	public String getValorFormatado() {
+		try{
+			String valorS = valor.toString();
+			valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1].subSequence(0,2);
+			return valorS;
+		}catch(Exception e){
+			return "0,00";
+		}
+	}	
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}

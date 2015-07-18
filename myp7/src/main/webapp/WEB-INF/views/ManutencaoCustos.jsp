@@ -22,7 +22,7 @@
 						<label for="fornecedor" class="control-label">Fornecedor</label>
 					</div>
 					<div class="col-md-2">
-						<label for="uf" class="control-label">UF</label>
+						<label for="uf" class="control-label">-</label>
 					</div>
 					<div class="col-md-6">
 						<label for="empresa" class="control-label">Empresa</label>
@@ -33,18 +33,25 @@
 					<div class="col-md-4">
 						<select id="fornecedor" name="fornecedor" class="form-control" autofocus="autofocus">
 				  			<option value="-1">Selecione um Fornecedor</option>
-				  			<option value="1">Mock</option>
-				  			<option value="2">Outro mock</option>
+				  			<c:forEach var="representante" items="${representantes}">
+				  				<option value="${representante.idRepresentante}">${representante.apelido}</option>
+   							</c:forEach>				  			
 				  		</select>
 					</div>
 					<div class="col-md-2">
-						<myp7:uf />
+						<select id="uf" name="uf" class="form-control" autofocus="autofocus">
+				  			<option value="-1">-</option>
+				  			<c:forEach var="uf" items="${ufs}">
+				  				<option value="${uf}">${uf}</option>
+   							</c:forEach>				  			
+				  		</select>
 					</div>
 					<div class="col-md-6">
 						<select id="empresa" name="empresa" class="form-control">
 				  			<option value="-1">Selecione uma Empresa</option>
-				  			<option value="1">Mock emp</option>
-				  			<option value="2">Outro mock emp</option>
+				  			<c:forEach var="empresa" items="${empresas}">
+				  				<option value="${empresa.idEmpresa}">${empresa.nomeReduzido}</option>
+   							</c:forEach>
 				  		</select>
 					</div>
 				</div>
@@ -120,12 +127,14 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<c:forEach var="lista" items="${fornecedorCusto}">
+							<td>${lista.produto.idProduto}</td>
+							<td>${lista.produto.desProduto}</td>
+							<td>${lista.valorFormatado}</td>
 						<td>
 					    	<input type="text" class="form-control" id="valorNovo" name="valorNovo" maxlength="10" />
 						</td>
+						</c:forEach>
 					</tr>
 				</tbody>
 			</table>
