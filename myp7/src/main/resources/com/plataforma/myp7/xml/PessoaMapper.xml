@@ -33,13 +33,24 @@
 			SELECT ID_PESSOA, RAZAO, FANTASIA, FISICA_JURIDICA, SEXO, CEP,
 			CIDADE, UF, BAIRRO, LOGRADOURO, LOGRADOURO_NRO, LOGRADROURO_COMPL,
 			FONE1, FONE2, FONE3, NRO_CPF_CNPJ, DIG_CPF_CNPJ, NRO_RG_INSCR_ESTADUAL,
-			FROM emp_empresa
+			FROM gbl_pessoa
 		  ]]>
 	</sql>
 	
 	<select id="obterTodasPessoas" resultMap="pessoaMap">
 		<include refid="selectPessoa"/>
 		ORDER BY ID_PESSOA
+	</select>
+	
+	<select id="obterPessoaCodNome" resultMap="pessoaMap">
+		<include refid="selectPessoa" />
+		WHERE 1=1
+		<if test="idPessoa != null">
+			AND ID_PESSOA=#{idPessoa}
+		</if>
+		<if test="fantasia != null">
+			AND DESCRICAO like #{fantasia}
+		</if>
 	</select>
 	
 	<select id="obterPessoaPorId" resultMap="pessoaMap">

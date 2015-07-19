@@ -12,4 +12,6 @@ public interface FornecedorMapper {
 	Fornecedor obterFornecedorPorId(Long idFornecedor);
 
 	List<Fornecedor> obterTodos();
+	
+	void inserir(Fornecedor fornecedor);
 }

@@ -17,4 +17,8 @@ public class FornecedorBO {
 	public List<Fornecedor> obterTodos(){
 		return this.fornecedorMapper.obterTodos();
 	}
+	
+	public void inserir(Fornecedor fornecedor){
+		this.fornecedorMapper.inserir(fornecedor);
+	}
 }

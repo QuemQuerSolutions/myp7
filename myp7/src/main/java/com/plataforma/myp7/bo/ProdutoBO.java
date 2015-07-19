@@ -107,6 +107,10 @@ public class ProdutoBO {
 	}
 	
 	public List<Produto> consultaProdutoService(Produto produto) throws Exception{
-			return this.produtoMapper.obterProdutos(produto);	
-		}
+		return this.produtoMapper.obterProdutos(produto);	
 	}
+
+	public void inserirProdutoService(Produto produto) throws Exception{
+		this.produtoMapper.salvarProduto(produto);
+	}
+}

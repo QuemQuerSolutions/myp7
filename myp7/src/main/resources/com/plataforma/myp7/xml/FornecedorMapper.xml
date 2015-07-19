@@ -25,4 +25,12 @@
 	</select>
 	
 	
+	<insert id="inserir" keyProperty="ID_FORNECEDOR" keyColumn="ID_FORNECEDOR" useGeneratedKeys="true">
+		insert into frn_fornecedor
+			(STATUS, UTILIZA_TABCUSTO) 
+		VALUES 
+			(#{statusFornecedor}, #{utilTabCustoFornc})
+	</insert>
+	
+	
 </mapper>

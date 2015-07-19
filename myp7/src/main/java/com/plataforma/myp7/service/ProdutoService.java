@@ -1,5 +1,7 @@
 package com.plataforma.myp7.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,7 @@ import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.data.Produto;
 
 @Controller
-@RequestMapping("/produto")
+@RequestMapping("/wsproduto")
 public class ProdutoService {
 	private Gson gson;
 	
@@ -35,6 +37,39 @@ public class ProdutoService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public String inserirProduto(@RequestParam(value="idUsuario", required=true)Long idUsuario,
+								 @RequestParam(value="descricaoProd", required=true) String descProd,
+								 @RequestParam(value="codIndProd", required=true) String codIndProd,
+								 @RequestParam(value="pesoBruto", required=true) BigDecimal pesoBruto,
+								 @RequestParam(value="pesoLiquido", required=true) BigDecimal pesoLiquido,
+								 @RequestParam(value="alturaProd", required=true) BigDecimal alturaProd, 
+								 @RequestParam(value="profundidadeProd", required=true) BigDecimal profundidade,
+								 @RequestParam(value="idNcmProd", required=true) Long idNcmProd,
+								 @RequestParam(value="idEmbalagemProd", required=true) Long idEmbalagem,
+								 @RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,
+								 @RequestParam(value="eandun", required=true)String eandun){
+		Produto produto = new Produto();
+		String mensagemRetorno = "";
+		try{
+			produto.getUsuario().setIdUsuario(idUsuario);
+			produto.setDesProduto(descProd);
+			produto.setCodIndustria(codIndProd);
+			produto.setPesoBruto(pesoBruto);
+			produto.setPesoLiquido(pesoLiquido);
+			produto.setAlturaProduto(alturaProd);
+			produto.setProfunProduto(profundidade);
+			produto.getNcmProduto().setIdNcm(idNcmProd);
+			produto.getEmbalagem().setIdEmbalagem(idEmbalagem);
+			produto.setQtdEmbalagem(qtdEmbalagem);
+			produto.setEanDunProduto(eandun);
+			this.produtoBO.inserirProdutoService(produto);
+			mensagemRetorno = "Produto salvo com sucesso.";
+		} catch (Exception e) {
+			mensagemRetorno = "Erro na inserção do produto.";
+		}
+		return this.gson.toJson(mensagemRetorno);
 	}
 	
 	
