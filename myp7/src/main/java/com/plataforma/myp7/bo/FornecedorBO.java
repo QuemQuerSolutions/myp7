@@ -18,7 +18,7 @@ public class FornecedorBO {
 		return this.fornecedorMapper.obterTodos();
 	}
 	
-	public void inserir(Fornecedor fornecedor){
-		this.fornecedorMapper.inserir(fornecedor);
+	public void inserir(Fornecedor fornecedor) throws Exception{
+		this.fornecedorMapper.inserirFornecedor(fornecedor);
 	}
 }

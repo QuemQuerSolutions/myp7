@@ -13,5 +13,5 @@ public interface FornecedorMapper {
 
 	List<Fornecedor> obterTodos();
 	
-	void inserir(Fornecedor fornecedor);
+	void inserirFornecedor(Fornecedor fornecedor);
 }

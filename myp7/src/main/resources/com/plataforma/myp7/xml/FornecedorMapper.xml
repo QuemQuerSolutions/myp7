@@ -4,7 +4,7 @@
 <mapper namespace="com.plataforma.myp7.mapper.FornecedorMapper">
 
 	<resultMap id="fornecedorMap" type="com.plataforma.myp7.data.Fornecedor">
-		<id property="idFornecedor" 			column="ID_FORNECEDOR"/>
+		<id property="idFornecedor" 			column="ID_FORNECEDOR" />
 		<result property="statusFornecedor"  	column="STATUS" />
 		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
 	</resultMap>
@@ -25,8 +25,8 @@
 	</select>
 	
 	
-	<insert id="inserir" keyProperty="ID_FORNECEDOR" keyColumn="ID_FORNECEDOR" useGeneratedKeys="true">
-		insert into frn_fornecedor
+	<insert id="inserirFornecedor">
+		INSERT INTO frn_fornecedor
 			(STATUS, UTILIZA_TABCUSTO) 
 		VALUES 
 			(#{statusFornecedor}, #{utilTabCustoFornc})

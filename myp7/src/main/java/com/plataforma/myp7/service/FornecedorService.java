@@ -11,7 +11,7 @@ import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
 
 @Controller
-@RequestMapping("/fornecedor")
+@RequestMapping("/wsfornecedor")
 public class FornecedorService {
 	
 	@Autowired
@@ -35,6 +35,10 @@ public class FornecedorService {
 	    Fornecedor fornecedor = new Fornecedor();
 	    fornecedor.setStatusFornecedor(status);
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
-		this.fornecedorBO.inserir(fornecedor);
+		try {
+			this.fornecedorBO.inserir(fornecedor);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
