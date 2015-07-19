@@ -1,7 +1,6 @@
 package com.plataforma.myp7.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ import com.plataforma.myp7.data.Produto;
 public class ProdutoService {
 	private Gson gson;
 	
+	private String mensagemRetorno;
+	
 	public ProdutoService() {
 		this.gson = new Gson();
 	}
@@ -30,12 +31,12 @@ public class ProdutoService {
 	public String consultaProduto(@RequestParam(value="id", required=false, defaultValue="0")Long id
 								 ,@RequestParam(value="descricao", required=false, defaultValue="") String desc){
 		try {
+			mensagemRetorno = "Nenhum Registro encontrado!";
 			Produto produto = new Produto();
 			produto.setIdProduto(id);
 			produto.setDesProduto("".equals(desc)?null :desc);
-			List<Produto> lstProduto = new ArrayList<Produto>();
-			lstProduto = this.produtoBO.consultaProdutoService(produto);
-			return gson.toJson(lstProduto);
+			List<Produto> lstProduto= this.produtoBO.consultaProdutoService(produto);
+			return gson.toJson(lstProduto.size()==0?mensagemRetorno:lstProduto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,7 +56,8 @@ public class ProdutoService {
 								 @RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,
 								 @RequestParam(value="eandun", required=true)String eandun){
 		Produto produto = new Produto();
-		String mensagemRetorno = "";
+		
+		mensagemRetorno = "";
 		try{
 			produto.getUsuario().setIdUsuario(idUsuario);
 			produto.setDesProduto(descProd);
