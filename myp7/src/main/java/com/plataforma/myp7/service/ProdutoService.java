@@ -1,6 +1,8 @@
 package com.plataforma.myp7.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +32,11 @@ public class ProdutoService {
 		try {
 			Produto produto = new Produto();
 			produto.setIdProduto(id);
-			produto.setDesProduto(desc);
+			produto.setDesProduto("".equals(desc)?null :desc);
+			List<Produto> lstProduto = new ArrayList<Produto>();
+			lstProduto = this.produtoBO.consultaProdutoService(produto);
+			return gson.toJson(lstProduto);
 			
-			return this.gson.toJson(produtoBO.consultaProdutoService(produto));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,6 +69,7 @@ public class ProdutoService {
 			produto.setQtdEmbalagem(qtdEmbalagem);
 			produto.setEanDunProduto(eandun);
 			this.produtoBO.inserirProdutoService(produto);
+			
 			mensagemRetorno = "Produto salvo com sucesso.";
 		} catch (Exception e) {
 			mensagemRetorno = "Erro na inserção do produto.";

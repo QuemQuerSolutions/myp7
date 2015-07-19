@@ -5,6 +5,7 @@ import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +34,8 @@ public class ProdutoBO {
 	
 	@Autowired
 	private UsuarioBO usuarioBO;
+	
+	private List<Produto> lstProduto;
 	
 	public boolean salvar(Produto produto, HttpSession session, Model model, String imagemAnterior) throws Exception {
 		if(this.isInsertValido(produto, model)){
@@ -107,7 +110,11 @@ public class ProdutoBO {
 	}
 	
 	public List<Produto> consultaProdutoService(Produto produto) throws Exception{
-		return this.produtoMapper.obterProdutos(produto);	
+		produto.setDesProduto(toLike(produto.getDesProduto()));
+		lstProduto = new ArrayList<Produto>();
+		this.lstProduto = this.produtoMapper.obterProdutos(produto);
+		produto.setDesProduto(cleanLike(produto.getDesProduto()));
+		return lstProduto;
 	}
 
 	public void inserirProdutoService(Produto produto) throws Exception{
