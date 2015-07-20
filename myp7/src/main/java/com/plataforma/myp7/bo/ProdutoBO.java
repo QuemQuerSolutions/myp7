@@ -108,7 +108,7 @@ public class ProdutoBO {
 	
 	public List<Produto> consultaProdutoService(Produto produto) throws Exception{
 		produto.setDesProduto(toLike(produto.getDesProduto()));
-		List<Produto> lstProduto = produtoMapper.obterProdutos(produto);
+		List<Produto> lstProduto = produtoMapper.consultaProdutoService(produto);
 		produto.setDesProduto(cleanLike(produto.getDesProduto()));
 		return lstProduto;
 	}

@@ -82,6 +82,18 @@
 		</if>
 	</select>
 	
+	<select id="consultaProdutoService" resultType="int">
+		<include refid="selectProduto"/>
+		FROM prd_usuario_produto
+		WHERE 1=1
+		<if test="idProduto != null">
+			AND ID_PRODUTO=#{idProduto} 
+		</if>
+		<if test="desProduto != null">
+			AND DESCRICAO LIKE #{desProduto}
+		</if>
+	</select>
+	
 	<insert  id="salvarProduto" keyProperty="ID_PRODUTO" keyColumn="ID_PRODUTO" useGeneratedKeys="true">
 		INSERT INTO prd_usuario_produto 
 			(ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
@@ -102,5 +114,7 @@
 				
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
+	
+	
 	
 </mapper>

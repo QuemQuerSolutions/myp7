@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 @RequestMapping("/wsproduto")
@@ -23,20 +24,19 @@ public class ProdutoService {
 	public ProdutoService() {
 		this.gson = new Gson();
 	}
-	
+		
 	@Autowired
 	private ProdutoBO produtoBO;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/consultaProduto",produces="application/json")
-	public String consultaProduto(@RequestParam(value="id", required=false, defaultValue="0")Long id
+	public String consultaProduto(@RequestParam(value="id", required=false, defaultValue="0") Long id
 								 ,@RequestParam(value="descricao", required=false, defaultValue="") String desc){
 		try {
-			mensagemRetorno = "Nenhum Registro encontrado!";
 			Produto produto = new Produto();
 			produto.setIdProduto(id);
-			produto.setDesProduto("".equals(desc)?null :desc);
+			produto.setDesProduto(Utils.emptyToNull(desc));
 			List<Produto> lstProduto= this.produtoBO.consultaProdutoService(produto);
-			return gson.toJson(lstProduto.size()==0?mensagemRetorno:lstProduto);
+			return gson.toJson(lstProduto.size()==0?Utils.formataMsgem(1):lstProduto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,6 +78,4 @@ public class ProdutoService {
 		}
 		return this.gson.toJson(mensagemRetorno);
 	}
-	
-	
 }

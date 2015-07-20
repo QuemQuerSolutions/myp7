@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 @RequestMapping("/wsfornecedor")
@@ -30,15 +31,17 @@ public class FornecedorService {
 	
 
 	@RequestMapping(method=RequestMethod.POST, value="/inserirFornecedor", produces="application/json")
-	public void inserirForncedor(@RequestParam(value="status", required=true) String status,
+	public String inserirForncedor(@RequestParam(value="status", required=true) String status,
 								 @RequestParam(value="utilizaTabCusto", required=true)String utilizaTabCusto){
 	    Fornecedor fornecedor = new Fornecedor();
 	    fornecedor.setStatusFornecedor(status);
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
 		try {
+			
 			this.fornecedorBO.inserir(fornecedor);
+			return gson.toJson(Utils.formataMsgem(5));
 		} catch (Exception e) {
-			e.printStackTrace();
+			return gson.toJson(Utils.formataMsgem(4));
 		}
 	}
 }

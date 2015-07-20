@@ -30,5 +30,6 @@ public interface ProdutoMapper {
 	
 	Embalagem obterEmbalagemPorIdP(Produto produto);
 	
+	List<Produto> consultaProdutoService(Produto produto);
 	
 }
