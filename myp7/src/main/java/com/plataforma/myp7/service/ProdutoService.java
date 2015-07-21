@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.ProdutoBO;
@@ -29,20 +30,21 @@ public class ProdutoService {
 	private ProdutoBO produtoBO;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/consultaProduto",produces="application/json")
-	public String consultaProduto(@RequestParam(value="id", required=false, defaultValue="0") Long id
-								 ,@RequestParam(value="descricao", required=false, defaultValue="") String desc){
+	@ResponseBody
+	public String consultaProduto(@RequestParam(value="id", required=false, defaultValue="0") Long id,
+								  @RequestParam(value="descricao", required=false, defaultValue="") String desc){
 		try {
 			Produto produto = new Produto();
 			produto.setIdProduto(id);
 			produto.setDesProduto(Utils.emptyToNull(desc));
-			List<Produto> lstProduto= this.produtoBO.consultaProdutoService(produto);
-			return gson.toJson(lstProduto.size()==0?Utils.formataMsgem(1):lstProduto);
-			
+			List<Produto> lstProduto = this.produtoBO.consultaProdutoService(produto);
+			return gson.toJson(lstProduto.size() == 0?Utils.formataMsgem(1):lstProduto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
 	
 	public String inserirProduto(@RequestParam(value="idUsuario", required=true)Long idUsuario,
 								 @RequestParam(value="descricaoProd", required=true) String descProd,

@@ -57,12 +57,6 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-				
-<!--         <dependency> -->
-<!--             <groupId>com.jolbox</groupId> -->
-<!--             <artifactId>bonecp</artifactId> -->
-<!--             <version>${bonecp.version}</version> -->
-<!--         </dependency> -->
 	
 		<!-- Spring core & mvc -->
 		<dependency>
@@ -163,6 +157,7 @@
 			<version>2.4.2</version>
 			<scope>provided</scope>
 		</dependency>
+			
 		
 	</dependencies>
 

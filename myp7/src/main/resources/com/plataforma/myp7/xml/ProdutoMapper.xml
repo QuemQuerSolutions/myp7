@@ -82,9 +82,13 @@
 		</if>
 	</select>
 	
-	<select id="consultaProdutoService" resultType="int">
-		<include refid="selectProduto"/>
+	<select id="consultaProdutoService" resultMap="produtoMap">
+		<!-- <include refid="selectProduto"/> -->
+		SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
+		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO
 		FROM prd_usuario_produto
+		
 		WHERE 1=1
 		<if test="idProduto != null">
 			AND ID_PRODUTO=#{idProduto} 
