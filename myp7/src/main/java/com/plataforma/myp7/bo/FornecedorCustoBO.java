@@ -17,5 +17,9 @@ public class FornecedorCustoBO {
 	public List<FornecedorCusto> seleciona() {
 		return this.fornecedorCustoMapper.obterTodos();
 	}
+	
+	public List<FornecedorCusto> selecionaComFiltro(FornecedorCusto fc) {
+		return this.fornecedorCustoMapper.obterComFiltro(fc);
+	}	
 
 }

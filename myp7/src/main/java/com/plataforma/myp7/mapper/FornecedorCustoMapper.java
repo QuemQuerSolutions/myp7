@@ -10,4 +10,6 @@ import com.plataforma.myp7.data.FornecedorCusto;
 public interface FornecedorCustoMapper {
 	
 	List<FornecedorCusto> obterTodos();
+	
+	List<FornecedorCusto> obterComFiltro(FornecedorCusto fc);
 }

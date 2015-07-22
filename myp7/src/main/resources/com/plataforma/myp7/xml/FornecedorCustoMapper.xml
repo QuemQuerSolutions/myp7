@@ -24,6 +24,33 @@
 		<include refid="selectFornecedorCusto"/>
 	</select>
 	
+	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
+		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
+			   tab_custo_fornecedor.ID_PRODUTO, VALOR, ID_REPRESENTANTE 
+		  FROM tab_custo_fornecedor, prd_usuario_produto
+		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+		
+		<choose>
+    		<when test="produto.codIndustria != null">
+    			AND CODIGO_INDUSTRIA = #{produto.codIndustria}
+   			</when>
+    		<when test="produto.eanDunProduto != null">
+    			AND EANDUN = #{produto.eanDunProduto}
+   			</when>
+  		</choose>
+  		
+		<if test="idRepresentante > -1">
+			AND ID_REPRESENTANTE = #{idRepresentante}
+		</if>
+		
+		<if test="idEmpresa > -1">
+			AND ID_EMPRESA = #{idEmpresa}
+		</if>
+		
+		<if test="produto.desProduto != null">
+			AND prd_usuario_produto.DESCRICAO LIKE #{produto.desProduto}
+		</if>
+	</select>
 </mapper>
 
 

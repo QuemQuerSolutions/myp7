@@ -5,6 +5,40 @@
 <html>
 	<c:import url="components/imports.jsp" />
 	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#empresa").attr("disabled", true);
+			
+			$("#btnPesquisar").click(function(){
+				pesquisar();
+			});
+
+			$("#btnLimpar").click(function(){
+				$("#idProduto").val("");
+				$("#desProduto").val("");
+			});
+
+			$("#uf").change(function(){
+// 				CONSULTA EMPRESAS
+				if($("#uf").val() != "-1"){
+					$("#empresa").removeAttr("disabled");
+				}else{
+					$("#empresa").attr("disabled", true);
+				}
+			});
+		});
+
+		function pesquisar(){
+			$.ajax({
+				type: "POST",
+		        data: { fornecedor:$("#fornecedor").val(), empresa:$("#empresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
+		        url : 'consultaManutencaoCusto',
+		        success : function(data) {
+		        	$("#resultado").html(data);
+		        }
+		    });
+		}
+	</script>
 	
 <body>
 	<c:import url="components/header.jsp" />
@@ -22,7 +56,7 @@
 						<label for="fornecedor" class="control-label">Fornecedor</label>
 					</div>
 					<div class="col-md-2">
-						<label for="uf" class="control-label">-</label>
+						<label for="uf" class="control-label">UF</label>
 					</div>
 					<div class="col-md-6">
 						<label for="empresa" class="control-label">Empresa</label>
@@ -103,12 +137,12 @@
 					</div>
 					<div class="col-md-1">
 						<div class="form-group">
-							<button type="button" class="btn ${theme}" id="pesquisar">Pesquisar</button>
+							<button type="button" id="btnPesquisar" class="btn ${theme}" id="pesquisar">Pesquisar</button>
 						</div>
 					</div>
 					<div class="col-md-1">
 						<div class="form-group">
-							<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
+							<button type="button" id="btnLimpar" class="btn btn-default limpar" id="limpar">Limpar</button>
 						</div>
 					</div>
 				</div>
@@ -125,17 +159,17 @@
 						<th>Valor Novo</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<c:forEach var="lista" items="${fornecedorCusto}">
+				<tbody id="resultado">
+					<c:forEach var="lista" items="${fornecedorCusto}">
+						<tr>
 							<td>${lista.produto.idProduto}</td>
 							<td>${lista.produto.desProduto}</td>
 							<td>${lista.valorFormatado}</td>
-						<td>
-					    	<input type="text" class="form-control" id="valorNovo" name="valorNovo" maxlength="10" />
-						</td>
-						</c:forEach>
-					</tr>
+							<td>
+						    	<input type="text" class="form-control" id="valorNovo" name="valorNovo" maxlength="10" />
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
