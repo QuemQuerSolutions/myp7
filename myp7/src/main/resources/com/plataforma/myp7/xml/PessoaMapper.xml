@@ -32,7 +32,7 @@
 		<![CDATA[
 			SELECT ID_PESSOA, RAZAO, FANTASIA, FISICA_JURIDICA, SEXO, CEP,
 			CIDADE, UF, BAIRRO, LOGRADOURO, LOGRADOURO_NRO, LOGRADROURO_COMPL,
-			FONE1, FONE2, FONE3, NRO_CPF_CNPJ, DIG_CPF_CNPJ, NRO_RG_INSCR_ESTADUAL,
+			FONE1, FONE2, FONE3, NRO_CPF_CNPJ, DIG_CPF_CNPJ, NRO_RG_INSCR_ESTADUAL
 			FROM gbl_pessoa
 		  ]]>
 	</sql>
@@ -64,4 +64,16 @@
 		 WHERE p.id_pessoa = e.id_pessoa
 		 ORDER BY p.uf
 	</select>
+	
+	<insert id="inserir">
+	INSERT INTO gbl_pessoa (RAZAO, FANTASIA, FISICA_JURIDICA, SEXO, CEP,
+							CIDADE, UF, BAIRRO, LOGRADOURO, LOGRADOURO_NRO, LOGRADROURO_COMPL,
+							FONE1, FONE2, FONE3, NRO_CPF_CNPJ, DIG_CPF_CNPJ, NRO_RG_INSCR_ESTADUAL
+							)
+					VALUES
+							(#{razao},#{fantasia},#{fisicaJuridica},#{sexo},#{cep},
+							#{cidade},#{uf},#{bairro},#{logradouro},#{logradouroNro},#{logradrouroCompl},
+							#{fone1},#{fone2},#{fone3},#{nroCpfCnpj},#{digCpfCnpj},#{nroRgInscrEstadual}
+							)
+	</insert>
 </mapper>

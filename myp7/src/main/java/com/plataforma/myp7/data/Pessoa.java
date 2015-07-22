@@ -1,5 +1,7 @@
 package com.plataforma.myp7.data;
 
+import java.math.BigDecimal;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("Pessoa")
@@ -19,7 +21,7 @@ public class Pessoa {
 	private String fone1;
 	private String fone2;
 	private String fone3;
-	private Integer nroCpfCnpj;
+	private BigDecimal nroCpfCnpj;
 	private Integer digCpfCnpj;
 	private String nroRgInscrEstadual;
 	
@@ -113,10 +115,10 @@ public class Pessoa {
 	public void setFone3(String fone3) {
 		this.fone3 = fone3;
 	}
-	public Integer getNroCpfCnpj() {
+	public BigDecimal getNroCpfCnpj() {
 		return nroCpfCnpj;
 	}
-	public void setNroCpfCnpj(Integer nroCpfCnpj) {
+	public void setNroCpfCnpj(BigDecimal nroCpfCnpj) {
 		this.nroCpfCnpj = nroCpfCnpj;
 	}
 	public Integer getDigCpfCnpj() {

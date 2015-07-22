@@ -21,4 +21,8 @@ public class PessoaBO {
 	public List<Pessoa> obterPessoaCodNome(Long idPessoa, String razao){
 		return this.pessoaMapper.obterPessoaCodNome(idPessoa, razao);
 	}
+	
+	public void inserirPessoa(Pessoa pessoa) throws Exception{
+		this.pessoaMapper.inserir(pessoa);
+	}
 }
