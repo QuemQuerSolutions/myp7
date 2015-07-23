@@ -75,7 +75,6 @@ public class PessoaService {
 		pessoa.setNroCpfCnpj(nroCpfCnpj);
 		pessoa.setDigCpfCnpj(digCpfCnpj);
 		pessoa.setNroRgInscrEstadual(nroRgInscrEstadual);
-		
 		try {
 			this.pessoaBO.inserirPessoa(pessoa);
 			return this.gson.toJson(Utils.formataMsgem(7));

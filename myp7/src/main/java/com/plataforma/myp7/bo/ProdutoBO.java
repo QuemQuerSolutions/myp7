@@ -19,6 +19,7 @@ import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
+import com.plataforma.myp7.util.MensagemRetorno;
 import com.plataforma.myp7.util.Upload;
 import com.plataforma.myp7.util.Utils;
 
@@ -33,6 +34,9 @@ public class ProdutoBO {
 	
 	@Autowired
 	private UsuarioBO usuarioBO;
+	
+	@Autowired
+	private EmbalagemBO embalagemBO;
 	
 	public boolean salvar(Produto produto, HttpSession session, Model model, String imagemAnterior) throws Exception {
 		if(this.isInsertValido(produto, model)){
@@ -113,7 +117,34 @@ public class ProdutoBO {
 		return lstProduto;
 	}
 
-	public void inserirProdutoService(Produto produto) throws Exception{
-		this.produtoMapper.salvarProduto(produto);
+	public MensagemRetorno inserirProdutoService(Produto produto) throws Exception{
+		if(this.isValidoService(produto)){
+			this.produtoMapper.salvarProduto(produto);
+			return Utils.formataMsgem(3);
+		}else{
+			return Utils.formataMsgem(8);
+		}
+	}
+	
+	public MensagemRetorno editarProdutoService(Produto produto) throws Exception{
+		if(this.isValidoService(produto)){
+			this.produtoMapper.atualizaProduto(produto);
+			return Utils.formataMsgem(9);
+		}else{
+			return Utils.formataMsgem(8);
+		}
+	}
+	
+	public boolean isValidoService(Produto produto){
+		if(!Objects.isNull(produto.getUsuario())
+		   && !Objects.isNull(usuarioBO.obterPorId(produto.getUsuario().getIdUsuario()))
+		   && !Objects.isNull(produto.getNcmProduto()) 
+		   && !Objects.isNull(this.ncmMapper.obterNcmPorId(produto.getNcmProduto().getIdNcm())) 
+		   && !Objects.isNull(produto.getEmbalagem().getIdEmbalagem()) 
+		   && !Objects.isNull(this.embalagemBO.obterEmbalagemPorId(produto.getEmbalagem().getIdEmbalagem()))){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
