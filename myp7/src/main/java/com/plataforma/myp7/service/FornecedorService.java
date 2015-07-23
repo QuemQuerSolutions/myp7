@@ -25,12 +25,6 @@ public class FornecedorService {
 		this.gson = new Gson();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/consultaFornecedor",produces="application/json")
-	public String consultaFornecedor(){
-		return this.gson.toJson(this.fornecedorBO.obterTodos());
-	}
-	
-
 	@RequestMapping(method=RequestMethod.POST, value="/inserirFornecedor", produces="application/json")
 	@ResponseBody
 	public String inserirForncedor(@RequestParam(value="status", required=true) String status,
