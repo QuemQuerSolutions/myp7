@@ -33,7 +33,6 @@ public class FornecedorService {
 	    fornecedor.setStatusFornecedor(status);
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
 		try {
-			
 			this.fornecedorBO.inserir(fornecedor);
 			return gson.toJson(Utils.formataMsgem(5));
 		} catch (Exception e) {

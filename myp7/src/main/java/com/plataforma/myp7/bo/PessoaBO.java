@@ -1,12 +1,15 @@
 package com.plataforma.myp7.bo;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.mapper.PessoaMapper;
+import com.plataforma.myp7.util.MensagemRetorno;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class PessoaBO {
@@ -22,7 +25,14 @@ public class PessoaBO {
 		return this.pessoaMapper.obterPessoaCodNome(idPessoa, razao);
 	}
 	
-	public void inserirPessoa(Pessoa pessoa) throws Exception{
-		this.pessoaMapper.inserir(pessoa);
+	public MensagemRetorno salvarPessoa(Pessoa pessoa) throws Exception{
+		if(Objects.isNull(pessoa.getIdPessoa()) && pessoa.getIdPessoa()==0L){
+			this.pessoaMapper.inserir(pessoa);
+			return Utils.formataMsgem(7);
+		}else{
+			this.pessoaMapper.atualiza(pessoa);
+			return Utils.formataMsgem(12);
+		}
 	}
+		
 }

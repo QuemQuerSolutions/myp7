@@ -117,19 +117,15 @@ public class ProdutoBO {
 		return lstProduto;
 	}
 
-	public MensagemRetorno inserirProdutoService(Produto produto) throws Exception{
+	public MensagemRetorno salvarProduto(Produto produto) throws Exception{
 		if(this.isValidoService(produto)){
-			this.produtoMapper.salvarProduto(produto);
-			return Utils.formataMsgem(3);
-		}else{
-			return Utils.formataMsgem(8);
-		}
-	}
-	
-	public MensagemRetorno editarProdutoService(Produto produto) throws Exception{
-		if(this.isValidoService(produto)){
-			this.produtoMapper.atualizaProduto(produto);
-			return Utils.formataMsgem(9);
+			if (Objects.isNull(produto.getIdProduto()) && produto.getIdProduto()==0L){
+				this.produtoMapper.salvarProduto(produto);
+				return Utils.formataMsgem(3);
+			}else{
+				this.produtoMapper.atualizaProduto(produto);
+				return Utils.formataMsgem(9);
+			}
 		}else{
 			return Utils.formataMsgem(8);
 		}

@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("Pessoa")
 public class Pessoa {
-	private Integer idPessoa;
+	private Long idPessoa;
 	private String razao;
 	private String fantasia;
 	private String fisicaJuridica;
@@ -25,10 +25,10 @@ public class Pessoa {
 	private Integer digCpfCnpj;
 	private String nroRgInscrEstadual;
 	
-	public Integer getIdPessoa() {
+	public Long getIdPessoa() {
 		return idPessoa;
 	}
-	public void setIdPessoa(Integer idPessoa) {
+	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
 	}
 	public String getRazao() {

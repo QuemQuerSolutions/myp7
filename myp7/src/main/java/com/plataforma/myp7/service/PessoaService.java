@@ -36,9 +36,10 @@ public class PessoaService {
 		return this.gson.toJson(lstPessoa.size()==0? Utils.formataMsgem(1):lstPessoa);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/inserirPessoa",produces="application/json")
+	@RequestMapping(method=RequestMethod.POST, value="/salvarPessoa",produces="application/json")
 	@ResponseBody
-	public String inserirPessoa(@RequestParam(value="razaoSocial", required=true)String razao,
+	public String salvarPessoa(@RequestParam(value="idPessoa", required=false, defaultValue="0")Long idPessoa,
+								@RequestParam(value="razaoSocial", required=true)String razao,
 								@RequestParam(value="fantasia", required=true)String fantasia,
 								@RequestParam(value="fisicaJuridica", required=true)String fisicaJuridica,
 								@RequestParam(value="sexo", required=true)String sexo,
@@ -58,6 +59,8 @@ public class PessoaService {
 		
 		
 		Pessoa pessoa = new Pessoa();
+		
+		pessoa.setIdPessoa(idPessoa);
 		pessoa.setRazao(razao);
 		pessoa.setFantasia(fantasia);
 		pessoa.setFisicaJuridica(fisicaJuridica);
@@ -76,10 +79,9 @@ public class PessoaService {
 		pessoa.setDigCpfCnpj(digCpfCnpj);
 		pessoa.setNroRgInscrEstadual(nroRgInscrEstadual);
 		try {
-			this.pessoaBO.inserirPessoa(pessoa);
-			return this.gson.toJson(Utils.formataMsgem(7));
+			return this.gson.toJson(this.pessoaBO.salvarPessoa(pessoa));
 		} catch (Exception e) {
-			return this.gson.toJson(Utils.formataMsgem(6));
+			return this.gson.toJson(Utils.formataMsgem(pessoa.getIdPessoa()==0L?6:12));
 		}
 	}
 }

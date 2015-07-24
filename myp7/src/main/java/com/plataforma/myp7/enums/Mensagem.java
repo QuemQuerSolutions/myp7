@@ -13,6 +13,8 @@ public enum Mensagem {
 	
 	INSERT_PESSOA_ERRO(6, "Erro ao inserir os dados da pessoa."),
 	INSERT_PESSOA_SUCESSO(7,"Pessoa inserida com sucesso."),
+	ATUALIZA_PESSOA_SUCESSO(11, "Pessoa atualizada com sucesso."),
+	ATUALIZA_PESSOA_ERRO(12, "Erro ao atualizar a pessoa."),
 	
 	CONSULTA_EMB_NCM_VAZIO(8, "Embalagem, NCM ou Usuario invalidos.");
 	

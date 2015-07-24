@@ -14,4 +14,6 @@ public interface PessoaMapper {
 	List<Pessoa> obterPessoaCodNome(Long idPessoa, String fantasia);
 	
 	void inserir(Pessoa pessoa);
+	
+	void atualiza(Pessoa pessoa);
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,20 +46,23 @@ public class ProdutoService {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/inserirProduto",produces="application/json")
+	@RequestMapping(method=RequestMethod.POST, value="/salvarProduto",produces="application/json")
 	@ResponseBody
-	public String inserirProduto(@RequestParam(value="idUsuario", required=true)Long idUsuario,
-								 @RequestParam(value="descricaoProd", required=true) String descProd,
-								 @RequestParam(value="codIndProd", required=true) String codIndProd,
-								 @RequestParam(value="pesoBruto", required=true) BigDecimal pesoBruto,
-								 @RequestParam(value="pesoLiquido", required=true) BigDecimal pesoLiquido,
-								 @RequestParam(value="alturaProd", required=true) BigDecimal alturaProd, 
-								 @RequestParam(value="profundidadeProd", required=true) BigDecimal profundidade,
-								 @RequestParam(value="larguraProduto", required=true) BigDecimal larguraProduto,
-								 @RequestParam(value="idNcmProd", required=true) Long idNcmProd,
-								 @RequestParam(value="idEmbalagemProd", required=true) Long idEmbalagem,
-								 @RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,
-								 @RequestParam(value="eandun", required=true)String eandun){
+	public String salvarProduto(@RequestParam(value="idProduto", required=false, defaultValue="0")Long idProduto,
+								@RequestParam(value="idUsuario", required=true)Long idUsuario,
+								@RequestParam(value="descricaoProd", required=true) String descProd,
+								@RequestParam(value="codIndProd", required=true) String codIndProd,
+								@RequestParam(value="pesoBruto", required=true) BigDecimal pesoBruto,
+								@RequestParam(value="pesoLiquido", required=true) BigDecimal pesoLiquido,
+								@RequestParam(value="alturaProd", required=true) BigDecimal alturaProd, 
+								@RequestParam(value="profundidadeProd", required=true) BigDecimal profundidade,
+								@RequestParam(value="larguraProduto", required=true) BigDecimal larguraProduto,
+								@RequestParam(value="idNcmProd", required=true) Long idNcmProd,
+								@RequestParam(value="idEmbalagemProd", required=true) Long idEmbalagem,
+								@RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,
+								@RequestParam(value="eandun", required=true)String eandun,
+								@RequestParam(value="caminhoImagem", required=false)String caminhoImagem){
+		
 		Produto produto = new Produto();
 		Usuario usuario = new Usuario();
 		NCM ncm = new NCM();
@@ -69,6 +71,7 @@ public class ProdutoService {
 		usuario.setIdUsuario(idUsuario);
 		produto.setUsuario(usuario);
 		
+		produto.setIdProduto(idProduto);
 		produto.setDesProduto(descProd);
 		produto.setCodIndustria(codIndProd);
 		produto.setPesoBruto(pesoBruto);
@@ -76,6 +79,7 @@ public class ProdutoService {
 		produto.setAlturaProduto(alturaProd);
 		produto.setProfunProduto(profundidade);
 		produto.setLarguraProduto(larguraProduto);
+		produto.setCaminhoImagem(caminhoImagem);
 		
 		ncm.setIdNcm(idNcmProd);
 		produto.setNcmProduto(ncm);
@@ -87,21 +91,10 @@ public class ProdutoService {
 		produto.setEanDunProduto(eandun);
 		try{
 			
-			return gson.toJson(this.produtoBO.inserirProdutoService(produto));
+			return gson.toJson(this.produtoBO.salvarProduto(produto));
 		} catch (Exception e) {
-			return gson.toJson(Utils.formataMsgem(2));
+			return gson.toJson(Utils.formataMsgem(produto.getIdProduto()==0?2:10));
 		}
 	}
 
-			
-	@RequestMapping(method=RequestMethod.PUT, value="/editarProduto",produces="application/json")
-	@ResponseBody
-	public String editarProduto(@ModelAttribute Produto produto){
-		try{
-			return gson.toJson(this.produtoBO.editarProdutoService(produto));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return gson.toJson(Utils.formataMsgem(10));
-		}
-	}
 }
