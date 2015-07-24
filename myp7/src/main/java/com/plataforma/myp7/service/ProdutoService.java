@@ -93,7 +93,7 @@ public class ProdutoService {
 			
 			return gson.toJson(this.produtoBO.salvarProduto(produto));
 		} catch (Exception e) {
-			return gson.toJson(Utils.formataMsgem(produto.getIdProduto()==0?2:10));
+			return gson.toJson(Utils.formataMsgem(produto.getIdProduto()==0L?10:2));
 		}
 	}
 

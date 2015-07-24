@@ -119,7 +119,7 @@ public class ProdutoBO {
 
 	public MensagemRetorno salvarProduto(Produto produto) throws Exception{
 		if(this.isValidoService(produto)){
-			if (Objects.isNull(produto.getIdProduto()) && produto.getIdProduto()==0L){
+			if (produto.getIdProduto()==0L){
 				this.produtoMapper.salvarProduto(produto);
 				return Utils.formataMsgem(3);
 			}else{

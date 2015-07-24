@@ -1,7 +1,6 @@
 package com.plataforma.myp7.bo;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class PessoaBO {
 	}
 	
 	public MensagemRetorno salvarPessoa(Pessoa pessoa) throws Exception{
-		if(Objects.isNull(pessoa.getIdPessoa()) && pessoa.getIdPessoa()==0L){
+		if(pessoa.getIdPessoa()==0L){
 			this.pessoaMapper.inserir(pessoa);
 			return Utils.formataMsgem(7);
 		}else{
