@@ -10,8 +10,16 @@
 			$("#empresa").attr("disabled", true);
 			
 			$("#btnPesquisar").click(function(){
-				pesquisar();
+				pesquisarManutencaoCusto(true);
 			});
+
+			$("#fornecedor").change(function(){
+				pesquisarManutencaoCusto(false);
+			});
+			
+			$("#empresa").change(function(){
+				pesquisarManutencaoCusto(false);
+			});		
 
 			$("#btnLimpar").click(function(){
 				$("#idProduto").val("");
@@ -19,24 +27,80 @@
 			});
 
 			$("#uf").change(function(){
-// 				CONSULTA EMPRESAS
 				if($("#uf").val() != "-1"){
 					$("#empresa").removeAttr("disabled");
+					atualizarComboEmpresa();
 				}else{
+					$("#empresa").html("<option value='-1'>Selecione uma Empresa</option>");
 					$("#empresa").attr("disabled", true);
 				}
+				
+			});
+			
+			$("#btnSalvar").click(function(){
+				var i = 1;
+				$(".valorNovo").each(function() {
+				    alert($("#valorNovo"+i).val());
+				    i++;
+				});
 			});
 		});
 
-		function pesquisar(){
+		function pesquisarManutencaoCusto(alertar){
+			if(validaCamposObrigatorios(alertar)){
+				$.ajax({
+					type: "POST",
+			        data: { fornecedor:$("#fornecedor").val(), empresa:$("#empresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
+			        url : 'consultaManutencaoCusto',
+			        success : function(data) {
+			        	$("#resultado").html(data);
+			        }
+			    });
+			}
+		}
+
+		function atualizarComboEmpresa(){
 			$.ajax({
 				type: "POST",
-		        data: { fornecedor:$("#fornecedor").val(), empresa:$("#empresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
-		        url : 'consultaManutencaoCusto',
+		        data: { uf:$("#uf").val() },
+		        url : 'consultaEmpresaPorUF',
 		        success : function(data) {
-		        	$("#resultado").html(data);
+		        	$("#empresa").html(data);
 		        }
 		    });
+		}
+
+		function validaCamposObrigatorios(alertar){
+			var isValid = true;
+			var alerta;
+
+			if($("#uf").val() != "-1"){
+				if($("#empresa").val() == "-1"){
+					isValid = false;
+					alerta = "Selecione uma Emprea.";
+				}
+			}else{
+				alerta = "Selecione uma UF.";
+			}
+			
+			if($("#fornecedor").val() == "-1"){
+				isValid = false;
+				alerta = "Selecione um Fornecedor.";
+			}
+
+			if($.trim($("#idProduto").val()) == "" && $.trim($("#desProduto").val()) == ""){
+				isValid = false;
+				alerta = "Preencha o campo código ou descrição.";
+			}else if($("#tipo").val() == 1 && !$.isNumeric($.trim($("#idProduto").val()))){
+				isValid = false;
+				alerta = "A opção código só permite números no campo código.";
+			}
+
+			if(!isValid && alertar){
+				alert(alerta, "warning");
+			}
+
+			return isValid;
 		}
 	</script>
 	
@@ -116,12 +180,11 @@
 					</div>
 					<div class="col-md-2">
 						<div class="form-group" id="">
-					    	<input type="number" 
-					    			class="form-control onlyNumber campo-buscar" 
+					    	<input type="text" 
+					    			class="form-control campo-buscar" 
 					    			id="idProduto"
 					    			name="idProduto"
-					    			min="0"
-					    			max="99999999999"
+					    			maxlength="20"
 					    			value="" />
 					  	</div>
 					</div>
@@ -160,13 +223,13 @@
 					</tr>
 				</thead>
 				<tbody id="resultado">
-					<c:forEach var="lista" items="${fornecedorCusto}">
+					<c:forEach var="lista" items="${fornecedorCusto}" varStatus="i">
 						<tr>
 							<td>${lista.produto.idProduto}</td>
 							<td>${lista.produto.desProduto}</td>
 							<td>${lista.valorFormatado}</td>
 							<td>
-						    	<input type="text" class="form-control" id="valorNovo" name="valorNovo" maxlength="10" />
+						    	<input type="text" class="form-control valorNovo" id="valorNovo${i.count}" name="valorNovo${i.count}" maxlength="10" />
 							</td>
 						</tr>
 					</c:forEach>

@@ -32,7 +32,7 @@
 		
 		<choose>
     		<when test="produto.codIndustria != null">
-    			AND CODIGO_INDUSTRIA = #{produto.codIndustria}
+    			AND tab_custo_fornecedor.ID_PRODUTO = #{produto.idProduto}
    			</when>
     		<when test="produto.eanDunProduto != null">
     			AND EANDUN = #{produto.eanDunProduto}

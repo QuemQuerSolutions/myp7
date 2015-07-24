@@ -10,4 +10,6 @@ import com.plataforma.myp7.data.Empresa;
 public interface EmpresaMapper {
 
 	List<Empresa> obterTodasEmpresas();
+	
+	List<Empresa> obterEmpresasPorUF(String uf);
 }

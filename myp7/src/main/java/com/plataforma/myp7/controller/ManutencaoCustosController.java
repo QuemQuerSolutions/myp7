@@ -17,7 +17,6 @@ import com.plataforma.myp7.bo.FornecedorCustoBO;
 import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Empresa;
-import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Produto;
 
@@ -68,8 +67,18 @@ public class ManutencaoCustosController {
 	}
 	
 	@RequestMapping("consultaManutencaoCusto")
-	public @ResponseBody String consultaAJAX(String fornecedor, String empresa, String tipo, String codigo, String descricao) {
+	public @ResponseBody String consultaManutencaoCustoAJAX(String fornecedor, String empresa, String tipo, String codigo, String descricao) {
 		return this.geraTabelaResultado(obtemListaFornecedorCusto(fornecedor, empresa, tipo, codigo, descricao));
+	}
+	
+	@RequestMapping("consultaEmpresaPorUF")
+	public @ResponseBody String consultaEmpresaPorUFAJAX(String uf) {
+		return this.getComboEmpresa(obtemComboEmpresa(uf));
+	}
+	
+	@RequestMapping("salvaManutencaoCusto")
+	public @ResponseBody String salvaManutencaoCustoAJAX(String uf) {
+		return this.getComboEmpresa(obtemComboEmpresa(uf));
 	}
 
 	private void consulta(Model model) {
@@ -79,6 +88,10 @@ public class ManutencaoCustosController {
 	private List<FornecedorCusto> obtemListaFornecedorCusto(){
 		return this.fornecedorCustoBO.seleciona();
 	}
+	
+	private List<Empresa> obtemComboEmpresa(String uf){
+		return this.empresaBO.selecionaPorUF(uf);
+	}	
 	
 	private List<FornecedorCusto> obtemListaFornecedorCusto(String fornecedor, String empresa, String tipo, String codigo, String descricao){
 		FornecedorCusto fc = new FornecedorCusto();
@@ -92,7 +105,7 @@ public class ManutencaoCustosController {
 		prodt.setCodIndustria(null);
 		prodt.setEanDunProduto(null);
 		if(tipo.equalsIgnoreCase("1") && !codigo.trim().equals(""))
-			prodt.setCodIndustria(codigo.trim());
+			prodt.setIdProduto(Long.parseLong(codigo.trim()));
 		else if(tipo.equalsIgnoreCase("2") && !codigo.trim().equals(""))
 			prodt.setEanDunProduto(codigo.trim());
 		
@@ -122,6 +135,20 @@ public class ManutencaoCustosController {
 			sb.append("			<input type='text' class='form-control' id='valorNovo' name='valorNovo' maxlength='10' />");
 			sb.append("		</td>");
 			sb.append("</tr>");
+		}
+		
+		return sb.toString();
+	}
+	
+	private String getComboEmpresa(List<Empresa> lista){
+		StringBuilder sb = new StringBuilder();
+		
+		for(Empresa emp : lista){
+			sb.append("<option value='");
+			sb.append(emp.getIdEmpresa());
+			sb.append("'>");
+			sb.append(emp.getNomeReduzido());
+			sb.append("</option>");
 		}
 		
 		return sb.toString();

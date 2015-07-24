@@ -20,4 +20,13 @@
 		<include refid="selectEmpresa"/>
 		ORDER BY ID_EMPRESA
 	</select>
+	
+	<select id="obterEmpresasPorUF" resultMap="empresaMap">
+		<include refid="selectEmpresa"/>
+		, gbl_pessoa
+		WHERE gbl_pessoa.ID_PESSOA = emp_empresa.ID_PESSOA
+		  AND gbl_pessoa.UF = #{uf}
+		ORDER BY NOME_REDUZIDO
+	</select>
+	
 </mapper>

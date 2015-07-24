@@ -17,4 +17,8 @@ public class EmpresaBO {
 	public List<Empresa> selecionaTodos(){
 		return this.empresaMapper.obterTodasEmpresas();
 	}
+	
+	public List<Empresa> selecionaPorUF(String uf){
+		return this.empresaMapper.obterEmpresasPorUF(uf);
+	}	
 }
