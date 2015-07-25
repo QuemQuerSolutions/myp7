@@ -70,6 +70,7 @@ public class ManutencaoCustosController {
 			FornecedorCusto fc = new FornecedorCusto();
 			
 			fc.setIdTabCustoFornecedor(Integer.parseInt(id));
+			novoValor = novoValor.replace(',', '.');
 			fc.setValor(new BigDecimal(novoValor));
 			
 			this.fornecedorCustoBO.atuaizaManutencaoCusto(fc);
