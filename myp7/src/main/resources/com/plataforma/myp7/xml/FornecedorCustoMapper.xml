@@ -31,7 +31,7 @@
 		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
 		
 		<choose>
-    		<when test="produto.codIndustria != null">
+    		<when test="produto.idProduto != null">
     			AND tab_custo_fornecedor.ID_PRODUTO = #{produto.idProduto}
    			</when>
     		<when test="produto.eanDunProduto != null">
@@ -51,6 +51,10 @@
 			AND prd_usuario_produto.DESCRICAO LIKE #{produto.desProduto}
 		</if>
 	</select>
+	
+	<update id="atualizarFornecedorCusto">
+		UPDATE tab_custo_fornecedor SET VALOR = #{valor} WHERE ID_TAB_CUSTO_FORNECEDOR = #{idTabCustoFornecedor}
+	</update>
 </mapper>
 
 

@@ -38,14 +38,23 @@
 			});
 			
 			$("#btnSalvar").click(function(){
-				var i = 1;
 				$(".valorNovo").each(function() {
-				    alert($("#valorNovo"+i).val());
-				    i++;
+					if($.trim($(this).val()) != "" ){
+				    	salvarManutencaoCusto($(this).prop("id").substring(9), $.trim($(this).val()));
+					}
 				});
 			});
 		});
 
+		function salvarManutencaoCusto(id, novoValor){
+			$.ajax({
+				type: "POST",
+		        data: { id:id, novoValor:novoValor },
+		        url : 'atuaizaManutencaoCusto',
+		        success : function(data) { }
+		    });
+		}
+		
 		function pesquisarManutencaoCusto(alertar){
 			if(validaCamposObrigatorios(alertar)){
 				$.ajax({
@@ -72,35 +81,52 @@
 
 		function validaCamposObrigatorios(alertar){
 			var isValid = true;
-			var alerta;
+			var texto;
 
+			if($.trim($("#idProduto").val()) == "" && $.trim($("#desProduto").val()) == ""){
+				isValid = false;
+				texto = "Preencha o campo código ou descrição.";
+				$("#idProdutoDiv").attr("class","form-group has-error");
+				$("#desProdutoDiv").attr("class","form-group has-error");
+			}else if($("#tipo").val() == 1 && !$.isNumeric($.trim($("#idProduto").val()))){
+				isValid = false;
+				texto = "A opção código só permite números no campo código.";
+				$("#idProdutoDiv").attr("class","form-group has-error");
+			}
+			
 			if($("#uf").val() != "-1"){
 				if($("#empresa").val() == "-1"){
 					isValid = false;
-					alerta = "Selecione uma Emprea.";
+					texto = "Selecione uma Empresa.";
+					$("#empresaDiv").attr("class","col-md-6 form-group has-error");
 				}
 			}else{
-				alerta = "Selecione uma UF.";
+				isValid = false;
+				texto = "Selecione uma UF.";
+				$("#ufDiv").attr("class","col-md-2 form-group has-error");
 			}
 			
 			if($("#fornecedor").val() == "-1"){
 				isValid = false;
-				alerta = "Selecione um Fornecedor.";
-			}
-
-			if($.trim($("#idProduto").val()) == "" && $.trim($("#desProduto").val()) == ""){
-				isValid = false;
-				alerta = "Preencha o campo código ou descrição.";
-			}else if($("#tipo").val() == 1 && !$.isNumeric($.trim($("#idProduto").val()))){
-				isValid = false;
-				alerta = "A opção código só permite números no campo código.";
+				texto = "Selecione um Fornecedor.";
+				$("#fornecedorDiv").attr("class","col-md-4 form-group has-error");
 			}
 
 			if(!isValid && alertar){
-				alert(alerta, "warning");
+				alerta(texto, "warning");
+			}else{
+				removeClass();
 			}
 
 			return isValid;
+		}
+
+		function removeClass(){
+			$("#idProdutoDiv").attr("class","form-group");
+			$("#desProdutoDiv").attr("class","form-group");
+			$("#fornecedorDiv").attr("class","col-md-4 form-group");
+			$("#ufDiv").attr("class","col-md-2 form-group");
+			$("#empresaDiv").attr("class","col-md-6 form-group");
 		}
 	</script>
 	
@@ -128,7 +154,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4 form-group" id="fornecedorDiv">
 						<select id="fornecedor" name="fornecedor" class="form-control" autofocus="autofocus">
 				  			<option value="-1">Selecione um Fornecedor</option>
 				  			<c:forEach var="representante" items="${representantes}">
@@ -136,7 +162,7 @@
    							</c:forEach>				  			
 				  		</select>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 form-group" id="ufDiv">
 						<select id="uf" name="uf" class="form-control" autofocus="autofocus">
 				  			<option value="-1">-</option>
 				  			<c:forEach var="uf" items="${ufs}">
@@ -144,7 +170,7 @@
    							</c:forEach>				  			
 				  		</select>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 form-group" id="empresaDiv">
 						<select id="empresa" name="empresa" class="form-control">
 				  			<option value="-1">Selecione uma Empresa</option>
 				  			<c:forEach var="empresa" items="${empresas}">
@@ -171,7 +197,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-2" id="tipoDiv">
 						<select id="tipo" name="tipo" class="form-control">
 							<c:forEach var="filtro" items="${filtros}">
 								<option value="${filtro.key}">${filtro.value}</option>
@@ -179,7 +205,7 @@
 						</select>
 					</div>
 					<div class="col-md-2">
-						<div class="form-group" id="">
+						<div class="form-group" id="idProdutoDiv">
 					    	<input type="text" 
 					    			class="form-control campo-buscar" 
 					    			id="idProduto"
@@ -189,7 +215,7 @@
 					  	</div>
 					</div>
 					<div class="col-md-6">
-						<div class="form-group" id="">
+						<div class="form-group" id="desProdutoDiv">
 					    	<input type="text" 
 					    			class="form-control campo-buscar" 
 					    			id="desProduto" 

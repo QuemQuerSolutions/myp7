@@ -1,5 +1,6 @@
 package com.plataforma.myp7.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +38,8 @@ public class ManutencaoCustosController {
 	
 	@RequestMapping("ManutencaoCustos")
 	public String inicio(HttpSession session, Model model){
-//		this.carregaComboEmpresas(model);
 		this.carregaComboRepresentantes(model);
 		this.carregaComboFiltro(model);
-		this.consulta(model);
 		this.carregaComboUF(model);
 		
 		return "ManutencaoCustos";
@@ -50,13 +49,13 @@ public class ManutencaoCustosController {
 		model.addAttribute("ufs", this.pessoaBO.selecionaTodasUF());
 	}
 
-	private void carregaComboEmpresas(Model model){
-		model.addAttribute("empresas", this.empresaBO.selecionaTodos());
-	}
-	
 	private void carregaComboRepresentantes(Model model){
 		model.addAttribute("representantes", this.representanteBO.selecionaTodos());
 	}
+	
+	private List<Empresa> obtemComboEmpresa(String uf){
+		return this.empresaBO.selecionaPorUF(uf);
+	}		
 	
 	private void carregaComboFiltro(Model model){
 		Map<Integer, String> filtro = new HashMap<Integer, String>();
@@ -64,6 +63,17 @@ public class ManutencaoCustosController {
 		filtro.put(2, "EAN/DUN");
 		
 		model.addAttribute("filtros", filtro);
+	}
+	
+	private void atuaizaManutencaoCusto(String id, String novoValor){
+		try{
+			FornecedorCusto fc = new FornecedorCusto();
+			
+			fc.setIdTabCustoFornecedor(Integer.parseInt(id));
+			fc.setValor(new BigDecimal(novoValor));
+			
+			this.fornecedorCustoBO.atuaizaManutencaoCusto(fc);
+		}catch(Exception e){ }
 	}
 	
 	@RequestMapping("consultaManutencaoCusto")
@@ -76,23 +86,12 @@ public class ManutencaoCustosController {
 		return this.getComboEmpresa(obtemComboEmpresa(uf));
 	}
 	
-	@RequestMapping("salvaManutencaoCusto")
-	public @ResponseBody String salvaManutencaoCustoAJAX(String uf) {
-		return this.getComboEmpresa(obtemComboEmpresa(uf));
+	@RequestMapping("atuaizaManutencaoCusto")
+	public @ResponseBody String atualizaManutencaoCustoAJAX(String id, String novoValor) {
+		this.atuaizaManutencaoCusto(id, novoValor);
+		return "";
 	}
 
-	private void consulta(Model model) {
-		model.addAttribute("fornecedorCusto", this.obtemListaFornecedorCusto());
-	}
-	
-	private List<FornecedorCusto> obtemListaFornecedorCusto(){
-		return this.fornecedorCustoBO.seleciona();
-	}
-	
-	private List<Empresa> obtemComboEmpresa(String uf){
-		return this.empresaBO.selecionaPorUF(uf);
-	}	
-	
 	private List<FornecedorCusto> obtemListaFornecedorCusto(String fornecedor, String empresa, String tipo, String codigo, String descricao){
 		FornecedorCusto fc = new FornecedorCusto();
 		
@@ -132,7 +131,9 @@ public class ManutencaoCustosController {
 			sb.append(			fc.getValorFormatado());
 			sb.append("		</td>");
 			sb.append("		<td>");
-			sb.append("			<input type='text' class='form-control' id='valorNovo' name='valorNovo' maxlength='10' />");
+			sb.append("			<input type='text' class='form-control valorNovo' id='valorNovo");
+			sb.append(			fc.getIdTabCustoFornecedor());
+			sb.append(			"' name='valorNovo' maxlength='10' />");
 			sb.append("		</td>");
 			sb.append("</tr>");
 		}
@@ -143,6 +144,7 @@ public class ManutencaoCustosController {
 	private String getComboEmpresa(List<Empresa> lista){
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("<option value='-1'>Selecione uma Empresa</option>");
 		for(Empresa emp : lista){
 			sb.append("<option value='");
 			sb.append(emp.getIdEmpresa());

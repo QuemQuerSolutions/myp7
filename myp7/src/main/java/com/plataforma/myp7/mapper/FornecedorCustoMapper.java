@@ -12,4 +12,6 @@ public interface FornecedorCustoMapper {
 	List<FornecedorCusto> obterTodos();
 	
 	List<FornecedorCusto> obterComFiltro(FornecedorCusto fc);
+
+	void atualizarFornecedorCusto(FornecedorCusto fc);
 }

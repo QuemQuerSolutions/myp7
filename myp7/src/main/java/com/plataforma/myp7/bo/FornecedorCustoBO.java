@@ -20,6 +20,10 @@ public class FornecedorCustoBO {
 	
 	public List<FornecedorCusto> selecionaComFiltro(FornecedorCusto fc) {
 		return this.fornecedorCustoMapper.obterComFiltro(fc);
+	}
+
+	public void atuaizaManutencaoCusto(FornecedorCusto fc) {
+		this.fornecedorCustoMapper.atualizarFornecedorCusto(fc);
 	}	
 
 }
