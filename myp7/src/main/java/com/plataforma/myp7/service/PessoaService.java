@@ -73,7 +73,7 @@ public class PessoaService {
 		pessoa.setCidade(cidade);
 		pessoa.setUf(uf);
 		pessoa.setBairro(bairro);
-		pessoa.setLogradouro(logradouroNro);
+		pessoa.setLogradouro(logradouro);
 		pessoa.setLogradouroNro(logradouroNro);
 		pessoa.setLogradrouroCompl(logradrouroCompl);
 		pessoa.setFone1(fone1);

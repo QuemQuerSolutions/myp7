@@ -48,8 +48,8 @@
 		<if test="idPessoa != null">
 			AND ID_PESSOA=#{idPessoa}
 		</if>
-		<if test="fantasia != null">
-			AND DESCRICAO =#{razao}
+		<if test="razao != null">
+			AND RAZAO =#{razao}
 		</if>
 	</select>
 	
