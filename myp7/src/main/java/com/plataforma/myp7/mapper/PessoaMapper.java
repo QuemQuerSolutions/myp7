@@ -11,7 +11,7 @@ public interface PessoaMapper {
 
 	List<String> obterTodasUF();
 	
-	List<Pessoa> obterPessoaCodNome(Long idPessoa, String fantasia);
+	List<Pessoa> obterPessoaCodNome(Pessoa pessoa);
 	
 	void inserir(Pessoa pessoa);
 	

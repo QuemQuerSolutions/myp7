@@ -30,9 +30,13 @@ public class PessoaService {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/consultaPessoa",produces="application/json")
 	@ResponseBody
-	public String consultaProduto(@RequestParam(value="codigoPessoa", required=false, defaultValue="0") Long codPessoa,
-								  @RequestParam(value="nomePessoa", required=false, defaultValue="") String nomePessoa){
-		List<Pessoa> lstPessoa = this.pessoaBO.obterPessoaCodNome(codPessoa, nomePessoa);
+	public String consultaProduto(@RequestParam(value="idPessoa", required=false) Long idPessoa,
+								  @RequestParam(value="razaoSocial", required=false) String razaoSocial){
+		Pessoa pessoa = new Pessoa();
+		pessoa.setIdPessoa(idPessoa);
+		pessoa.setRazao(razaoSocial);
+		
+		List<Pessoa> lstPessoa = this.pessoaBO.obterPessoaCodNome(pessoa);
 		return this.gson.toJson(lstPessoa.size()==0? Utils.formataMsgem(1):lstPessoa);
 	}
 	
@@ -81,6 +85,7 @@ public class PessoaService {
 		try {
 			return this.gson.toJson(this.pessoaBO.salvarPessoa(pessoa));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return this.gson.toJson(Utils.formataMsgem(pessoa.getIdPessoa()==0L?6:12));
 		}
 	}

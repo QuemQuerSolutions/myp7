@@ -42,14 +42,14 @@
 		ORDER BY ID_PESSOA
 	</select>
 	
-	<select id="obterPessoaCodNome" resultMap="pessoaMap">
+	<select id="obterPessoaCodNome" resultMap="pessoaMap" parameterType="Pessoa">
 		<include refid="selectPessoa" />
 		WHERE 1=1
 		<if test="idPessoa != null">
 			AND ID_PESSOA=#{idPessoa}
 		</if>
 		<if test="fantasia != null">
-			AND DESCRICAO like #{fantasia}
+			AND DESCRICAO =#{razao}
 		</if>
 	</select>
 	
@@ -82,7 +82,7 @@
 				SET RAZAO=#{razao}, FANTASIA=#{fantasia}, FISICA_JURIDICA=#{fisicaJuridica}, SEXO=#{sexo}, CEP=#{cep},
 					CIDADE=#{cidade}, UF=#{uf}, BAIRRO=#{bairro}, LOGRADOURO=#{logradouro}, LOGRADOURO_NRO=#{logradouroNro},
 					LOGRADROURO_COMPL=#{logradrouroCompl}, FONE1=#{fone1}, FONE2=#{fone2}, FONE3=#{fone3}, 
-					NRO_CPF_CNPJ=#{nroCpfCnpj},	DIG_CPF_CNPJ=#{digCpfCnpj}, NRO_RG_INSCR_ESTADUAL={nroRgInscrEstadual}
+					NRO_CPF_CNPJ=#{nroCpfCnpj},	DIG_CPF_CNPJ=#{digCpfCnpj}, NRO_RG_INSCR_ESTADUAL=#{nroRgInscrEstadual}
 					
 				WHERE ID_PESSOA=#{idPessoa}
 	</update>

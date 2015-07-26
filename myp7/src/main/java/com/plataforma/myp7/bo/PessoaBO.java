@@ -20,8 +20,8 @@ public class PessoaBO {
 		return this.pessoaMapper.obterTodasUF();
 	}
 	
-	public List<Pessoa> obterPessoaCodNome(Long idPessoa, String razao){
-		return this.pessoaMapper.obterPessoaCodNome(idPessoa, razao);
+	public List<Pessoa> obterPessoaCodNome(Pessoa pessoa){
+		return this.pessoaMapper.obterPessoaCodNome(pessoa);
 	}
 	
 	public MensagemRetorno salvarPessoa(Pessoa pessoa) throws Exception{
@@ -30,7 +30,7 @@ public class PessoaBO {
 			return Utils.formataMsgem(7);
 		}else{
 			this.pessoaMapper.atualiza(pessoa);
-			return Utils.formataMsgem(12);
+			return Utils.formataMsgem(11);
 		}
 	}
 		
