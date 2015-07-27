@@ -1,6 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.data.FornecedorCusto;
-import com.plataforma.myp7.data.Produto;
 
 @Controller
 public class ManutencaoCustosController {
@@ -65,21 +63,13 @@ public class ManutencaoCustosController {
 		model.addAttribute("filtros", filtro);
 	}
 	
-	private void atuaizaManutencaoCusto(String id, String novoValor){
-		try{
-			FornecedorCusto fc = new FornecedorCusto();
-			
-			fc.setIdTabCustoFornecedor(Integer.parseInt(id));
-			novoValor = novoValor.replace(',', '.');
-			fc.setValor(new BigDecimal(novoValor));
-			
-			this.fornecedorCustoBO.atuaizaManutencaoCusto(fc);
-		}catch(Exception e){ }
-	}
-	
 	@RequestMapping("consultaManutencaoCusto")
-	public @ResponseBody String consultaManutencaoCustoAJAX(String fornecedor, String empresa, String tipo, String codigo, String descricao) {
-		return this.geraTabelaResultado(obtemListaFornecedorCusto(fornecedor, empresa, tipo, codigo, descricao));
+	public @ResponseBody String consultaManutencaoCustoAJAX(String fornecedor, 
+															String empresa, 
+															String tipo, 
+															String codigo, 
+															String descricao) {
+		return this.geraTabelaResultado(fornecedorCustoBO.selecionaComFiltro(fornecedor, empresa, tipo, codigo, descricao));
 	}
 	
 	@RequestMapping("consultaEmpresaPorUF")
@@ -89,34 +79,11 @@ public class ManutencaoCustosController {
 	
 	@RequestMapping("atuaizaManutencaoCusto")
 	public @ResponseBody String atualizaManutencaoCustoAJAX(String id, String novoValor) {
-		this.atuaizaManutencaoCusto(id, novoValor);
+		this.fornecedorCustoBO.atualizaManutencaoCusto(id, novoValor);
+		
 		return "";
 	}
 
-	private List<FornecedorCusto> obtemListaFornecedorCusto(String fornecedor, String empresa, String tipo, String codigo, String descricao){
-		FornecedorCusto fc = new FornecedorCusto();
-		
-		Produto prodt = new Produto();
-		if(!descricao.trim().equals(""))
-			prodt.setDesProduto(descricao.trim());
-		else
-			prodt.setDesProduto(null);
-		
-		prodt.setCodIndustria(null);
-		prodt.setEanDunProduto(null);
-		if(tipo.equalsIgnoreCase("1") && !codigo.trim().equals(""))
-			prodt.setIdProduto(Long.parseLong(codigo.trim()));
-		else if(tipo.equalsIgnoreCase("2") && !codigo.trim().equals(""))
-			prodt.setEanDunProduto(codigo.trim());
-		
-		
-		fc.setProduto(prodt);
-		fc.setIdRepresentante(Integer.parseInt(fornecedor));
-		fc.setIdEmpresa(Integer.parseInt(empresa));
-		
-		return this.fornecedorCustoBO.selecionaComFiltro(fc);
-	}	
-	
 	private String geraTabelaResultado(List<FornecedorCusto> lista){
 		StringBuilder sb = new StringBuilder();
 		
