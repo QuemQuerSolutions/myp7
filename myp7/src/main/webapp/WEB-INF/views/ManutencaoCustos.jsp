@@ -50,8 +50,7 @@
 			$.ajax({
 				type: "POST",
 		        data: { id:id, novoValor:novoValor },
-		        url : 'atuaizaManutencaoCusto',
-		        success : function(data) { }
+		        url : 'atuaizaManutencaoCusto'
 		    });
 		}
 		
@@ -84,32 +83,30 @@
 			var texto;
 
 			if($.trim($("#idProduto").val()) == "" && $.trim($("#desProduto").val()) == ""){
-				isValid = false;
+				isValid = addRequired("#idProdutoDiv");
+				addRequired("#desProdutoDiv");
 				texto = "Preencha o campo código ou descrição.";
-				$("#idProdutoDiv").attr("class","form-group has-error");
-				$("#desProdutoDiv").attr("class","form-group has-error");
-			}else if($("#tipo").val() == 1 && !$.isNumeric($.trim($("#idProduto").val()))){
-				isValid = false;
+			}else if($("#tipo").val() == 1 && $.trim($("#idProduto").val()) != "" && !$.isNumeric($.trim($("#idProduto").val()))){
+				isValid = addRequired("#idProdutoDiv");
 				texto = "A opção código só permite números no campo código.";
-				$("#idProdutoDiv").attr("class","form-group has-error");
 			}
 			
 			if($("#uf").val() != "-1"){
 				if($("#empresa").val() == "-1"){
-					isValid = false;
+					isValid = addRequired("#empresaDiv");
+					$("#empresaDiv").addClass("col-md-6");
 					texto = "Selecione uma Empresa.";
-					$("#empresaDiv").attr("class","col-md-6 form-group has-error");
 				}
 			}else{
-				isValid = false;
+				isValid = addRequired("#ufDiv");
+				$("#ufDiv").addClass("col-md-2");
 				texto = "Selecione uma UF.";
-				$("#ufDiv").attr("class","col-md-2 form-group has-error");
 			}
 			
 			if($("#fornecedor").val() == "-1"){
-				isValid = false;
+				isValid = addRequired("#fornecedorDiv");
+				$("#fornecedorDiv").addClass("col-md-4");
 				texto = "Selecione um Fornecedor.";
-				$("#fornecedorDiv").attr("class","col-md-4 form-group has-error");
 			}
 
 			if(!isValid && alertar){
@@ -122,12 +119,19 @@
 		}
 
 		function removeClass(){
-			$("#idProdutoDiv").attr("class","form-group");
-			$("#desProdutoDiv").attr("class","form-group");
-			$("#fornecedorDiv").attr("class","col-md-4 form-group");
-			$("#ufDiv").attr("class","col-md-2 form-group");
-			$("#empresaDiv").attr("class","col-md-6 form-group");
+			$(".has-error").each(function(){ 
+				if($(this).prop("id") == "empresaDiv"){
+					$(this).attr("class","col-md-6 form-group"); 
+				}else if($(this).prop("id") == "fornecedorDiv"){
+					$(this).attr("class","col-md-4 form-group"); 
+				}else if($(this).prop("id") == "ufDiv"){
+					$(this).attr("class","col-md-2 form-group"); 
+				}else{
+					$(this).attr("class","form-group"); 
+				}
+			});
 		}
+		
 	</script>
 	
 <body>

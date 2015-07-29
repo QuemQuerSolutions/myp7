@@ -78,10 +78,8 @@ public class ManutencaoCustosController {
 	}
 	
 	@RequestMapping("atuaizaManutencaoCusto")
-	public @ResponseBody String atualizaManutencaoCustoAJAX(String id, String novoValor) {
+	public @ResponseBody void atualizaManutencaoCustoAJAX(String id, String novoValor) {
 		this.fornecedorCustoBO.atualizaManutencaoCusto(id, novoValor);
-		
-		return "";
 	}
 
 	private String geraTabelaResultado(List<FornecedorCusto> lista){

@@ -48,7 +48,7 @@ public class FornecedorCustoBO {
 		
 		codigo = codigo.trim();
 		
-		if(!codigo.equals("")){
+		if(!codigo.trim().equals("")){
 			if(tipo.equalsIgnoreCase("1"))
 				prodt.setIdProduto(Long.parseLong(codigo));
 			else
