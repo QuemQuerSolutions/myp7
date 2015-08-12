@@ -23,17 +23,17 @@ public class FornecedorCustoBO {
 		return this.fornecedorCustoMapper.obterTodos();
 	}
 
-	public void atualizaManutencaoCusto(String id, String novoValor) {
-		try{
-			FornecedorCusto fc = new FornecedorCusto();
-			
-			fc.setIdTabCustoFornecedor(Integer.parseInt(id));
-			fc.setValor(new BigDecimal(novoValor.replace(',', '.')));
-			
-			this.fornecedorCustoMapper.atualizarFornecedorCusto(fc);
-		}catch(Exception e){ 
-			e.printStackTrace();
-		}
+	public FornecedorCusto atualizaManutencaoCusto(String id, String novoValor, String valorAtual) throws Exception {
+		FornecedorCusto fc = new FornecedorCusto();
+		
+		fc.setIdTabCustoFornecedor(Integer.parseInt(id));
+		fc.setValor(new BigDecimal(novoValor.replace(',', '.')));
+		valorAtual = valorAtual.replace("\t", "");
+		fc.setValorAnterior(new BigDecimal(valorAtual.replace(',', '.')));
+		
+		this.fornecedorCustoMapper.atualizarFornecedorCusto(fc);
+		
+		return fc;
 	}
 
 	public List<FornecedorCusto> selecionaComFiltro(String fornecedor, 

@@ -13,5 +13,5 @@ public interface FornecedorCustoMapper {
 	
 	List<FornecedorCusto> obterComFiltro(FornecedorCusto fc);
 
-	void atualizarFornecedorCusto(FornecedorCusto fc);
+	void atualizarFornecedorCusto(FornecedorCusto fc) throws Exception;
 }

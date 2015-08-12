@@ -10,6 +10,7 @@ public class FornecedorCusto {
 	private Fornecedor fornecedor;
 	private Integer idEmpresa;
 	private Produto produto;
+	private BigDecimal valorAnterior;
 	private BigDecimal valor;
 	private Integer idRepresentante;
 	
@@ -40,10 +41,31 @@ public class FornecedorCusto {
 	public BigDecimal getValor() {
 		return valor;
 	}
+	public String getValorAnteriorFormatado() {
+		try{
+			String valorS = valorAnterior.toString();
+			if(valorS.split("\\.").length > 1 && valorS.split("\\.")[1] != null)
+				if(valorS.split("\\.")[1].length() >= 2)
+					valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1].subSequence(0,2);
+				else
+					valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1] + "0";
+			else
+				valorS = valorS.split("\\.")[0] + ",00";
+			return valorS;
+		}catch(Exception e){
+			return "0,00";
+		}
+	}
 	public String getValorFormatado() {
 		try{
 			String valorS = valor.toString();
-			valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1].subSequence(0,2);
+			if(valorS.split("\\.").length > 1 && valorS.split("\\.")[1] != null)
+				if(valorS.split("\\.")[1].length() >= 2)
+					valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1].subSequence(0,2);
+				else
+					valorS = valorS.split("\\.")[0] + "," + valorS.split("\\.")[1] + "0";
+			else
+				valorS = valorS.split("\\.")[0] + ",00";
 			return valorS;
 		}catch(Exception e){
 			return "0,00";
@@ -57,5 +79,11 @@ public class FornecedorCusto {
 	}
 	public void setIdRepresentante(Integer idRepresentante) {
 		this.idRepresentante = idRepresentante;
+	}
+	public BigDecimal getValorAnterior() {
+		return valorAnterior;
+	}
+	public void setValorAnterior(BigDecimal valorAnterior) {
+		this.valorAnterior = valorAnterior;
 	}
 }

@@ -40,17 +40,29 @@
 			$("#btnSalvar").click(function(){
 				$(".valorNovo").each(function() {
 					if($.trim($(this).val()) != "" ){
-				    	salvarManutencaoCusto($(this).prop("id").substring(9), $.trim($(this).val()));
+				    	salvarManutencaoCusto($(this).prop("id").substring(9), $.trim($(this).val()), $("#valorAtual"+$(this).prop("id").substring(9)).html());
 					}
 				});
 			});
 		});
 
-		function salvarManutencaoCusto(id, novoValor){
+		function salvarManutencaoCusto(id, novoValor, valorAnterior){
 			$.ajax({
 				type: "POST",
-		        data: { id:id, novoValor:novoValor },
-		        url : 'atuaizaManutencaoCusto'
+		        data: { id:id, novoValor:novoValor, valorAnterior:valorAnterior },
+		        url : 'atuaizaManutencaoCusto',
+		        success : function(data) {
+			        if(data != "false"){
+			        	var valores = data.split("$");
+		        		$("#valorAnterior"+id).html(valores[0]);
+		        		$("#valorAtual"+id).html(valores[1]);
+		        		$("#valorNovo"+id).val("");
+
+		        		alerta("Valores salvos com sucesso!", "success");
+			        }else{
+			        	alerta("Erro ao salvar novos valores.", "warning");
+					}
+		        }
 		    });
 		}
 		
@@ -249,6 +261,7 @@
 						<th>Código</th>
 						<th>Descrição</th>
 						<th>Valor Anterior</th>
+						<th>Valor Atual</th>
 						<th>Valor Novo</th>
 					</tr>
 				</thead>
@@ -257,7 +270,8 @@
 						<tr>
 							<td>${lista.produto.idProduto}</td>
 							<td>${lista.produto.desProduto}</td>
-							<td>${lista.valorFormatado}</td>
+							<td id="valorAnterior${i.count}">${lista.valorAnteriorFormatado}</td>
+							<td id="valorAtual${i.count}">${lista.valorFormatado}</td>
 							<td>
 						    	<input type="text" class="form-control valorNovo" id="valorNovo${i.count}" name="valorNovo${i.count}" maxlength="10" />
 							</td>

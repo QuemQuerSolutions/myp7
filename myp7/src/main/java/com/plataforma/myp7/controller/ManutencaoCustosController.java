@@ -78,8 +78,13 @@ public class ManutencaoCustosController {
 	}
 	
 	@RequestMapping("atuaizaManutencaoCusto")
-	public @ResponseBody void atualizaManutencaoCustoAJAX(String id, String novoValor) {
-		this.fornecedorCustoBO.atualizaManutencaoCusto(id, novoValor);
+	public @ResponseBody String atualizaManutencaoCustoAJAX(String id, String novoValor, String valorAnterior) {
+		try {
+			FornecedorCusto fc = this.fornecedorCustoBO.atualizaManutencaoCusto(id, novoValor, valorAnterior);
+			return fc.getValorAnteriorFormatado()+"$"+fc.getValorFormatado();
+		} catch (Exception e) {
+			return "false";
+		}
 	}
 
 	private String geraTabelaResultado(List<FornecedorCusto> lista){
@@ -93,9 +98,12 @@ public class ManutencaoCustosController {
 			sb.append("		<td>");
 			sb.append(			fc.getProduto().getDesProduto());
 			sb.append("		</td>");
-			sb.append("		<td>");
-			sb.append(			fc.getValorFormatado());
+			sb.append("		<td id=\"valorAnterior"+fc.getIdTabCustoFornecedor()+"\">");
+			sb.append(			fc.getValorAnteriorFormatado());
 			sb.append("		</td>");
+			sb.append("		<td id=\"valorAtual"+fc.getIdTabCustoFornecedor()+"\">");
+			sb.append(			fc.getValorFormatado());
+			sb.append("		</td>");			
 			sb.append("		<td>");
 			sb.append("			<input type='text' class='form-control valorNovo' id='valorNovo");
 			sb.append(			fc.getIdTabCustoFornecedor());

@@ -6,6 +6,7 @@
 	<resultMap id="fornecedorCustoMap" type="com.plataforma.myp7.data.FornecedorCusto">
 		<id property="idTabCustoFornecedor" column="ID_TAB_CUSTO_FORNECEDOR" />
 		<result property="idEmpresa"  		column="ID_EMPRESA" />
+		<result property="valorAnterior"  	column="VALOR_ANTERIOR" />
 		<result property="valor"  			column="VALOR" />
 		<result property="idRepresentante"  column="ID_REPRESENTANTE" />
 		<association property="fornecedor" 	column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
@@ -15,7 +16,7 @@
 	<sql id="selectFornecedorCusto">
 		<![CDATA[
 			SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			ID_PRODUTO, VALOR, ID_REPRESENTANTE 
+			ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE 
 			FROM tab_custo_fornecedor
 		  ]]>
 	</sql>
@@ -26,7 +27,7 @@
 	
 	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
 		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			   tab_custo_fornecedor.ID_PRODUTO, VALOR, ID_REPRESENTANTE 
+			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE 
 		  FROM tab_custo_fornecedor, prd_usuario_produto
 		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
 		
@@ -53,7 +54,7 @@
 	</select>
 	
 	<update id="atualizarFornecedorCusto">
-		UPDATE tab_custo_fornecedor SET VALOR = #{valor} WHERE ID_TAB_CUSTO_FORNECEDOR = #{idTabCustoFornecedor}
+		UPDATE tab_custo_fornecedor SET VALOR = #{valor}, VALOR_ANTERIOR = #{valorAnterior} WHERE ID_TAB_CUSTO_FORNECEDOR = #{idTabCustoFornecedor}
 	</update>
 </mapper>
 
