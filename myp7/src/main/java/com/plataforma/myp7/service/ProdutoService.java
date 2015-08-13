@@ -16,6 +16,7 @@ import com.plataforma.myp7.data.Embalagem;
 import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -39,7 +40,7 @@ public class ProdutoService {
 			produto.setIdProduto(id);
 			produto.setDesProduto(Utils.emptyToNull(desc));
 			List<Produto> lstProduto = this.produtoBO.consultaProdutoService(produto);
-			return gson.toJson(lstProduto.size() == 0?Utils.formataMsgem(1):lstProduto);
+			return gson.toJson(lstProduto.size() == 0?Mensagem.formataMsgem(Mensagem.CONSUL_VAZIA):lstProduto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,7 +94,7 @@ public class ProdutoService {
 			
 			return gson.toJson(this.produtoBO.salvarProduto(produto));
 		} catch (Exception e) {
-			return gson.toJson(Utils.formataMsgem(produto.getIdProduto()==0L?10:2));
+			return gson.toJson(Mensagem.formataMsgem(produto.getIdProduto()==0L?Mensagem.INSERT_PROD_ERRO:Mensagem.ATUALIZA_PRDO_ERRO));
 		}
 	}
 

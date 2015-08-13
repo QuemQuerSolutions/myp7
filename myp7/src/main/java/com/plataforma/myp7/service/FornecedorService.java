@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
-import com.plataforma.myp7.util.Utils;
+import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
 @RequestMapping("/wsfornecedor")
@@ -28,15 +28,15 @@ public class FornecedorService {
 	@RequestMapping(method=RequestMethod.POST, value="/inserirFornecedor", produces="application/json")
 	@ResponseBody
 	public String inserirForncedor(@RequestParam(value="status", required=true) String status,
-								 @RequestParam(value="utilizaTabCusto", required=true)String utilizaTabCusto){
+								   @RequestParam(value="utilizaTabCusto", required=true)String utilizaTabCusto){
 	    Fornecedor fornecedor = new Fornecedor();
 	    fornecedor.setStatusFornecedor(status);
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
 		try {
 			this.fornecedorBO.inserir(fornecedor);
-			return gson.toJson(Utils.formataMsgem(5));
+			return gson.toJson(Mensagem.formataMsgem(Mensagem.INSERT_FORNC_SUCESSO));
 		} catch (Exception e) {
-			return gson.toJson(Utils.formataMsgem(4));
+			return gson.toJson(Mensagem.formataMsgem(Mensagem.INSERT_FORNC_ERRO));
 		}
 	}
 }

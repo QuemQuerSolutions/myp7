@@ -16,10 +16,11 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.dto.MensagemRetornoDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
-import com.plataforma.myp7.util.MensagemRetorno;
 import com.plataforma.myp7.util.Upload;
 import com.plataforma.myp7.util.Utils;
 
@@ -117,17 +118,17 @@ public class ProdutoBO {
 		return lstProduto;
 	}
 
-	public MensagemRetorno salvarProduto(Produto produto) throws Exception{
+	public MensagemRetornoDTO salvarProduto(Produto produto) throws Exception{
 		if(this.isValidoService(produto)){
 			if (produto.getIdProduto()==0L){
 				this.produtoMapper.salvarProduto(produto);
-				return Utils.formataMsgem(3);
+				return Mensagem.formataMsgem(Mensagem.INSERT_PROD_SUCESSO);
 			}else{
 				this.produtoMapper.atualizaProduto(produto);
-				return Utils.formataMsgem(9);
+				return Mensagem.formataMsgem(Mensagem.ATUALIZA_PROD_SUCESSO);
 			}
 		}else{
-			return Utils.formataMsgem(8);
+			return Mensagem.formataMsgem(Mensagem.CONSULTA_EMB_NCM_VAZIO);
 		}
 	}
 	

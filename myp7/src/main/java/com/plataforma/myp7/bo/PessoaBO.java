@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.data.Pessoa;
+import com.plataforma.myp7.dto.MensagemRetornoDTO;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.mapper.PessoaMapper;
-import com.plataforma.myp7.util.MensagemRetorno;
-import com.plataforma.myp7.util.Utils;
 
 @Service
 public class PessoaBO {
@@ -24,13 +24,13 @@ public class PessoaBO {
 		return this.pessoaMapper.obterPessoaCodNome(pessoa);
 	}
 	
-	public MensagemRetorno salvarPessoa(Pessoa pessoa) throws Exception{
+	public MensagemRetornoDTO salvarPessoa(Pessoa pessoa) throws Exception{
 		if(pessoa.getIdPessoa()==0L){
 			this.pessoaMapper.inserir(pessoa);
-			return Utils.formataMsgem(7);
+			return Mensagem.formataMsgem(Mensagem.INSERT_PESSOA_SUCESSO);
 		}else{
 			this.pessoaMapper.atualiza(pessoa);
-			return Utils.formataMsgem(11);
+			return Mensagem.formataMsgem(Mensagem.ATUALIZA_PESSOA_SUCESSO);
 		}
 	}
 		

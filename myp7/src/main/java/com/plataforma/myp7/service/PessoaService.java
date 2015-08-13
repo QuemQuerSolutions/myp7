@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.data.Pessoa;
-import com.plataforma.myp7.util.Utils;
+import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
 @RequestMapping("/wspessoa")
@@ -37,7 +37,7 @@ public class PessoaService {
 		pessoa.setRazao(razaoSocial);
 		
 		List<Pessoa> lstPessoa = this.pessoaBO.obterPessoaCodNome(pessoa);
-		return this.gson.toJson(lstPessoa.size()==0? Utils.formataMsgem(1):lstPessoa);
+		return this.gson.toJson(lstPessoa.size()==0? Mensagem.formataMsgem(Mensagem.CONSUL_VAZIA):lstPessoa);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/salvarPessoa",produces="application/json")
@@ -86,7 +86,7 @@ public class PessoaService {
 			return this.gson.toJson(this.pessoaBO.salvarPessoa(pessoa));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return this.gson.toJson(Utils.formataMsgem(pessoa.getIdPessoa()==0L?6:12));
+			return this.gson.toJson(Mensagem.formataMsgem(pessoa.getIdPessoa()==0L?Mensagem.INSERT_FORNC_ERRO:Mensagem.ATUALIZA_PESSOA_ERRO));
 		}
 	}
 }
