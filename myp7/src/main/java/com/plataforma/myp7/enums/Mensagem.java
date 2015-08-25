@@ -1,5 +1,7 @@
 package com.plataforma.myp7.enums;
 
+import com.plataforma.myp7.dto.MensagemRetornoDTO;
+
 public enum Mensagem {
 	CONSUL_VAZIA(1,"Nenhum registro encontrado"),
 	INSERT_PROD_ERRO (2, "Erro ao inserir o produto."),
@@ -42,5 +44,14 @@ public enum Mensagem {
 		this.codigo = codigo;
 	}
 	
-	
+	public static MensagemRetornoDTO formataMsgem(Mensagem mensagem){
+		MensagemRetornoDTO msgem = new MensagemRetornoDTO();
+		for(Mensagem msg:Mensagem.values()){
+			if (mensagem.getMensagem()==msg.getMensagem()){
+				msgem.setCodRetorno(msg.getCodigo());
+				msgem.setMsgRetorno(msg.getMensagem());
+			}
+		}
+		return msgem;
+	}
 }

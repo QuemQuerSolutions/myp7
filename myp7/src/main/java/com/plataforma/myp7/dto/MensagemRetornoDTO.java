@@ -1,6 +1,6 @@
-package com.plataforma.myp7.util;
+package com.plataforma.myp7.dto;
 
-public class MensagemRetorno {
+public class MensagemRetornoDTO {
 	private String MsgRetorno;
 	private Integer codRetorno;
 	

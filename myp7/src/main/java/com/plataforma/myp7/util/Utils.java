@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.enums.ConfigEnum;
-import com.plataforma.myp7.enums.Mensagem;
 
 public class Utils {
 	
@@ -54,15 +53,4 @@ public class Utils {
 			file.mkdirs();
 	}
 	
-	public static MensagemRetorno formataMsgem(Integer cod){
-		MensagemRetorno msgem = new MensagemRetorno();
-		for(Mensagem msg:Mensagem.values()){
-			if (cod==msg.getCodigo()){
-				msgem.setCodRetorno(msg.getCodigo());
-				msgem.setMsgRetorno(msg.getMensagem());
-			}
-		}
-		
-		return msgem;
-	}
 }
