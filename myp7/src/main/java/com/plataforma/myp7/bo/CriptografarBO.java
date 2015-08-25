@@ -21,7 +21,6 @@ public class CriptografarBO  {
 		}catch(NoSuchAlgorithmException | UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
-		
 		return hexHash.toString();
 	}
 }
