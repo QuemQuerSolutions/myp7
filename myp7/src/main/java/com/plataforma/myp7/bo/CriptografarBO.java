@@ -14,7 +14,6 @@ public class CriptografarBO  {
 			MessageDigest algoritmo = MessageDigest.getInstance("SHA-256");
 			byte criptografia[] = algoritmo.digest(palavra.getBytes("UTF-8")); 
 			
-			
 			for(byte b : criptografia) {
 			  hexHash.append(String.format("%02X", 0xFF & b));
 			}
