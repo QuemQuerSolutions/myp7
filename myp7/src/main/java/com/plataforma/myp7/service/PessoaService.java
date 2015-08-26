@@ -37,7 +37,7 @@ public class PessoaService {
 		pessoa.setRazao(razaoSocial);
 		
 		List<Pessoa> lstPessoa = this.pessoaBO.obterPessoaCodNome(pessoa);
-		return this.gson.toJson(lstPessoa.size()==0? Mensagem.formataMsgem(Mensagem.CONSUL_VAZIA):lstPessoa);
+		return this.gson.toJson(lstPessoa.size()==0? Mensagem.getMensagem(Mensagem.CONSUL_VAZIA):lstPessoa);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/salvarPessoa",produces="application/json")
@@ -86,7 +86,7 @@ public class PessoaService {
 			return this.gson.toJson(this.pessoaBO.salvarPessoa(pessoa));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return this.gson.toJson(Mensagem.formataMsgem(pessoa.getIdPessoa()==0L?Mensagem.INSERT_FORNC_ERRO:Mensagem.ATUALIZA_PESSOA_ERRO));
+			return this.gson.toJson(Mensagem.getMensagem(pessoa.getIdPessoa()==0L?Mensagem.INSERT_FORNC_ERRO:Mensagem.ATUALIZA_PESSOA_ERRO));
 		}
 	}
 }

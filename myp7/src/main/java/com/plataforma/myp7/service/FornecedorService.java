@@ -34,9 +34,9 @@ public class FornecedorService {
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
 		try {
 			this.fornecedorBO.inserir(fornecedor);
-			return gson.toJson(Mensagem.formataMsgem(Mensagem.INSERT_FORNC_SUCESSO));
+			return gson.toJson(Mensagem.getMensagem(Mensagem.INSERT_FORNC_SUCESSO));
 		} catch (Exception e) {
-			return gson.toJson(Mensagem.formataMsgem(Mensagem.INSERT_FORNC_ERRO));
+			return gson.toJson(Mensagem.getMensagem(Mensagem.INSERT_FORNC_ERRO));
 		}
 	}
 }

@@ -27,10 +27,10 @@ public class PessoaBO {
 	public MensagemRetornoDTO salvarPessoa(Pessoa pessoa) throws Exception{
 		if(pessoa.getIdPessoa()==0L){
 			this.pessoaMapper.inserir(pessoa);
-			return Mensagem.formataMsgem(Mensagem.INSERT_PESSOA_SUCESSO);
+			return Mensagem.getMensagem(Mensagem.INSERT_PESSOA_SUCESSO);
 		}else{
 			this.pessoaMapper.atualiza(pessoa);
-			return Mensagem.formataMsgem(Mensagem.ATUALIZA_PESSOA_SUCESSO);
+			return Mensagem.getMensagem(Mensagem.ATUALIZA_PESSOA_SUCESSO);
 		}
 	}
 		

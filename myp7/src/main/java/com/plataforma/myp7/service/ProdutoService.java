@@ -40,7 +40,7 @@ public class ProdutoService {
 			produto.setIdProduto(id);
 			produto.setDesProduto(Utils.emptyToNull(desc));
 			List<Produto> lstProduto = this.produtoBO.consultaProdutoService(produto);
-			return gson.toJson(lstProduto.size() == 0?Mensagem.formataMsgem(Mensagem.CONSUL_VAZIA):lstProduto);
+			return gson.toJson(lstProduto.size() == 0?Mensagem.getMensagem(Mensagem.CONSUL_VAZIA):lstProduto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,7 +94,7 @@ public class ProdutoService {
 			
 			return gson.toJson(this.produtoBO.salvarProduto(produto));
 		} catch (Exception e) {
-			return gson.toJson(Mensagem.formataMsgem(produto.getIdProduto()==0L?Mensagem.INSERT_PROD_ERRO:Mensagem.ATUALIZA_PRDO_ERRO));
+			return gson.toJson(Mensagem.getMensagem(produto.getIdProduto()==0L?Mensagem.INSERT_PROD_ERRO:Mensagem.ATUALIZA_PRDO_ERRO));
 		}
 	}
 

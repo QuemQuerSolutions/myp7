@@ -107,7 +107,6 @@ public class SenhaBO {
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	

@@ -117,18 +117,18 @@ public class ProdutoBO {
 		produto.setDesProduto(cleanLike(produto.getDesProduto()));
 		return lstProduto;
 	}
-
+	
 	public MensagemRetornoDTO salvarProduto(Produto produto) throws Exception{
 		if(this.isValidoService(produto)){
 			if (produto.getIdProduto()==0L){
 				this.produtoMapper.salvarProduto(produto);
-				return Mensagem.formataMsgem(Mensagem.INSERT_PROD_SUCESSO);
+				return Mensagem.getMensagem(Mensagem.INSERT_PROD_SUCESSO);
 			}else{
 				this.produtoMapper.atualizaProduto(produto);
-				return Mensagem.formataMsgem(Mensagem.ATUALIZA_PROD_SUCESSO);
+				return Mensagem.getMensagem(Mensagem.ATUALIZA_PROD_SUCESSO);
 			}
 		}else{
-			return Mensagem.formataMsgem(Mensagem.CONSULTA_EMB_NCM_VAZIO);
+			return Mensagem.getMensagem(Mensagem.CONSULTA_EMB_NCM_VAZIO);
 		}
 	}
 	
