@@ -47,7 +47,7 @@ public enum Mensagem {
 	public static MensagemRetornoDTO getMensagem(Mensagem mensagem){
 		MensagemRetornoDTO msgem = new MensagemRetornoDTO();
 		for(Mensagem msg:Mensagem.values()){
-			if (mensagem.getMensagem()== msg.getMensagem()){
+			if (mensagem.getCodigo()== msg.getCodigo()){
 				msgem.setCodRetorno(msg.getCodigo());
 				msgem.setMsgRetorno(msg.getMensagem());
 				return msgem;
