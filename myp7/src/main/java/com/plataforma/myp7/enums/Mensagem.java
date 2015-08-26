@@ -44,12 +44,13 @@ public enum Mensagem {
 		this.codigo = codigo;
 	}
 	
-	public static MensagemRetornoDTO formataMsgem(Mensagem mensagem){
+	public static MensagemRetornoDTO getMensagem(Mensagem mensagem){
 		MensagemRetornoDTO msgem = new MensagemRetornoDTO();
 		for(Mensagem msg:Mensagem.values()){
-			if (mensagem.getMensagem()==msg.getMensagem()){
+			if (mensagem.getMensagem()== msg.getMensagem()){
 				msgem.setCodRetorno(msg.getCodigo());
 				msgem.setMsgRetorno(msg.getMensagem());
+				return msgem;
 			}
 		}
 		return msgem;

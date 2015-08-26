@@ -1,15 +1,15 @@
 package com.plataforma.myp7.dto;
 
 public class MensagemRetornoDTO {
-	private String MsgRetorno;
+	private String msgRetorno;
 	private Integer codRetorno;
 	
 	
 	public String getMsgRetorno() {
-		return MsgRetorno;
+		return msgRetorno;
 	}
 	public void setMsgRetorno(String msgRetorno) {
-		MsgRetorno = msgRetorno;
+		this.msgRetorno = msgRetorno;
 	}
 	public Integer getCodRetorno() {
 		return codRetorno;
