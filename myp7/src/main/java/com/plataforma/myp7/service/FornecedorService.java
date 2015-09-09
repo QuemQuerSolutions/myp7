@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.exception.ManterEntidadeException;
 
 @Controller
 @RequestMapping("/wsfornecedor")
@@ -27,16 +28,26 @@ public class FornecedorService {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/inserirFornecedor", produces="application/json")
 	@ResponseBody
-	public String inserirForncedor(@RequestParam(value="status", required=true) String status,
-								   @RequestParam(value="utilizaTabCusto", required=true)String utilizaTabCusto){
+	public String cadastrarForncedor(@RequestParam(value="idFornecedor", required=false) Long idFornecedor,
+			   					   @RequestParam(value="status", required=true) String status,
+			   					   @RequestParam(value="utilizaTabCusto", required=true) String utilizaTabCusto){
+		Mensagem mensagem;
+		
 	    Fornecedor fornecedor = new Fornecedor();
 	    fornecedor.setStatusFornecedor(status);
 	    fornecedor.setUtilTabCustoFornc(utilizaTabCusto);
 		try {
-			this.fornecedorBO.inserir(fornecedor);
-			return gson.toJson(Mensagem.getMensagem(Mensagem.INSERT_FORNC_SUCESSO));
-		} catch (Exception e) {
-			return gson.toJson(Mensagem.getMensagem(Mensagem.INSERT_FORNC_ERRO));
+			if(idFornecedor != null){
+				fornecedor.setIdFornecedor(idFornecedor);
+				this.fornecedorBO.update(fornecedor);
+				mensagem = Mensagem.ATUALIZA_FORNC_SUCESSO;
+			}else{
+				this.fornecedorBO.inserir(fornecedor);
+				mensagem = Mensagem.INSERT_FORNC_SUCESSO;
+			}
+			return gson.toJson(Mensagem.getMensagem(mensagem));
+		} catch (ManterEntidadeException e) {
+			return gson.toJson(Mensagem.getMensagem(e.getMensagemEnum()));
 		}
 	}
 }

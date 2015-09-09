@@ -12,6 +12,8 @@ public enum Mensagem {
 	
 	INSERT_FORNC_ERRO(4,"Erro ao inserir o fornecedor."),
 	INSERT_FORNC_SUCESSO(5,"Fornecedor inserido com sucesso."),
+	ATUALIZA_FORNC_SUCESSO(13,"Fornecedor atualizado com sucesso."),
+	ATUALIZA_FORNC_ERRO(14, "Erro ao atualizar o fornecedor"),
 	
 	INSERT_PESSOA_ERRO(6, "Erro ao inserir os dados da pessoa."),
 	INSERT_PESSOA_SUCESSO(7,"Pessoa inserida com sucesso."),

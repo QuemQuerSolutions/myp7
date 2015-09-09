@@ -32,5 +32,11 @@
 			(#{statusFornecedor}, #{utilTabCustoFornc})
 	</insert>
 	
+	<update id="updateFornecedor">
+		UPDATE frn_fornecedor
+		   SET STATUS = #{statusFornecedor}, 
+		   UTILIZA_TABCUSTO = #{utilTabCustoFornc}
+		WHERE ID_FORNECEDOR = #{idFornecedor}
+	</update>
 	
 </mapper>
