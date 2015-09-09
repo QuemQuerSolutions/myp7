@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
-import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 
 @Controller
@@ -31,7 +31,7 @@ public class FornecedorService {
 	public String cadastrarForncedor(@RequestParam(value="idFornecedor", required=false) Long idFornecedor,
 			   					   @RequestParam(value="status", required=true) String status,
 			   					   @RequestParam(value="utilizaTabCusto", required=true) String utilizaTabCusto){
-		Mensagem mensagem;
+		MensagemWS mensagem;
 		
 	    Fornecedor fornecedor = new Fornecedor();
 	    fornecedor.setStatusFornecedor(status);
@@ -40,14 +40,14 @@ public class FornecedorService {
 			if(idFornecedor != null){
 				fornecedor.setIdFornecedor(idFornecedor);
 				this.fornecedorBO.update(fornecedor);
-				mensagem = Mensagem.ATUALIZA_FORNC_SUCESSO;
+				mensagem = MensagemWS.ATUALIZA_FORNC_SUCESSO;
 			}else{
 				this.fornecedorBO.inserir(fornecedor);
-				mensagem = Mensagem.INSERT_FORNC_SUCESSO;
+				mensagem = MensagemWS.INSERT_FORNC_SUCESSO;
 			}
-			return gson.toJson(Mensagem.getMensagem(mensagem));
+			return gson.toJson(MensagemWS.getMensagem(mensagem));
 		} catch (ManterEntidadeException e) {
-			return gson.toJson(Mensagem.getMensagem(e.getMensagemEnum()));
+			return gson.toJson(MensagemWS.getMensagem(e.getMensagemEnum()));
 		}
 	}
 }

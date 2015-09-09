@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.CompradorMapper">
+
+	<sql id="selectSimples">
+		<![CDATA[
+			SELECT ID_COMPRADOR as id,
+			    ID_USUARIO as idUsuario,
+			    STATUS,
+			    EDI_CODIGO as ediCodigo,
+			    APELIDO
+			FROM cpr_comprador
+		  ]]>
+	</sql>
+	
+	<sql id="whereBusca">
+		<if test="id != null">
+			AND ID_COMPRADOR = #{id} 
+		</if>
+		<if test="apelido != null">
+			AND APELIDO like #{apelido} 
+		</if>
+	</sql>
+	
+	<select id="obterPorParametro" resultType="Comprador" parameterType="Comprador">
+		<include refid="selectSimples"/>
+		WHERE 1=1
+		<include refid="whereBusca" />
+		ORDER BY APELIDO
+	</select>
+	
+	<select id="count" resultType="int" parameterType="Comprador">
+		SELECT COUNT(1) FROM cpr_comprador
+		WHERE 1=1
+		<include refid="whereBusca" />
+	</select>	
+	
+	<select id="obterPorId" resultType="Comprador">
+		<include refid="selectSimples"/>
+		WHERE ID_COMPRADOR = #{id} 
+	</select>
+	
+</mapper>

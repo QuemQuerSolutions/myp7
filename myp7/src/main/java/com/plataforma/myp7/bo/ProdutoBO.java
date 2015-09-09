@@ -18,7 +18,7 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
-import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
 import com.plataforma.myp7.util.Upload;
@@ -122,13 +122,13 @@ public class ProdutoBO {
 		if(this.isValidoService(produto)){
 			if (produto.getIdProduto()==0L){
 				this.produtoMapper.salvarProduto(produto);
-				return Mensagem.getMensagem(Mensagem.INSERT_PROD_SUCESSO);
+				return MensagemWS.getMensagem(MensagemWS.INSERT_PROD_SUCESSO);
 			}else{
 				this.produtoMapper.atualizaProduto(produto);
-				return Mensagem.getMensagem(Mensagem.ATUALIZA_PROD_SUCESSO);
+				return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PROD_SUCESSO);
 			}
 		}else{
-			return Mensagem.getMensagem(Mensagem.CONSULTA_EMB_NCM_VAZIO);
+			return MensagemWS.getMensagem(MensagemWS.CONSULTA_EMB_NCM_VAZIO);
 		}
 	}
 	

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
-import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.PessoaMapper;
 
 @Service
@@ -27,10 +27,10 @@ public class PessoaBO {
 	public MensagemRetornoDTO salvarPessoa(Pessoa pessoa) throws Exception{
 		if(pessoa.getIdPessoa()==0L){
 			this.pessoaMapper.inserir(pessoa);
-			return Mensagem.getMensagem(Mensagem.INSERT_PESSOA_SUCESSO);
+			return MensagemWS.getMensagem(MensagemWS.INSERT_PESSOA_SUCESSO);
 		}else{
 			this.pessoaMapper.atualiza(pessoa);
-			return Mensagem.getMensagem(Mensagem.ATUALIZA_PESSOA_SUCESSO);
+			return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PESSOA_SUCESSO);
 		}
 	}
 		

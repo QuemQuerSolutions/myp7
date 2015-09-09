@@ -94,3 +94,6 @@ thead{
 .mouse-click tbody tr{cursor: pointer;}
 
 .disabled{background-color: rgb(244, 243, 243);}
+
+tr.registroAtivo{border-left: 3px solid #0BBD0B;}
+tr.registroInativo{border-left: 3px solid #CACACA;}

@@ -11,6 +11,7 @@
 	</div>
 	<div id="menu">
 		<ul id="menu-nav" class="box">
+			<myp7:itemMenu label="Comprador" link="Comprador" icon="glyphicon-shopping-cart" />
 			<myp7:itemMenu label="Produto" link="Produto" icon="glyphicon-plus" />
 			<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
 			<myp7:itemMenu label="Manutenção de Custos" link="ManutencaoCustos" icon="glyphicon-usd"/>

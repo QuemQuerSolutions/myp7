@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.Mensagem;
 
 public class Utils {
 	
@@ -19,6 +20,11 @@ public class Utils {
 	
 	public static void setCodRetorno(Model model, final int cod) {
 		model.addAttribute("codMsgem", cod);
+	}
+	
+	public static void setRetorno(Model model, Mensagem mensagem){
+		model.addAttribute("mensagemRetorno", mensagem.getMensagem());
+		model.addAttribute("codMsgem", mensagem.getCodigo());
 	}
 	
 	public static String emptyToNull(String value){

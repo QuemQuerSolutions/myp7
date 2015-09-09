@@ -1,14 +1,14 @@
 package com.plataforma.myp7.exception;
 
-import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.MensagemWS;
 
 public class ManterEntidadeException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	private Mensagem mensagemEnum;
+	private MensagemWS mensagemEnum;
 	
-	public ManterEntidadeException(Mensagem message) {
+	public ManterEntidadeException(MensagemWS message) {
 		super(message.getMensagem(), new Exception());
 		this.mensagemEnum = message;
 	}
@@ -17,7 +17,7 @@ public class ManterEntidadeException extends RuntimeException {
 		return this.mensagemEnum.getMensagem();
 	}
 	
-	public Mensagem getMensagemEnum(){
+	public MensagemWS getMensagemEnum(){
 		return this.mensagemEnum;
 	}	
 }

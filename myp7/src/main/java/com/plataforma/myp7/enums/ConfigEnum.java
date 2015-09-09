@@ -13,4 +13,5 @@ public enum ConfigEnum {
 	}
 	
 	public String getValor() { return valor; }
+	public int getValorInt() { return Integer.parseInt(valor); }
 }
