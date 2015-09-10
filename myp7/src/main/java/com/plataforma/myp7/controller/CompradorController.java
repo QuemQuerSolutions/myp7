@@ -21,8 +21,20 @@ public class CompradorController {
 	
 	@RequestMapping("CarregaListaComprador")
 	public String carregaListaComprador(Model model, Comprador comprador){
-		model.addAttribute("comprador", comprador);
+		model.addAttribute(comprador);
 		model.addAttribute("lstComprador", compradorBO.obterPorParametro(model, comprador));
+		return "CompradorLista";
+	}
+	
+	@RequestMapping("editarComprador")
+	public String editarComprador(Model model, Integer id){
+		model.addAttribute(compradorBO.obterPorId(id));
+		return "CompradorSalvar";
+	}
+	
+	@RequestMapping("salvarComprador")
+	public String salvarComprador(Comprador comprador){
+		
 		return "CompradorLista";
 	}
 }

@@ -3,6 +3,7 @@ package com.plataforma.myp7.bo;
 import static com.plataforma.myp7.util.Utils.setRetorno;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,13 @@ public class CompradorBO {
 	private CompradorMapper compradorMapper;
 	
 	public Comprador obterPorId(Integer id){
+		if(Objects.isNull(id)) 
+			return new Comprador();
 		return compradorMapper.obterPorId(id);
 	}
 	
 	public List<Comprador> obterPorParametro(Model model, Comprador comp){
-		Comprador comprador = new Comprador(comp);
+		final Comprador comprador = new Comprador(comp);
 		
 		int count = compradorMapper.count(comprador);
 		
@@ -40,4 +43,5 @@ public class CompradorBO {
 		
 		return compradorMapper.obterPorParametro(comprador);
 	}
+	
 }

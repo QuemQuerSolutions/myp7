@@ -98,3 +98,10 @@ function validaEmail(email){
 		return false;
 	return true;
 }
+
+function go(destino){
+	if(destino.indexOf("#") > -1)
+		$(destino).submit();
+	else
+		window.location = destino;
+}

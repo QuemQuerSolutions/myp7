@@ -6,9 +6,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	if($("#mensagem").val() !== ""){
-		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+	if($("#mensagemRetorno").val() !== ""){
+		alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
+	
+	$("#btnNovo").click(function(){
+		go("editarComprador");
+	});
 
 	$("#limpar").click(function(){
 		$("#id").val("");
@@ -19,6 +23,7 @@ $(document).ready(function(){
 });
 
 function onClickLine(id){
+	go("editarComprador?id="+id);
 }
 
 
@@ -43,7 +48,7 @@ function onClickLine(id){
 			</div>
 			
 			<form action="CarregaListaComprador" name="frmEmbalagem" method="GET">
-				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
+				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				
 				<div class="row">	
@@ -100,7 +105,7 @@ function onClickLine(id){
 					<c:forEach items="${lstComprador}" var="c">
 						<c:if test="${c.status eq 'A'}"><c:set var="classLine" value="registroAtivo" /></c:if>
 						<c:if test="${c.status eq 'I'}"><c:set var="classLine" value="registroAtivo" /></c:if>
-						<tr class="${classLine}">
+						<tr class="${classLine}" onclick="onClickLine(${c.id})">
 							<td>${c.id}</td>
 							<td>${c.apelido}</td>
 							<td>${c.apelido}</td>
