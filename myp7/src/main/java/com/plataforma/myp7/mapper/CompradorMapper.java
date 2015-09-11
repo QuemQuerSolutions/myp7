@@ -11,4 +11,6 @@ public interface CompradorMapper {
 	int count(Comprador comprador);
 	Comprador obterPorId(Integer id);
 	List<Comprador> obterPorParametro(Comprador comprador);
+	void inserirComprador(Comprador fornecedor);
+	void updateComprador(Comprador fornecedor);
 }

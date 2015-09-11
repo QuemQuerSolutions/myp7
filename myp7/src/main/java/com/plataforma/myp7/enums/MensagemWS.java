@@ -15,6 +15,11 @@ public enum MensagemWS {
 	ATUALIZA_FORNC_SUCESSO(13,"Fornecedor atualizado com sucesso."),
 	ATUALIZA_FORNC_ERRO(14, "Erro ao atualizar o fornecedor"),
 	
+	INSERT_COMPRADOR_ERRO(15,"Erro ao inserir o comprador."),
+	INSERT_COMPRADOR_SUCESSO(16,"Comprador inserido com sucesso."),
+	ATUALIZA_COMPRADOR_SUCESSO(17,"Comprador atualizado com sucesso."),
+	ATUALIZA_COMPRADOR_ERRO(18, "Erro ao atualizar o comprador"),	
+	
 	INSERT_PESSOA_ERRO(6, "Erro ao inserir os dados da pessoa."),
 	INSERT_PESSOA_SUCESSO(7,"Pessoa inserida com sucesso."),
 	ATUALIZA_PESSOA_SUCESSO(11, "Pessoa atualizada com sucesso."),

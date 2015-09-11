@@ -12,7 +12,7 @@ public class Comprador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private Integer idUsuario;
+	private Usuario usuario;
 	private String status;
 	private Integer ediCodigo;
 	private String apelido;
@@ -28,8 +28,8 @@ public class Comprador implements Serializable {
 		return id;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
 	public String getStatus() {
@@ -48,8 +48,8 @@ public class Comprador implements Serializable {
 		this.id = id;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public void setStatus(String status) {

@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.MensagemWS;
+import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.CompradorMapper;
 
 @Service
@@ -44,4 +46,19 @@ public class CompradorBO {
 		return compradorMapper.obterPorParametro(comprador);
 	}
 	
+	public void inserir(Comprador comprador) throws ManterEntidadeException{
+		try{
+			this.compradorMapper.inserirComprador(comprador);
+		}catch(Exception e){
+			throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
+		}
+	}
+
+	public void update(Comprador comprador) throws ManterEntidadeException{
+		try{
+			this.compradorMapper.updateComprador(comprador);
+		}catch(Exception e){
+			throw new ManterEntidadeException(MensagemWS.ATUALIZA_COMPRADOR_ERRO);
+		}
+	}
 }

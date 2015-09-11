@@ -20,6 +20,12 @@ public class Usuario implements Serializable{
 	private String senha;
 	private String theme;
 	
+	public Usuario(){}
+	
+	public Usuario(Long idUsuario){
+		this.idUsuario = idUsuario;
+	}
+	
 	public String getTheme() {
 		return theme;
 	}

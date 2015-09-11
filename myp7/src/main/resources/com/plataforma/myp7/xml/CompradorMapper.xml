@@ -3,6 +3,15 @@
 
 <mapper namespace="com.plataforma.myp7.mapper.CompradorMapper">
 
+	<resultMap id="compradorMap" type="com.plataforma.myp7.data.Comprador">
+		<id property="id" 					column="ID_COMPRADOR" />
+		<result property="status"  			column="STATUS" /> 
+		<result property="ediCodigo"  		column="EDI_CODIGO" />
+		<result property="apelido"  		column="APELIDO" />
+		<association property="usuario" 	column="ID_USUARIO"	select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
+		
+	</resultMap>
+
 	<sql id="selectSimples">
 		<![CDATA[
 			SELECT ID_COMPRADOR as id,
@@ -40,5 +49,21 @@
 		<include refid="selectSimples"/>
 		WHERE ID_COMPRADOR = #{id} 
 	</select>
+	
+	<insert id="inserirComprador">
+		INSERT INTO cpr_comprador
+			(ID_USUARIO, STATUS, EDI_CODIGO, APELIDO) 
+		VALUES 
+			(#{usuario.idUsuario}, #{status}, #{ediCodigo}, #{apelido})
+	</insert>
+	
+	<update id="updateComprador">
+		UPDATE cpr_comprador
+		   SET ID_USUARIO = #{usuario.idUsuario}, 
+		   STATUS = #{status}, 
+		   EDI_CODIGO = #{ediCodigo},
+		   APELIDO = #{apelido}
+		WHERE ID_COMPRADOR = #{id}
+	</update>
 	
 </mapper>
