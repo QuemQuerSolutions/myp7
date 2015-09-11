@@ -10,11 +10,12 @@
 		<result property="nDocumento" 	column="USU_CNPJ" />
 		<result property="ativo" 		column="USU_ATIVO"/>
 		<result property="senha" 		column="USU_SENHA"/>
+		<result property="tipoUsuario" 	column="TIPOUSUARIO"/>
 	</resultMap>
 
 	<sql id="selectUsuario">
 		<![CDATA[
-			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA, THEME
+			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA, THEME, TIPOUSUARIO
 			FROM USU_USUARIO
 		  ]]>
 	</sql>
@@ -38,13 +39,15 @@
             					   usu_cnpj,
             					   usu_email,
             					   usu_ativo,
-            					   usu_senha
+            					   usu_senha,
+            					   tipousuario
             					   )
     						VALUES (#{razaoSocial}, 
     								#{nDocumento},
     								#{email}, 
     								'A', 
-    								#{senha}
+    								#{senha},
+    								#{tipoUsuario}
             						)
      </insert>
 	

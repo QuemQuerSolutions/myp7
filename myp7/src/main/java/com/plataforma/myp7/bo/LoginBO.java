@@ -38,6 +38,9 @@ public class LoginBO {
 				return "components/login";
 			}
 			
+			//mantem o tipo do usuário a sessao
+			usuario.setTipoUsuario(usuBanco.getTipoUsuario());
+			
 			this.setTheme(session, usuBanco);
 			
 			session.setAttribute(ConfigEnum.USUARIO_LOGADO.getValor(), usuBanco);

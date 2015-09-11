@@ -19,6 +19,7 @@ public class Usuario implements Serializable{
 	private String ativo;
 	private String senha;
 	private String theme;
+	private String tipoUsuario;
 	
 	public Usuario(){}
 	
@@ -26,6 +27,14 @@ public class Usuario implements Serializable{
 		this.idUsuario = idUsuario;
 	}
 	
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
 	public String getTheme() {
 		return theme;
 	}

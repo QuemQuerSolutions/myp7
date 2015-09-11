@@ -19,6 +19,11 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioBO usuarioBO;
 	
+	@RequestMapping("Usuario")
+	public String inicio(Model model){
+		return "UsuarioInserir";
+	}
+	
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model){
 		try {
@@ -27,6 +32,6 @@ public class UsuarioController {
 			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);
 		}
-		return "components/login";
+		return "UsuarioInserir";
 	}
 }
