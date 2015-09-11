@@ -112,3 +112,30 @@
 	height: 200px;
 	cursor: pointer;
 }
+
+/*------------
+Campo requerido
+-------------*/
+div.req label:after {
+	content: " *";
+	color: red;
+}
+
+.icon-search {
+	border: 0;
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	padding-left: 0;
+	font-size: 20px;
+    color: #ccc;
+}
+
+.icon-search:hover{color: black;}
+
+
+#content-tabs{
+	border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
