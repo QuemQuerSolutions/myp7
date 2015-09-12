@@ -105,3 +105,11 @@ function go(destino){
 	else
 		window.location = destino;
 }
+
+function getRadioButton(radioChecked){
+	for(var i=0;i<radioChecked.length;i++) {		
+		if(radioChecked[i].checked) {			
+			return radioChecked;		
+		}	
+	}
+}

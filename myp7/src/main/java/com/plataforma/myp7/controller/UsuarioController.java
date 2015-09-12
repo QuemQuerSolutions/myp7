@@ -25,9 +25,9 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("cadastroUsuario")
-	public String inserir(Usuario usuario, Model model){
+	public String inserir(Usuario usuario, Model model, String tpUsuario){
 		try {
-			this.usuarioBO.inserir(usuario, model);
+			this.usuarioBO.inserir(usuario, model, tpUsuario);
 		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			Utils.setMsgRetorno(model, "Falha na operação.");
 			Utils.setCodRetorno(model, -1);
