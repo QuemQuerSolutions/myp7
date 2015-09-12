@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
+import com.plataforma.myp7.enums.TipoUsuarioEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
 
 @Service
@@ -22,6 +23,8 @@ public class LoginBO {
 	private UsuarioMapper usuarioMapper;
 	
 	private static final String ATTR_THEME = "theme";
+	private static final String TIPO_USUARIO = "tipoUsuarioRetorno";
+	
 	
 	public String getDestinoLogin(Usuario usuario, HttpSession session,	Model model) {
 		try {
@@ -37,9 +40,7 @@ public class LoginBO {
 				setMsgRetorno(model, "A senha informada estï¿½ incorreta!");
 				return "components/login";
 			}
-			
-			//mantem o tipo do usuário a sessao
-			usuario.setTipoUsuario(usuBanco.getTipoUsuario());
+			this.setTipoUsuarioSession(session, usuBanco);
 			
 			this.setTheme(session, usuBanco);
 			
@@ -57,5 +58,10 @@ public class LoginBO {
 			session.setAttribute(ATTR_THEME, ThemeEnum.getValorCSS(usuBanco.getTheme()));
 		else
 			session.setAttribute(ATTR_THEME, ConfigEnum.THEME_DEFAULT.getValor());
+	}
+	
+	private void setTipoUsuarioSession(HttpSession session, Usuario usuBanco){
+		if(!Objects.isNull(usuBanco.getTipoUsuario()))
+			session.setAttribute(TIPO_USUARIO,usuBanco.getTipoUsuario().equalsIgnoreCase(TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString())?TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString():TipoUsuarioEnum.RETAGUARDA.getSiglaUsuario().toString());
 	}
 }

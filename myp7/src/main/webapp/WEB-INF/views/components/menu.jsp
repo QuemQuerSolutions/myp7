@@ -13,11 +13,11 @@
 	</div>
 	<div id="menu">
 		<ul id="menu-nav" class="box">
-			<c:if test="${usuario.tipoUsuario eq 'P'}">
+			<c:if test="${tipoUsuarioRetorno eq 'P'}">
 				<myp7:itemMenu label="Produto" link="Produto" icon="glyphicon-plus" />
 				<myp7:itemMenu label="Manutenção de Custos" link="ManutencaoCustos" icon="glyphicon-usd"/>
 			</c:if>
-			<c:if test="${usuario.tipoUsuario eq 'R'}">
+			<c:if test="${tipoUsuarioRetorno eq 'R'}">
 				<myp7:itemMenu label="Usuário" link="Usuario" icon="glyphicon glyphicon-user"/>
 				<myp7:itemMenu label="Comprador" link="Comprador" icon="glyphicon-shopping-cart" />
 				<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
