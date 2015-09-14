@@ -48,41 +48,21 @@ $(document).ready(function() {
 		$("#inputSenhaUsuario").val("");
 	}
 
-	function onClickTipoUsuario(){
-		$("#tpUsuarioRetorno").val(getRadioButton($(".tpUsuario")));
-	}
-	
-	
 	function validaCamposObrigatorios(){
 		var isValid = true;
-		
-		if($.trim($("#inputRzSocial").val()) == ""){
-			$("#divRzSocial").attr("class","form-group has-error");
-			isValid = false;
-		}
-		
-		if($.trim($("#inputCnpj").val()) == ""){
-			$("#divCnpj").attr("class","form-group has-error");
-			isValid = false;
-		}
-		
-		if($.trim($("#inputEmailUsuario").val()) == ""){	
-			$("#divEmail").attr("class","form-group has-error");
-			isValid = false;
-		}
-		
-		if($.trim($("#inputSenhaUsuario").val()) == ""){
-			$("#divSenha").attr("class","form-group has-error"); 
-			isValid = false;
-		}
+		isValid = getEmptyValidation("#divRzSocial", 
+									 "#divCnpj",
+									 "#divEmail",
+									 "#divSenha");
 		return isValid;
 	}
 
 	function removeClass(){
-		$("#divRzSocial").attr("class","form-group");
-		$("#divCnpj").attr("class","form-group");
-		$("#divEmail").attr("class","form-group");
-		$("#divSenha").attr("class","form-group");
+		$(".has-error").each(function(){ $(this).attr("class","form-group"); });
+	}
+
+	function onClickTipoUsuario(){
+		$("#tpUsuarioRetorno").val(getRadioButton($(".tpUsuario")));
 	}
 	
 });
