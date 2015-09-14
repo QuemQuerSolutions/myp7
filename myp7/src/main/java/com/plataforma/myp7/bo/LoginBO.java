@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
-import com.plataforma.myp7.enums.TipoUsuarioEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
 
 @Service
@@ -62,6 +61,6 @@ public class LoginBO {
 	
 	private void setTipoUsuarioSession(HttpSession session, Usuario usuBanco){
 		if(!Objects.isNull(usuBanco.getTipoUsuario()))
-			session.setAttribute(TIPO_USUARIO,usuBanco.getTipoUsuario().equalsIgnoreCase(TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString())?TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString():TipoUsuarioEnum.RETAGUARDA.getSiglaUsuario().toString());
+			session.setAttribute(TIPO_USUARIO,usuBanco.getTipoUsuario());
 	}
 }

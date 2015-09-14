@@ -17,6 +17,7 @@ $(document).ready(function() {
 
 	if($("#mensagemCadastro").val() != ""){
 		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+		limpaCampos();
 	}
 
 	$("#btnSalvar").click(function(){
@@ -29,13 +30,13 @@ $(document).ready(function() {
 			if(!validarCNPJ($.trim($("#inputCnpj").val()))){
 				alerta("CNPJ inválido", "warning");
 				$("#divCnpj").attr("class","form-group has-error");
-			}else if(!validaEmail($("#inputEmail").val())){
+			}else if(!validaEmail($("#inputEmailUsuario").val())){
 				alerta("Não é um endereço de e-mail válido.", "warning");
 				$("#divEmail").attr("class","form-group has-error");
 			}else{
 				$("#inputCnpj").val($("#inputCnpj").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
 				$("#frmCadastro").submit();
-				limpaCampos();
+				
 			}
 		}	
 	});
@@ -43,8 +44,8 @@ $(document).ready(function() {
 	function limpaCampos(){
 		$("#inputRzSocial").val("");
 		$("#inputCnpj").val("");
-		$("#inputEmail").val("");
-		$("#inputSenha").val("");
+		$("#inputEmailUsuario").val("");
+		$("#inputSenhaUsuario").val("");
 	}
 
 	function onClickTipoUsuario(){
@@ -65,12 +66,12 @@ $(document).ready(function() {
 			isValid = false;
 		}
 		
-		if($.trim($("#inputEmail").val()) == ""){	
+		if($.trim($("#inputEmailUsuario").val()) == ""){	
 			$("#divEmail").attr("class","form-group has-error");
 			isValid = false;
 		}
 		
-		if($.trim($("#inputSenha").val()) == ""){
+		if($.trim($("#inputSenhaUsuario").val()) == ""){
 			$("#divSenha").attr("class","form-group has-error"); 
 			isValid = false;
 		}
@@ -87,82 +88,81 @@ $(document).ready(function() {
 });
 
 </script>
-	<body>
-		<c:import url="components/header.jsp" />
-		<c:import url="components/menu.jsp" /> 
-	
-		<div id="content">	
-			<div id="content-title">
-				<h4>Usuário</h4>
-			</div>
-			<div id="content-body">
-				<form action="cadastroUsuario" id="frmCadastro" method="POST" enctype="multipart/form-data">
-					<input type="hidden" id="mensagemCadastro" value="${mensagemRetorno}" />
-					<input type="hidden" id="codMsgem" value="${codMsgem}" />
-					<input type="hidden" id=tpUsuarioRetorno name="tpUsuarioRetorno" value="" />
-					<div class="col-md-10">
-						<div class="row">
-							<div class="row">
-								<div class="col-md-3">&nbsp;</div>
-								<div class="col-md-6">
-									<div class="form-group" id="divRzSocial">
-										<label for="inputRzSocial" class="control-label">Razão	Social</label>
-											<input type="text" class="form-control campo-salvar" id="inputRzSocial" 
-											maxlength="200" name ="razaoSocial" placeholder="razão social" value="${usuario.razaoSocial}">	
-									</div>
-								</div>
+<body>
+	<c:import url="components/header.jsp" />
+	<c:import url="components/menu.jsp" /> 
+
+	<div id="content">	
+		<div id="content-title">
+			<h4>Usuário</h4>
+		</div>
+		
+		<div id="content-body">
+			<form action="cadastroUsuario" id="frmCadastro" method="POST" enctype="multipart/form-data">
+				<input type="hidden" id="mensagemCadastro" value="${mensagemRetorno}" />
+				<input type="hidden" id="codMsgem" value="${codMsgem}" />
+				<input type="hidden" id=tpUsuarioRetorno name="tpUsuarioRetorno" value="" />
+				<div class="row">
+					<div class="row">
+						<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-6">
+							<div class="form-group" id="divRzSocial">
+								<label for="inputRzSocial" class="control-label">Razão	Social</label>
+									<input type="text" class="form-control campo-salvar" id="inputRzSocial" 
+									maxlength="200" name="razaoSocial" placeholder="razão social" value="${usuario.razaoSocial}">	
 							</div>
-								
-							<div class="row">
-							<div class="col-md-3">&nbsp;</div>
-								<div class="col-md-3">
-									<div class="form-group" id="divCnpj">
-										<label for="inputCnpj" class="control-label">CNPJ</label>
-											<input type="text" class="form-control campo-salvar" name="nDocumento"
-												placeholder="00.000.000/0000-00" id="inputCnpj" maxlength="14" value="${usuario.nDocumento}">
-									</div>
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-md-3">&nbsp;</div>
-								<div class="col-md-3">
-									<div class="form-group" id="divEmail">
-										<label for="inputEmail" class="control-label">E-mail</label>
-											<input type="email" class="form-control campo-salvar" id="inputEmail" name="email"
-												maxlength="100" placeholder="e-mail" value="${usuario.email}">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">&nbsp;</div>
-								<div class="col-md-3">
-									<div class="form-group" id="divSenha">
-										<label for="inputSenha" class="control-label">Senha</label>
-											<input type="password" class="form-control campo-salvar" id="inputSenha" name="senha"
-												placeholder="********" value="${usuario.senha}">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">&nbsp;</div>
-								<div class="col-md-3">
-									<div class="form-group" id="divTipoUsuario">
-										<input type="radio" name="tpUsuario" value="P" checked="checked" onclick="onClickTipoUsuario();"/>
-										<label for="inputRadioPortal" class="control-label">Portal</label>
-										<input type="radio" name="tpUsuario" value="R" onclick="onClickTipoUsuario();" />
-										<label for="inputRadioPortal" class="control-label">Retaguarda</label>
-									</div>
-								</div>
-							</div>								
-							<div class="col-md-1">&nbsp;</div>
 						</div>
 					</div>
-				</form>
-			</div>
+						
+					<div class="row">
+					<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-3">
+							<div class="form-group" id="divCnpj">
+								<label for="inputCnpj" class="control-label">CNPJ</label>
+									<input type="text" class="form-control campo-salvar" name="nDocumento"
+										placeholder="00.000.000/0000-00" id="inputCnpj" maxlength="14" value="${usuario.nDocumento}">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-3">
+							<div class="form-group" id="divEmail">
+								<label for="inputEmailUsuario" class="control-label">E-mail</label>
+									<input type="email" class="form-control campo-salvar" id="inputEmailUsuario" name="email"
+										maxlength="100" placeholder="e-mail" value="${usuario.email}">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-3">
+							<div class="form-group" id="divSenha">
+								<label for="inputSenhaUsuario" class="control-label">Senha</label>
+									<input type="password" class="form-control campo-salvar" id="inputSenhaUsuario" name="senha"
+										placeholder="********" value="${usuario.senha}">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-3">
+							<div class="form-group" id="divTipoUsuario">
+								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" checked="checked" onclick="onClickTipoUsuario();"/>
+								<label for="inputRadioPortal" class="control-label">Portal</label>
+								<input type="radio" name="tpUsuario" id="inputRadioRetaguarda" value="R" onclick="onClickTipoUsuario();" />
+								<label for="inputRadioRetaguarda" class="control-label">Retaguarda</label>
+							</div>
+						</div>
+					</div>								
+					<div class="col-md-3">&nbsp;</div>
+				</div>
+			</form>
 		</div>
-		<c:import url="components/footer.jsp">
-			<c:param name="salvar" value="salvar" />
-		</c:import>
-	</body>
+	</div>
+	<c:import url="components/footer.jsp">
+		<c:param name="salvar" value="salvar" />
+	</c:import>
+</body>
 </html>

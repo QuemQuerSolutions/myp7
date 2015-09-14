@@ -107,7 +107,8 @@ function go(destino){
 }
 
 function getRadioButton(radioChecked){
-	for(var i=0;i<radioChecked.length;i++) {		
+	var tamanho = radioChecked.length;
+	for(var i=0;i< tamanho;i++) {		
 		if(radioChecked[i].checked) {			
 			return radioChecked;		
 		}	
