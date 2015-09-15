@@ -1,6 +1,7 @@
 package com.plataforma.myp7.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,37 @@ public class CompradorService {
 	public CompradorService(){
 		this.gson = new Gson();
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/manterComprador", produces="application/json")
+	@ResponseBody
+	public String salvarComprador(@RequestParam(value="idComprador", required=true) Integer idComprador,
+								   @RequestParam(value="ediCodigo", required=true) Integer ediCodigo,
+								   @RequestParam(value="idUsuario", required=true) Long idUsuario,
+								   @RequestParam(value="status", required=true) String status,
+								   @RequestParam(value="apelido", required=true) String apelido){
+		MensagemWS mensagem;
+		
+		try {
+			List<Pessoa> pessoas = this.pessoaBO.obterPessoaCodNome(new Pessoa(idComprador));
+			if(!Objects.isNull(pessoas) && pessoas.size() > 0){
+
+				Comprador comprador = new Comprador(idComprador);
+				comprador.setEdiCodigo(ediCodigo);
+				comprador.setUsuario(new Usuario(idUsuario));
+				comprador.setStatus(status);
+				comprador.setApelido(apelido);
+				
+				mensagem = compradorBO.salvar(comprador);
+			}else{
+				throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
+			}
+
+			return gson.toJson(MensagemWS.getMensagem(mensagem));
+		} catch (ManterEntidadeException e) {
+			return gson.toJson(MensagemWS.getMensagem(e.getMensagemEnum()));
+		}
+	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/manterComprador", produces="application/json")
 	@ResponseBody

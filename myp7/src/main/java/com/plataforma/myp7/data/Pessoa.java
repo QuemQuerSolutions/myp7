@@ -25,6 +25,12 @@ public class Pessoa {
 	private Integer digCpfCnpj;
 	private String nroRgInscrEstadual;
 	
+	public Pessoa(){}
+	
+	public Pessoa(Integer id){
+		this.idPessoa = id.longValue();
+	}
+	
 	public Long getIdPessoa() {
 		return idPessoa;
 	}

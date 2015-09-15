@@ -19,6 +19,10 @@ public class Comprador implements Serializable {
 	
 	public Comprador() {}
 	
+	public Comprador(Integer id) {
+		this.id = id;
+	}
+	
 	public Comprador(Comprador comprador) {
 		this.id = comprador.getId();
 		this.apelido = Utils.toLike(comprador.getApelido()); 

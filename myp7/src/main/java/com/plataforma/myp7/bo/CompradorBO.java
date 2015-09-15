@@ -46,6 +46,18 @@ public class CompradorBO {
 		return compradorMapper.obterPorParametro(comprador);
 	}
 	
+	public MensagemWS salvar(Comprador _comprador){
+		Comprador comprador = this.obterPorId(_comprador.getId());
+		
+		if(Objects.isNull(comprador)){
+			this.inserir(_comprador);
+			return MensagemWS.INSERT_COMPRADOR_SUCESSO;
+		}
+		
+		this.update(comprador);
+		return MensagemWS.ATUALIZA_COMPRADOR_SUCESSO;
+	}
+	
 	public void inserir(Comprador comprador) throws ManterEntidadeException{
 		try{
 			this.compradorMapper.inserirComprador(comprador);
