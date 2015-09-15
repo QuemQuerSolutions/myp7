@@ -23,25 +23,7 @@ $(document).ready(function() {
 		controlTabs($(this));
 	});
 
-// 	$("#tabEmpresaLista").click(function(e){
-// 		e.stopPropagation();
-// 		controlTabs($(this));
-// 	});
-	
 });
-
-function controlTabs(tab){
-	removeActive();
-	$(tab).parent().addClass("active");
-	$("#content-tabs > div").attr("hidden", true);
-	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
-}
-
-function removeActive(){
-	$(".nav-tabs li").each(function(){
-		$(this).removeClass("active");
-	});
-}
 
 </script>
 <body>
@@ -67,8 +49,8 @@ function removeActive(){
 				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group req">
-				   		<label for="nomePessoa">Apelido</label>
-				    	<input type="text" class="form-control" id="nomePessoa" name="nomePessoa" maxlength="11" value="${comprador.id}">
+				   		<label for="apelido">Apelido</label>
+				    	<input type="text" class="form-control" id="apelido" name="apelido" maxlength="11" value="${comprador.id}">
 				  	</div>
 				</div>
 				

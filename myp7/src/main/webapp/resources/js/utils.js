@@ -150,3 +150,13 @@ function getRadioButton(radioChecked){
 		}	
 	}
 }
+
+function controlTabs(tab){
+	$(".nav-tabs li").each(function(){
+		$(this).removeClass("active");
+	});
+	
+	$(tab).parent().addClass("active");
+	$("#content-tabs > div").attr("hidden", true);
+	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
+}
