@@ -1,5 +1,7 @@
 package com.plataforma.myp7.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,8 @@ public class CompradorService {
 			if(idComprador != null){
 				Pessoa pessoa = new Pessoa();
 				pessoa.setIdPessoa(Long.parseLong(idComprador.toString()));
-				if(this.pessoaBO.obterPessoaCodNome(pessoa) != null && this.pessoaBO.obterPessoaCodNome(pessoa).size() > 0){
+				List<Pessoa> pessoas = this.pessoaBO.obterPessoaCodNome(pessoa);
+				if(pessoas != null && pessoas.size() > 0){
 					Comprador comprador = this.compradorBO.obterPorId(idComprador);
 					
 					if(comprador == null){
@@ -73,6 +76,7 @@ public class CompradorService {
 	}
 	
 	private void populaComprador(Comprador comprador, Integer idComprador, Integer ediCodigo, Long idUsuario, String status, String apelido){
+		
 		comprador.setEdiCodigo(ediCodigo);
 		comprador.setUsuario(new Usuario(idUsuario));
 		comprador.setStatus(status);
