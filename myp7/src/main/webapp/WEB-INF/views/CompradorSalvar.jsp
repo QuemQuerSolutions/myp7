@@ -12,23 +12,11 @@ $(document).ready(function() {
 		go("Comprador");
 	});
 	
-	$("#tabEmpresaLista").click(function(e){
+	$("#btnSalvar").click(function(e){
 		e.stopPropagation();
-		removeActive();
-		$(this).parent().addClass("active");
-		
-		$("#EmpresaTabLista").attr("hidden", false);
-		$("#RepresentanteTabLista").attr("hidden", true);
-	});
-	
-	$("#tabRepresentanteLista").click(function(e){
-		e.stopPropagation();
-		removeActive();
-		$(this).parent().addClass("active");
-		$("#EmpresaTabLista").attr("hidden", true);
-		$("#RepresentanteTabLista").attr("hidden", false);
-	});
-	
+		if(!isValidRequired())
+			alerta("Preencha os campos obrigatórios.", "warning");
+	});	
 });
 
 function removeActive(){
@@ -69,8 +57,8 @@ function removeActive(){
 				<div class="row">&nbsp;</div>
 				
 				<ul class="nav nav-tabs nav-justified">
-					<li role="presentation" class="active"><a href="#" id="tabEmpresaLista">Empresa</a></li>
-  					<li role="presentation"><a href="#" id="tabRepresentanteLista">Representante</a></li>
+					<li role="presentation" class="active"><a href="#" id="tabEmpresaLista"><b>Empresa</b> <span class="badge">5</span></a></li>
+  					<li role="presentation"><a href="#" id="tabRepresentanteLista"><b>Representante</b> <span class="badge">7</span></a></li>
 				</ul>
 				
 				<div id="content-tabs">

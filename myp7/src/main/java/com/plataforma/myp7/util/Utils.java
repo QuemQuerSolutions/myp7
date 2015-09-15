@@ -22,10 +22,6 @@ public class Utils {
 		model.addAttribute("codMsgem", cod);
 	}
 	
-//	public static void setTipoUsuarioRetorno(Model model, final String tipoUsuario){
-//		model.addAttribute("tipoUsuarioRetorno", tipoUsuario);
-//	}
-	
 	public static void setRetorno(Model model, Mensagem mensagem){
 		model.addAttribute("mensagemRetorno", mensagem.getMensagem());
 		model.addAttribute("codMsgem", mensagem.getCodigo());
