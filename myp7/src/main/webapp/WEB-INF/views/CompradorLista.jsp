@@ -9,14 +9,14 @@ $(document).ready(function(){
 	if($("#mensagemRetorno").val() !== ""){
 		alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
+
 	
 	$("#btnNovo").click(function(){
 		go("editarComprador");
 	});
 
 	$("#limpar").click(function(){
-		$("#id").val("");
-		$("#apelido").val("");
+		clearAll();
 		$("#id").focus();
 	});
 	

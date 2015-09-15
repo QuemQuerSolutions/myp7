@@ -12,24 +12,30 @@ $(document).ready(function() {
 		go("Comprador");
 	});
 	
-	$("#tabEmpresaLista").click(function(e){
+	$("#btnSalvar").click(function(e){
 		e.stopPropagation();
-		removeActive();
-		$(this).parent().addClass("active");
-		
-		$("#EmpresaTabLista").attr("hidden", false);
-		$("#RepresentanteTabLista").attr("hidden", true);
-	});
+		if(!isValidRequired())
+			alerta("Preencha os campos obrigatórios.", "warning");
+	});	
 	
-	$("#tabRepresentanteLista").click(function(e){
+	$(".nav-tabs > li > a").click(function(e){
 		e.stopPropagation();
-		removeActive();
-		$(this).parent().addClass("active");
-		$("#EmpresaTabLista").attr("hidden", true);
-		$("#RepresentanteTabLista").attr("hidden", false);
+		controlTabs($(this));
 	});
+
+// 	$("#tabEmpresaLista").click(function(e){
+// 		e.stopPropagation();
+// 		controlTabs($(this));
+// 	});
 	
 });
+
+function controlTabs(tab){
+	removeActive();
+	$(tab).parent().addClass("active");
+	$("#content-tabs > div").attr("hidden", true);
+	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
+}
 
 function removeActive(){
 	$(".nav-tabs li").each(function(){
@@ -69,8 +75,8 @@ function removeActive(){
 				<div class="row">&nbsp;</div>
 				
 				<ul class="nav nav-tabs nav-justified">
-					<li role="presentation" class="active"><a href="#" id="tabEmpresaLista">Empresa</a></li>
-  					<li role="presentation"><a href="#" id="tabRepresentanteLista">Representante</a></li>
+					<li role="presentation" class="active"><a href="#" id="tabEmpresaLista" contextmenu="EmpresaTabLista"><b>Empresa</b> <span class="badge">5</span></a></li>
+  					<li role="presentation"><a href="#" id="tabRepresentanteLista" contextmenu="RepresentanteTabLista"><b>Representante</b> <span class="badge">7</span></a></li>
 				</ul>
 				
 				<div id="content-tabs">

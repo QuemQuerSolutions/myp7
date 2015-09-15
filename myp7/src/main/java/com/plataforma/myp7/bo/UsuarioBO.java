@@ -16,7 +16,6 @@ import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
-import com.plataforma.myp7.enums.TipoUsuarioEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
 import com.plataforma.myp7.util.Utils;
 
@@ -41,7 +40,7 @@ public class UsuarioBO {
 	
 	public void inserir(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		if(this.isValidInsert(usuario, model)){
-			usuario.setTipoUsuario(tpUsuario.equalsIgnoreCase(TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString())?TipoUsuarioEnum.PORTAL.getSiglaUsuario().toString():TipoUsuarioEnum.RETAGUARDA.getSiglaUsuario().toString());
+			usuario.setTipoUsuario(tpUsuario);
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
 			this.usuarioMapper.incluir(usuario);
 			Utils.setMsgRetorno(model, "Usuario inserido com sucesso.");

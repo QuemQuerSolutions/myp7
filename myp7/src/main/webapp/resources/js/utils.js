@@ -1,3 +1,39 @@
+function clearAll(){
+	$(":text").each(function () {
+		$(this).val("");
+    });
+ 
+    $(":radio").each(function () {
+    	$(this).prop({ checked: false })
+    });
+ 
+//    $("select").each(function () {
+//    	$(this).val("");
+//    });	
+}
+
+function isValidRequired(){
+	clearRequired();
+	var isValid = true;
+	$(".req > input").each(function(){
+		if($(this).val() === "")
+			isValid = setRequired($(this).parent());
+	});
+	
+	return isValid;
+}
+
+
+function clearRequired(){
+	$("div").removeClass("has-error");
+}
+
+function setRequired(div){
+	$(div).addClass("has-error");
+	return false;
+}
+
+
 function refreshDisabled(){
 	$("input").each(function(){ $(this).attr("readonly", false); });
 	$(".disabled").each(function(){ $(this).attr("readonly", true);	});
@@ -107,7 +143,8 @@ function go(destino){
 }
 
 function getRadioButton(radioChecked){
-	for(var i=0;i<radioChecked.length;i++) {		
+	var tamanho = radioChecked.length;
+	for(var i=0;i< tamanho;i++) {		
 		if(radioChecked[i].checked) {			
 			return radioChecked;		
 		}	
