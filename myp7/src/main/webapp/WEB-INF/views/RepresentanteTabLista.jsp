@@ -4,7 +4,7 @@
 			<thead>
 				<tr style="text-align: center">
 					<th width="90%">Representante</th>
-					<th width="10%">+</th>
+					<th width="10%" class="text-center"><a href="#"><span class="glyphicon glyphicon-plus"></span></a></th>
 				</tr>
 			</thead>
 			<tbody>
