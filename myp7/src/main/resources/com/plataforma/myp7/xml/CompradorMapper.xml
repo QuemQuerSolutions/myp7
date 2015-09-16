@@ -11,7 +11,7 @@
 		<association property="usuario" 	column="ID_USUARIO"	select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 		
 	</resultMap>
-
+	
 	<sql id="selectSimples">
 		<![CDATA[
 			SELECT ID_COMPRADOR as id,
@@ -43,7 +43,7 @@
 		SELECT COUNT(1) FROM cpr_comprador
 		WHERE 1=1
 		<include refid="whereBusca" />
-	</select>	
+	</select>
 	
 	<select id="obterPorId" resultType="Comprador">
 		<include refid="selectSimples"/>

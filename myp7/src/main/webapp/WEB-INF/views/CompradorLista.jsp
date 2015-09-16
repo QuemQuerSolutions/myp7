@@ -10,6 +10,13 @@ $(document).ready(function(){
 		alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
+	$("#pesquisar").click(function(){
+		if($("#id").val() === "" && $("#apelido").val() === ""){
+			alerta("Informe ao menos um filtro para buscar", "warning");
+			return;
+		}
+		go("#frmComprador");
+	});
 	
 	$("#btnNovo").click(function(){
 		go("editarComprador");
@@ -47,7 +54,7 @@ function onClickLine(id){
 				</div>
 			</div>
 			
-			<form action="CarregaListaComprador" name="frmEmbalagem" method="GET">
+			<form action="CarregaListaComprador" id="frmComprador" method="GET">
 				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				
@@ -77,7 +84,7 @@ function onClickLine(id){
 					
 					<div class="col-md-1" id="btnpesquisar">
 						<div class="form-group">
-							<button type="submit" class="btn ${theme}" id="pesquisar">Pesquisar</button>
+							<button type="button" class="btn ${theme}" id="pesquisar">Pesquisar</button>
 						</div>
 					</div>
 					

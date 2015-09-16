@@ -15,6 +15,7 @@ import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.CompradorMapper;
+import com.plataforma.myp7.mapper.EmpresaMapper;
 
 @Service
 public class CompradorBO {
@@ -22,10 +23,17 @@ public class CompradorBO {
 	@Autowired
 	private CompradorMapper compradorMapper;
 	
+	@Autowired
+	private EmpresaMapper empresaMapper;
+	
 	public Comprador obterPorId(Integer id){
 		if(Objects.isNull(id)) 
 			return new Comprador();
-		return compradorMapper.obterPorId(id);
+		
+		Comprador comprador = compradorMapper.obterPorId(id);
+		comprador.setEmpresa(empresaMapper.obterPorComprador(id));
+		
+		return comprador;
 	}
 	
 	public List<Comprador> obterPorParametro(Model model, Comprador comp){

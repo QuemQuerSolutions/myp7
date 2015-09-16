@@ -24,7 +24,16 @@
 	<select id="obterEmpresaPorId" resultMap="empresaMap">
 		<include refid="selectEmpresa"/>
 		WHERE ID_EMPRESA = #{idEmpresa}
-	</select>	
+	</select>
+	
+	<select id="obterPorComprador" resultType="Empresa">
+		 SELECT EMP_EMPRESA.NOME_REDUZIDO as nomeReduzido, 
+				CPR_COMPRADOR_ALCADA.ID_EMPRESA as idEmpresa, 
+				CPR_COMPRADOR_ALCADA.ALCADA
+		FROM CPR_COMPRADOR_ALCADA
+		JOIN EMP_EMPRESA ON EMP_EMPRESA.ID_EMPRESA = CPR_COMPRADOR_ALCADA.ID_EMPRESA
+		WHERE CPR_COMPRADOR_ALCADA.ID_COMPRADOR = #{idComprador}
+	</select>
 	
 	<select id="obterEmpresasPorUF" resultMap="empresaMap">
 		SELECT ID_EMPRESA, NOME_REDUZIDO, gbl_pessoa.ID_PESSOA

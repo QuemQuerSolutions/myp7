@@ -1,6 +1,8 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -16,16 +18,41 @@ public class Comprador implements Serializable {
 	private String status;
 	private Integer ediCodigo;
 	private String apelido;
+	private List<Empresa> empresa;
+	private List<Representante> representantes;
 	
-	public Comprador() {}
+	public Comprador() {
+		super();
+		empresa = new ArrayList<Empresa>();
+		representantes = new ArrayList<Representante>();
+	}
 	
 	public Comprador(Integer id) {
+		this();
 		this.id = id;
 	}
 	
 	public Comprador(Comprador comprador) {
+		this();
 		this.id = comprador.getId();
 		this.apelido = Utils.toLike(comprador.getApelido()); 
+	}
+
+
+	public List<Representante> getRepresentantes() {
+		return representantes;
+	}
+
+	public void setRepresentantes(List<Representante> representantes) {
+		this.representantes = representantes;
+	}
+
+	public List<Empresa> getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(List<Empresa> empresa) {
+		this.empresa = empresa;
 	}
 
 	public Integer getId() {

@@ -1,11 +1,17 @@
 package com.plataforma.myp7.data;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("Empresa")
-public class Empresa {
+public class Empresa  implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Long idEmpresa;
 	private String nomeReduzido;
+	private Double alcada;
 	private Pessoa pessoa;
 	
 	public Long getIdEmpresa() {
@@ -31,4 +37,21 @@ public class Empresa {
 	public void setIdPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	public Double getAlcada() {
+		return alcada;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setAlcada(Double alcada) {
+		this.alcada = alcada;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
 }

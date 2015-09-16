@@ -28,7 +28,16 @@ public class CompradorController {
 	
 	@RequestMapping("editarComprador")
 	public String editarComprador(Model model, Integer id){
-		model.addAttribute(compradorBO.obterPorId(id));
+		
+		Comprador comprador = compradorBO.obterPorId(id);
+		int qtdEmpresa = comprador.getEmpresa().size(),
+			qtdRepresentante = comprador.getRepresentantes().size();
+		
+		
+		model.addAttribute("obj", comprador);
+		model.addAttribute("qtdEmpresa", qtdEmpresa);
+		model.addAttribute("qtdRepresentante", qtdRepresentante);
+		
 		return "CompradorSalvar";
 	}
 	
