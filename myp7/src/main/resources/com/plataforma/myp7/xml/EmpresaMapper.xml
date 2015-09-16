@@ -21,6 +21,11 @@
 		ORDER BY ID_EMPRESA
 	</select>
 	
+	<select id="obterEmpresaPorId" resultMap="empresaMap">
+		<include refid="selectEmpresa"/>
+		WHERE ID_EMPRESA = #{idEmpresa}
+	</select>	
+	
 	<select id="obterEmpresasPorUF" resultMap="empresaMap">
 		SELECT ID_EMPRESA, NOME_REDUZIDO, gbl_pessoa.ID_PESSOA
 		  FROM emp_empresa, gbl_pessoa
@@ -28,5 +33,19 @@
 		   AND gbl_pessoa.UF = #{uf}
 		 ORDER BY NOME_REDUZIDO
 	</select>
+	
+	<insert id="inserirEmpresa">
+		INSERT INTO emp_empresa
+			(NOME_REDUZIDO, ID_PESSOA) 
+		VALUES 
+			(#{nomeReduzido}, #{pessoa.idPessoa})
+	</insert>
+	
+	<update id="updateEmpresa">
+		UPDATE emp_empresa
+		   SET NOME_REDUZIDO = #{nomeReduzido}, 
+		   ID_PESSOA = #{pessoa.idPessoa}
+		WHERE ID_EMPRESA = #{idEmpresa}
+	</update>
 	
 </mapper>

@@ -10,4 +10,10 @@ import com.plataforma.myp7.data.Representante;
 public interface RepresentanteMapper {
 
 	List<Representante> obterTodosRepresentantes();
+
+	void updateRepresentante(Representante representante);
+
+	void insertRepresentante(Representante representante);
+
+	Representante obterPorId(Long idRepresentante);
 }

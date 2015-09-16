@@ -37,7 +37,7 @@ public class CompradorService {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/manterComprador", produces="application/json")
 	@ResponseBody
-	public String salvarComprador(@RequestParam(value="idComprador", required=true) Integer idComprador,
+	public String manterComprador(@RequestParam(value="idComprador", required=true) Integer idComprador,
 								   @RequestParam(value="ediCodigo", required=true) Integer ediCodigo,
 								   @RequestParam(value="idUsuario", required=true) Long idUsuario,
 								   @RequestParam(value="status", required=true) String status,
@@ -45,38 +45,7 @@ public class CompradorService {
 		MensagemWS mensagem;
 		
 		try {
-			List<Pessoa> pessoas = this.pessoaBO.obterPessoaCodNome(new Pessoa(idComprador));
-			if(!Objects.isNull(pessoas) && pessoas.size() > 0){
-
-				Comprador comprador = new Comprador(idComprador);
-				comprador.setEdiCodigo(ediCodigo);
-				comprador.setUsuario(new Usuario(idUsuario));
-				comprador.setStatus(status);
-				comprador.setApelido(apelido);
-				
-				mensagem = compradorBO.salvar(comprador);
-			}else{
-				throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
-			}
-
-			return gson.toJson(MensagemWS.getMensagem(mensagem));
-		} catch (ManterEntidadeException e) {
-			return gson.toJson(MensagemWS.getMensagem(e.getMensagemEnum()));
-		}
-	}
-	
-	
-	@RequestMapping(method=RequestMethod.POST, value="/manterComprador", produces="application/json")
-	@ResponseBody
-	public String manterFornecedor(@RequestParam(value="idComprador", required=false) Integer idComprador,
-								   @RequestParam(value="ediCodigo", required=true) Integer ediCodigo,
-								   @RequestParam(value="idUsuario", required=true) Long idUsuario,
-								   @RequestParam(value="status", required=true) String status,
-								   @RequestParam(value="apelido", required=true) String apelido){
-		MensagemWS mensagem;
-		
-		try {
-			if(idComprador != null){
+			if(idComprador != null){	
 				Pessoa pessoa = new Pessoa();
 				pessoa.setIdPessoa(Long.parseLong(idComprador.toString()));
 				List<Pessoa> pessoas = this.pessoaBO.obterPessoaCodNome(pessoa);

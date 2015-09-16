@@ -20,6 +20,16 @@ public enum MensagemWS {
 	ATUALIZA_COMPRADOR_SUCESSO(17,"Comprador atualizado com sucesso."),
 	ATUALIZA_COMPRADOR_ERRO(18, "Erro ao atualizar o comprador"),	
 	
+	INSERT_REPRESENTANTE_ERRO(19,"Erro ao inserir o representante."),
+	INSERT_REPRESENTANTE_SUCESSO(20,"Representante inserido com sucesso."),
+	ATUALIZA_REPRESENTANTE_SUCESSO(21,"Representante atualizado com sucesso."),
+	ATUALIZA_REPRESENTANTE_ERRO(22, "Erro ao atualizar o representante"),
+	
+	INSERT_EMPRESA_ERRO(23,"Erro ao inserir o empresa."),
+	INSERT_EMPRESA_SUCESSO(24,"Empresa inserido com sucesso."),
+	ATUALIZA_EMPRESA_SUCESSO(25,"Empresa atualizado com sucesso."),
+	ATUALIZA_EMPRESA_ERRO(26, "Erro ao atualizar o empresa"),	
+	
 	INSERT_PESSOA_ERRO(6, "Erro ao inserir os dados da pessoa."),
 	INSERT_PESSOA_SUCESSO(7,"Pessoa inserida com sucesso."),
 	ATUALIZA_PESSOA_SUCESSO(11, "Pessoa atualizada com sucesso."),

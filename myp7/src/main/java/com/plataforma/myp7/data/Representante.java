@@ -11,6 +11,12 @@ public class Representante {
 	private String status;
 	private Usuario usuario;
 	
+	public Representante(Long idRepresentante) {
+		this.idRepresentante = idRepresentante;
+	}
+	
+	public Representante() { }
+
 	public String getApelido() {
 		return apelido;
 	}

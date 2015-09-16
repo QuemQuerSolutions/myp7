@@ -12,4 +12,10 @@ public interface EmpresaMapper {
 	List<Empresa> obterTodasEmpresas();
 	
 	List<Empresa> obterEmpresasPorUF(String uf);
+
+	void inserirEmpresa(Empresa empresa);
+
+	void updateEmpresa(Empresa empresa);
+
+	Empresa obterEmpresaPorId(Long id);
 }

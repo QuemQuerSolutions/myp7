@@ -21,4 +21,25 @@
 		<include refid="selectRepresentante"/>
 		ORDER BY ID_REPRESENTANTE
 	</select>
+	
+	<select id="obterPorId" resultMap="representanteMap">
+		<include refid="selectRepresentante"/>
+		WHERE ID_REPRESENTANTE = #{idRepresentante}
+	</select>
+	
+	<insert id="insertRepresentante">
+		INSERT INTO rpr_Representante
+			(ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO) 
+		VALUES 
+			(#{idRepresentante}, #{status}, #{apelido}, #{usuario.idUsuario})
+	</insert>	
+	
+	<update id="updateRepresentante">
+		UPDATE rpr_Representante
+		   SET ID_USUARIO = #{usuario.idUsuario}, 
+		   STATUS = #{status}, 
+		   APELIDO = #{apelido}
+		WHERE ID_REPRESENTANTE = #{idRepresentante}
+	</update>
+		
 </mapper>
