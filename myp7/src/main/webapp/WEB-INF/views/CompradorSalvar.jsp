@@ -28,6 +28,11 @@ $(document).ready(function() {
 		controlTabs($(this));
 	});
 
+	$("#clickPessoa").click(function(){
+		$(this).attr('data-toggle','modal');
+		$(this).attr('data-target','#consulta_pessoa');
+	});
+
 });
 
 </script>
@@ -51,9 +56,9 @@ $(document).ready(function() {
 				    	<input type="hidden" id="idPessoa" name="id" value="${obj.id}">
 				    	<input type="text" class="form-control" id="razao" maxlength="11" value="${obj.razao}" readonly="readonly">
 				  	</div>
-				  	<div class="col-md-1 form-group paddingleft0">
+				  	<div class="col-md-1 form-group paddingleft0 width-initial">
 				  		<label for="nomePessoa">&nbsp;</label>
-				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
+				  		<a href="#" target="_self" class="form-control icon-search" id="clickPessoa"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group req">
 				   		<label for="apelido">Apelido</label>
@@ -117,6 +122,7 @@ $(document).ready(function() {
 				
 			</form>		
 		</div>
+		<c:import url="PessoaLista.jsp"/>
 	</div>
 	
 
