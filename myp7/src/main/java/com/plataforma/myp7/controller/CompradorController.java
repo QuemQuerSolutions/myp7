@@ -43,7 +43,7 @@ public class CompradorController {
 	
 	@RequestMapping("salvarComprador")
 	public String salvarComprador(Comprador comprador){
-		
-		return "CompradorLista";
+		compradorBO.salvar(comprador);
+		return "redirect:CarregaListaComprador";
 	}
 }

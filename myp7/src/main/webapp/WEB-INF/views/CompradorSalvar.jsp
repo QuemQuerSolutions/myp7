@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 	<c:import url="components/imports.jsp" />
 	
@@ -14,8 +15,12 @@ $(document).ready(function() {
 	
 	$("#btnSalvar").click(function(e){
 		e.stopPropagation();
-		if(!isValidRequired())
+		if(!isValidRequired()){
 			alerta("Preencha os campos obrigatórios.", "warning");
+			return;
+		}
+		
+		go("#frmSalvarComprador");
 	});	
 	
 	$(".nav-tabs > li > a").click(function(e){
@@ -43,7 +48,8 @@ $(document).ready(function() {
 				<div class="row">
 				  	<div class="col-md-5 form-group req">
 				   		<label for="nomePessoa">Pessoa</label>
-				    	<input type="text" class="form-control" id="nomePessoa" name="nomePessoa" maxlength="11" value="${obj.id}">
+				    	<input type="hidden" id="idPessoa" name="id" value="${obj.id}">
+				    	<input type="text" class="form-control" id="razao" maxlength="11" value="${obj.razao}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="nomePessoa">&nbsp;</label>
@@ -62,31 +68,44 @@ $(document).ready(function() {
 				  	</div>
 				  	<div class="col-md-6 form-group req">
 				   		<label for="status">Status</label>
-				    	<select id="status" class="form-control">
-				    		<option value="A">Ativo</option>
-				    		<option value="I">Inativo</option>
-				    	</select>
+			   			<form:select path="obj.status" cssClass="form-control">
+			   				<form:option value="A" label="Ativo" />
+			   				<form:option value="I" label="Inativo" />
+			   			</form:select>
 				  	</div>
 				</div>
 				
 				<div class="row">
-				  	<div class="col-md-6 form-group">
+				  	<div class="col-md-5 form-group req">
 				   		<label for="usuario">Usuário</label>
-				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
+				   		<input type="hidden" name="usuario.idUsuario" id="idUsuario" value="${obj.usuario.idUsuario}"/>
+				    	<input type="text" class="form-control" id="usuario" value="${obj.usuario.email}" readonly="readonly">
 				  	</div>
-				  	<div class="col-md-6 form-group req">
+				  	<div class="col-md-1 form-group paddingleft0">
+				  		<label for="buscaUsuario">&nbsp;</label>
+				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
+				  	</div>
+				  	<div class="col-md-5 form-group req">
 				   		<label for="apelido">Gerente</label>
 				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
+				  	</div>
+					<div class="col-md-1 form-group paddingleft0">
+				  		<label for="buscaGerente">&nbsp;</label>
+				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				</div>
 				
 				<div class="row">&nbsp;</div>
 				
 				<ul class="nav nav-tabs nav-justified">
-					<li role="presentation" class="active"><a href="#" id="tabEmpresaLista" contextmenu="EmpresaTabLista"><b>Empresa</b> <span class="badge">${qtdEmpresa}</span></a></li>
+					<li role="presentation" class="active">
+						<a href="#" id="tabEmpresaLista" contextmenu="EmpresaTabLista">
+							<b>Empresa</b> <span id="qtdEmpresa" class="badge">${qtdEmpresa}</span>
+						</a>
+					</li>
   					<li role="presentation">
   						<a href="#" id="tabRepresentanteLista" contextmenu="RepresentanteTabLista">
-  							<b>Representante</b> <span class="badge">${qtdRepresentante}</span>
+  							<b>Representante</b> <span id="qtdRepresentante" class="badge">${qtdRepresentante}</span>
   						</a>
   					</li>
 				</ul>

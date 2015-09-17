@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <div class="row" id="EmpresaTabLista">
 	<div class="col-md-12">
@@ -11,11 +12,18 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${obj.empresa}" var="emp">
+			<c:forEach items="${obj.empresa}" var="emp" varStatus="i">
 				<tr>
-					<td>${emp.nomeReduzido}</td>
-					<td>${emp.alcada}</td>
-					<td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove red"></span></a></td>
+					<td class="text-middle">${emp.nomeReduzido}</td>
+					<td>
+						<form:hidden path="obj.empresa[${i.index}].idEmpresa"/>
+						<form:input path="obj.empresa[${i.index}].alcada" cssClass="form-control" />
+					</td>
+					<td class="text-center text-middle">
+						<a href="#" id="empresa_${emp.idEmpresa}" onclick="onRemoveLine(empresa_${emp.idEmpresa}, qtdEmpresa)" >
+							<span class="glyphicon glyphicon-remove red"></span>
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
 			</tbody>

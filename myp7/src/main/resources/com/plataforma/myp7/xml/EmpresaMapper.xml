@@ -49,6 +49,13 @@
 		VALUES 
 			(#{nomeReduzido}, #{pessoa.idPessoa})
 	</insert>
+
+	<insert id="inserCompradorAlcada">
+		INSERT INTO CPR_COMPRADOR_ALCADA 
+			(ID_COMPRADOR, ID_EMPRESA, ALCADA)
+		VALUES
+			(#{idCompradorAlcada}, #{idEmpresa}, #{alcada})
+	</insert>
 	
 	<update id="updateEmpresa">
 		UPDATE emp_empresa
@@ -56,5 +63,9 @@
 		   ID_PESSOA = #{pessoa.idPessoa}
 		WHERE ID_EMPRESA = #{idEmpresa}
 	</update>
+	
+	<delete id="deleteCompradorAlcada">
+		DELETE FROM CPR_COMPRADOR_ALCADA WHERE ID_COMPRADOR = #{id}
+	</delete>
 	
 </mapper>

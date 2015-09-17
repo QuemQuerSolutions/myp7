@@ -9,7 +9,7 @@ import org.apache.ibatis.type.Alias;
 import com.plataforma.myp7.util.Utils;
 
 @Alias("Comprador")
-public class Comprador implements Serializable {
+public class Comprador extends Pessoa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,7 @@ public class Comprador implements Serializable {
 	
 	public Comprador() {
 		super();
+		usuario = new Usuario();
 		empresa = new ArrayList<Empresa>();
 		representantes = new ArrayList<Representante>();
 	}

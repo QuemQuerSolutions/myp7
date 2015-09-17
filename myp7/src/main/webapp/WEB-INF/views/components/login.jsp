@@ -93,7 +93,6 @@ function login(){
 				</div>
 			</div>
 			</form>
-<%-- 			<c:import url="../UsuarioInserir.jsp" /> --%>
         </div>
         
     </div>

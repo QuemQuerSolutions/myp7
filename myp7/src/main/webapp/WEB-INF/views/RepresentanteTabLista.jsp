@@ -10,7 +10,7 @@
 			<tbody>
 			<tr>
 				<td>nome representante</td>
-				<td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove red"></span></a></td>
+				<td class="text-center text-middle"><a href="#"><span class="glyphicon glyphicon-remove red"></span></a></td>
 			</tr>
 			</tbody>
 		</table>	

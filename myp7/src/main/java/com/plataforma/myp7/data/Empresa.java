@@ -11,9 +11,20 @@ public class Empresa  implements Serializable{
 	
 	private Long idEmpresa;
 	private String nomeReduzido;
+	private Integer idCompradorAlcada;
 	private Double alcada;
 	private Pessoa pessoa;
 	
+	public Empresa(){}
+	
+	public Integer getIdCompradorAlcada() {
+		return idCompradorAlcada;
+	}
+
+	public void setIdCompradorAlcada(Integer idCompradorAlcada) {
+		this.idCompradorAlcada = idCompradorAlcada;
+	}
+
 	public Long getIdEmpresa() {
 		return idEmpresa;
 	}

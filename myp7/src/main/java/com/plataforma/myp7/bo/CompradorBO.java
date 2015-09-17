@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Comprador;
+import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
@@ -37,6 +38,8 @@ public class CompradorBO {
 	}
 	
 	public List<Comprador> obterPorParametro(Model model, Comprador comp){
+		if(Objects.isNull(comp.getId())) return null;
+		
 		final Comprador comprador = new Comprador(comp);
 		
 		int count = compradorMapper.count(comprador);
@@ -54,16 +57,20 @@ public class CompradorBO {
 		return compradorMapper.obterPorParametro(comprador);
 	}
 	
-	public MensagemWS salvar(Comprador _comprador){
-		Comprador comprador = this.obterPorId(_comprador.getId());
+	public void salvar(Comprador comprador){
+		final Integer id = comprador.getId();
 		
-		if(Objects.isNull(comprador)){
-			this.inserir(_comprador);
-			return MensagemWS.INSERT_COMPRADOR_SUCESSO;
+		if(Objects.isNull(id)){
+			this.inserir(comprador);
+		}else{
+			this.update(comprador);
+			empresaMapper.deleteCompradorAlcada(id);
 		}
 		
-		this.update(comprador);
-		return MensagemWS.ATUALIZA_COMPRADOR_SUCESSO;
+		for(Empresa empresa: comprador.getEmpresa()){
+			empresa.setIdCompradorAlcada(id);
+			empresaMapper.inserCompradorAlcada(empresa);
+		}
 	}
 	
 	public void inserir(Comprador comprador) throws ManterEntidadeException{

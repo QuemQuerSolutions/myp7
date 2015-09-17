@@ -160,3 +160,9 @@ function controlTabs(tab){
 	$("#content-tabs > div").attr("hidden", true);
 	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
 }
+
+function onRemoveLine(idLine, contador){
+	$(idLine).parent().parent("tr").remove();
+	var cont = parseInt($(contador).text());
+	$(contador).text(--cont);	
+}

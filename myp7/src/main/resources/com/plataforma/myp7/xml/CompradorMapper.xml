@@ -8,7 +8,9 @@
 		<result property="status"  			column="STATUS" /> 
 		<result property="ediCodigo"  		column="EDI_CODIGO" />
 		<result property="apelido"  		column="APELIDO" />
-		<association property="usuario" 	column="ID_USUARIO"	select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
+		<result property="razao"  			column="RAZAO" />
+		<association property="usuario" 	column="ID_USUARIO"	
+					 select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 		
 	</resultMap>
 	
@@ -23,6 +25,19 @@
 		  ]]>
 	</sql>
 	
+	<sql id="selectComPessoa">
+		<![CDATA[
+			SELECT ID_COMPRADOR as id,
+			    ID_USUARIO,
+			    STATUS,
+			    EDI_CODIGO as ediCodigo,
+			    APELIDO,
+			    RAZAO
+			FROM CPR_COMPRADOR
+			JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = CPR_COMPRADOR.ID_COMPRADOR
+		  ]]>
+	</sql>
+	
 	<sql id="whereBusca">
 		<if test="id != null">
 			AND ID_COMPRADOR = #{id} 
@@ -33,7 +48,7 @@
 	</sql>
 	
 	<select id="obterPorParametro" resultType="Comprador" parameterType="Comprador">
-		<include refid="selectSimples"/>
+		<include refid="selectComPessoa"/>
 		WHERE 1=1
 		<include refid="whereBusca" />
 		ORDER BY APELIDO
@@ -45,24 +60,24 @@
 		<include refid="whereBusca" />
 	</select>
 	
-	<select id="obterPorId" resultType="Comprador">
-		<include refid="selectSimples"/>
+	<select id="obterPorId" resultMap="compradorMap">
+		<include refid="selectComPessoa"/>
 		WHERE ID_COMPRADOR = #{id} 
 	</select>
 	
 	<insert id="inserirComprador">
 		INSERT INTO cpr_comprador
-			(ID_USUARIO, STATUS, EDI_CODIGO, APELIDO) 
+			(ID_COMPRADOR, ID_USUARIO, STATUS, EDI_CODIGO, APELIDO) 
 		VALUES 
-			(#{usuario.idUsuario}, #{status}, #{ediCodigo}, #{apelido})
+			(#{id}, #{usuario.idUsuario}, #{status}, #{ediCodigo}, #{apelido})
 	</insert>
 	
 	<update id="updateComprador">
 		UPDATE cpr_comprador
 		   SET ID_USUARIO = #{usuario.idUsuario}, 
-		   STATUS = #{status}, 
-		   EDI_CODIGO = #{ediCodigo},
-		   APELIDO = #{apelido}
+		   	   STATUS = #{status},
+			   EDI_CODIGO = #{ediCodigo},
+		       APELIDO = #{apelido}
 		WHERE ID_COMPRADOR = #{id}
 	</update>
 	

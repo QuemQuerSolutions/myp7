@@ -110,11 +110,18 @@ function onClickLine(id){
 				</thead>
 				<tbody>
 					<c:forEach items="${lstComprador}" var="c">
-						<c:if test="${c.status eq 'A'}"><c:set var="classLine" value="registroAtivo" /></c:if>
-						<c:if test="${c.status eq 'I'}"><c:set var="classLine" value="registroAtivo" /></c:if>
+						<c:choose>
+							<c:when test="${c.status eq 'A'}">
+								<c:set var="classLine" value="registroAtivo" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="classLine" value="registroInativo" />
+							</c:otherwise>
+						</c:choose>
+						
 						<tr class="${classLine}" onclick="onClickLine(${c.id})">
 							<td>${c.id}</td>
-							<td>${c.apelido}</td>
+							<td>${c.razao}</td>
 							<td>${c.apelido}</td>
 							<td>${c.ediCodigo}</td>
 						</tr>
