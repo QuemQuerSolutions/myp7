@@ -56,27 +56,13 @@ $(document).ready(function() {
 				    	<input type="hidden" id="idPessoa" name="id" value="${obj.id}">
 				    	<input type="text" class="form-control" id="razao" maxlength="11" value="${obj.razao}" readonly="readonly">
 				  	</div>
-				  	<div class="col-md-1 form-group paddingleft0 width-initial">
+				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="nomePessoa">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" id="clickPessoa"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group req">
 				   		<label for="apelido">Apelido</label>
 				    	<input type="text" class="form-control" id="apelido" name="apelido" maxlength="11" value="${obj.apelido}">
-				  	</div>
-				</div>
-				
-				<div class="row">
-				  	<div class="col-md-6 form-group">
-				   		<label for="ediCodigo">Integração ERP</label>
-				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
-				  	</div>
-				  	<div class="col-md-6 form-group req">
-				   		<label for="status">Status</label>
-			   			<form:select path="obj.status" cssClass="form-control">
-			   				<form:option value="A" label="Ativo" />
-			   				<form:option value="I" label="Inativo" />
-			   			</form:select>
 				  	</div>
 				</div>
 				
@@ -90,13 +76,27 @@ $(document).ready(function() {
 				  		<label for="buscaUsuario">&nbsp;</label>
 				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
+				  	<div class="col-md-6 form-group req">
+				   		<label for="status">Status</label>
+			   			<form:select path="obj.status" cssClass="form-control">
+			   				<form:option value="A" label="Ativo" />
+			   				<form:option value="I" label="Inativo" />
+			   			</form:select>
+				  	</div>
+				</div>
+				
+				<div class="row">
 				  	<div class="col-md-5 form-group req">
 				   		<label for="apelido">Gerente</label>
 				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
 				  	</div>
-					<div class="col-md-1 form-group paddingleft0">
+				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaGerente">&nbsp;</label>
 				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
+				  	</div>
+				  	<div class="col-md-6 form-group">
+				   		<label for="ediCodigo">Integração ERP</label>
+				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
 				  	</div>
 				</div>
 				

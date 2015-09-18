@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.RepresentanteCompradorMapper">
+	
+	<resultMap type="RepresentanteComprador" id="mapSimples">
+		<result property="idComprador" column="ID_COMPRADOR" /> 
+		<association property="representante" column="ID_REPRESENTANTE" select="com.plataforma.myp7.mapper.RepresentanteMapper.obterPorId"/>
+	</resultMap>
+
+	<select id="obterPorComprador" resultMap="mapSimples">
+		select ID_REPRESENTANTE, ID_COMPRADOR
+		from rpr_representante_comprador
+		where ID_COMPRADOR = #{idComprador}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO rpr_representante_comprador
+			(ID_REPRESENTANTE, ID_COMPRADOR) 
+		VALUES 
+			(#{idRepresentante}, #{idComprador})
+	</insert>	
+	
+	<delete id="deletePorComprador">
+		DELETE FROM rpr_representante_comprador WHERE ID_COMPRADOR = #{idComprador} 
+	</delete>
+	
+</mapper>

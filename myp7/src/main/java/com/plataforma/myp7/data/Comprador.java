@@ -15,6 +15,7 @@ public class Comprador extends Pessoa implements Serializable {
 
 	private Integer id;
 	private Usuario usuario;
+	private Usuario gerente;
 	private String status;
 	private Integer ediCodigo;
 	private String apelido;
@@ -24,6 +25,7 @@ public class Comprador extends Pessoa implements Serializable {
 	public Comprador() {
 		super();
 		usuario = new Usuario();
+		gerente = new Usuario();
 		empresa = new ArrayList<Empresa>();
 		representantes = new ArrayList<Representante>();
 	}
@@ -39,6 +41,14 @@ public class Comprador extends Pessoa implements Serializable {
 		this.apelido = Utils.toLike(comprador.getApelido()); 
 	}
 
+
+	public Usuario getGerente() {
+		return gerente;
+	}
+
+	public void setGerente(Usuario gerente) {
+		this.gerente = gerente;
+	}
 
 	public List<Representante> getRepresentantes() {
 		return representantes;
