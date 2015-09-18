@@ -65,6 +65,17 @@
 		 ORDER BY p.uf
 	</select>
 	
+	<select id="countPessoa" resultType="int">
+		SELECT COUNT(1) FROM gbl_pessoa
+		WHERE 1=1
+		<if test="idPessoa != null">
+			AND ID_PESSOA=#{idPessoa}
+		</if>
+		<if test="razao != null">
+			AND RAZAO =#{razao}
+		</if> 
+	</select>
+	
 	<insert id="inserir">
 	INSERT INTO gbl_pessoa (RAZAO, FANTASIA, FISICA_JURIDICA, SEXO, CEP,
 							CIDADE, UF, BAIRRO, LOGRADOURO, LOGRADOURO_NRO, LOGRADROURO_COMPL,

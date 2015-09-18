@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
+import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.PessoaMapper;
@@ -26,11 +27,9 @@ public class PessoaBO {
 	
 	public List<Pessoa> obterPessoaCodNome(Pessoa pessoa, Model model){
 		List<Pessoa> lstPessoa = new ArrayList<Pessoa>();
-		lstPessoa = this.pessoaMapper.obterPessoaCodNome(pessoa);
-		if (lstPessoa.size()==0){
-			Utils.setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem().toString());
-			Utils.setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
-		}
+		if(isValidoPessoa(pessoa, model))
+			lstPessoa = this.pessoaMapper.obterPessoaCodNome(pessoa);
+		
 		return lstPessoa;
 	}
 	
@@ -46,6 +45,21 @@ public class PessoaBO {
 			this.pessoaMapper.atualiza(pessoa);
 			return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PESSOA_SUCESSO);
 		}
+	}
+	
+	public boolean isValidoPessoa(Pessoa pessoa, Model model){
+		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
+		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			Utils.setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem().toString());
+			Utils.setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+			return false;
+		}
+		if(countPessoa ==  0){
+			Utils.setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem().toString());
+			Utils.setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
+			return false;
+		}
+		return true;
 	}
 		
 }

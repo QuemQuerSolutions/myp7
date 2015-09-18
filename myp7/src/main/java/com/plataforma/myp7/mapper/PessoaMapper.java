@@ -16,4 +16,6 @@ public interface PessoaMapper {
 	void inserir(Pessoa pessoa);
 	
 	void atualiza(Pessoa pessoa);
+	
+	Integer countPessoa(Pessoa pessoa);
 }
