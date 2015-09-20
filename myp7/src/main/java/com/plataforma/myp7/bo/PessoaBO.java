@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
@@ -13,7 +12,6 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.PessoaMapper;
-import com.plataforma.myp7.util.Utils;
 
 @Service
 public class PessoaBO {
@@ -25,10 +23,27 @@ public class PessoaBO {
 		return this.pessoaMapper.obterTodasUF();
 	}
 	
-	public List<Pessoa> obterPessoaCodNome(Pessoa pessoa, Model model){
+	public List<Pessoa> obterPessoaCodNome(Long codPessoa, String nomePessoa){
 		List<Pessoa> lstPessoa = new ArrayList<Pessoa>();
-		if(isValidoPessoa(pessoa, model))
+		
+		Pessoa pessoa = new Pessoa();
+		
+		pessoa.setIdPessoa(codPessoa);
+		pessoa.setRazao(nomePessoa);
+		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
+		
+		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			pessoa.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem().toString());
+			pessoa.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+			lstPessoa.add(pessoa);
+		}else if(countPessoa ==  0){
+			pessoa.setMsgRetorno(Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem().toString());
+			pessoa.setCodRetorno(Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
+			lstPessoa.add(pessoa);
+		}else{
 			lstPessoa = this.pessoaMapper.obterPessoaCodNome(pessoa);
+		}
+			
 		
 		return lstPessoa;
 	}
@@ -45,21 +60,6 @@ public class PessoaBO {
 			this.pessoaMapper.atualiza(pessoa);
 			return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PESSOA_SUCESSO);
 		}
-	}
-	
-	public boolean isValidoPessoa(Pessoa pessoa, Model model){
-		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
-		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			Utils.setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem().toString());
-			Utils.setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
-			return false;
-		}
-		if(countPessoa ==  0){
-			Utils.setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem().toString());
-			Utils.setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
-			return false;
-		}
-		return true;
 	}
 		
 }

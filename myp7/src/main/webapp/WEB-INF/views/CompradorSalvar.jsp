@@ -122,7 +122,7 @@ $(document).ready(function() {
 				
 			</form>		
 		</div>
-		<c:import url="PessoaLista.jsp"/>
+		<c:import url="PessoaModalLista.jsp"/>
 	</div>
 	
 

@@ -25,8 +25,32 @@ public class Pessoa {
 	private Integer digCpfCnpj;
 	private String nroRgInscrEstadual;
 	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
+	
 	public Pessoa(){}
 	
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
+
+
+
 	public Pessoa(Integer id){
 		this.idPessoa = id.longValue();
 	}

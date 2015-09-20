@@ -11,29 +11,50 @@ $(document).ready(function(){
 		$("#nome").val("");
 	});
 
-	
+	$(".campo-buscar").keypress(function(e){
+		e.stopPropagation();
+	    if(e.which == 13) {
+	    	$("#btnPesquisar").click();
+	    }
+	});
 
+	
 	$("#btnPesquisar").click(function(){
 		pesquisarPessoa();
 	});
-	
+
 	function pesquisarPessoa(){
 		$.ajax({
+			url : "consultarPessoa?codPessoa=".concat($("#codigo").val(),"&nomePessoa=",$("#nome").val()),
 			type: "GET",
-	        data: { codPessoa:$("#codigo").val(), nomePessoa:$("#nome").val()},
-	        url : 'consultarPessoa',
-	        success : function(data) {
-	        	$("#resultado").html(data);
+	        contentType: "application/json; charset=ISO-8859-1",
+		    dataType: "json",
+	        success : function(retornoList) {
+		        if(retornoList[0].codRetorno !== 0){
+					alerta(retornoList[0].msgRetorno, "warning");
+					$("#resultado").html("");
+					return;
+		        }
+		        $("#resultado").html(montaTable(retornoList));
+	        },
+	        error: function (xhr, textStatus, errorThrown) {
+		    	console.log("Erro ao retornar lista: ",errorThrown)	;
+		        alerta("Erro ao retornar lista","warning");
 	        }
 	    });
-		//if($("#mensagem").val() !== "")	alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+		
 	}
 
-	function onClickLine(nome){
-		$("#razao").val(nome);
-		$("#fechar").attr('data-dismiss','modal');
+	function montaTable(lista){
+		var linha = "";
+		linha = linha.concat("<tr>", "<td>",lista.idPessoa,"</td>", "<td>", lista.razao,"</td>","</tr>");
+		return linha;
+	}
+	function onClickLinePessoa(nome){
+		
 	}
 
+	
 });
 
 </script>
@@ -58,17 +79,16 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<form>
-					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
-					<input type="hidden" id="codMsgem" value="${codMsgem}" />
+					
 					<div class="row">
 						<div class="col-md-2">
 							<div class="form-group" id="divCodigo">
-						    	<input type="text" class="form-control campo-salvar upper" id="codigo" name="codigoPessoa" maxlength="2" placeholder="Insira Código" value="${pessoa.idPessoa}" >
+						    	<input type="text" class="form-control campo-buscar upper" id="codigo" name="codigoPessoa" maxlength="2" placeholder="Insira Código" value="${pessoa.idPessoa}" >
 						  	</div>
 						</div>
 	  					<div class="col-md-5">
 							<div class="form-group" id="divNome">
-						    	<input type="text" class="form-control campo-salvar" id="nome" name="nomePessoa" maxlength="100" placeholder="Insira nome" value="${pessoa.razao}">
+						    	<input type="text" class="form-control campo-buscar" id="nome" name="nomePessoa" maxlength="100" placeholder="Insira nome" value="${pessoa.razao}">
 						  	</div>
 	  					</div>
 	  					<div class="col-md-2" id="btnpesquisar">
@@ -91,12 +111,16 @@ $(document).ready(function(){
 						</tr>
 					</thead>
 					<tbody id="resultado">
-						<c:forEach items="${lstPessoa}" var="p">
-							<tr onclick="onClickLine('${p.razao}')">
+						<%-- <c:forEach items="${lstPessoa}" var="p">
+							<tr onclick="onClickLinePessoa('${p.razao}')">
 								<td>${p.idPessoa}</td>
 								<td>${p.razao}</td>
 							</tr>
-						</c:forEach>
+							<div id="oculto">
+								<input type="hidden" id="mensagemPessoa" value="" />
+								<input type="hidden" id="codMsgemPessoa" value="" />
+							</div>
+						</c:forEach> --%> 
 					</tbody>
 				</table>
 			</div>
