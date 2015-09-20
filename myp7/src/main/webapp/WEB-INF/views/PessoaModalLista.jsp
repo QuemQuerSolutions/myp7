@@ -6,6 +6,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+	var linhaGlobal;
+		
 	$("#limpar").click(function(){
 		$("#resultado").html("");
 		$("#codigo").val("");
@@ -19,6 +21,10 @@ $(document).ready(function(){
 	    }
 	});
 
+
+	$("#fechar").click(function(){
+		$("#limpar").click();
+	});
 	
 	$("#btnPesquisar").click(function(){
 		pesquisarPessoa();
@@ -31,7 +37,6 @@ $(document).ready(function(){
 	        contentType: "application/json; charset=ISO-8859-1",
 		    dataType: "json",
 	        success : function(retornoList) {
-		        alert("aqui");
 		        if(retornoList[0].codRetorno == -1){
 					alerta(retornoList[0].msgRetorno, "warning");
 					$("#resultado").html("");
@@ -53,11 +58,12 @@ $(document).ready(function(){
 		lista.forEach(function(item){
 			linha = linha.concat("<tr>", "<td>",item.idPessoa,"</td>", "<td>", item.razao,"</td>","</tr>");
 		});
+		linhaGlobal=linha;
 		return linha;
 	}
 
 	function onClickLine(id){
-		
+			
 	}
 
 	$("#btnSelecionar").click(function(){
@@ -89,7 +95,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<form>
-					
+					<input type="hidden" id="theme" value="${theme}" />
 					<div class="row">
 						<div class="col-md-2">
 							<div class="form-group" id="divCodigo">
@@ -129,8 +135,8 @@ $(document).ready(function(){
 				<table  class="table table-hover table-bordered table-striped mouse-click">
 					<thead>
 						<tr style="text-align: center">
-							<th>Código</th>
-							<th>Razão Social</th>
+							<th width="20%">Código</th>
+							<th width="80%">Razão Social</th>
 						</tr>
 					</thead>
 					<tbody id="resultado">
