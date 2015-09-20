@@ -12,6 +12,7 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.PessoaMapper;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class PessoaBO {
@@ -29,7 +30,7 @@ public class PessoaBO {
 		Pessoa pessoa = new Pessoa();
 		
 		pessoa.setIdPessoa(codPessoa);
-		pessoa.setRazao(nomePessoa);
+		pessoa.setRazao(Utils.emptyToNull(nomePessoa));
 		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
 		
 		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
