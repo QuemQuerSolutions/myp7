@@ -8,7 +8,7 @@
 				<tr style="text-align: center">
 					<th width="70%">Empresa</th>
 					<th width="20%">Alçada</th>
-					<th width="10%" class="text-center"><a href="#"><span class="glyphicon glyphicon-plus"></span></a></th>
+					<th width="10%" class="text-center"><a href="#" onclick="onAddEmpresa()"><span class="glyphicon glyphicon-plus"></span></a></th>
 				</tr>
 			</thead>
 			<tbody>

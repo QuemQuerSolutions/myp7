@@ -10,7 +10,8 @@ $(document).ready(function(){
 		alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
-	$("#pesquisar").click(function(){
+	$("#pesquisar").click(function(e){
+		e.stopPropagation();
 		if($("#id").val() === "" && $("#apelido").val() === ""){
 			alerta("Informe ao menos um filtro para buscar", "warning");
 			return;
@@ -18,11 +19,13 @@ $(document).ready(function(){
 		go("#frmComprador");
 	});
 	
-	$("#btnNovo").click(function(){
+	$("#btnNovo").click(function(e){
+		e.stopPropagation();
 		go("editarComprador");
 	});
 
-	$("#limpar").click(function(){
+	$("#limpar").click(function(e){
+		e.stopPropagation();
 		clearAll();
 		$("#id").focus();
 	});

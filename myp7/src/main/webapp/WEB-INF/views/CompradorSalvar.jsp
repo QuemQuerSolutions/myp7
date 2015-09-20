@@ -29,11 +29,14 @@ $(document).ready(function() {
 	});
 
 	$("#clickPessoa").click(function(){
-		$(this).attr('data-toggle','modal');
-		$(this).attr('data-target','#consulta_pessoa');
+		$("#consulta_pessoa").modal();
 	});
 
 });
+
+function onAddEmpresa() {
+	$("#consulta_empresa").modal();
+}
 
 </script>
 <body>
@@ -122,10 +125,10 @@ $(document).ready(function() {
 				
 			</form>		
 		</div>
-		<c:import url="PessoaModalLista.jsp"/>
 	</div>
 	
-
+	<c:import url="PessoaModalLista.jsp"/>
+	<c:import url="EmpresaModalLista.jsp"/>
 	<c:import url="components/footer.jsp">
 		<c:param name="salvar" value="cancelar_salvar" />
 	</c:import>

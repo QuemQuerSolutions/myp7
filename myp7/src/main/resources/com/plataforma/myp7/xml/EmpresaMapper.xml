@@ -15,10 +15,31 @@
 			FROM emp_empresa
 		  ]]>
 	</sql>
-	
+
+	<sql id="whereEmpresa">
+		<if test="idEmpresa != null">
+			AND ID_EMPRESA=#{idEmpresa}
+		</if>
+		<if test="nomeReduzido != null">
+			AND NOME_REDUZIDO =#{nomeReduzido}
+		</if>
+	</sql>
+		
 	<select id="obterTodasEmpresas" resultMap="empresaMap">
 		<include refid="selectEmpresa"/>
 		ORDER BY ID_EMPRESA
+	</select>
+	
+	<select id="obterPorParametro" resultMap="empresaMap">
+		<include refid="selectEmpresa" />
+		WHERE 1=1
+		<include refid="whereEmpresa" />
+	</select>
+	
+	<select id="countPorParametro" resultType="int">
+		SELECT COUNT(1) FROM emp_empresa
+		WHERE 1=1
+		<include refid="whereEmpresa" />
 	</select>
 	
 	<select id="obterEmpresaPorId" resultMap="empresaMap">

@@ -12,6 +12,9 @@ public interface EmpresaMapper {
 	List<Empresa> obterTodasEmpresas();
 	List<Empresa> obterEmpresasPorUF(String uf);
 	List<Empresa> obterPorComprador(Integer idComprador);
+	List<Empresa> obterPorParametro(Empresa empresa);
+	
+	int countPorParametro(Empresa empresa);
 
 	void inserirEmpresa(Empresa empresa);
 	void inserCompradorAlcada(Empresa empresa);

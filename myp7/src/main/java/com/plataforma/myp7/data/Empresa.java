@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
+import com.plataforma.myp7.enums.Mensagem;
+
 @Alias("Empresa")
 public class Empresa  implements Serializable{
 	
@@ -15,8 +17,33 @@ public class Empresa  implements Serializable{
 	private Double alcada;
 	private Pessoa pessoa;
 	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
+	
 	public Empresa(){}
 	
+	public Empresa(Mensagem mensagem){
+		msgRetorno = mensagem.getMensagem();
+		codRetorno = mensagem.getCodigo();
+	}
+	
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
+
 	public Integer getIdCompradorAlcada() {
 		return idCompradorAlcada;
 	}
