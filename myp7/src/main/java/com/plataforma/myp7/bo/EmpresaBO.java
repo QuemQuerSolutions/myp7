@@ -37,11 +37,8 @@ public class EmpresaBO {
 		
 		int count = empresaMapper.countPorParametro(empresa);
 		
-		if(count == 0){
-			List<Empresa> ret = new ArrayList<Empresa>();
-			ret.add(new Empresa(Mensagem.NENHUM_REGISTRO_LOCALIZADO));
-			return ret;
-		}
+		if(count == 0)
+			return new ArrayList<Empresa>();
 		
 		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
 			List<Empresa> ret = new ArrayList<Empresa>();

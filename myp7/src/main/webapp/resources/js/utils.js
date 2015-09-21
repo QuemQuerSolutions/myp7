@@ -12,6 +12,15 @@ function clearAll(){
 //    });	
 }
 
+function hasInformation(escopo){
+	var hasValue = false;
+	$(escopo + " input[type=text]").each(function(){
+		if($(this).val() !== "")
+			hasValue = true;
+    });
+	return hasValue;
+}
+
 function isValidRequired(){
 	clearRequired();
 	var isValid = true;
