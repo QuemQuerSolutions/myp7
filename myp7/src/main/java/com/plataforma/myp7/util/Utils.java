@@ -28,7 +28,7 @@ public class Utils {
 	}
 	
 	public static String emptyToNull(String value){
-		return (value.trim().equals("") ? null : value.trim());
+		return ("".equals(value) ? null : value);
 	}
 	
 	public static String toLike(String campo){

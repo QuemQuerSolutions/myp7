@@ -1,23 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$("#limpar").click(function(e){
+	$("#btnlimparEmpresa").click(function(e){
 		e.stopPropagation();
-		$("#idEmpresa").val("");
-		$("#nomeReduzido").val("");
+		$("#idEmpresaBusca").val("");
+		$("#nomeReduzidoBusca").val("");
 	});
-
-	
 
 	$("#btnPesquisarEmpresa").click(function(e){
 		e.stopPropagation();
 		
-		var empresa = {idEmpresa: 1, nomeReduzido: null};
+		if(!hasInformation("#filtroModalEmpresa")){
+			alerta("Informe ao menos um filtro para continuar", "warning");
+			return;
+		}
+		
+		var empresa = {idEmpresa	: $("#idEmpresaBusca").val(), 
+					   nomeReduzido	: $("#nomeReduzidoBusca").val()};
 		
 		$.ajax({
 		    type: "GET",
@@ -29,8 +32,7 @@ $(document).ready(function(){
 			    var lines = "";
 			    
 			    if(lista.length == 0){
-			    	$("#lstEmpresaModal").html("<tr><td colspan='15'>Nenhum registro.</td></tr>");
-			    	loading(false);
+			    	$("#lstEmpresaModal").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
 			    	return;
 			    }
 			    
@@ -39,7 +41,12 @@ $(document).ready(function(){
 			    	$("#lstEmpresaModal").html("");
 			    	return;
 			    }
-			    console.log(lista);
+			    
+			    lista.forEach(function(empresa){
+			    	lines += getLineEmpresa(empresa);
+			    });
+			    
+			    $("#lstEmpresaModal").html(lines);
 		    },
 		    error: function (xhr, textStatus, errorThrown) {
 		    	console.log("Erro ao retornar lista: ",errorThrown);
@@ -49,6 +56,17 @@ $(document).ready(function(){
 	});
 	
 });
+
+function getLineEmpresa(empresa){
+	var line = "";
+	
+	line = line.concat("<tr>");
+		line = line.concat("<td>", empresa.idEmpresa, "</td>");
+		line = line.concat("<td>", empresa.nomeReduzido, "</td>");
+	line = line.concat("</tr>");
+	
+	return line;
+}
 
 </script>
 
@@ -62,7 +80,7 @@ $(document).ready(function(){
 				</button>
 				<h4 class="modal-title">Consulta de Empresa</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="filtroModalEmpresa">
 				<div class="row">
 					<div class="col-md-2">
 						<label for="codigo" class="control-label">Código</label>
@@ -71,39 +89,28 @@ $(document).ready(function(){
 						<label for="nome" class="control-label">Nome</label>
 					</div>
 				</div>
-				<form>
 					<div class="row">
-						<div class="col-md-2">
-							<div class="form-group">
-						    	<input type="text" class="form-control upper" id="codigo"" >
-						  	</div>
+						<div class="col-md-2 form-group">
+					    	<input type="text" class="form-control" id="idEmpresaBusca" maxlength="11">
 						</div>
-	  					<div class="col-md-5">
-							<div class="form-group" id="divNome">
-						    	<input type="text" class="form-control" id="nome" maxlength="100">
-						  	</div>
+	  					<div class="col-md-5 form-group">
+					    	<input type="text" class="form-control" id="nomeReduzidoBusca" maxlength="100">
 	  					</div>
-	  					<div class="col-md-2" id="btnPesquisarEmpresa">
-							<div class="form-group">
-								<button type="button" class="btn ${theme}" id="btnPesquisar">Pesquisar</button>
-							</div>
+	  					<div class="col-md-2 form-group">
+							<button type="button" class="btn ${theme}" id="btnPesquisarEmpresa">Pesquisar</button>
 						</div>
-						<div class="col-md-2" id="btnlimpar">
-							<div class="form-group">
-								<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
-							</div>
+						<div class="col-md-2 form-group">
+							<button type="button" class="btn btn-default limpar" id="btnlimparEmpresa">Limpar</button>
 						</div>
 					</div>
-				</form>
-				<table  class="table table-hover table-bordered table-striped mouse-click">
+				<table class="table table-hover table-bordered table-striped mouse-click">
 					<thead>
-						<tr style="text-align: center">
-							<th>Código</th>
+						<tr>
+							<th width="10%">Código</th>
 							<th>Razão Social</th>
 						</tr>
 					</thead>
-					<tbody id="lstEmpresaModal">
-					</tbody>
+					<tbody id="lstEmpresaModal"></tbody>
 				</table>
 			</div>
 			<div class="modal-footer">

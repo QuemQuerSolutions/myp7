@@ -18,7 +18,7 @@ public class EmpresaController {
 	@Autowired
 	private EmpresaBO empresaBO;
 	
-	@RequestMapping(value="obterEmpresaPorParametro", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="obterEmpresaPorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Empresa> obterEmpresaPorParametro(Empresa empresa) {
 		return empresaBO.obterPorParametro(empresa);
 	}
