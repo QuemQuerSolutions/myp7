@@ -49,7 +49,7 @@
 			AND ID_PESSOA=#{idPessoa}
 		</if>
 		<if test="razao != null">
-			AND RAZAO =#{razao}
+			AND RAZAO like #{razao}
 		</if>
 	</select>
 	

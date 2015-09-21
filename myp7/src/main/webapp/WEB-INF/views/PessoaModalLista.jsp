@@ -5,9 +5,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-
-	var linhaGlobal;
-		
+	
 	$("#limpar").click(function(){
 		$("#resultado").html("");
 		$("#codigo").val("");
@@ -27,44 +25,11 @@ $(document).ready(function(){
 	});
 	
 	$("#btnPesquisar").click(function(){
-		pesquisarPessoa();
+		if($("#codigo").val() === "" && $("#nome").val() == "")
+			alerta("Preencha um dos campos de pesquisa.", "warning");
+		else
+			pesquisarPessoa();
 	});
-
-	function pesquisarPessoa(){
-		$.ajax({
-			url : "consultarPessoa?codPessoa=".concat($("#codigo").val(),"&nomePessoa=",$("#nome").val()),
-			type: "GET",
-	        contentType: "application/json; charset=ISO-8859-1",
-		    dataType: "json",
-	        success : function(retornoList) {
-		        if(retornoList[0].codRetorno == -1){
-					alerta(retornoList[0].msgRetorno, "warning");
-					$("#resultado").html("");
-					return;
-		        }
-		        
-		        $("#resultado").html(montaTable(retornoList));
-	        },
-	        error: function (xhr, textStatus, errorThrown) {
-		    	console.log("Erro ao retornar lista: ",errorThrown)	;
-		        alerta("Erro ao retornar lista","warning");
-	        }
-	    });
-		
-	}
-
-	function montaTable(lista){
-		var linha = "";
-		lista.forEach(function(item){
-			linha = linha.concat("<tr>", "<td>",item.idPessoa,"</td>", "<td>", item.razao,"</td>","</tr>");
-		});
-		linhaGlobal=linha;
-		return linha;
-	}
-
-	function onClickLine(id){
-			
-	}
 
 	$("#btnSelecionar").click(function(){
 		$("#razao").val($("#nomePessoa").val());
@@ -72,6 +37,54 @@ $(document).ready(function(){
 		$('#consulta_pessoa').modal("hide");
 	});
 });
+var idAnterior;
+
+function pesquisarPessoa(){
+	$.ajax({
+		url : "consultarPessoa?codPessoa=".concat($("#codigo").val(),"&nomePessoa=",$("#nome").val()),
+		type: "GET",
+        contentType: "application/json; charset=ISO-8859-1",
+	    dataType: "json",
+        success : function(retornoList) {
+	        if(retornoList[0].codRetorno == -1){
+				alerta(retornoList[0].msgRetorno, "warning");
+				$("#resultado").html("");
+				return;
+	        }
+	        
+	        $("#resultado").html(montaTable(retornoList));
+        },
+        error: function (xhr, textStatus, errorThrown) {
+	    	console.log("Erro ao retornar lista: ",errorThrown)	;
+	        alerta("Erro ao retornar lista","warning");
+        }
+    });
+	
+}
+
+function montaTable(lista){
+	var linha = "";
+	lista.forEach(function(item){
+		linha = linha.concat("<tr onclick='onClickLine(", item.idPessoa,")' id='codPessoa",item.idPessoa,"'>", 
+									"<td>",item.idPessoa,"</td>", 
+									"<td>", item.razao,"</td>",
+							  "</tr>");
+	});
+	linhaGlobal=linha;
+	return linha;
+}
+
+function onClickLine(id){
+	
+	if($("#codPessoa"+idAnterior).hasClass($("#theme").val())){
+		$("#codPessoa"+idAnterior).removeClass($("#theme").val());
+	}
+	idAnterior = id;
+	$("#codPessoa"+id).addClass($("#theme").val());
+	
+}
+
+
 
 </script>
 
@@ -132,7 +145,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</form>
-				<table  class="table table-hover table-bordered table-striped mouse-click">
+				<table  class="table table-hover ">
 					<thead>
 						<tr style="text-align: center">
 							<th width="20%">Código</th>
