@@ -6,7 +6,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#limpar").click(function(){
+	$("#limpar").click(function(e){
+		e.stopPropagation();
 		$("#resultado").html("");
 		$("#codigo").val("");
 		$("#nome").val("");
@@ -19,25 +20,31 @@ $(document).ready(function(){
 	    }
 	});
 
-
 	$("#fechar").click(function(){
 		$("#limpar").click();
 	});
 	
-	$("#btnPesquisar").click(function(){
+	$("#btnPesquisar").click(function(e){
+		e.stopPropagation();
 		if($("#codigo").val() === "" && $("#nome").val() == "")
 			alerta("Preencha um dos campos de pesquisa.", "warning");
 		else
 			pesquisarPessoa();
 	});
 
-	$("#btnSelecionar").click(function(){
-		$("#razao").val($("#nomePessoa").val());
-		$("#limpar").click();
-		$('#consulta_pessoa').modal("hide");
+	$("#btnSelecionar").click(function(e){
+		e.stopPropagation();
+		if(!$("#codPessoa"+idAnterior).hasClass($("#theme").val())){
+			alerta("Selecione uma pessoa.", "warning");
+		}else{
+			$("#razao").val(nomePessoa);
+			$("#limpar").click();
+			$('#consulta_pessoa').modal("hide");
+		}
 	});
 });
 var idAnterior;
+var nomePessoa="";
 
 function pesquisarPessoa(){
 	$.ajax({
@@ -67,24 +74,20 @@ function montaTable(lista){
 	lista.forEach(function(item){
 		linha = linha.concat("<tr onclick='onClickLine(", item.idPessoa,")' id='codPessoa",item.idPessoa,"'>", 
 									"<td>",item.idPessoa,"</td>", 
-									"<td>", item.razao,"</td>",
+									"<td id='nomePessoa", item.idPessoa,"'>", item.razao,"</td>",
 							  "</tr>");
 	});
-	linhaGlobal=linha;
 	return linha;
 }
 
 function onClickLine(id){
-	
 	if($("#codPessoa"+idAnterior).hasClass($("#theme").val())){
 		$("#codPessoa"+idAnterior).removeClass($("#theme").val());
 	}
-	idAnterior = id;
 	$("#codPessoa"+id).addClass($("#theme").val());
-	
+	idAnterior = id;
+	nomePessoa = $("#nomePessoa"+id).text();
 }
-
-
 
 </script>
 
@@ -99,62 +102,66 @@ function onClickLine(id){
 				<h4 class="modal-title">Consulta de Pessoa</h4>
 			</div>
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-2">
-						<label for="codigo" class="control-label">Código</label>
-					</div>
-					<div class="col-md-5">
-						<label for="nome" class="control-label">Nome</label>
-					</div>
-				</div>
-				<form>
-					<input type="hidden" id="theme" value="${theme}" />
+				<div id="content-header">
 					<div class="row">
 						<div class="col-md-2">
-							<div class="form-group" id="divCodigo">
-						    	<input type="text" 
-						    		   class="form-control campo-buscar upper" 
-						    		   id="codigo" 
-						    		   name="codigoPessoa" 
-						    		   maxlength="8" 
-						    		   placeholder="Código"
-						    		   autofocus="autofocus" 
-						    		   value="${pessoa.idPessoa}" >
-						  	</div>
+							<label for="codigo" class="control-label">Código</label>
 						</div>
-	  					<div class="col-md-5">
-							<div class="form-group" id="divNome">
-						    	<input type="text" 
-						    		   class="form-control campo-buscar" 
-						    		   id="nome" 
-						    		   name="nomePessoa" 
-						    		   maxlength="100" 
-						    		   placeholder="Nome pessoa" 
-						    		   value="${pessoa.razao}">
-						  	</div>
-	  					</div>
-	  					<div class="col-md-2" id="btnpesquisar">
-							<div class="form-group">
-								<button type="button" class="btn ${theme}" id="btnPesquisar">Pesquisar</button>
-							</div>
-						</div>
-						<div class="col-md-2" id="btnlimpar">
-							<div class="form-group">
-								<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
-							</div>
+						<div class="col-md-5">
+							<label for="nome" class="control-label">Nome</label>
 						</div>
 					</div>
-				</form>
-				<table  class="table table-hover ">
-					<thead>
-						<tr style="text-align: center">
-							<th width="20%">Código</th>
-							<th width="80%">Razão Social</th>
-						</tr>
-					</thead>
-					<tbody id="resultado">
-					</tbody>
-				</table>
+					<form>
+						<input type="hidden" id="theme" value="${theme}" />
+						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group" id="divCodigo">
+							    	<input type="text" 
+							    		   class="form-control campo-buscar upper" 
+							    		   id="codigo" 
+							    		   name="codigoPessoa" 
+							    		   maxlength="8" 
+							    		   placeholder="Código"
+							    		   autofocus="autofocus" 
+							    		   value="${pessoa.idPessoa}" >
+							  	</div>
+							</div>
+		  					<div class="col-md-5">
+								<div class="form-group" id="divNome">
+							    	<input type="text" 
+							    		   class="form-control campo-buscar" 
+							    		   id="nome" 
+							    		   name="nomePessoa" 
+							    		   maxlength="100" 
+							    		   placeholder="Nome pessoa" 
+							    		   value="${pessoa.razao}">
+							  	</div>
+		  					</div>
+		  					<div class="col-md-2" id="btnpesquisar">
+								<div class="form-group">
+									<button type="button" class="btn ${theme}" id="btnPesquisar">Pesquisar</button>
+								</div>
+							</div>
+							<div class="col-md-2" id="btnlimpar">
+								<div class="form-group">
+									<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="content-body">
+					<table  class="table table-hover table-bordered">
+						<thead>
+							<tr style="text-align: center">
+								<th width="20%">Código</th>
+								<th width="80%">Razão Social</th>
+							</tr>
+						</thead>
+						<tbody id="resultado">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn ${theme}" id="btnSelecionar">Selecionar</button>

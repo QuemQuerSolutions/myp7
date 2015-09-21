@@ -30,7 +30,7 @@ public class PessoaBO {
 		Pessoa pessoa = new Pessoa();
 		
 		pessoa.setIdPessoa(codPessoa);
-		pessoa.setRazao(Utils.emptyToNull(nomePessoa));
+		pessoa.setRazao(Utils.toLike(Utils.emptyToNull(nomePessoa)));
 		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
 		
 		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){

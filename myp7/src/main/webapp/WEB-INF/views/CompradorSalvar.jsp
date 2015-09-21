@@ -28,7 +28,8 @@ $(document).ready(function() {
 		controlTabs($(this));
 	});
 
-	$("#clickPessoa").click(function(){
+	$("#clickPessoa").click(function(e){
+		e.stopPropagation();
 		$("#consulta_pessoa").modal();
 	});
 
