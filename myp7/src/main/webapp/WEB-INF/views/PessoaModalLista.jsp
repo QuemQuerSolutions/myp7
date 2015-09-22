@@ -26,15 +26,13 @@ $(document).ready(function(){
 	
 	$("#btnPesquisar").click(function(e){
 		e.stopPropagation();
-		if($("#codigo").val() === "" && $("#nome").val() == "")
-			alerta("Preencha um dos campos de pesquisa.", "warning");
-		else
+		if(validaCamposObrigatorios(true))
 			pesquisarPessoa();
 	});
 
 	$("#btnSelecionar").click(function(e){
 		e.stopPropagation();
-		if(!$("#codPessoa"+idAnterior).hasClass($("#theme").val())){
+		if(!$("#codPessoa".concat(idAnterior)).hasClass($("#theme").val())){
 			alerta("Selecione uma pessoa.", "warning");
 		}else{
 			$("#razao").val(nomePessoa);
@@ -80,13 +78,31 @@ function montaTable(lista){
 	return linha;
 }
 
-function onClickLine(id){
-	if($("#codPessoa"+idAnterior).hasClass($("#theme").val())){
-		$("#codPessoa"+idAnterior).removeClass($("#theme").val());
+function validaCamposObrigatorios(alert){
+	var isValid=true;
+	var texto="";
+	if($("#codigo").val() === "" && $("#nome").val() === ""){
+		texto="Preencha um dos campos de pesquisa.";
+		isValid=false;
 	}
-	$("#codPessoa"+id).addClass($("#theme").val());
+	if($("#codigo").val() !== "" && !$.isNumeric($.trim($("#codigo").val()))){
+		isValid =false;
+		texto = "Somente números no filtro código.";
+	}
+	
+	if(!isValid && alert){
+		alerta(texto,"warning");
+	}
+	return isValid;
+}
+
+function onClickLine(id){
+	if($("#codPessoa".concat(idAnterior)).hasClass($("#theme").val())){
+		$("#codPessoa".concat(idAnterior)).removeClass($("#theme").val());
+	}
+	$("#codPessoa".concat(id)).addClass($("#theme").val());
 	idAnterior = id;
-	nomePessoa = $("#nomePessoa"+id).text();
+	nomePessoa = $("#nomePessoa".concat(id)).text();
 }
 
 </script>
@@ -151,7 +167,7 @@ function onClickLine(id){
 					</form>
 				</div>
 				<div id="content-body">
-					<table  class="table table-hover table-bordered">
+					<table  class="table table-hover table-bordered mouse-click">
 						<thead>
 							<tr style="text-align: center">
 								<th width="20%">Código</th>
