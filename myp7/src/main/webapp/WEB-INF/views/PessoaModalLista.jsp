@@ -155,23 +155,23 @@ function onClickLine(id){
 		  					</div>
 		  					<div class="col-md-2" id="btnpesquisar">
 								<div class="form-group">
-									<button type="button" class="btn ${theme}" id="btnPesquisar">Pesquisar</button>
+									<button type="button" class="btn ${theme} btn-large" id="btnPesquisar">Pesquisar</button>
 								</div>
 							</div>
 							<div class="col-md-2" id="btnlimpar">
 								<div class="form-group">
-									<button type="button" class="btn btn-default limpar" id="limpar">Limpar</button>
+									<button type="button" class="btn btn-default btn-large" id="limpar">Limpar</button>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 				<div id="content-body">
-					<table  class="table table-hover table-bordered mouse-click">
+					<table  class="table table-hover table-bordered table-striped mouse-click">
 						<thead>
-							<tr style="text-align: center">
+							<tr>
 								<th width="20%">Código</th>
-								<th width="80%">Razão Social</th>
+								<th>Razão Social</th>
 							</tr>
 						</thead>
 						<tbody id="resultado">
