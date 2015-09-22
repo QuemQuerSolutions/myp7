@@ -74,7 +74,7 @@ $(document).ready(function(){
 	
 });
 
-function onClickLine(id){
+function onClickLineEmp(id){
 	$("#lstEmpresaModal tr").each(function(){
 		$(this).removeClass($("#theme").val());
 		if($(this).children().html() == id){
@@ -86,7 +86,7 @@ function onClickLine(id){
 function getLineEmpresa(empresa){
 	var line = "";
 	
-	line = line.concat("<tr onclick='onClickLine(", empresa.idEmpresa,")'>");
+	line = line.concat("<tr onclick='onClickLineEmp(", empresa.idEmpresa,")'>");
 		line = line.concat("<td data-id>", empresa.idEmpresa, "</td>");
 		line = line.concat("<td data-nome>", empresa.nomeReduzido, "</td>");
 	line = line.concat("</tr>");
