@@ -1,10 +1,10 @@
 /*Styles*/
 
-.theme-orange{background-color: rgba(240, 173, 78, 1);color: white !important;border-color: transparent;}
-.theme-blue{background-color: rgba(78, 185, 240, 1);color: white !important;border-color: transparent;}
-.theme-grey{background-color: rgba(131, 133, 134, 1);color: white !important;border-color: transparent;}
-.theme-red{background-color: rgba(239, 51, 51, 1);color: white !important;border-color: transparent;}
-.theme-green{background-color: rgba(96, 200, 68, 1);color: white !important;border-color: transparent;}
+.theme-orange{background-color: rgba(240, 173, 78, 1) !important;color: white !important;border-color: transparent;}
+.theme-blue{background-color: rgba(78, 185, 240, 1) !important;color: white !important;border-color: transparent;}
+.theme-grey{background-color: rgba(131, 133, 134, 1) !important;color: white !important;border-color: transparent;}
+.theme-red{background-color: rgba(239, 51, 51, 1) !important;color: white !important;border-color: transparent;}
+.theme-green{background-color: rgba(96, 200, 68, 1) !important;color: white !important;border-color: transparent;}
 
 
 button.theme-orange:hover{background-color: rgba(236, 151, 30, 1);}
@@ -12,6 +12,12 @@ button.theme-blue:hover{background-color: rgba(45, 167, 229, 1);}
 button.theme-grey:hover{background-color: rgba(158, 160, 161, 1);}
 button.theme-red:hover{background-color: rgba(244, 83, 83, 1);}
 button.theme-green:hover{background-color: rgba(88, 181, 63, 1);}
+
+tr.theme-orange:hover{background-color: rgba(236, 151, 30, 1) !important;}
+tr.theme-blue:hover{background-color: rgba(45, 167, 229, 1) !important;}
+tr.theme-grey:hover{background-color: rgba(158, 160, 161, 1) !important;}
+tr.theme-red:hover{background-color: rgba(244, 83, 83, 1) !important;}
+tr.theme-green:hover{background-color: rgba(88, 181, 63, 1) !important;}
 
 div.flex-align {
   display: -webkit-flexbox;

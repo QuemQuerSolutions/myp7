@@ -175,3 +175,17 @@ function onRemoveLine(idLine, contador){
 	var cont = parseInt($(contador).text());
 	$(contador).text(--cont);	
 }
+
+function reindex(tabela, nomeObjeto){
+	var cont = 0, name, nomeCampo = "";
+	$(tabela + " tr").each(function(){
+		$(this).children().children("input").each(function(){
+			name = $(this).attr("name");
+			nomeCampo = name.substring(name.lastIndexOf("]")+1, name.length);
+			name = nomeObjeto.concat("[", cont, "]", nomeCampo);
+			$(this).attr("name", name);
+			$(this).attr("id", nomeObjeto.concat(cont, nomeCampo));
+		});
+		cont++;
+	});
+}

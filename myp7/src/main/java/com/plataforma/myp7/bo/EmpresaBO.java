@@ -33,7 +33,7 @@ public class EmpresaBO {
 	}
 	
 	public List<Empresa> obterPorParametro(Empresa empresa){
-		empresa.setNomeReduzido(Utils.emptyToNull(empresa.getNomeReduzido()));
+		empresa.setNomeReduzido(Utils.toLike(empresa.getNomeReduzido()));
 		
 		int count = empresaMapper.countPorParametro(empresa);
 		

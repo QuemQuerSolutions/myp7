@@ -18,10 +18,10 @@
 
 	<sql id="whereEmpresa">
 		<if test="idEmpresa != null">
-			AND ID_EMPRESA=#{idEmpresa}
+			AND ID_EMPRESA = #{idEmpresa}
 		</if>
 		<if test="nomeReduzido != null">
-			AND NOME_REDUZIDO =#{nomeReduzido}
+			AND UPPER(NOME_REDUZIDO) like UPPER(#{nomeReduzido})
 		</if>
 	</sql>
 		

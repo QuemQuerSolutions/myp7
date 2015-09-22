@@ -5,12 +5,29 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$("#btnlimparEmpresa").click(function(e){
+	$('#consulta_empresa').on('hidden.bs.modal', function (e) {
+		$("#lstEmpresaModal").html("");
+	});
+	
+	$("#btnLimparEmpresa").click(function(e){
 		e.stopPropagation();
 		$("#idEmpresaBusca").val("");
 		$("#nomeReduzidoBusca").val("");
 	});
 
+	$("#btnSelecionarEmpresa").click(function(e){
+		e.stopPropagation();
+		var empresa;
+		$("#lstEmpresaModal tr").each(function(){
+			if($(this).hasClass($("#theme").val())){
+				empresa = {idEmpresa	: $(this).find('td[data-id]').text(),
+						   nomeReduzido	: $(this).find('td[data-nome]').text(),}
+			}
+		});	
+		addLineEmpresaTab(empresa);
+		$('#consulta_empresa').modal("hide");
+	});
+	
 	$("#btnPesquisarEmpresa").click(function(e){
 		e.stopPropagation();
 		
@@ -57,19 +74,28 @@ $(document).ready(function(){
 	
 });
 
+function onClickLine(id){
+	$("#lstEmpresaModal tr").each(function(){
+		$(this).removeClass($("#theme").val());
+		if($(this).children().html() == id){
+			$(this).addClass($("#theme").val());
+		}
+	});	
+}
+
 function getLineEmpresa(empresa){
 	var line = "";
 	
-	line = line.concat("<tr>");
-		line = line.concat("<td>", empresa.idEmpresa, "</td>");
-		line = line.concat("<td>", empresa.nomeReduzido, "</td>");
+	line = line.concat("<tr onclick='onClickLine(", empresa.idEmpresa,")'>");
+		line = line.concat("<td data-id>", empresa.idEmpresa, "</td>");
+		line = line.concat("<td data-nome>", empresa.nomeReduzido, "</td>");
 	line = line.concat("</tr>");
 	
 	return line;
 }
 
 </script>
-
+<input type="hidden" id="theme" value="${theme}" />
 <div class="modal fade bs-example-modal-lg" id="consulta_empresa">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -81,14 +107,15 @@ function getLineEmpresa(empresa){
 				<h4 class="modal-title">Consulta de Empresa</h4>
 			</div>
 			<div class="modal-body" id="filtroModalEmpresa">
-				<div class="row">
-					<div class="col-md-2">
-						<label for="codigo" class="control-label">Código</label>
+				<div id="content-header">
+					<div class="row">
+						<div class="col-md-2">
+							<label for="codigo" class="control-label">Código</label>
+						</div>
+						<div class="col-md-5">
+							<label for="nome" class="control-label">Nome</label>
+						</div>
 					</div>
-					<div class="col-md-5">
-						<label for="nome" class="control-label">Nome</label>
-					</div>
-				</div>
 					<div class="row">
 						<div class="col-md-2 form-group">
 					    	<input type="text" class="form-control" id="idEmpresaBusca" maxlength="11">
@@ -96,24 +123,28 @@ function getLineEmpresa(empresa){
 	  					<div class="col-md-5 form-group">
 					    	<input type="text" class="form-control" id="nomeReduzidoBusca" maxlength="100">
 	  					</div>
-	  					<div class="col-md-2 form-group">
-							<button type="button" class="btn ${theme}" id="btnPesquisarEmpresa">Pesquisar</button>
+	  					<div class="col-md-2 form-group margin-right-50px">
+							<button type="button" class="btn ${theme} btn-large" id="btnPesquisarEmpresa">Pesquisar</button>
 						</div>
 						<div class="col-md-2 form-group">
-							<button type="button" class="btn btn-default limpar" id="btnlimparEmpresa">Limpar</button>
+							<button type="button" class="btn btn-default btn-large" id="btnLimparEmpresa">Limpar</button>
 						</div>
 					</div>
-				<table class="table table-hover table-bordered table-striped mouse-click">
-					<thead>
-						<tr>
-							<th width="10%">Código</th>
-							<th>Razão Social</th>
-						</tr>
-					</thead>
-					<tbody id="lstEmpresaModal"></tbody>
-				</table>
+				</div>
+				<div id="content-body">
+					<table class="table table-hover table-bordered table-striped mouse-click">
+						<thead>
+							<tr>
+								<th width="10%">Código</th>
+								<th>Razão Social</th>
+							</tr>
+						</thead>
+						<tbody id="lstEmpresaModal"></tbody>
+					</table>
+				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn ${theme}" id="btnSelecionarEmpresa">Selecionar</button>
 			</div> 
 		</div>
 	</div>

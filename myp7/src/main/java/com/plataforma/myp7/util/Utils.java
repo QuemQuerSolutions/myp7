@@ -32,6 +32,7 @@ public class Utils {
 	}
 	
 	public static String toLike(String campo){
+		campo = emptyToNull(campo);
 		return (!Objects.isNull(campo) ? String.format("%s%s%s", "%", campo, "%") : campo);
 	}
 	

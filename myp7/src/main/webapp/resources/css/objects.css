@@ -51,6 +51,9 @@
 #btnlimpar button{
 	width: 130px;
 }
+button.btn-large{
+	width: 130px;
+}
 
 /*---------------
 	Theme Option
