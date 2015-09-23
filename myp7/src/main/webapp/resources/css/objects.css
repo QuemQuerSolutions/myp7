@@ -124,6 +124,11 @@ div.req label:after {
 	color: red;
 }
 
+th.req:after {
+	content: " *";
+	color: red;
+}
+
 .icon-search {
 	border: 0;
 	border-radius: 0;

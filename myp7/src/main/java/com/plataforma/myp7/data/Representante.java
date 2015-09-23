@@ -1,8 +1,11 @@
 package com.plataforma.myp7.data;
 
+import java.util.UUID;
+
 import org.apache.ibatis.type.Alias;
 
 import com.plataforma.myp7.bo.UsuarioBO;
+import com.plataforma.myp7.enums.Mensagem;
 
 @Alias("Representante")
 public class Representante {
@@ -10,12 +13,44 @@ public class Representante {
 	private String apelido;
 	private String status;
 	private Usuario usuario;
+	private String uuid;
+	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
 	
 	public Representante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
 	}
 	
-	public Representante() { }
+	public Representante() {
+		uuid = UUID.randomUUID().toString();
+	}
+
+	public Representante(Mensagem mensagem){
+		msgRetorno = mensagem.getMensagem();
+		codRetorno = mensagem.getCodigo();
+	}
+	
+	public String getUuid() {
+		return uuid;
+	}
+	
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
 
 	public String getApelido() {
 		return apelido;

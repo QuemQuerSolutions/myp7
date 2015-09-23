@@ -9,6 +9,12 @@
 		<result property="apelido" 			column="APELIDO" />
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
+	
+	<resultMap id="mapSimples" type="com.plataforma.myp7.data.Representante">
+		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
+		<result property="status"  			column="STATUS" />
+		<result property="apelido" 			column="APELIDO" />
+	</resultMap>
 
 	<sql id="selectRepresentante">
 		<![CDATA[
@@ -17,6 +23,27 @@
 		  ]]>
 	</sql>
 	
+	<sql id="whereRepresentante">
+		<if test="idRepresentante != null">
+			AND ID_REPRESENTANTE = #{idRepresentante}
+		</if>
+		<if test="apelido != null">
+			AND UPPER(APELIDO) like UPPER(#{apelido})
+		</if>
+	</sql>
+	
+	<select id="obterPorParametro" resultMap="mapSimples">
+		<include refid="selectRepresentante" />
+		WHERE 1=1
+		<include refid="whereRepresentante" />
+	</select>
+	
+	<select id="countPorParametro" resultType="int">
+		SELECT COUNT(1) FROM rpr_Representante
+		WHERE 1=1
+		<include refid="whereRepresentante" />
+	</select>
+		
 	<select id="obterTodosRepresentantes" resultMap="representanteMap">
 		<include refid="selectRepresentante"/>
 		ORDER BY ID_REPRESENTANTE

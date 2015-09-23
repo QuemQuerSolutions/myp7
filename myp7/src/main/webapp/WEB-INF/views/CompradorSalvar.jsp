@@ -39,6 +39,10 @@ function onAddEmpresa() {
 	$("#consulta_empresa").modal();
 }
 
+function onAddRepresentante(){
+	$("#consulta_representante").modal();
+}
+
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -130,6 +134,8 @@ function onAddEmpresa() {
 	
 	<c:import url="PessoaModalLista.jsp"/>
 	<c:import url="EmpresaModalLista.jsp"/>
+	<c:import url="RepresentanteModalLista.jsp"/>
+	
 	<c:import url="components/footer.jsp">
 		<c:param name="salvar" value="cancelar_salvar" />
 	</c:import>

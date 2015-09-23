@@ -36,7 +36,7 @@ public class LoginBO {
 			}
 			
 			if(!CriptografarBO.criptografar(usuario.getSenha()).equals(usuBanco.getSenha())){
-				setMsgRetorno(model, "A senha informada estï¿½ incorreta!");
+				setMsgRetorno(model, "A senha informada está incorreta!");
 				return "components/login";
 			}
 			this.setTipoUsuarioSession(session, usuBanco);

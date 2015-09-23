@@ -1,9 +1,10 @@
-function clearAll(){
-	$(":text").each(function () {
+function clearAll(escopo){
+	if(escopo == undefined) escopo = "";
+	$(escopo + " :text").each(function () {
 		$(this).val("");
     });
  
-    $(":radio").each(function () {
+    $(escopo + " :radio").each(function () {
     	$(this).prop({ checked: false })
     });
  
@@ -34,7 +35,7 @@ function isValidRequired(){
 
 
 function clearRequired(){
-	$("div").removeClass("has-error");
+	$(".has-error").removeClass("has-error");
 }
 
 function setRequired(div){
@@ -171,9 +172,14 @@ function controlTabs(tab){
 }
 
 function onRemoveLine(idLine, contador){
-	$(idLine).parent().parent("tr").remove();
+	$("#"+idLine).parent().parent("tr").remove();
 	var cont = parseInt($(contador).text());
 	$(contador).text(--cont);	
+}
+
+function addContador(contador){
+	var cont = parseInt($(contador).text());
+	$(contador).text(++cont);	
 }
 
 function reindex(tabela, nomeObjeto){
@@ -186,6 +192,20 @@ function reindex(tabela, nomeObjeto){
 			$(this).attr("name", name);
 			$(this).attr("id", nomeObjeto.concat(cont, nomeCampo));
 		});
+		
+		
 		cont++;
 	});
+}
+
+function isExist(tabBody, nomeID, id){
+	var existente = false, inputHidden;
+	$("#"+tabBody+" tr").each(function(){
+		inputHidden = $(this).find('input[type=hidden]');
+		if(inputHidden.attr("id").indexOf(nomeID) > -1){
+			if(inputHidden.val() == id)
+				existente = true;		
+		} 
+	});
+	return existente;
 }

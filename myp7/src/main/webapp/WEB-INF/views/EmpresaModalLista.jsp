@@ -7,12 +7,12 @@ $(document).ready(function(){
 
 	$('#consulta_empresa').on('hidden.bs.modal', function (e) {
 		$("#lstEmpresaModal").html("");
+		clearAll("#filtroModalEmpresa");
 	});
 	
 	$("#btnLimparEmpresa").click(function(e){
 		e.stopPropagation();
-		$("#idEmpresaBusca").val("");
-		$("#nomeReduzidoBusca").val("");
+		clearAll("#filtroModalEmpresa");
 	});
 
 	$("#btnSelecionarEmpresa").click(function(e){
@@ -110,10 +110,10 @@ function getLineEmpresa(empresa){
 				<div id="content-header">
 					<div class="row">
 						<div class="col-md-2">
-							<label for="codigo" class="control-label">Código</label>
+							<label for="idEmpresaBusca" class="control-label">Código</label>
 						</div>
 						<div class="col-md-5">
-							<label for="nome" class="control-label">Nome</label>
+							<label for="nomeReduzidoBusca" class="control-label">Nome Reduzido</label>
 						</div>
 					</div>
 					<div class="row">
@@ -136,7 +136,7 @@ function getLineEmpresa(empresa){
 						<thead>
 							<tr>
 								<th width="10%">Código</th>
-								<th>Razão Social</th>
+								<th>Nome Reduzido</th>
 							</tr>
 						</thead>
 						<tbody id="lstEmpresaModal"></tbody>

@@ -52,8 +52,6 @@ public class CompradorBO {
 	}
 	
 	public List<Comprador> obterPorParametro(Model model, Comprador comp){
-		if(Objects.isNull(comp.getId())) return null;  //TODO: revisar lógica
-		
 		final Comprador comprador = new Comprador(comp);
 		
 		int count = compradorMapper.count(comprador);
