@@ -11,7 +11,7 @@
 		<result property="razao"  			column="RAZAO" />
 		<association property="usuario" 	column="ID_USUARIO"	
 					 select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
-		<association property="usuario" 	column="ID_GERENTE"	
+		<association property="gerente" 	column="ID_GERENTE"	
 					 select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
 	
