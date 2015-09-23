@@ -1,6 +1,7 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.apache.ibatis.type.Alias;
 
@@ -16,18 +17,25 @@ public class Empresa  implements Serializable{
 	private Integer idCompradorAlcada;
 	private Double alcada;
 	private Pessoa pessoa;
+	private String uuid;
 	
 	//Mensagens
 	private String msgRetorno;
 	private Integer codRetorno;
 	
-	public Empresa(){}
+	public Empresa(){
+		uuid = UUID.randomUUID().toString();
+	}
 	
 	public Empresa(Mensagem mensagem){
 		msgRetorno = mensagem.getMensagem();
 		codRetorno = mensagem.getCodigo();
 	}
 	
+	public String getUuid() {
+		return uuid;
+	}
+
 	public String getMsgRetorno() {
 		return msgRetorno;
 	}
