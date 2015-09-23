@@ -36,6 +36,7 @@ $(document).ready(function(){
 			alerta("Selecione uma pessoa.", "warning");
 		}else{
 			$("#razao").val(nomePessoa);
+			$("#idPessoa").val(idAnterior);
 			$("#limpar").click();
 			$('#consulta_pessoa').modal("hide");
 		}
