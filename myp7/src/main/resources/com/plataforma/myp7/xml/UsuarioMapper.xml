@@ -34,6 +34,19 @@
 		WHERE USU_EMAIL = #{email} and USU_ATIVO = 'A';
 	</select>	
 	
+	<select id="obterUsuarioComFiltro" resultMap="usuarioMap">
+		<include refid="selectUsuario"/>
+		WHERE 1=1
+		
+		<if test="razaoSocial != null">
+			AND RAZAO_SOCIAL LIKE #{razaoSocial}
+		</if>
+		
+		<if test="email != null">
+			AND USU_EMAIL LIKE #{email} 
+		</if>		
+	</select>	
+	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
      	INSERT INTO usu_usuario(  razao_social,
             					   usu_cnpj,

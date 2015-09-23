@@ -3,8 +3,8 @@ package gerador;
 import com.plataforma.myp7.bo.CriptografarBO;
 
 public class GerarUsuario {
-	private static String usuario = "'teste@gmail.com'";
-	private static String senha = "abc";
+	private static String usuario = "'robson.pierno@gmail.com'";
+	private static String senha = "123";
 	private static String tipoUsuario = "R";
 	
 	public static void main(String[] args) {

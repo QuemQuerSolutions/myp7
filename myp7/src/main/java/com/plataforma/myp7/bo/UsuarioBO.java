@@ -3,6 +3,7 @@ package com.plataforma.myp7.bo;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
@@ -86,5 +87,17 @@ public class UsuarioBO {
 			Utils.setMsgRetorno(model, "Erro ao alterar tema, contate o administrador.");
 			Utils.setCodRetorno(model, -1);
 		}
+	}
+
+	public List<Usuario> selecionaComFiltro(String razaoSocial, String email) {
+		Usuario usuario = new Usuario();
+		
+		if(razaoSocial != null && !razaoSocial.trim().equals(""))
+			usuario.setRazaoSocial(Utils.toLike(razaoSocial));
+		
+		if(email != null && !email.trim().equals(""))
+			usuario.setEmail(Utils.toLike(email));
+		
+		return this.usuarioMapper.obterUsuarioComFiltro(usuario);
 	}
 }
