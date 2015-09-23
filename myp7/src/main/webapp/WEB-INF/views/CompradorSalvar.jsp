@@ -95,7 +95,7 @@ function onAddRepresentante(){
 				
 				<div class="row">
 				  	<div class="col-md-5 form-group req">
-				   		<label for="apelido">Gerente</label>
+				   		<label for="apelido">Usuário do Gerente</label>
 				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">

@@ -118,7 +118,7 @@ function getLineEmpresa(empresa){
 					</div>
 					<div class="row">
 						<div class="col-md-2 form-group">
-					    	<input type="text" class="form-control" id="idEmpresaBusca" maxlength="11">
+					    	<input type="text" class="form-control onlyNumber" id="idEmpresaBusca" maxlength="11">
 						</div>
 	  					<div class="col-md-5 form-group">
 					    	<input type="text" class="form-control" id="nomeReduzidoBusca" maxlength="100">

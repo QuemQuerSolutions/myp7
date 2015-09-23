@@ -69,4 +69,7 @@
 		WHERE ID_REPRESENTANTE = #{idRepresentante}
 	</update>
 		
+	<delete id="delete">
+		DELETE FROM RPR_REPRESENTANTE WHERE ID_REPRESENTANTE = #{idRepresentante}
+	</delete>
 </mapper>

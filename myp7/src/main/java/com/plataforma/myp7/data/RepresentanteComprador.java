@@ -15,6 +15,11 @@ public class RepresentanteComprador implements Serializable {
 	public RepresentanteComprador(){
 		representante = new Representante();
 	}
+	
+	public RepresentanteComprador(Representante representante, Integer idComprador){
+		this.representante = representante;
+		this.idComprador = idComprador;
+	}
 
 	public Representante getRepresentante() {
 		return representante;

@@ -12,11 +12,11 @@ function addLineEmpresaTab(empresa){
 
 	line = line.concat("<td class='req'>");
 		line = line.concat("<input type='hidden' name='obj.empresa[0].idEmpresa' id='pk' value='", id, "'/>");
-		line = line.concat("<input type='text' name='obj.empresa[0].alcada' id='empresa0.alcada' class='form-control'>");
+		line = line.concat("<input type='text' name='obj.empresa[0].alcada' id='empresa0.alcada' onkeydown='onlyNumber(event)' class='form-control'>");
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-		line = line.concat("<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdEmpresa)' >");
+		line = line.concat("<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdEmpresa); reindex(\"#linesEmpresaTab\", \"empresa\");' >");
 			line = line.concat("<span class='glyphicon glyphicon-remove red'></span>");
 		line = line.concat("</a>");
 	line = line.concat("</td>");
@@ -45,10 +45,10 @@ function addLineEmpresaTab(empresa){
 					<td class="text-middle">${emp.nomeReduzido}</td>
 					<td class="req">
 						<form:hidden path="obj.empresa[${i.index}].idEmpresa"/>
-						<form:input path="obj.empresa[${i.index}].alcada" cssClass="form-control onlyNumber" />
+						<form:input path="obj.empresa[${i.index}].alcada" onkeydown="onlyNumber(event)" cssClass="form-control" />
 					</td>
 					<td class="text-center text-middle">
-						<a href="#" id="${emp.uuid}"  onclick="onRemoveLine('${emp.uuid}', qtdEmpresa)" >
+						<a href="#" id="${emp.uuid}"  onclick="onRemoveLine('${emp.uuid}', qtdEmpresa); reindex('#linesEmpresaTab', 'empresa');" >
 							<span class="glyphicon glyphicon-remove red"></span>
 						</a>
 					</td>

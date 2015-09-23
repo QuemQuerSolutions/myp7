@@ -16,6 +16,7 @@ public interface RepresentanteMapper {
 
 	void updateRepresentante(Representante representante);
 	void insertRepresentante(Representante representante);
-
+	void delete(Long idRepresentante);
+	
 	Representante obterPorId(Long idRepresentante);
 }

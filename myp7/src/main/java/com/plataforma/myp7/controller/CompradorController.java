@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.CompradorBO;
 import com.plataforma.myp7.data.Comprador;
+import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 public class CompradorController {
@@ -20,7 +22,11 @@ public class CompradorController {
 	}
 	
 	@RequestMapping("CarregaListaComprador")
-	public String carregaListaComprador(Model model, Comprador comprador){
+	public String carregaListaComprador(Model model, Comprador comprador, String origem){
+		if("save".equals(origem)){
+			Utils.setRetorno(model, Mensagem.SALVO_SUCESSO);
+			return "CompradorLista";
+		}
 		model.addAttribute(comprador);
 		model.addAttribute("lstComprador", compradorBO.obterPorParametro(model, comprador));
 		return "CompradorLista";
@@ -44,6 +50,6 @@ public class CompradorController {
 	@RequestMapping("salvarComprador")
 	public String salvarComprador(Comprador comprador){
 		compradorBO.salvar(comprador);
-		return "redirect:CarregaListaComprador";
+		return "redirect:CarregaListaComprador?origem=save";
 	}
 }

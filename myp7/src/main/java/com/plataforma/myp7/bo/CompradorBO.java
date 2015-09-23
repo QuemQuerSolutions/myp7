@@ -21,6 +21,7 @@ import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.CompradorMapper;
 import com.plataforma.myp7.mapper.EmpresaMapper;
 import com.plataforma.myp7.mapper.RepresentanteCompradorMapper;
+import com.plataforma.myp7.mapper.RepresentanteMapper;
 
 @Service
 public class CompradorBO {
@@ -30,6 +31,9 @@ public class CompradorBO {
 	
 	@Autowired
 	private EmpresaMapper empresaMapper;
+	
+	@Autowired
+	private RepresentanteMapper representanteMapper;
 	
 	@Autowired
 	private RepresentanteCompradorMapper representanteCompradorMapper;
@@ -77,11 +81,18 @@ public class CompradorBO {
 		}else{
 			this.update(comprador);
 			empresaMapper.deleteCompradorAlcada(id);
+			representanteCompradorMapper.deletePorComprador(id);
 		}
 		
+		//Associa as empresas ao comprador
 		for(Empresa empresa: comprador.getEmpresa()){
 			empresa.setIdCompradorAlcada(id);
 			empresaMapper.inserCompradorAlcada(empresa);
+		}
+		//Associa os representantes ao comprador
+		for(Representante representante: comprador.getRepresentantes()){
+			RepresentanteComprador rc = new RepresentanteComprador(representante, id);
+			representanteCompradorMapper.insert(rc);
 		}
 	}
 	

@@ -18,7 +18,7 @@
 		INSERT INTO rpr_representante_comprador
 			(ID_REPRESENTANTE, ID_COMPRADOR) 
 		VALUES 
-			(#{idRepresentante}, #{idComprador})
+			(#{representante.idRepresentante}, #{idComprador})
 	</insert>	
 	
 	<delete id="deletePorComprador">
