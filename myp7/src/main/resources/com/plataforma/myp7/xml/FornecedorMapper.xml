@@ -7,6 +7,13 @@
 		<id property="idFornecedor" 			column="ID_FORNECEDOR" />
 		<result property="statusFornecedor"  	column="STATUS" />
 		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
+	</resultMap>
+	
+	
+	<resultMap id="fornecedorComPessoaMap" type="com.plataforma.myp7.data.Fornecedor">
+		<id property="idFornecedor" 			column="ID_FORNECEDOR" />
+		<result property="statusFornecedor"  	column="STATUS" />
+		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
 		<result property="razao" 				column="RAZAO" />
 		<result property="nroCpfCnpj" 			column="NRO_CPF_CNPJ" />
 		<result property="digCpfCnpj" 			column="DIG_CPF_CNPJ" />
@@ -25,7 +32,10 @@
 		<![CDATA[
 			SELECT ID_FORNECEDOR as idFornecedor, 
 					STATUS, 
-					UTILIZA_TABCUSTO
+					UTILIZA_TABCUSTO,
+					RAZAO,
+					NRO_CPF_CNPJ,
+					DIG_CPF_CNPJ
 			FROM frn_fornecedor
 				JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = frn_fornecedor.ID_FORNECEDOR
 		  ]]>
@@ -40,7 +50,7 @@
 		</if>
 	</sql>
 	
-	<select id="obterFornecedorPorParametro" resultMap="fornecedorMap">
+	<select id="obterFornecedorPorParametro" resultMap="fornecedorComPessoaMap">
 		<include refid="selectFornecedorComPessoa"/>
 		WHERE 1=1
 		<include refid="whereBuscaFornecedor"/>

@@ -22,12 +22,10 @@ public class FornecedorController {
 	@RequestMapping("carregaListaFornecedor")
 	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor, Model model){
 		try{
-			
 			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor, model));
 		}catch(Exception e){
 			Utils.setMsgRetorno(model, "Falha na Operação");
 			Utils.setCodRetorno(model, -1);
-			e.printStackTrace();
 		}
 		return "FornecedorLista";
 	}

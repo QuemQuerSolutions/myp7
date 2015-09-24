@@ -21,11 +21,17 @@ $(document).ready(function(){
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
 		if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === ""){
-			alerta("Informe ao menos um filtro para buscar", "warning");
+			alerta("Informe ao menos um filtro para buscar.", "warning");
 			return;
 		}
-		if(!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
-			alerta("CNPJ inv醠ido", "warning");
+
+		if(($("#idFornecedor").val() !== "" && !$.isNumeric($.trim($("#idFornecedor").val())))){
+			alerta("Somente n煤meros no filtro c贸digo..", "warning");
+			return;
+		}
+				
+		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
+			alerta("CNPJ inv谩lido.", "warning");
 			return;
 		}
 		go("#frmFornecedor");
@@ -50,7 +56,7 @@ function onClickLine(id){
 		<div id="content-header">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="idFornecedor" class="control-label">C骴igo</label>
+					<label for="idFornecedor" class="control-label">C贸digo</label>
 				</div>
 				<div class="col-md-8">
 					<label for="cnpjFornecedor" class="control-label">CNPJ</label>
@@ -69,7 +75,7 @@ function onClickLine(id){
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
-					    		   placeholder="C骴igo"
+					    		   placeholder="C贸digo"
 					    		   value="" />
 					  	</div>
 					</div>
@@ -106,9 +112,9 @@ function onClickLine(id){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr style="text-align: center">
-						<th width="20%">C骴igo</th>
-						<th>Raz鉶 social</th>	
-						<th>CNPJ</th>
+						<th width="10%">C贸digo</th>
+						<th width="60%">Raz茫o social</th>	
+						<th width="15%">CNPJ</th>
 						<th>Utiliza Tabela de Custo</th>
 					</tr>
 				</thead>
@@ -124,11 +130,20 @@ function onClickLine(id){
 							</c:otherwise>
 						</c:choose>
 						
+						<c:choose>
+							<c:when test="${fornec.utilTabCustoFornc eq 'S'}">
+								<c:set var="valorTD" value="SIM" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="valorTD" value="N脙O" />
+							</c:otherwise>
+						</c:choose>
+						
 						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
 							<td></td>
-							<td></td>
+							<td align="center">${valorTD}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
