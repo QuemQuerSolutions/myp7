@@ -16,4 +16,8 @@ public interface FornecedorMapper {
 	void inserirFornecedor(Fornecedor fornecedor);
 
 	void updateFornecedor(Fornecedor fornecedor);
+	
+	List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor);
+	
+	Integer countFornecedorPorParametro(Fornecedor fornecedor);
 }

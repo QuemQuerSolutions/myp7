@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.ibatis.type.Alias;
 
 @Alias("Fornecedor")
-public class Fornecedor implements Serializable{
+public class Fornecedor extends Pessoa implements Serializable{
 	/**
 	 * 
 	 */
@@ -14,6 +14,10 @@ public class Fornecedor implements Serializable{
 	private Long idFornecedor;
 	private String statusFornecedor;
 	private String utilTabCustoFornc;
+	
+	public Fornecedor(){
+		super();
+	}
 	
 	public Long getIdFornecedor() {
 		return idFornecedor;

@@ -21,6 +21,7 @@
 				<myp7:itemMenu label="Usuário" link="Usuario" icon="glyphicon glyphicon-user"/>
 				<myp7:itemMenu label="Comprador" link="Comprador" icon="glyphicon-shopping-cart" />
 				<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
+				<myp7:itemMenu label="Fornecedor" link="Fornecedor" icon="glyphicon-bed" />
 				<myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
 			</c:if>
 		</ul>

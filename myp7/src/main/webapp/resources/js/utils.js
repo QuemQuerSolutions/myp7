@@ -209,3 +209,32 @@ function isExist(tabBody, nomeID, id){
 	});
 	return existente;
 }
+
+function FormataCPFCNPJ(cpfcnpj){
+	 //mascara para o cpf
+	if(cpfcnpj.length < 14){
+		if(cpfcnpj.length == 3)
+			cpfcnpj += ".";
+		if(cpfcnpj.length == 7)
+			cpfcnpj += ".";
+		if(cpfcnpj.length == 11)
+			cpfcnpj += "-";
+		
+	//mascara para o cnpj	
+	}else if(cpfcnpj.length == 14){
+		
+		var cnpjOriginal = cpfcnpj;
+		var cnpj = cnpjOriginal.substr(0,2)+"."+
+		cnpjOriginal.substr(2,1)+
+		cnpjOriginal.substr(4,2)+"."+
+		cnpjOriginal.substr(6,1) +
+		cnpjOriginal.substr(8,2)+"/"+
+		cnpjOriginal.substr(10,1)+
+		cnpjOriginal.substr(12,2);
+		cpfcnpj = cnpj;
+	
+	}else if(cpfcnpj.length == 15){
+		cpfcnpj +="-" ;
+	}
+	return cpfcnpj;
+} 

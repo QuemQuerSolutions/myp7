@@ -1,7 +1,5 @@
 package com.plataforma.myp7.data;
 
-import java.math.BigDecimal;
-
 import org.apache.ibatis.type.Alias;
 
 @Alias("Pessoa")
@@ -21,7 +19,7 @@ public class Pessoa {
 	private String fone1;
 	private String fone2;
 	private String fone3;
-	private BigDecimal nroCpfCnpj;
+	private String nroCpfCnpj;
 	private Integer digCpfCnpj;
 	private String nroRgInscrEstadual;
 	
@@ -43,13 +41,9 @@ public class Pessoa {
 		return codRetorno;
 	}
 
-
-
 	public void setCodRetorno(Integer codRetorno) {
 		this.codRetorno = codRetorno;
 	}
-
-
 
 	public Pessoa(Integer id){
 		this.idPessoa = id.longValue();
@@ -145,10 +139,10 @@ public class Pessoa {
 	public void setFone3(String fone3) {
 		this.fone3 = fone3;
 	}
-	public BigDecimal getNroCpfCnpj() {
+	public String getNroCpfCnpj() {
 		return nroCpfCnpj;
 	}
-	public void setNroCpfCnpj(BigDecimal nroCpfCnpj) {
+	public void setNroCpfCnpj(String nroCpfCnpj) {
 		this.nroCpfCnpj = nroCpfCnpj;
 	}
 	public Integer getDigCpfCnpj() {
@@ -163,4 +157,15 @@ public class Pessoa {
 	public void setNroRgInscrEstadual(String nroRgInscrEstadual) {
 		this.nroRgInscrEstadual = nroRgInscrEstadual;
 	}
+	
+	
+	public void setNumDigitoDocumento(String nDocumento){
+		int posicao= nDocumento.indexOf("-");
+		this.setNroCpfCnpj(removerMascara(nDocumento.substring(0, posicao)));
+		this.setDigCpfCnpj(Integer.parseInt(removerMascara(nDocumento.substring(posicao+1, nDocumento.length()))));
+	}
+	
+	private String removerMascara(String nDocumento){  
+	    return nDocumento.replaceAll("\\D", "");  
+	} 
 }

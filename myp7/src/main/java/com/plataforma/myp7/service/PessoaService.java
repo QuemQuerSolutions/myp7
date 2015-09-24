@@ -1,6 +1,5 @@
 package com.plataforma.myp7.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +56,7 @@ public class PessoaService {
 								@RequestParam(value="fone1", required=true)String fone1,
 								@RequestParam(value="fone2", required=false, defaultValue="")String fone2,
 								@RequestParam(value="fone3", required=false, defaultValue="")String fone3,
-								@RequestParam(value="nroCpfCnpj", required=true)BigDecimal nroCpfCnpj,
+								@RequestParam(value="nroCpfCnpj", required=true)String nroCpfCnpj,
 								@RequestParam(value="digCpfCnpj", required=true)Integer digCpfCnpj,
 								@RequestParam(value="nroRgInscrEstadual", required=true)String nroRgInscrEstadual){
 		

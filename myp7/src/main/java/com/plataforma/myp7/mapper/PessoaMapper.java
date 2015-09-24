@@ -18,4 +18,6 @@ public interface PessoaMapper {
 	void atualiza(Pessoa pessoa);
 	
 	Integer countPessoa(Pessoa pessoa);
+	
+	Pessoa obterPessoaPorId(Long idPessoa);
 }

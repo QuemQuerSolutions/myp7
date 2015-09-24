@@ -1,14 +1,19 @@
 package com.plataforma.myp7.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.FornecedorMapper;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class FornecedorBO {
@@ -34,5 +39,26 @@ public class FornecedorBO {
 		}catch(Exception e){
 			throw new ManterEntidadeException(MensagemWS.ATUALIZA_FORNC_ERRO);
 		}
+	}
+	
+	public List<Fornecedor> obterFornecedorPorParametro(Long idFornecedor, String cnpjFornecedor, Model model){
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setIdFornecedor(idFornecedor);
+		
+		if (!"".equals(cnpjFornecedor)) fornecedor.setNumDigitoDocumento(cnpjFornecedor);
+		
+		Integer countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
+		
+		if(countFornecedor == 0){
+			Utils.setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem());
+			Utils.setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
+			return new ArrayList<Fornecedor>();
+		}
+		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			Utils.setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
+			Utils.setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+			return new ArrayList<Fornecedor>();
+		}
+		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
 }
