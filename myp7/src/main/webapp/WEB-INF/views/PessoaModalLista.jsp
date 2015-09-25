@@ -25,8 +25,11 @@ $(document).ready(function(){
 	
 	$("#btnPesquisar").click(function(e){
 		e.stopPropagation();
-		if(validaCamposObrigatorios(true))
-			pesquisarPessoa();
+		if(!hasInformation("#filtroModalPessoa")){
+			alerta("Informe ao menos um filtro para continuar.", "warning");
+			return;
+		}
+		pesquisarPessoa();
 	});
 	$("#btnSelecionar").click(function(e){
 		e.stopPropagation();
@@ -79,18 +82,7 @@ function montaTable(lista){
 	});
 	return linha;
 }
-function validaCamposObrigatorios(alert){
-	var isValid=true;
-	var texto="";
-	if($("#codigo").val() === "" && $("#nome").val() === ""){
-		texto="Preencha um dos campos de pesquisa.";
-		isValid=false;
-	}
-	if(!isValid && alert){
-		alerta(texto,"warning");
-	}
-	return isValid;
-}
+
 
 </script>
 
@@ -105,53 +97,56 @@ function validaCamposObrigatorios(alert){
 				<h4 class="modal-title">Consulta de Pessoa</h4>
 			</div>
 			<div class="modal-body">
+				
 				<div id="content-header">
-					<div class="row">
-						<div class="col-md-2">
-							<label for="codigo" class="control-label">Código</label>
-						</div>
-						<div class="col-md-5">
-							<label for="nome" class="control-label">Nome</label>
-						</div>
-					</div>
-					<form>
-						<input type="hidden" id="theme" value="${theme}" />
+					<div class="modal-body" id="filtroModalPessoa">
 						<div class="row">
 							<div class="col-md-2">
-								<div class="form-group" id="divCodigo">
-							    	<input type="text" 
-							    		   class="form-control onlyNumber campo-buscar upper" 
-							    		   id="codigo" 
-							    		   maxlength="8"
-							    		   placeholder="Código"
-							    		   autofocus="autofocus" 
-							    		   value="${pessoa.idPessoa}" 
-							    		   />
-							    		   
-							  	</div>
+								<label for="codigo" class="control-label">Código</label>
 							</div>
-		  					<div class="col-md-5">
-								<div class="form-group" id="divNome">
-							    	<input type="text" 
-							    		   class="form-control campo-buscar upper" 
-							    		   id="nome" 
-							    		   maxlength="100" 
-							    		   placeholder="Nome pessoa" 
-							    		   value="${pessoa.razao}"/>
-							  	</div>
-		  					</div>
-		  					<div class="col-md-2" id="btnpesquisar">
-								<div class="form-group">
-									<button type="button" class="btn ${theme} btn-large" id="btnPesquisar">Pesquisar</button>
-								</div>
-							</div>
-							<div class="col-md-2" id="btnlimpar">
-								<div class="form-group">
-									<button type="button" class="btn btn-default btn-large" id="limpar">Limpar</button>
-								</div>
+							<div class="col-md-5">
+								<label for="nome" class="control-label">Nome</label>
 							</div>
 						</div>
-					</form>
+						<form>
+							<input type="hidden" id="theme" value="${theme}" />
+							<div class="row">
+								<div class="col-md-2">
+									<div class="form-group" id="divCodigo">
+								    	<input type="text" 
+								    		   class="form-control onlyNumber campo-buscar upper" 
+								    		   id="codigo" 
+								    		   maxlength="8"
+								    		   placeholder="Código"
+								    		   autofocus="autofocus" 
+								    		   value="${pessoa.idPessoa}" 
+								    		   />
+								    		   
+								  	</div>
+								</div>
+			  					<div class="col-md-5">
+									<div class="form-group" id="divNome">
+								    	<input type="text" 
+								    		   class="form-control campo-buscar upper" 
+								    		   id="nome" 
+								    		   maxlength="100" 
+								    		   placeholder="Nome pessoa" 
+								    		   value="${pessoa.razao}"/>
+								  	</div>
+			  					</div>
+			  					<div class="col-md-2" id="btnpesquisar">
+									<div class="form-group">
+										<button type="button" class="btn ${theme} btn-large" id="btnPesquisar">Pesquisar</button>
+									</div>
+								</div>
+								<div class="col-md-2" id="btnlimpar">
+									<div class="form-group">
+										<button type="button" class="btn btn-default btn-large" id="limpar">Limpar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 				<div id="content-body">
 					<table  class="table table-hover table-bordered table-striped mouse-click">
