@@ -16,7 +16,7 @@ $(document).ready(function(){
 		if($("#outraPagina").val() !== ""){
 			$("#btnNovo").click();
 		}
-	}
+	} 
 
 	$("#limpar").click(function(){
 		$("#siglaEmbalagem").val("");
