@@ -9,9 +9,11 @@ $(document).ready(function(){
 		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
-	$("#limpar").click(function(){
+	$("#limpar").click(function(e){
+		e.stopPropagation();
 		$("#idFornecedor").val("");
-		$("#cnpjFornecedor").val("");
+		clearAll();
+		$("#idFornecedor").focus();
 	});
 
 	$("#cnpjFornecedor").change(function(){
@@ -29,7 +31,6 @@ $(document).ready(function(){
 			alerta("CNPJ inválido.", "warning");
 			return;
 		}
-
 
 		if($("#cnpjFornecedor").val() !== "")
 			$("#cnpjFornecedor").val($("#cnpjFornecedor").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
@@ -72,6 +73,8 @@ function onClickLine(id){
 					    	<input type="number" 
 					    		   class="form-control onlyNumber campo-buscar upper" 
 					    		   id="idFornecedor" 
+					    		   min="0"
+					    		   max="99999999"
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
