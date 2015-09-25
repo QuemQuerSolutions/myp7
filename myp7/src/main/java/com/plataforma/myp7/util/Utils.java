@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.MaskFormatter;
 
 import org.springframework.ui.Model;
 
@@ -13,6 +14,18 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 
 public class Utils {
+	
+	
+	public static String format(String formato, Object valor){
+		MaskFormatter mascara;
+		try{
+			mascara = new MaskFormatter(formato);
+			mascara.setValueContainsLiteralCharacters(false);
+			return mascara.valueToString(valor);
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}
+	}
 	
 	public static void setMsgRetorno(Model model, final String msg) {
 		model.addAttribute("mensagemRetorno", msg);

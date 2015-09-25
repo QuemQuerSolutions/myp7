@@ -138,11 +138,10 @@ function onClickLine(id){
 								<c:set var="valorTD" value="NÃO" />
 							</c:otherwise>
 						</c:choose>
-						
 						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
-							<td></td>
+							<td>${fornec.nroCpfCnpj} - ${fornec.digCpfCnpj}</td>
 							<td align="center">${valorTD}</td>
 						</tr>
 					</c:forEach>

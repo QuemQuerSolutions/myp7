@@ -60,7 +60,7 @@ public class FornecedorBO {
 			Utils.setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
 			return new ArrayList<Fornecedor>();
 		}
-		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
+		return this.formataCNPJ(this.fornecedorMapper.obterFornecedorPorParametro(fornecedor));
 	}
 	
 	private Fornecedor setNumDigitoDocumento(String nDocumento, Fornecedor fornecedor){
@@ -68,5 +68,24 @@ public class FornecedorBO {
 		fornecedor.setDigCpfCnpj(Integer.parseInt(nDocumento.substring(nDocumento.length()-2, nDocumento.length())));
 		return fornecedor;
 	}
+	
+	private List<Fornecedor> formataCNPJ(List<Fornecedor> lstFornecedor){
+		String cnpj;
+		int posicao;
+		List<Fornecedor> lstFornecedorNovo = new ArrayList<Fornecedor>();
+		for(Fornecedor f:lstFornecedor){
+			cnpj= f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()));
+			cnpj= Utils.format("##.###.###/####-##", cnpj);
+			posicao = cnpj.indexOf("-");
+			f.setNroCpfCnpj(cnpj.substring(0, posicao));
+			f.setDigCpfCnpj(Integer.parseInt(cnpj.substring(posicao+1, cnpj.length())));
+			lstFornecedorNovo.add(f);
+		}
+		return lstFornecedorNovo;
+	}
+	
+	
+	
+	
 	
 }
