@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
@@ -8,9 +7,9 @@ $(document).ready(function(){
 	
 	$("#limpar").click(function(e){
 		e.stopPropagation();
-		$("#resultado").html("");
 		$("#codigo").val("");
 		$("#nome").val("");
+		$("#resultado").html("");
 	});
 
 	$(".campo-buscar").keypress(function(e){
@@ -29,31 +28,33 @@ $(document).ready(function(){
 		if(validaCamposObrigatorios(true))
 			pesquisarPessoa();
 	});
-
 	$("#btnSelecionar").click(function(e){
 		e.stopPropagation();
-		if(!$("#codPessoa".concat(idAnterior)).hasClass($("#theme").val())){
-			alerta("Selecione uma pessoa.", "warning");
-		}else{
-			$("#razao").val(nomePessoa);
-			$("#idPessoa").val(idAnterior);
+			var fornecedorRetorno = linhaSelecionadaModal("#resultado");
+			$("#razao").val(fornecedorRetorno.nome);
+			$("#idPessoa").val(fornecedorRetorno.id);
 			$("#limpar").click();
 			$('#consulta_pessoa').modal("hide");
-		}
+			
 	});
 });
 var idAnterior;
 var nomePessoa="";
 
 function pesquisarPessoa(){
+	var fornecedor = {idPessoa : $("#codigo").val(),  razao : $("#nome").val()};
 	$.ajax({
-		url : "consultarPessoa?codPessoa=".concat($("#codigo").val(),"&nomePessoa=",$("#nome").val()),
+		url : "consultarPessoa",
 		type: "GET",
+		data :fornecedor,
         contentType: "application/json; charset=ISO-8859-1",
 	    dataType: "json",
         success : function(retornoList) {
+        	if(retornoList.length == 0){
+        		$("#resultado").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+        	}
 	        if(retornoList[0].codRetorno == -1){
-				alerta(retornoList[0].msgRetorno, "warning");
+		        alerta(retornoList[0].msgRetorno,"warning");
 				$("#resultado").html("");
 				return;
 	        }
@@ -71,14 +72,13 @@ function pesquisarPessoa(){
 function montaTable(lista){
 	var linha = "";
 	lista.forEach(function(item){
-		linha = linha.concat("<tr onclick='onClickLine(", item.idPessoa,")' id='codPessoa",item.idPessoa,"'>", 
-									"<td>",item.idPessoa,"</td>", 
-									"<td id='nomePessoa", item.idPessoa,"'>", item.razao,"</td>",
+		linha = linha.concat("<tr onclick=\"OnClickLineModal('resultado',", item.idPessoa,")\"","'>", 
+									"<td data-id>",item.idPessoa,"</td>", 
+									"<td data-nome>", item.razao,"</td>",
 							  "</tr>");
 	});
 	return linha;
 }
-
 function validaCamposObrigatorios(alert){
 	var isValid=true;
 	var texto="";
@@ -90,15 +90,6 @@ function validaCamposObrigatorios(alert){
 		alerta(texto,"warning");
 	}
 	return isValid;
-}
-
-function onClickLine(id){
-	if($("#codPessoa".concat(idAnterior)).hasClass($("#theme").val())){
-		$("#codPessoa".concat(idAnterior)).removeClass($("#theme").val());
-	}
-	$("#codPessoa".concat(id)).addClass($("#theme").val());
-	idAnterior = id;
-	nomePessoa = $("#nomePessoa".concat(id)).text();
 }
 
 </script>
@@ -128,13 +119,10 @@ function onClickLine(id){
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group" id="divCodigo">
-							    	<input type="number" 
+							    	<input type="text" 
 							    		   class="form-control onlyNumber campo-buscar upper" 
 							    		   id="codigo" 
-							    		   name="codigoPessoa" 
 							    		   maxlength="8"
-							    		   min="0"
-							    		   max="99999999"
 							    		   placeholder="Código"
 							    		   autofocus="autofocus" 
 							    		   value="${pessoa.idPessoa}" 
@@ -147,7 +135,6 @@ function onClickLine(id){
 							    	<input type="text" 
 							    		   class="form-control campo-buscar upper" 
 							    		   id="nome" 
-							    		   name="nomePessoa" 
 							    		   maxlength="100" 
 							    		   placeholder="Nome pessoa" 
 							    		   value="${pessoa.razao}"/>

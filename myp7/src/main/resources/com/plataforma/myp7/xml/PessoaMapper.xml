@@ -42,8 +42,7 @@
 		ORDER BY ID_PESSOA
 	</select>
 	
-	<select id="obterPessoaCodNome" resultMap="pessoaMap" parameterType="Pessoa">
-		<include refid="selectPessoa" />
+	<sql id="whereBuscaPessoa">
 		WHERE 1=1
 		<if test="idPessoa != null">
 			AND ID_PESSOA=#{idPessoa}
@@ -51,6 +50,11 @@
 		<if test="razao != null">
 			AND RAZAO like #{razao}
 		</if>
+	</sql>
+	
+	<select id="obterPessoaCodNome" resultMap="pessoaMap" parameterType="Pessoa">
+		<include refid="selectPessoa" />
+		<include refid="whereBuscaPessoa" />
 	</select>
 	
 	<select id="obterPessoaPorId" resultMap="pessoaMap">
@@ -67,13 +71,7 @@
 	
 	<select id="countPessoa" resultType="int">
 		SELECT COUNT(1) FROM gbl_pessoa
-		WHERE 1=1
-		<if test="idPessoa != null">
-			AND ID_PESSOA=#{idPessoa}
-		</if>
-		<if test="razao != null">
-			AND RAZAO like #{razao}
-		</if> 
+		<include refid="whereBuscaPessoa" />
 	</select>
 	
 	<insert id="inserir">

@@ -24,29 +24,18 @@ public class PessoaBO {
 		return this.pessoaMapper.obterTodasUF();
 	}
 	
-	public List<Pessoa> obterPessoaCodNome(Long codPessoa, String nomePessoa){
-		List<Pessoa> lstPessoa = new ArrayList<Pessoa>();
-		
-		Pessoa pessoa = new Pessoa();
-		
-		pessoa.setIdPessoa(codPessoa);
-		pessoa.setRazao(Utils.toLike(Utils.emptyToNull(nomePessoa)));
+	public List<Pessoa> obterPessoaPorParametro(Pessoa pessoa){
+		pessoa.setRazao(Utils.toLike(pessoa.getRazao()));
 		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
 		
 		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			List<Pessoa> lstPessoa = new ArrayList<Pessoa>();
 			pessoa.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem().toString());
 			pessoa.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
 			lstPessoa.add(pessoa);
-		}else if(countPessoa ==  0){
-			pessoa.setMsgRetorno(Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem().toString());
-			pessoa.setCodRetorno(Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
-			lstPessoa.add(pessoa);
-		}else{
-			lstPessoa = this.pessoaMapper.obterPessoaCodNome(pessoa);
+			return lstPessoa;
 		}
-			
-		
-		return lstPessoa;
+		return this.pessoaMapper.obterPessoaCodNome(pessoa);
 	}
 	
 	public List<Pessoa> obterPessoaCodNome(Pessoa pessoa){
