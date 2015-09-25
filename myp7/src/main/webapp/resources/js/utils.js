@@ -7,9 +7,6 @@ function clearAll(escopo){
     $(escopo + " :radio").each(function () {
     	$(this).prop({ checked: false })
     });
-    //$(escopo + " :number").each(function () {
-		//$(this).val("");
-    //});
  
 //    $("select").each(function () {
 //    	$(this).val("");

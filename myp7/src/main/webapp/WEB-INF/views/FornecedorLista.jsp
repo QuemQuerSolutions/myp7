@@ -11,7 +11,6 @@ $(document).ready(function(){
 
 	$("#limpar").click(function(e){
 		e.stopPropagation();
-		$("#idFornecedor").val("");
 		clearAll();
 		$("#idFornecedor").focus();
 	});
@@ -67,10 +66,11 @@ function onClickLine(id){
 			<form action="carregaListaFornecedor" name="frmFornecedor" id="frmFornecedor" method="GET">
 				<input type="hidden" id="mensagem" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
+				
 				<div class="row">	
 					<div class="col-md-2">
 						<div class="form-group" id="divCodFornecedor">
-					    	<input type="number" 
+					    	<input type="text" 
 					    		   class="form-control onlyNumber campo-buscar upper" 
 					    		   id="idFornecedor" 
 					    		   min="0"
