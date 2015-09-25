@@ -45,7 +45,8 @@ public class FornecedorBO {
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setIdFornecedor(idFornecedor);
 		
-		if (!"".equals(cnpjFornecedor)) fornecedor.setNumDigitoDocumento(cnpjFornecedor);
+		if (!"".equals(cnpjFornecedor)) 
+			fornecedor = this.setNumDigitoDocumento(cnpjFornecedor, fornecedor);
 		
 		Integer countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
 		
@@ -61,4 +62,11 @@ public class FornecedorBO {
 		}
 		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
+	
+	private Fornecedor setNumDigitoDocumento(String nDocumento, Fornecedor fornecedor){
+		fornecedor.setNroCpfCnpj(nDocumento.substring(0, nDocumento.length()-2));
+		fornecedor.setDigCpfCnpj(Integer.parseInt(nDocumento.substring(nDocumento.length()-2, nDocumento.length())));
+		return fornecedor;
+	}
+	
 }

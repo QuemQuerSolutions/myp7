@@ -24,16 +24,19 @@ $(document).ready(function(){
 			alerta("Informe ao menos um filtro para buscar.", "warning");
 			return;
 		}
-
-		if(($("#idFornecedor").val() !== "" && !$.isNumeric($.trim($("#idFornecedor").val())))){
-			alerta("Somente números no filtro código..", "warning");
-			return;
-		}
-				
+		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
 			alerta("CNPJ inválido.", "warning");
 			return;
 		}
+
+
+		if($("#cnpjFornecedor").val() !== ""){
+			
+			$("#cnpjFornecedor").val($("#cnpjFornecedor").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
+			alert($("#cnpjFornecedor").val());
+		}
+			
 		go("#frmFornecedor");
 	});
 });
@@ -47,7 +50,7 @@ function onClickLine(id){
 <body>
 	<c:import url="components/header.jsp" />
 	<c:import url="components/menu.jsp" /> 
-
+	
 	<div id="content">
 		<div id="content-title">
 			<h4>Fornecedor</h4>
@@ -69,8 +72,8 @@ function onClickLine(id){
 				<div class="row">	
 					<div class="col-md-2">
 						<div class="form-group" id="divCodFornecedor">
-					    	<input type="text" 
-					    		   class="form-control upper" 
+					    	<input type="number" 
+					    		   class="form-control onlyNumber campo-buscar upper" 
 					    		   id="idFornecedor" 
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
@@ -83,7 +86,7 @@ function onClickLine(id){
 					<div class="col-md-3">
 						<div class="form-group" id="divCnpj">
 							<input type="text" 
-								   class="form-control" 
+								   class="form-control  campo-buscar upper" 
 								   name="cnpjFornecedor"
 								   placeholder="00.000.000/0000-00" 
 								   id="cnpjFornecedor" 

@@ -86,11 +86,6 @@ function validaCamposObrigatorios(alert){
 		texto="Preencha um dos campos de pesquisa.";
 		isValid=false;
 	}
-	if($("#codigo").val() !== "" && !$.isNumeric($.trim($("#codigo").val()))){
-		isValid =false;
-		texto = "Somente números no filtro código.";
-	}
-	
 	if(!isValid && alert){
 		alerta(texto,"warning");
 	}
@@ -133,25 +128,29 @@ function onClickLine(id){
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group" id="divCodigo">
-							    	<input type="text" 
-							    		   class="form-control campo-buscar upper" 
+							    	<input type="number" 
+							    		   class="form-control onlyNumber campo-buscar upper" 
 							    		   id="codigo" 
 							    		   name="codigoPessoa" 
-							    		   maxlength="8" 
+							    		   maxlength="8"
+							    		   min="0"
+							    		   max="99999999"
 							    		   placeholder="Código"
 							    		   autofocus="autofocus" 
-							    		   value="${pessoa.idPessoa}" >
+							    		   value="${pessoa.idPessoa}" 
+							    		   />
+							    		   
 							  	</div>
 							</div>
 		  					<div class="col-md-5">
 								<div class="form-group" id="divNome">
 							    	<input type="text" 
-							    		   class="form-control campo-buscar" 
+							    		   class="form-control campo-buscar upper" 
 							    		   id="nome" 
 							    		   name="nomePessoa" 
 							    		   maxlength="100" 
 							    		   placeholder="Nome pessoa" 
-							    		   value="${pessoa.razao}">
+							    		   value="${pessoa.razao}"/>
 							  	</div>
 		  					</div>
 		  					<div class="col-md-2" id="btnpesquisar">

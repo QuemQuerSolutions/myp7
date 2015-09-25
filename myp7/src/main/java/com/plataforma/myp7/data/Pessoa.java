@@ -158,14 +158,4 @@ public class Pessoa {
 		this.nroRgInscrEstadual = nroRgInscrEstadual;
 	}
 	
-	
-	public void setNumDigitoDocumento(String nDocumento){
-		int posicao= nDocumento.indexOf("-");
-		this.setNroCpfCnpj(removerMascara(nDocumento.substring(0, posicao)));
-		this.setDigCpfCnpj(Integer.parseInt(removerMascara(nDocumento.substring(posicao+1, nDocumento.length()))));
-	}
-	
-	private String removerMascara(String nDocumento){  
-	    return nDocumento.replaceAll("\\D", "");  
-	} 
-}
+}	
