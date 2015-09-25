@@ -4,56 +4,80 @@
 <html>
 
 <script type="text/javascript">
+var idUsu;
+var nomeUsu;
+
 $(document).ready(function() {
-	$("#pesquisarModal").click(function(){
-		alert("Teste1");
-		pesquisar($("#razao_social").val(),$("#email").val());
+	$('#consulta_usuario').on('hidden.bs.modal', function (e) {
+		$("#listaUsuario").html("");
+		clearAll("#razao_social");
+		clearAll("#email");
+	});
+
+	$("#limpar").click(function(e){
+		e.stopPropagation();
+		$("#listaUsuario").html("");
+		$("#razao_social").val("");
+		$("#email").val("");
+		limparVar();
+	});
+		
+	$("#pesquisarUsuarioModal").click(function(){
+		pesquisarUsuario($("#razao_social").val(),$("#email").val());
 	});
 
 	$(".campo-pesquisa").keypress(function(e){
 	    if(e.which == 13) {
-	    	alert("Teste2");
 	    	pesquisar($("#razao_social").val(),$("#email").val());
 	    }
 	});
+
+	$(document).on("click", ".tabela-usuario tbody tr", function(){
+		$(".linha-selecionada").removeClass($("#theme").val());
+		limparVar();
+		
+		$(this).addClass($("#theme").val());
+		$(this).addClass("linha-selecionada");
+		idUsu = $(this).find(".idUsu").text();
+		nomeUsu = $(this).find(".razaoUsu").text();
+	});
+
+	$("#btnSelecionarUsuario").click(function(e){
+		e.stopPropagation();
+		if(nomeUsu == ""){
+			alerta("Selecione um usuário.", "warning");
+		}else{
+			$("#usuario").val($.trim(nomeUsu));
+			$("#idUsuario").val($.trim(idUsu));
+			$("#limpar").click();
+			$('#consulta_usuario').modal("hide");
+		}
+	});	
 });
 
-function pesquisar(razaoSocial, email){
-	alert("Teste3");
-	removeClass();
-	if(!validaCamposObrigatorios()){
-		alerta("Favor preencher os campos obrigatórios.", "warning");
+function limparVar(){
+	idUsu = "";
+	nomeUsu = "";
+}
+
+function pesquisarUsuario(razaoSocial, email){
+	if($.trim($("#razao_social").val()) == "" && $.trim($("#email").val()) == ""){
+		alerta("Informe ao menos um filtro para continuar", "warning");
 	}else{
 		$.ajax({
 			type: "POST",
 	        data: { razaoSocial:razaoSocial, email:email },
 	        url : 'pesquisarUsuarioAJAX',
 	        success : function(data) {
-	        	$("#resultado").html(data);
+	        	$("#listaUsuario").html(data);
 	        }
 	    });
 	}
 }
 
-function validaCamposObrigatorios(){
-	var isValid = true;
-	if($.trim($("#razao_social").val()) == "" && $.trim($("#email").val()) == ""){
-		$("#divrazaosocial").addClass("has-error");
-		$("#divemail").addClass("has-error");
-		isValid = false;
-	}
-	
-	return isValid;
-}
-
-function removeClass(){
-	$("#divemail").removeClass("has-error");
-	$("#divrazaosocial").removeClass("has-error");
-}
-
 </script>
-
-<div class="modal fade" id="usuario_selecionar">
+<input type="hidden" id="theme" value="${theme}" />
+<div class="modal fade" id="consulta_usuario">
 	<div class="modal-dialog modal-usuario-selecionar">
 		<div class="modal-content">
 			<div class="modal-header ${theme}">
@@ -80,7 +104,7 @@ function removeClass(){
 	  					</div>
 	  					<div class="col-md-3">
 	  						<div class="form-group">
-								<button type="button" class="btn" id="pesquisarModal" style="margin-top: 25px;">Pesquisar</button>
+								<button type="button" class="btn" id="pesquisarUsuarioModal" style="margin-top: 25px;">Pesquisar</button>
 							</div>
 	  					</div>
 					</div>
@@ -96,7 +120,7 @@ function removeClass(){
 												<th class="col-email">Email</th>
 											</tr>
 										</thead>
-										<tbody id="resultado"></tbody>
+										<tbody id="listaUsuario"></tbody>
 									</table>
 								</div>
 						  	</div>
@@ -105,8 +129,7 @@ function removeClass(){
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default limpar" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn ${theme}" id="salvar">Salvar</button>
+				<button type="button" class="btn ${theme}" id="btnSelecionarUsuario">Selecionar</button>
 			</div>
 		</div>
 	</div>

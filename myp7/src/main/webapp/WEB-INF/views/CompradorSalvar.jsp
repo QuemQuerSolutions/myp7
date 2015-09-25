@@ -33,6 +33,11 @@ $(document).ready(function() {
 		$("#consulta_pessoa").modal();
 	});
 
+	$("#clickUsuario").click(function(e){
+		e.stopPropagation();
+		$("#consulta_usuario").modal();
+	});	
+
 });
 
 function onAddEmpresa() {
@@ -82,7 +87,7 @@ function onAddRepresentante(){
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaUsuario">&nbsp;</label>
-				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
+				  		<a href="#" target="_self" class="form-control icon-search" id="clickUsuario"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group req">
 				   		<label for="status">Status</label>
@@ -136,6 +141,7 @@ function onAddRepresentante(){
 	<c:import url="PessoaModalLista.jsp"/>
 	<c:import url="EmpresaModalLista.jsp"/>
 	<c:import url="RepresentanteModalLista.jsp"/>
+	<c:import url="UsuarioModalLista.jsp" />
 	
 	<c:import url="components/footer.jsp">
 		<c:param name="salvar" value="cancelar_salvar" />

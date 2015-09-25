@@ -47,10 +47,10 @@ public class UsuarioController {
 		
 		for(Usuario usu : lista){
 			sb.append("<tr>");
-			sb.append("		<td>");
+			sb.append("		<td class=\"idUsu\">");
 			sb.append(			usu.getIdUsuario());
 			sb.append("		</td>");
-			sb.append("		<td>");
+			sb.append("		<td class=\"razaoUsu\">");
 			sb.append(			usu.getRazaoSocial());
 			sb.append("		</td>");
 			sb.append("		<td>");
