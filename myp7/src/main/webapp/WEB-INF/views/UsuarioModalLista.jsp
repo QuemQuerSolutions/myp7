@@ -14,7 +14,7 @@ $(document).ready(function() {
 		clearAll("#email");
 	});
 
-	$("#limpar").click(function(e){
+	$("#limparUsuario").click(function(e){
 		e.stopPropagation();
 		$("#listaUsuario").html("");
 		$("#razao_social").val("");
@@ -49,7 +49,7 @@ $(document).ready(function() {
 		}else{
 			$("#usuario").val($.trim(nomeUsu));
 			$("#idUsuario").val($.trim(idUsu));
-			$("#limpar").click();
+			$("#limparUsuario").click();
 			$('#consulta_usuario').modal("hide");
 		}
 	});	
@@ -88,26 +88,35 @@ function pesquisarUsuario(razaoSocial, email){
 				<h4 class="modal-title">Selecionar Usuário</h4>
 			</div>
 			<div class="modal-body">
-				<form action="SelecionarUsuario" id="frmSelecionarUsuario" method="POST">
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group" id="divrazaosocial">
-						   		<label for="sigla" class="control-label">Razão Social</label>
-						    	<input type="text" class="form-control campo-pesquisa" id="razao_social" name="razaoSocial" maxlength="50" placeholder="Razão Social">
-						  	</div>
-						</div>
-	  					<div class="col-md-4">
-							<div class="form-group" id="divemail">
-						   		<label for="descricao" class="control-label">Email</label>
-						    	<input type="text" class="form-control campo-pesquisa" id="email" name="email" maxlength="50" placeholder="Email">
-						  	</div>
-	  					</div>
-	  					<div class="col-md-3">
-	  						<div class="form-group">
-								<button type="button" class="btn" id="pesquisarUsuarioModal" style="margin-top: 25px;">Pesquisar</button>
+				<div id="content-header">
+					<form action="SelecionarUsuario" id="frmSelecionarUsuario" method="POST">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group" id="divrazaosocial">
+							   		<label for="sigla" class="control-label">Razão Social</label>
+							    	<input type="text" class="form-control campo-pesquisa" id="razao_social" name="razaoSocial" maxlength="50" placeholder="Razão Social">
+							  	</div>
 							</div>
-	  					</div>
-					</div>
+		  					<div class="col-md-4">
+								<div class="form-group" id="divemail">
+							   		<label for="descricao" class="control-label">Email</label>
+							    	<input type="text" class="form-control campo-pesquisa" id="email" name="email" maxlength="50" placeholder="Email">
+							  	</div>
+		  					</div>
+		  					<div class="col-md-2" id="btnpesquisarUsuarioModal">
+								<div class="form-group">
+									<button type="button" class="btn ${theme} btn-large" id="pesquisarUsuarioModal" style="margin-top: 25px;">Pesquisar</button>
+								</div>
+							</div>
+							<div class="col-md-2" id="btnlimparUsuarioModal">
+								<div class="form-group">
+									<button type="button" class="btn btn-default btn-large" id="limparUsuario" style="margin-top: 25px;">Limpar</button>
+								</div>
+							</div>						
+						</div>
+					</form>		
+				</div>			
+				<div id="content-body">
 					<div class="row">
 						<div class="col-md-13">
 							<div class="form-group" id="divquantidademodal">
@@ -126,7 +135,7 @@ function pesquisarUsuario(razaoSocial, email){
 						  	</div>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn ${theme}" id="btnSelecionarUsuario">Selecionar</button>
