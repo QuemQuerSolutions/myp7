@@ -79,7 +79,7 @@ function onClickLine(id){
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
 					    		   placeholder="Código"
-					    		   value="" />
+					    		   value="${idFornecedor}" />
 					  	</div>
 					</div>
 					
@@ -91,7 +91,7 @@ function onClickLine(id){
 								   placeholder="00.000.000/0000-00" 
 								   id="cnpjFornecedor" 
 								   maxlength="18" 
-								   value="">
+								   value="${cnpj}">
 						</div>
 					</div>
 					<div class="col-md-4"></div>
