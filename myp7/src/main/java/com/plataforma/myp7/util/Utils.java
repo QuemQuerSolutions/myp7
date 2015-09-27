@@ -17,7 +17,7 @@ public class Utils {
 	
 	
 	public static String format(String formato, Object valor){
-		MaskFormatter mascara;
+		MaskFormatter mascara = null;
 		try{
 			mascara = new MaskFormatter(formato);
 			mascara.setValueContainsLiteralCharacters(false);

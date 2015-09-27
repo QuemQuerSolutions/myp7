@@ -44,7 +44,7 @@ public class FornecedorBO {
 	public List<Fornecedor> obterFornecedorPorParametro(Long idFornecedor, String cnpjFornecedor, Model model){
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setIdFornecedor(idFornecedor);
-		
+
 		if (!"".equals(cnpjFornecedor)) 
 			fornecedor = this.setNumDigitoDocumento(cnpjFornecedor, fornecedor);
 		
@@ -74,8 +74,7 @@ public class FornecedorBO {
 		int posicao;
 		List<Fornecedor> lstFornecedorNovo = new ArrayList<Fornecedor>();
 		for(Fornecedor f:lstFornecedor){
-			cnpj= f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()));
-			cnpj= Utils.format("##.###.###/####-##", cnpj);
+			cnpj= Utils.format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj())));
 			posicao = cnpj.indexOf("-");
 			f.setNroCpfCnpj(cnpj.substring(0, posicao));
 			f.setDigCpfCnpj(Integer.parseInt(cnpj.substring(posicao+1, cnpj.length())));
@@ -83,9 +82,5 @@ public class FornecedorBO {
 		}
 		return lstFornecedorNovo;
 	}
-	
-	
-	
-	
 	
 }
