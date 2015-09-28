@@ -72,7 +72,7 @@ function pesquisarPessoa(){
 function montaTable(lista){
 	var linha = "";
 	lista.forEach(function(item){
-		linha = linha.concat("<tr onclick=\"OnClickLineModal('resultado',", item.idPessoa,")\"","'>", 
+		linha = linha.concat("<tr onclick=\"onClickLineModal('resultado',", item.idPessoa,")\"","'>", 
 									"<td data-id>",item.idPessoa,"</td>", 
 									"<td data-nome>", item.razao,"</td>",
 							  "</tr>");
