@@ -27,7 +27,7 @@ $(document).ready(function(){
 		}
 		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
-			alerta("CNPJ invÃ¡lido.", "warning");
+			alerta("CNPJ inválido.", "warning");
 			return;
 		}
 
@@ -56,7 +56,7 @@ function onClickLine(id){
 		<div id="content-header">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="idFornecedor" class="control-label">CÃ³digo</label>
+					<label for="idFornecedor" class="control-label">Código</label>
 				</div>
 				<div class="col-md-8">
 					<label for="cnpjFornecedor" class="control-label">CNPJ</label>
@@ -78,7 +78,7 @@ function onClickLine(id){
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
-					    		   placeholder="CÃ³digo"
+					    		   placeholder="Código"
 					    		   value="${idFornecedor}" />
 					  	</div>
 					</div>
@@ -115,8 +115,8 @@ function onClickLine(id){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr style="text-align: center">
-						<th width="10%">CÃ³digo</th>
-						<th width="60%">RazÃ£o social</th>	
+						<th width="10%">Código</th>
+						<th width="60%">Razão social</th>	
 						<th width="15%">CNPJ</th>
 						<th>Utiliza Tabela de Custo</th>
 					</tr>
