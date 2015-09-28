@@ -56,7 +56,7 @@ function onClickLine(id){
 		<div id="content-header">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="idFornecedor" class="control-label">C√≥digo</label>
+					<label for="idFornecedor" class="control-label">CÛdigo</label>
 				</div>
 				<div class="col-md-8">
 					<label for="cnpjFornecedor" class="control-label">CNPJ</label>
@@ -78,7 +78,7 @@ function onClickLine(id){
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
-					    		   placeholder="C√≥digo"
+					    		   placeholder="CÛdigo"
 					    		   value="${idFornecedor}" />
 					  	</div>
 					</div>
@@ -115,8 +115,8 @@ function onClickLine(id){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr style="text-align: center">
-						<th width="10%">C√≥digo</th>
-						<th width="60%">Raz√£o social</th>	
+						<th width="10%">CÛdigo</th>
+						<th width="60%">Raz„zo social</th>	
 						<th width="15%">CNPJ</th>
 						<th>Utiliza Tabela de Custo</th>
 					</tr>
@@ -144,7 +144,7 @@ function onClickLine(id){
 						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
-							<td>${fornec.nroCpfCnpj} - ${fornec.digCpfCnpj}</td>
+							<td>${fornec.cnpjFormatado}</td>
 							<td align="center">${valorTD}</td>
 						</tr>
 					</c:forEach>

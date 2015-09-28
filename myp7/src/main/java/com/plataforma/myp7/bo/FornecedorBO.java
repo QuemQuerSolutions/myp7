@@ -73,6 +73,7 @@ public class FornecedorBO {
 		List<Fornecedor> lstFornecedorNovo = new ArrayList<Fornecedor>();
 		for(Fornecedor f:lstFornecedor){
 			f.setCnpjFormatado(Utils.format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()))));
+			lstFornecedorNovo.add(f);
 		}
 		return lstFornecedorNovo;
 	}
