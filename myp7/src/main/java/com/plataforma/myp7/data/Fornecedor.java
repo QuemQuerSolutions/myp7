@@ -14,6 +14,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private Long idFornecedor;
 	private String statusFornecedor;
 	private String utilTabCustoFornc;
+	private String cnpjFormatado;
 	
 	public Fornecedor(){
 		super();
@@ -36,6 +37,14 @@ public class Fornecedor extends Pessoa implements Serializable{
 	}
 	public void setUtilTabCustoFornc(String utilTabCustoFornc) {
 		this.utilTabCustoFornc = utilTabCustoFornc;
+	}
+
+	public String getCnpjFormatado() {
+		return cnpjFormatado;
+	}
+
+	public void setCnpjFormatado(String cnpjFormatado) {
+		this.cnpjFormatado = cnpjFormatado;
 	}
 	
 	
