@@ -26,11 +26,13 @@ public class PessoaBO {
 	
 	public List<Pessoa> obterPessoaPorParametro(Pessoa pessoa){
 		pessoa.setRazao(Utils.toLike(pessoa.getRazao()));
-		Integer countPessoa = this.pessoaMapper.countPessoa(pessoa);
+		int countPessoa = this.pessoaMapper.countPessoa(pessoa);
+		if (countPessoa == 0) 
+			return new ArrayList<Pessoa>();
 		
 		if(countPessoa > ConfigEnum.LIMITE_COUNT.getValorInt()){
 			List<Pessoa> lstPessoa = new ArrayList<Pessoa>();
-			pessoa.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem().toString());
+			pessoa.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem());
 			pessoa.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
 			lstPessoa.add(pessoa);
 			return lstPessoa;

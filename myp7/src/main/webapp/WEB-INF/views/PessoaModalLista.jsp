@@ -7,8 +7,7 @@ $(document).ready(function(){
 	
 	$("#limpar").click(function(e){
 		e.stopPropagation();
-		$("#codigo").val("");
-		$("#nome").val("");
+		clearAll("#filtroModalPessoa");
 		$("#resultado").html("");
 	});
 
@@ -33,23 +32,21 @@ $(document).ready(function(){
 	});
 	$("#btnSelecionar").click(function(e){
 		e.stopPropagation();
-			var fornecedorRetorno = linhaSelecionadaModal("#resultado");
-			$("#razao").val(fornecedorRetorno.nome);
-			$("#idPessoa").val(fornecedorRetorno.id);
+			var pessoaRetorno = getValueLineModal("#resultado");
+			$("#razao").val(pessoaRetorno.nome);
+			$("#idPessoa").val(pessoaRetorno.id);
 			$("#limpar").click();
 			$('#consulta_pessoa').modal("hide");
 			
 	});
 });
-var idAnterior;
-var nomePessoa="";
 
 function pesquisarPessoa(){
-	var fornecedor = {idPessoa : $("#codigo").val(),  razao : $("#nome").val()};
+	var pessoa = {idPessoa : $("#codigo").val(),  razao : $("#nome").val()};
 	$.ajax({
 		url : "consultarPessoa",
 		type: "GET",
-		data :fornecedor,
+		data :pessoa,
         contentType: "application/json; charset=ISO-8859-1",
 	    dataType: "json",
         success : function(retornoList) {
@@ -82,8 +79,6 @@ function montaTable(lista){
 	});
 	return linha;
 }
-
-
 </script>
 
 <div class="modal fade bs-example-modal-lg" id="consulta_pessoa">
@@ -110,7 +105,7 @@ function montaTable(lista){
 						<input type="hidden" id="theme" value="${theme}" />
 						<div class="row">
 							<div class="col-md-2">
-								<div class="form-group" id="divCodigo">
+								<div class="form-group">
 							    	<input type="text" 
 							    		   class="form-control onlyNumber campo-buscar upper" 
 							    		   id="codigo" 
@@ -123,7 +118,7 @@ function montaTable(lista){
 							  	</div>
 							</div>
 		  					<div class="col-md-5">
-								<div class="form-group" id="divNome">
+								<div class="form-group">
 							    	<input type="text" 
 							    		   class="form-control campo-buscar upper" 
 							    		   id="nome" 

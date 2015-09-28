@@ -219,7 +219,7 @@ function OnClickLineModal(tBody,id){
 	});	
 }
 
-function linhaSelecionadaModal(tBody){
+function getValueLineModal(tBody){
 	var data;
 	$(tBody.concat(" tr")).each(function(){
 		if($(this).hasClass($("#theme").val())){
