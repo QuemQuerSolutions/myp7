@@ -27,7 +27,7 @@ $(document).ready(function(){
 		}
 		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
-			alerta("CNPJ inv√°lido.", "warning");
+			alerta("CNPJ inv·lido.", "warning");
 			return;
 		}
 
