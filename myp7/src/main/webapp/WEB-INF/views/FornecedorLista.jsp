@@ -116,7 +116,7 @@ function onClickLine(id){
 				<thead>
 					<tr style="text-align: center">
 						<th width="10%">Código</th>
-						<th width="60%">Razãzo social</th>	
+						<th width="60%">Razão social</th>	
 						<th width="15%">CNPJ</th>
 						<th>Utiliza Tabela de Custo</th>
 					</tr>
@@ -144,7 +144,7 @@ function onClickLine(id){
 						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
-							<td>${fornec.cnpjFormatado}</td>
+							<td>${fornec.nroCpfCnpj} - ${fornec.digCpfCnpj}</td>
 							<td align="center">${valorTD}</td>
 						</tr>
 					</c:forEach>
