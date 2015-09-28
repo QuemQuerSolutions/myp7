@@ -211,7 +211,7 @@ function isExist(tabBody, nomeID, id){
 }
 
 function onClickLineModal(tBody,id){
-	$("#".concat(tBod,+" tr")).each(function(){
+	$("#".concat(tBody," tr")).each(function(){
 		$(this).removeClass($("#theme").val());
 		if($(this).children().html() == id){
 			$(this).addClass($("#theme").val());
