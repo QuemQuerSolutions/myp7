@@ -100,4 +100,23 @@ public class FornecedorBO {
 		}
 		return lstRepresentante;
 	}
+	
+	
+	public void salvarFornecedor(Fornecedor fornecedor) throws Exception{
+		if(Objects.isNull(fornecedor.getIdFornecedor())){
+			this.fornecedorMapper.inserirFornecedor(fornecedor);
+		}else{
+			this.fornecedorMapper.updateFornecedor(fornecedor);
+			this.representanteFornecedorMapper.deletePorFornecedor(fornecedor.getIdFornecedor());
+		}
+		
+		this.associaRepresentante(fornecedor.getRepresentantes(), fornecedor.getIdFornecedor());
+	}
+	
+	private void associaRepresentante(List<Representante> lstRepresentatante, Long  id) throws Exception{
+		for(Representante rp: lstRepresentatante){
+			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(rp,id);
+			this.representanteFornecedorMapper.insert(rpFornecedor);
+		}
+	}
 }

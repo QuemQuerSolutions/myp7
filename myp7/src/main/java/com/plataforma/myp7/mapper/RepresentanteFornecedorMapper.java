@@ -10,5 +10,5 @@ import com.plataforma.myp7.data.RepresentanteFornecedor;
 public interface RepresentanteFornecedorMapper {
 	List<RepresentanteFornecedor> obterPorFornecedor(Long idFornecedor);
 	void insert(RepresentanteFornecedor representanteFornecedor);
-	void deletePorComprador(Long idFornecedor);
+	void deletePorFornecedor(Long idFornecedor);
 }

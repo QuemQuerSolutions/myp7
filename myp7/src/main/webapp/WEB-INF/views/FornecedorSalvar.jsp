@@ -31,25 +31,29 @@ $(document).ready(function() {
 });
 
 function addLineRepresentanteTab(representante){
-	var line = "", id = representante.idRepresentante;
-	if(isExist("linesRepresentante", "idRepresentante", id)) return;
+	var line = "", 
+	id = representante.idRepresentante;
+	if(isExist("linesRepresentante", "idRepresentante", id)) 
+		return;
 	
-	var atual = $("#linesRepresentante").html(), uuid = guid();
+	var atual = $("#linesRepresentante").html(), 
+	uuid = guid();
 	
 	line = line.concat("<tr>");
 	line = line.concat("<td class='text-middle'>", representante.apelido);
-		line = line.concat("<input type='hidden' name='objFornecedor.representantes[0].idRepresentante' id='pk' value='", id, "'/>");
+	line = line.concat("	<input type='hidden' name='objFornecedor.representantes[0].idRepresentante' id='pk' value='", id, "'/>");
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-		line = line.concat("<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdRepresentante); reindex(\"#linesRepresentanteTab\", \"representantes\");' >");
-			line = line.concat("<span class='glyphicon glyphicon-remove red'></span>");
-		line = line.concat("</a>");
-	line = line.concat("</td>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdRepresentante); reindex(\"#linesRepresentanteTab\", \"representantes\");' >");
+	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
+	line = line.concat(		"</a>");
+	line = line.concat(	"</td>");
 
 	line = line.concat("</tr>");
 	
 	$("#linesRepresentante").html(atual + line);
+	addContador(qtdRepresentante);
 	reindex("#linesRepresentante", "representantes");
 }
 
@@ -90,7 +94,7 @@ function onAddRepresentante(){
 			   			</form:select>
 				  	</div>
 				  	<div class="col-md-2 form-group req">
-				   		<label for="status">Utiliza tabela de Custo</label>
+				   		<label for="status">Utiliza Tabela de Custo</label>
 			   			<form:select path="objFornecedor.utilTabCustoFornc" cssClass="form-control">
 			   				<form:option value="S" label="SIM" />
 			   				<form:option value="N" label="NÃO" />

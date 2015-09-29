@@ -41,4 +41,16 @@ public class FornecedorController {
 		model.addAttribute("objFornecedor", fornecedor);
 		return "FornecedorSalvar";
 	}
+	
+	@RequestMapping("salvarFornecedor")
+	public String salvarFornecedor(Fornecedor fornecedor, Model model){
+		try{
+			this.fornecedorBO.salvarFornecedor(fornecedor);
+		}catch(Exception e){
+			Utils.setMsgRetorno(model, "Falha na Operação");
+			Utils.setCodRetorno(model, -1);
+		}
+		return "redirect:carregaListaFornecedor";
+	}
+	
 }
