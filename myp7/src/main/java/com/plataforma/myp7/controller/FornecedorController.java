@@ -20,11 +20,12 @@ public class FornecedorController {
 	}
 	
 	@RequestMapping("carregaListaFornecedor")
-	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor, Model model){
+	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, Model model){
 		try{
 			model.addAttribute("idFornecedor", idFornecedor);
 			model.addAttribute("cnpj", "".equals(cnpjFornecedor)? "" :Utils.format("##.###.###/####-##", cnpjFornecedor));
-			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor, model));
+			model.addAttribute("razao", razao);
+			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		}catch(Exception e){
 			Utils.setMsgRetorno(model, "Falha na Operação");
 			Utils.setCodRetorno(model, -1);

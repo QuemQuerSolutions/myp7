@@ -48,6 +48,9 @@
 		<if test="nroCpfCnpj != null" >
 			AND GBL_PESSOA.NRO_CPF_CNPJ = #{nroCpfCnpj} AND GBL_PESSOA.DIG_CPF_CNPJ = #{digCpfCnpj}
 		</if>
+		<if test="razao != null">
+			AND RAZAO like #{razao}
+		</if>
 	</sql>
 	
 	<select id="obterFornecedorPorParametro" resultMap="fornecedorComPessoaMap">

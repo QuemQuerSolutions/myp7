@@ -41,10 +41,10 @@ public class FornecedorBO {
 		}
 	}
 	
-	public List<Fornecedor> obterFornecedorPorParametro(Long idFornecedor, String cnpjFornecedor, Model model){
+	public List<Fornecedor> obterFornecedorPorParametro(Long idFornecedor, String cnpjFornecedor, String razao, Model model){
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setIdFornecedor(idFornecedor);
-
+		fornecedor.setRazao(Utils.emptyToNull(Utils.toLike(razao)));
 		if (!"".equals(cnpjFornecedor)) 
 			fornecedor = this.setNumDigitoDocumento(cnpjFornecedor, fornecedor);
 		
