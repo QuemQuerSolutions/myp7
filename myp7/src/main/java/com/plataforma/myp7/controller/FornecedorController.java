@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.FornecedorBO;
+import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -31,5 +32,13 @@ public class FornecedorController {
 			Utils.setCodRetorno(model, -1);
 		}
 		return "FornecedorLista";
+	}
+	
+	@RequestMapping("editarFornecedor")
+	public String editarFornecedor(Model model, Long id){
+		Fornecedor fornecedor = this.fornecedorBO.obterPorId(id);
+		model.addAttribute("qtdRepresentante", fornecedor.getRepresentantes().size());
+		model.addAttribute("objFornecedor", fornecedor);
+		return "FornecedorSalvar";
 	}
 }

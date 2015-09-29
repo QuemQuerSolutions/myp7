@@ -9,6 +9,11 @@ $(document).ready(function(){
 		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
+	$("#btnNovo").click(function(e){
+		e.stopPropagation();
+		go("editarFornecedor");
+	});
+
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();

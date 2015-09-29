@@ -1,6 +1,8 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -15,9 +17,11 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private String statusFornecedor;
 	private String utilTabCustoFornc;
 	private String cnpjFormatado;
+	private List<Representante> representantes;
 	
 	public Fornecedor(){
 		super();
+		this.representantes = new ArrayList<Representante>();
 	}
 	
 	public Long getIdFornecedor() {
@@ -45,6 +49,14 @@ public class Fornecedor extends Pessoa implements Serializable{
 
 	public void setCnpjFormatado(String cnpjFormatado) {
 		this.cnpjFormatado = cnpjFormatado;
+	}
+
+	public List<Representante> getRepresentantes() {
+		return representantes;
+	}
+
+	public void setRepresentantes(List<Representante> representantes) {
+		this.representantes = representantes;
 	}
 	
 	
