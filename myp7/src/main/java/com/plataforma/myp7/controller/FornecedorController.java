@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.FornecedorBO;
+import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -20,14 +21,36 @@ public class FornecedorController {
 	}
 	
 	@RequestMapping("carregaListaFornecedor")
-	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor, Model model){
+	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, Model model){
 		try{
-			
-			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor, model));
+			model.addAttribute("idFornecedor", idFornecedor);
+			model.addAttribute("cnpj", "".equals(cnpjFornecedor)? "" :Utils.format("##.###.###/####-##", cnpjFornecedor));
+			model.addAttribute("razao", razao);
+			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		}catch(Exception e){
 			Utils.setMsgRetorno(model, "Falha na Operação");
 			Utils.setCodRetorno(model, -1);
 		}
 		return "FornecedorLista";
 	}
+	
+	@RequestMapping("editarFornecedor")
+	public String editarFornecedor(Model model, Long id){
+		Fornecedor fornecedor = this.fornecedorBO.obterPorId(id);
+		model.addAttribute("qtdRepresentante", fornecedor.getRepresentantes().size());
+		model.addAttribute("objFornecedor", fornecedor);
+		return "FornecedorSalvar";
+	}
+	
+	@RequestMapping("salvarFornecedor")
+	public String salvarFornecedor(Fornecedor fornecedor, Model model){
+		try{
+			this.fornecedorBO.salvarFornecedor(fornecedor);
+		}catch(Exception e){
+			Utils.setMsgRetorno(model, "Falha na Operação");
+			Utils.setCodRetorno(model, -1);
+		}
+		return "redirect:carregaListaFornecedor";
+	}
+	
 }

@@ -9,6 +9,11 @@ $(document).ready(function(){
 		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
 
+	$("#btnNovo").click(function(e){
+		e.stopPropagation();
+		go("editarFornecedor");
+	});
+
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();
@@ -21,13 +26,13 @@ $(document).ready(function(){
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-		if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === ""){
+		if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === "" && $("#razao").val() === ""){
 			alerta("Informe ao menos um filtro para buscar.", "warning");
 			return;
 		}
 		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
-			alerta("CNPJ invÃ¡lido.", "warning");
+			alerta("CNPJ inválido.", "warning");
 			return;
 		}
 
@@ -56,10 +61,13 @@ function onClickLine(id){
 		<div id="content-header">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="idFornecedor" class="control-label">CÃ³digo</label>
+					<label for="idFornecedor" class="control-label">Código</label>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-2">
 					<label for="cnpjFornecedor" class="control-label">CNPJ</label>
+				</div>
+				<div class="col-md-4">
+					<label for="razao" class="control-label">Razão Social</label>
 				</div>
 			</div>
 			
@@ -69,29 +77,39 @@ function onClickLine(id){
 				
 				<div class="row">	
 					<div class="col-md-2">
-						<div class="form-group" id="divCodFornecedor">
+						<div class="form-group">
 					    	<input type="text" 
 					    		   class="form-control onlyNumber campo-buscar upper" 
 					    		   id="idFornecedor" 
-					    		   min="0"
-					    		   max="99999999"
 					    		   name="idFornecedor" 
 					    		   maxlength="11" 
 					    		   autofocus="autofocus"
-					    		   placeholder="CÃ³digo"
-					    		   value="" />
+					    		   placeholder="Código"
+					    		   value="${idFornecedor}" />
 					  	</div>
 					</div>
 					
-					<div class="col-md-3">
-						<div class="form-group" id="divCnpj">
+					<div class="col-md-2">
+						<div class="form-group" >
 							<input type="text" 
 								   class="form-control  campo-buscar upper" 
 								   name="cnpjFornecedor"
 								   placeholder="00.000.000/0000-00" 
 								   id="cnpjFornecedor" 
-								   maxlength="18" 
-								   value="">
+								   maxlength="14" 
+								   value="${cnpj}">
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group" >
+							<input type="text" 
+								   class="form-control  campo-buscar upper" 
+								   name="razao"
+								   placeholder="Insira o nome" 
+								   id="razao" 
+								   maxlength="100" 
+								   value="${razao}">
 						</div>
 					</div>
 					<div class="col-md-4"></div>
@@ -115,8 +133,8 @@ function onClickLine(id){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr style="text-align: center">
-						<th width="10%">CÃ³digo</th>
-						<th width="60%">RazÃ£o social</th>	
+						<th width="10%">Código</th>
+						<th width="60%">Razãzo social</th>	
 						<th width="15%">CNPJ</th>
 						<th>Utiliza Tabela de Custo</th>
 					</tr>
@@ -144,7 +162,7 @@ function onClickLine(id){
 						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
-							<td>${fornec.nroCpfCnpj} - ${fornec.digCpfCnpj}</td>
+							<td>${fornec.cnpjFormatado}</td>
 							<td align="center">${valorTD}</td>
 						</tr>
 					</c:forEach>

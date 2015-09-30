@@ -132,11 +132,10 @@ function onClickLine(id){
 				</tbody>
 			</table>
 		</div>
-		<c:import url="EmbalagemSalvar.jsp" />
 	
 	</div>
 	<c:import url="components/footer.jsp">
-		<c:param name="novo" value="nova_embalagem" />
+		<c:param name="novo" value="novo_comprador" />
 	</c:import>
 </body>
 </html>

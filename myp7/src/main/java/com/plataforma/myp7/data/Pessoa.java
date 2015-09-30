@@ -28,7 +28,7 @@ public class Pessoa {
 	private Integer codRetorno;
 	
 	public Pessoa(){}
-	
+
 	public String getMsgRetorno() {
 		return msgRetorno;
 	}

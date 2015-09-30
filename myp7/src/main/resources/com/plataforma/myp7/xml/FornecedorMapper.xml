@@ -42,36 +42,38 @@
 	</sql>
 	
 	<sql id="whereBuscaFornecedor">
+		WHERE 1=1
 		<if test="idFornecedor != null">
 			AND ID_FORNECEDOR = #{idFornecedor} 
 		</if>
 		<if test="nroCpfCnpj != null" >
 			AND GBL_PESSOA.NRO_CPF_CNPJ = #{nroCpfCnpj} AND GBL_PESSOA.DIG_CPF_CNPJ = #{digCpfCnpj}
 		</if>
+		<if test="razao != null">
+			AND RAZAO like #{razao}
+		</if>
 	</sql>
 	
 	<select id="obterFornecedorPorParametro" resultMap="fornecedorComPessoaMap">
 		<include refid="selectFornecedorComPessoa"/>
-		WHERE 1=1
+		
 		<include refid="whereBuscaFornecedor"/>
 	</select>
 	
 	<select id="countFornecedorPorParametro" resultType="int">
 		SELECT count(1) as Qtd FROM myp7db.frn_fornecedor
 			JOIN myp7db.GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = frn_fornecedor.ID_FORNECEDOR
-		WHERE 1=1
 		<include refid="whereBuscaFornecedor"/>
 	</select>
 	
 	<select id="obterFornecedorPorId" resultMap="fornecedorMap">
-		<include refid="selectFornecedor"/>
+		<include refid="selectFornecedorComPessoa"/>
 		WHERE ID_FORNECEDOR = #{idFornecedor}
 	</select>
 	
 	<select id="obterTodos" resultMap="fornecedorMap">
 		<include refid="selectFornecedor"/>
 	</select>
-	
 	
 	<insert id="inserirFornecedor">
 		INSERT INTO frn_fornecedor

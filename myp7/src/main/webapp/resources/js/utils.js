@@ -210,8 +210,8 @@ function isExist(tabBody, nomeID, id){
 	return existente;
 }
 
-function OnClickLineModal(tBody,id){
-	$("#".concat(tBody+" tr")).each(function(){
+function onClickLineModal(tBody,id){
+	$("#".concat(tBody," tr")).each(function(){
 		$(this).removeClass($("#theme").val());
 		if($(this).children().html() == id){
 			$(this).addClass($("#theme").val());
@@ -219,7 +219,7 @@ function OnClickLineModal(tBody,id){
 	});	
 }
 
-function linhaSelecionadaModal(tBody){
+function getValueLineModal(tBody){
 	var data;
 	$(tBody.concat(" tr")).each(function(){
 		if($(this).hasClass($("#theme").val())){
