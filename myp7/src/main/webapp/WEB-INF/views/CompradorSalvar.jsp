@@ -35,8 +35,15 @@ $(document).ready(function() {
 
 	$("#clickUsuario").click(function(e){
 		e.stopPropagation();
+		$(this).addClass("clicked");
 		$("#consulta_usuario").modal();
 	});	
+
+	$("#clickGerente").click(function(e){
+		e.stopPropagation();
+		$(this).addClass("clicked");
+		$("#consulta_usuario").modal();
+	});		
 
 });
 
@@ -87,7 +94,7 @@ function onAddRepresentante(){
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaUsuario">&nbsp;</label>
-				  		<a href="#" target="_self" class="form-control icon-search" id="clickUsuario"><span class="glyphicon glyphicon-search"></span></a>
+				  		<a href="#" target="_self" class="form-control icon-search" id="clickUsuario" name="usuario"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group req">
 				   		<label for="status">Status</label>
@@ -102,11 +109,11 @@ function onAddRepresentante(){
 				  	<div class="col-md-5 form-group req">
 				   		<label for="apelido">Usuário do Gerente</label>
 				   		<input type="hidden" name="gerente.idUsuario" id="idGerente" value="${obj.gerente.idUsuario}"/>
-				    	<input type="text" class="form-control" id="gerente.idUsuario" name="gerente.idUsuario" maxlength="11" value="${obj.gerente.email}" readonly="readonly">
+				    	<input type="text" class="form-control" id="gerente" maxlength="11" value="${obj.gerente.email}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaGerente">&nbsp;</label>
-				  		<a href="#" class="form-control icon-search"><span class="glyphicon glyphicon-search"></span></a>
+				  		<a href="#" target="_self" class="form-control icon-search" id="clickGerente" name="gerente"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group">
 				   		<label for="ediCodigo">Integração ERP</label>

@@ -89,14 +89,9 @@ public class UsuarioBO {
 		}
 	}
 
-	public List<Usuario> selecionaComFiltro(String razaoSocial, String email) {
-		Usuario usuario = new Usuario();
-		
-		if(razaoSocial != null && !razaoSocial.trim().equals(""))
-			usuario.setRazaoSocial(Utils.toLike(razaoSocial));
-		
-		if(email != null && !email.trim().equals(""))
-			usuario.setEmail(Utils.toLike(email));
+	public List<Usuario> selecionaComFiltro(Usuario usuario) {
+		usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : Utils.toLike(usuario.getRazaoSocial()));
+		usuario.setEmail(usuario.getEmail().trim().equals("") ? null : Utils.toLike(usuario.getEmail()));
 		
 		return this.usuarioMapper.obterUsuarioComFiltro(usuario);
 	}

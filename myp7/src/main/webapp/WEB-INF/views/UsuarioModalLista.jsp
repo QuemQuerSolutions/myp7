@@ -10,15 +10,12 @@ var nomeUsu;
 $(document).ready(function() {
 	$('#consulta_usuario').on('hidden.bs.modal', function (e) {
 		$("#listaUsuario").html("");
-		clearAll("#razao_social");
-		clearAll("#email");
+		clearAll("#usaurio_modal_body");
 	});
 
 	$("#limparUsuario").click(function(e){
 		e.stopPropagation();
-		$("#listaUsuario").html("");
-		$("#razao_social").val("");
-		$("#email").val("");
+		clearAll("#usaurio_modal_body");
 		limparVar();
 	});
 		
@@ -47,9 +44,11 @@ $(document).ready(function() {
 		if(nomeUsu == ""){
 			alerta("Selecione um usuário.", "warning");
 		}else{
-			$("#usuario").val($.trim(nomeUsu));
-			$("#idUsuario").val($.trim(idUsu));
+			$("#"+$(".clicked").attr('name')).val($.trim(nomeUsu));
+			$("#id"+$(".clicked").attr('name')).val($.trim(idUsu));
+			
 			$("#limparUsuario").click();
+			removerClasseClicked();
 			$('#consulta_usuario').modal("hide");
 		}
 	});	
@@ -60,19 +59,51 @@ function limparVar(){
 	nomeUsu = "";
 }
 
+function removerClasseClicked(){
+	$(".clicked").removeClass("clicked");
+}
+
 function pesquisarUsuario(razaoSocial, email){
-	if($.trim($("#razao_social").val()) == "" && $.trim($("#email").val()) == ""){
+	if(!hasInformation("#usaurio_modal_body")){
 		alerta("Informe ao menos um filtro para continuar", "warning");
 	}else{
+		var usuario = {razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
 		$.ajax({
-			type: "POST",
-	        data: { razaoSocial:razaoSocial, email:email },
+			type: "GET",
+			data :usuario,
+	        contentType: "application/json; charset=ISO-8859-1",
+		    dataType: "json",
 	        url : 'pesquisarUsuarioAJAX',
-	        success : function(data) {
-	        	$("#listaUsuario").html(data);
+	        success : function(retornoList) {
+	        	if(retornoList.length == 0){
+	        		$("#listaUsuario").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+	        	}
+		        if(retornoList[0].codRetorno == -1){
+			        alerta(retornoList[0].msgRetorno,"warning");
+					$("#listaUsuario").html("");
+					return;
+		        }
+		        
+		        $("#listaUsuario").html(montaTable(retornoList));
+	        },
+	        error: function (xhr, textStatus, errorThrown) {
+		    	console.log("Erro ao retornar lista: ",errorThrown)	;
+		        alerta("Erro ao retornar lista","warning");
 	        }
 	    });
 	}
+}
+
+function montaTable(lista){
+	var linha = "";
+	lista.forEach(function(item){
+		linha = linha.concat("<tr>", 
+								"<td class=\"idUsu\">",item.idUsuario,"</td>", 
+								"<td class=\"razaoUsu\">",item.razaoSocial,"</td>",
+								"<td>",item.email,"</td>",
+							 "</tr>");
+	});
+	return linha;
 }
 
 </script>
@@ -87,30 +118,30 @@ function pesquisarUsuario(razaoSocial, email){
 				</button>
 				<h4 class="modal-title">Selecionar Usuário</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="usaurio_modal_body">
 				<div id="content-header">
 					<form action="SelecionarUsuario" id="frmSelecionarUsuario" method="POST">
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group" id="divrazaosocial">
+								<div class="form-group">
 							   		<label for="sigla" class="control-label">Razão Social</label>
 							    	<input type="text" class="form-control campo-pesquisa" id="razao_social" name="razaoSocial" maxlength="50" placeholder="Razão Social">
 							  	</div>
 							</div>
 		  					<div class="col-md-4">
-								<div class="form-group" id="divemail">
+								<div class="form-group">
 							   		<label for="descricao" class="control-label">Email</label>
 							    	<input type="text" class="form-control campo-pesquisa" id="email" name="email" maxlength="50" placeholder="Email">
 							  	</div>
 		  					</div>
-		  					<div class="col-md-2" id="btnpesquisarUsuarioModal">
+		  					<div class="col-md-2">
 								<div class="form-group">
-									<button type="button" class="btn ${theme} btn-large" id="pesquisarUsuarioModal" style="margin-top: 25px;">Pesquisar</button>
+									<button type="button" class="btn ${theme} btn-large btn-align-top" id="pesquisarUsuarioModal">Pesquisar</button>
 								</div>
 							</div>
-							<div class="col-md-2" id="btnlimparUsuarioModal">
+							<div class="col-md-2">
 								<div class="form-group">
-									<button type="button" class="btn btn-default btn-large" id="limparUsuario" style="margin-top: 25px;">Limpar</button>
+									<button type="button" class="btn btn-default btn-large btn-align-top" id="limparUsuario">Limpar</button>
 								</div>
 							</div>						
 						</div>
