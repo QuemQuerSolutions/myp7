@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
@@ -23,10 +24,13 @@ public class FornecedorController {
 	}
 	
 	@RequestMapping("carregaListaFornecedor")
-	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, Model model){
+	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, String origem, Model model){
 		try{
-			if(Objects.isNull(idFornecedor) && Objects.isNull(cnpjFornecedor) && Objects.isNull(razao))
+			if ("save".equals(origem)){
+				Utils.setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
+				Utils.setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
 				return "FornecedorLista";
+			}
 			model.addAttribute("idFornecedor", idFornecedor);
 			model.addAttribute("cnpj", "".equals(cnpjFornecedor) || Objects.isNull(cnpjFornecedor)? "" :Utils.format("##.###.###/####-##", cnpjFornecedor));
 			model.addAttribute("razao", razao);
@@ -51,10 +55,11 @@ public class FornecedorController {
 		try{
 			this.fornecedorBO.salvarFornecedor(fornecedor);
 		}catch(Exception e){
+			e.printStackTrace();
 			Utils.setMsgRetorno(model, "Falha na Operação");
 			Utils.setCodRetorno(model, -1);
 		}
-		return "redirect:carregaListaFornecedor";
+		return "redirect:carregaListaFornecedor?origem=save";
 	}
 	
 }
