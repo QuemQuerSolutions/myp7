@@ -52,7 +52,7 @@ public class FornecedorBO {
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setIdFornecedor(idFornecedor);
 		fornecedor.setRazao(Utils.emptyToNull(Utils.toLike(razao)));
-		if (!"".equals(cnpjFornecedor)) 
+		if (!"".equals(cnpjFornecedor) && !Objects.isNull(cnpjFornecedor)) 
 			fornecedor = this.setNumDigitoDocumento(cnpjFornecedor, fornecedor);
 		
 		Integer countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
@@ -101,9 +101,8 @@ public class FornecedorBO {
 		return lstRepresentante;
 	}
 	
-	
 	public void salvarFornecedor(Fornecedor fornecedor) throws Exception{
-		if(Objects.isNull(fornecedor.getIdFornecedor())){
+		if(Objects.isNull(fornecedorMapper.obterFornecedorPorId(fornecedor.getIdFornecedor()))){
 			this.fornecedorMapper.inserirFornecedor(fornecedor);
 		}else{
 			this.fornecedorMapper.updateFornecedor(fornecedor);
@@ -119,4 +118,5 @@ public class FornecedorBO {
 			this.representanteFornecedorMapper.insert(rpFornecedor);
 		}
 	}
+	
 }

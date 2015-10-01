@@ -1,5 +1,7 @@
 package com.plataforma.myp7.controller;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +25,10 @@ public class FornecedorController {
 	@RequestMapping("carregaListaFornecedor")
 	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, Model model){
 		try{
+			if(Objects.isNull(idFornecedor) && Objects.isNull(cnpjFornecedor) && Objects.isNull(razao))
+				return "FornecedorLista";
 			model.addAttribute("idFornecedor", idFornecedor);
-			model.addAttribute("cnpj", "".equals(cnpjFornecedor)? "" :Utils.format("##.###.###/####-##", cnpjFornecedor));
+			model.addAttribute("cnpj", "".equals(cnpjFornecedor) || Objects.isNull(cnpjFornecedor)? "" :Utils.format("##.###.###/####-##", cnpjFornecedor));
 			model.addAttribute("razao", razao);
 			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		}catch(Exception e){

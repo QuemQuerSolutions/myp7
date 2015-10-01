@@ -77,9 +77,9 @@
 	
 	<insert id="inserirFornecedor">
 		INSERT INTO frn_fornecedor
-			(STATUS, UTILIZA_TABCUSTO) 
+			(ID_FORNECEDOR, STATUS, UTILIZA_TABCUSTO) 
 		VALUES 
-			(#{statusFornecedor}, #{utilTabCustoFornc})
+			(#{idFornecedor},#{statusFornecedor}, #{utilTabCustoFornc})
 	</insert>
 	
 	<update id="updateFornecedor">

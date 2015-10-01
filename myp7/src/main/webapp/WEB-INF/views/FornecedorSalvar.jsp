@@ -6,7 +6,7 @@
 	
 <script type="text/javascript">
 $(document).ready(function() {
-	if($("#mensagemRetorno").val()) alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+	if($("#mensagemRetorno").val()) alerta($("#mensagemRetorno").val(), $("#codMsgem").val() === "0" ? "success" :"warning");
 	
 	$("#btnCancelar").click(function(e){
 		e.stopPropagation();
@@ -31,13 +31,11 @@ $(document).ready(function() {
 });
 
 function addLineRepresentanteTab(representante){
-	var line = "", 
-	id = representante.idRepresentante;
+	var line = "", id = representante.idRepresentante;
 	if(isExist("linesRepresentante", "idRepresentante", id)) 
 		return;
 	
-	var atual = $("#linesRepresentante").html(), 
-	uuid = guid();
+	var atual = $("#linesRepresentante").html(), uuid = guid();
 	
 	line = line.concat("<tr>");
 	line = line.concat("<td class='text-middle'>", representante.apelido);
@@ -45,11 +43,10 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdRepresentante); reindex(\"#linesRepresentanteTab\", \"representantes\");' >");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdRepresentante\"); reindex(\"#linesRepresentante\", \"representantes\");' >");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
-
 	line = line.concat("</tr>");
 	
 	$("#linesRepresentante").html(atual + line);
@@ -101,32 +98,30 @@ function onAddRepresentante(){
 			   			</form:select>
 				  	</div>
 				</div>
-				
 				<div class="row">&nbsp;</div>
-				<div class="row">&nbsp;</div>
-					<table  class="table table-hover table-bordered table-striped margin0">	
-						<thead>
-							<tr style="text-align: center">
-								<th width="90%"><b>Representante</b> <span id="qtdRepresentante" class="badge">${qtdRepresentante}</span></th>
-								<th width="10%" class="text-center"><a href="#" onclick="onAddRepresentante()"><span class="glyphicon glyphicon-plus"></span></a></th>
+				<table  class="table table-hover table-bordered table-striped margin0">	
+					<thead>
+						<tr style="text-align: center">
+							<th width="90%"><b>Representante</b> <span id="qtdRepresentante" class="badge">${qtdRepresentante}</span></th>
+							<th width="10%" class="text-center"><a href="#" onclick="onAddRepresentante()"><span class="glyphicon glyphicon-plus"></span></a></th>
+						</tr>
+					</thead>
+					<tbody id="linesRepresentante">
+						<c:forEach items="${objFornecedor.representantes}" var="rep" varStatus="i">
+							<tr>
+								<td class="text-middle">
+									${rep.apelido}
+									<form:hidden path="objFornecedor.representantes[${i.index}].idRepresentante"/>
+								</td>
+								<td class="text-center text-middle">
+									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}, qtdRepresentante'); reindex('linesRepresentante', 'representantes');" >
+										<span class="glyphicon glyphicon-remove red"></span>
+									</a>
+								</td>
 							</tr>
-						</thead>
-						<tbody id="linesRepresentante">
-							<c:forEach items="${objFornecedor.representantes}" var="rep" varStatus="i">
-								<tr>
-									<td class="text-middle">
-										${rep.apelido}
-										<form:hidden path="obj.representantes[${i.index}].idRepresentante"/>
-									</td>
-									<td class="text-center text-middle">
-										<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}, qtdRepresentante') reindex('linesRepresentante', 'representantes');" >
-											<span class="glyphicon glyphicon-remove red"></span>
-										</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+						</c:forEach>
+					</tbody>
+				</table>
 			</form>		
 		</div>
 	</div>
