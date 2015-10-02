@@ -12,17 +12,19 @@ $(document).ready(function(){
 
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-		if($("#id").val() === "" && $("#apelido").val() === ""){
-			alerta("Informe ao menos um filtro para buscar", "warning");
-			return;
-		}
-		go("#frmComprador");
+		goComprador();
 	});
 	
 	$("#btnNovo").click(function(e){
 		e.stopPropagation();
 		go("editarComprador");
 	});
+	
+	$("input").keypress(function(e){
+		e.stopPropagation();
+		goComprador();
+	});
+
 
 	$("#limpar").click(function(e){
 		e.stopPropagation();
@@ -34,6 +36,14 @@ $(document).ready(function(){
 
 function onClickLine(id){
 	go("editarComprador?id="+id);
+}
+
+function goComprador(){
+	if(!hasInformation("#frmComprador")){
+		alerta("Informe ao menos um filtro para buscar", "warning");
+		return;
+	}
+	go("#frmComprador");
 }
 
 

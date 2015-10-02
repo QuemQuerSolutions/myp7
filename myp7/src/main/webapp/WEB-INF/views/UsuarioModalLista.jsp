@@ -25,7 +25,7 @@ $(document).ready(function() {
 
 	$(".campo-pesquisa").keypress(function(e){
 	    if(e.which == 13) {
-	    	pesquisar($("#razao_social").val(),$("#email").val());
+	    	pesquisarUsuario($("#razao_social").val(),$("#email").val());
 	    }
 	});
 
@@ -152,7 +152,7 @@ function montaTable(lista){
 						<div class="col-md-13">
 							<div class="form-group" id="divquantidademodal">
 						   		<div id="content-body">
-									<table class="table table-hover table-bordered table-striped tabela-usuario">
+									<table class="table table-hover table-bordered table-striped tabela-usuario mouse-click">
 										<thead>
 											<tr style="text-align: center">
 												<th class="col-id">ID</th>
