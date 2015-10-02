@@ -38,7 +38,10 @@ public class RepresentanteBO {
 			return ret;
 		}
 		
+		if(representante.getUsuario() != null && !Utils.isEmpty(representante.getUsuario().getRazaoSocial()))
+			return representanteMapper.obterPorParametroEUsuario(representante);
 		return representanteMapper.obterPorParametro(representante);
+		
 	}
 
 	public void update(Representante representante) throws ManterEntidadeException {
@@ -64,5 +67,4 @@ public class RepresentanteBO {
 			return null;
 		}
 	}
-	
 }

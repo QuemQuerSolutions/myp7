@@ -20,6 +20,7 @@
 			<c:if test="${tipoUsuarioRetorno eq 'R'}">
 				<myp7:itemMenu label="Usuário" link="Usuario" icon="glyphicon glyphicon-user"/>
 				<myp7:itemMenu label="Comprador" link="Comprador" icon="glyphicon-shopping-cart" />
+				<myp7:itemMenu label="Representante" link="Representante" icon="glyphicon-briefcase" />
 				<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
 				<myp7:itemMenu label="Fornecedor" link="Fornecedor" icon="glyphicon-bed" />
 				<myp7:itemMenu label="Aprovação de Produto" link="ProdutoAprovacao" icon="glyphicon-check" />

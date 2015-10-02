@@ -27,6 +27,10 @@ public class Utils {
 		}
 	}
 	
+	public static boolean isEmpty(String string){
+		return string == null || string.trim().equals("");
+	}
+	
 	public static void setMsgRetorno(Model model, final String msg) {
 		model.addAttribute("mensagemRetorno", msg);
 	}

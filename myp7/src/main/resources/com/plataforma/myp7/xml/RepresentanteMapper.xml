@@ -23,6 +23,14 @@
 		  ]]>
 	</sql>
 	
+	<sql id="selectRepresentanteEPessoa">
+		<![CDATA[
+			SELECT ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO
+			FROM rpr_Representante REP
+			INNER JOIN gbl_pessoa PESS on (REP.ID_REPRESENTANTE = PESS.ID_PESSOA)
+		  ]]>
+	</sql>	
+	
 	<sql id="whereRepresentante">
 		<if test="idRepresentante != null">
 			AND ID_REPRESENTANTE = #{idRepresentante}
@@ -32,11 +40,25 @@
 		</if>
 	</sql>
 	
+	<sql id="whereRepresentanteEPessoa">
+		<include refid="whereRepresentante" />
+		
+		<if test="razaoSocial != null">
+			AND UPPER(PESS.RAZAO) like UPPER(#{razaoSocial})
+		</if>
+	</sql>	
+	
 	<select id="obterPorParametro" resultMap="mapSimples">
 		<include refid="selectRepresentante" />
 		WHERE 1=1
 		<include refid="whereRepresentante" />
 	</select>
+	
+	<select id="obterPorParametroEUsuario" resultMap="mapSimples">
+		<include refid="selectRepresentanteEPessoa" />
+		WHERE 1=1
+		<include refid="whereRepresentanteEPessoa" />
+	</select>	
 	
 	<select id="countPorParametro" resultType="int">
 		SELECT COUNT(1) FROM rpr_Representante

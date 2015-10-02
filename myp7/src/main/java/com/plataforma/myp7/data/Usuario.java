@@ -27,6 +27,15 @@ public class Usuario implements Serializable{
 		this.idUsuario = idUsuario;
 	}
 	
+	public Usuario(Long idUsuario, String razao){
+		this.idUsuario = idUsuario;
+		this.razaoSocial = razao;
+	}
+	
+	public Usuario(String razao){
+		this.razaoSocial = razao;
+	}
+	
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}

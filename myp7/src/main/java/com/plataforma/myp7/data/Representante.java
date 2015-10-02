@@ -15,6 +15,8 @@ public class Representante {
 	private Usuario usuario;
 	private String uuid;
 	
+	private String razao;
+	
 	//Mensagens
 	private String msgRetorno;
 	private Integer codRetorno;
@@ -80,11 +82,25 @@ public class Representante {
 		this.idRepresentante = idRepresentante;
 	}
 	
+	public void setIdRepresentante(String idRepresentante) {
+		try{
+			this.idRepresentante = Long.parseLong(idRepresentante);
+		}catch(Exception e){ }
+	}
+	
 	public String getStatus() {
 		return status;
 	}
 	
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getRazao() {
+		return razao;
+	}
+
+	public void setRazao(String razaoSocial) {
+		this.razao = razaoSocial;
 	}
 }
