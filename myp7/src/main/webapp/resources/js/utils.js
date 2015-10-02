@@ -173,14 +173,14 @@ function controlTabs(tab){
 
 function onRemoveLineBruno(idLine, contador){
 	var cont = parseInt($("#".concat(contador)).text());
-	$("#"+idLine).parent().parent("tr").remove();
-	$("#".concat(contador)).html(parseInt(--cont));
+	$("#".concat(idLine)).parent().parent("tr").remove();
+	$("#".concat(contador)).text(parseInt(--cont));
 }
 
 function onRemoveLine(idLine, contador){
 	$("#"+idLine).parent().parent("tr").remove();
 	var cont = parseInt($(contador).text());
-	$(contador).html(--cont);
+	$(contador).text(--cont);
 }
 
 function addContador(contador){

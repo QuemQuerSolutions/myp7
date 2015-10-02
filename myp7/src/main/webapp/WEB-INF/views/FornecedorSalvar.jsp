@@ -43,7 +43,7 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLineBruno(\"",uuid,"\", 'qtdRepresentante'); reindex(\"#linesRepresentante\", \"representantes\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLineBruno(\"",uuid,"\", \"qtdRepresentante\"); reindex(\"#linesRepresentante\", \"representantes\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
