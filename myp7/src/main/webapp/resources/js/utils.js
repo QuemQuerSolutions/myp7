@@ -172,11 +172,9 @@ function controlTabs(tab){
 }
 
 function onRemoveLine(idLine, contador){
-	$("#"+idLine).parent().parent("tr").remove();
 	var cont = parseInt($(contador).text());
-	alert("valor cont"+cont);
+	$("#"+idLine).parent().parent("tr").remove();
 	$(contador).text(--cont);
-	alert("valor QTD".concat($(contador).val()));
 }
 
 function addContador(contador){
@@ -230,5 +228,5 @@ function getValueLineModal(tBody){
 		}
 		
 	});
-	return data
+	return data;
 }

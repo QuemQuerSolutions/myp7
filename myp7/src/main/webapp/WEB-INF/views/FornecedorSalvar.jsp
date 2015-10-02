@@ -99,7 +99,7 @@ function onAddRepresentante(){
 				  	</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<table  class="table table-hover table-bordered table-striped margin0">	
+				<table  class="table table-hover table-bordered table-striped margin0" >	
 					<thead>
 						<tr style="text-align: center">
 							<th width="90%"><b>Representante</b> <span id="qtdRepresentante" class="badge">${qtdRepresentante}</span></th>
