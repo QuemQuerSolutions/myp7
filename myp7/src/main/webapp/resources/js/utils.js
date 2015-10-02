@@ -171,15 +171,21 @@ function controlTabs(tab){
 	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
 }
 
-function onRemoveLine(idLine, contador){
+function onRemoveLineBruno(idLine, contador){
 	var cont = parseInt($("#".concat(contador)).text());
 	$("#"+idLine).parent().parent("tr").remove();
 	$("#".concat(contador)).html(parseInt(--cont));
 }
 
+function onRemoveLine(idLine, contador){
+	$("#"+idLine).parent().parent("tr").remove();
+	var cont = parseInt($(contador).text());
+	$(contador).html(--cont);
+}
+
 function addContador(contador){
 	var cont = parseInt($(contador).text());
-	$(contador).text(++cont);
+	$(contador).html(++cont);
 }
 
 function reindex(tabela, nomeObjeto){
