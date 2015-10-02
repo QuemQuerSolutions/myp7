@@ -115,7 +115,8 @@ public class FornecedorBO {
 	private void associaRepresentante(List<Representante> lstRepresentatante, Long  id) throws Exception{
 		for(Representante rp: lstRepresentatante){
 			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(rp,id);
-			this.representanteFornecedorMapper.insert(rpFornecedor);	
+			if(!Objects.isNull(rpFornecedor.getRepresentante().getIdRepresentante()))
+				this.representanteFornecedorMapper.insert(rpFornecedor);	
 		}
 	}
 	

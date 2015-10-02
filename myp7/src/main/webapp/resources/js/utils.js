@@ -174,7 +174,9 @@ function controlTabs(tab){
 function onRemoveLine(idLine, contador){
 	$("#"+idLine).parent().parent("tr").remove();
 	var cont = parseInt($(contador).text());
-	$(contador).text(--cont);	
+	alert("valor cont"+cont);
+	$(contador).text(--cont);
+	alert("valor QTD".concat($(contador).val()));
 }
 
 function addContador(contador){
@@ -192,7 +194,6 @@ function reindex(tabela, nomeObjeto){
 			$(this).attr("name", name);
 			$(this).attr("id", nomeObjeto.concat(cont, nomeCampo));
 		});
-		
 		
 		cont++;
 	});
