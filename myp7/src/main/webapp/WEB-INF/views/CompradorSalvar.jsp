@@ -89,8 +89,8 @@ function onAddRepresentante(){
 				<div class="row">
 				  	<div class="col-md-5 form-group req">
 				   		<label for="usuario">Usuário</label>
-				   		<input type="hidden" name="usuario.idUsuario" id="idUsuario" value="${obj.usuario.idUsuario}"/>
-				    	<input type="text" class="form-control" id="usuario" value="${obj.usuario.email}" readonly="readonly">
+				   		<input type="hidden" name="usuario.idUsuario" id="idusuario" value="${obj.usuario.idUsuario}"/>
+				    	<input type="text" class="form-control" id="usuario" value="${obj.usuario.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaUsuario">&nbsp;</label>
@@ -108,15 +108,15 @@ function onAddRepresentante(){
 				<div class="row">
 				  	<div class="col-md-5 form-group req">
 				   		<label for="apelido">Usuário do Gerente</label>
-				   		<input type="hidden" name="gerente.idUsuario" id="idGerente" value="${obj.gerente.idUsuario}"/>
-				    	<input type="text" class="form-control" id="gerente" maxlength="11" value="${obj.gerente.email}" readonly="readonly">
+				   		<input type="hidden" name="gerente.idUsuario" id="idgerente" value="${obj.gerente.idUsuario}"/>
+				    	<input type="text" class="form-control" id="gerente" maxlength="11" value="${obj.gerente.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaGerente">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" id="clickGerente" name="gerente"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
 				  	<div class="col-md-6 form-group">
-				   		<label for="ediCodigo">Integração ERP</label>
+				   		<label for="ediCodigo">Código da Integração ERP</label>
 				    	<input type="text" class="form-control" id="ediCodigo" name="ediCodigo" maxlength="11" value="${obj.ediCodigo}" readonly="readonly">
 				  	</div>
 				</div>

@@ -44,8 +44,9 @@ $(document).ready(function(){
 });
 
 function onClickLine(id){
-	
+	go("editarFornecedor?id="+id);
 }
+
 
 
 </script>
