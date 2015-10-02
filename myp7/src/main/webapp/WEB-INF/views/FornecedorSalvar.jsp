@@ -43,7 +43,7 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdRepresentante); reindex(\"#linesRepresentante\", \"representantes\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", 'qtdRepresentante'); reindex(\"#linesRepresentante\", \"representantes\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
@@ -102,7 +102,7 @@ function onAddRepresentante(){
 				<table  class="table table-hover table-bordered table-striped margin0" >	
 					<thead>
 						<tr style="text-align: center">
-							<th width="90%"><b>Representante</b> <span id="qtdRepresentante" class="badge">${qtdRepresentante}</span></th>
+							<th width="90%"><b>Representante</b><span id="qtdRepresentante" class="badge">${qtdRepresentante}</span></th>
 							<th width="10%" class="text-center"><a href="#" onclick="onAddRepresentante()"><span class="glyphicon glyphicon-plus"></span></a></th>
 						</tr>
 					</thead>
@@ -114,7 +114,7 @@ function onAddRepresentante(){
 									<form:hidden path="objFornecedor.representantes[${i.index}].idRepresentante" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}, qtdRepresentante'); reindex('linesRepresentante', 'representantes');" >
+									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}', 'qtdRepresentante'); reindex('linesRepresentante', 'representantes');" >
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>

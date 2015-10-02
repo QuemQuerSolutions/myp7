@@ -172,14 +172,14 @@ function controlTabs(tab){
 }
 
 function onRemoveLine(idLine, contador){
-	var cont = parseInt($(contador).text());
+	var cont = parseInt($("#".concat(contador)).text());
 	$("#"+idLine).parent().parent("tr").remove();
-	$(contador).text(--cont);
+	$("#".concat(contador)).html(parseInt(--cont));
 }
 
 function addContador(contador){
 	var cont = parseInt($(contador).text());
-	$(contador).text(++cont);	
+	$(contador).text(++cont);
 }
 
 function reindex(tabela, nomeObjeto){
