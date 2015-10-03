@@ -1,6 +1,6 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.toLike;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.mapper.FornecedorCustoMapper;
-import com.plataforma.myp7.util.Utils;
 
 @Service
 public class FornecedorCustoBO {
@@ -44,7 +43,7 @@ public class FornecedorCustoBO {
 		FornecedorCusto fc = new FornecedorCusto();
 		Produto prodt = new Produto();
 
-		prodt.setDesProduto(toLike(Utils.emptyToNull(descricao)));
+		prodt.setDesProduto(toLike(emptyToNull(descricao)));
 		
 		codigo = codigo.trim();
 		

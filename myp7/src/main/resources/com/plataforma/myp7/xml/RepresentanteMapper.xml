@@ -10,6 +10,14 @@
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
 	
+	<resultMap id="representanteMaisRazaoMap" type="com.plataforma.myp7.data.Representante">
+		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
+		<result property="status"  			column="STATUS" />
+		<result property="apelido" 			column="APELIDO" />
+		<result property="razao" 			column="PESS.RAZAO" />
+		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
+	</resultMap>	
+	
 	<resultMap id="mapSimples" type="com.plataforma.myp7.data.Representante">
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
 		<result property="status"  			column="STATUS" />
@@ -23,9 +31,9 @@
 		  ]]>
 	</sql>
 	
-	<sql id="selectRepresentanteEPessoa">
+	<sql id="selectRepresentanteMaisRazao">
 		<![CDATA[
-			SELECT ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO
+			SELECT ID_REPRESENTANTE, STATUS, APELIDO, PESS.RAZAO ,ID_USUARIO
 			FROM rpr_Representante REP
 			INNER JOIN gbl_pessoa PESS on (REP.ID_REPRESENTANTE = PESS.ID_PESSOA)
 		  ]]>
@@ -40,11 +48,11 @@
 		</if>
 	</sql>
 	
-	<sql id="whereRepresentanteEPessoa">
+	<sql id="whereRepresentanteMaisRazao">
 		<include refid="whereRepresentante" />
 		
-		<if test="razaoSocial != null">
-			AND UPPER(PESS.RAZAO) like UPPER(#{razaoSocial})
+		<if test="razao != null">
+			AND UPPER(PESS.RAZAO) like UPPER(#{razao})
 		</if>
 	</sql>	
 	
@@ -54,10 +62,10 @@
 		<include refid="whereRepresentante" />
 	</select>
 	
-	<select id="obterPorParametroEUsuario" resultMap="mapSimples">
-		<include refid="selectRepresentanteEPessoa" />
+	<select id="obterPorParametroMaisRazao" resultMap="representanteMaisRazaoMap">
+		<include refid="selectRepresentanteMaisRazao" />
 		WHERE 1=1
-		<include refid="whereRepresentanteEPessoa" />
+		<include refid="whereRepresentanteMaisRazao" />
 	</select>	
 	
 	<select id="countPorParametro" resultType="int">

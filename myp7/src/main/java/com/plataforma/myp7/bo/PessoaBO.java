@@ -12,7 +12,7 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.mapper.PessoaMapper;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class PessoaBO {
@@ -25,7 +25,7 @@ public class PessoaBO {
 	}
 	
 	public List<Pessoa> obterPessoaPorParametro(Pessoa pessoa){
-		pessoa.setRazao(Utils.toLike(pessoa.getRazao()));
+		pessoa.setRazao(toLike(pessoa.getRazao()));
 		int countPessoa = this.pessoaMapper.countPessoa(pessoa);
 		if (countPessoa == 0) 
 			return new ArrayList<Pessoa>();

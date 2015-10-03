@@ -1,9 +1,6 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.cleanLike;
-import static com.plataforma.myp7.util.Utils.setCodRetorno;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
-import static com.plataforma.myp7.util.Utils.toLike;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.List;
 import java.util.Objects;

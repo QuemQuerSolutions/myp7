@@ -17,7 +17,7 @@ import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class FornecedorBO {
@@ -51,20 +51,20 @@ public class FornecedorBO {
 	public List<Fornecedor> obterFornecedorPorParametro(Long idFornecedor, String cnpjFornecedor, String razao, Model model){
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setIdFornecedor(idFornecedor);
-		fornecedor.setRazao(Utils.emptyToNull(Utils.toLike(razao)));
+		fornecedor.setRazao(emptyToNull(toLike(razao)));
 		if (!"".equals(cnpjFornecedor) && !Objects.isNull(cnpjFornecedor)) 
 			fornecedor = this.setNumDigitoDocumento(cnpjFornecedor, fornecedor);
 		
 		Integer countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
 		
 		if(countFornecedor == 0){
-			Utils.setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem());
-			Utils.setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
+			setMsgRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getMensagem());
+			setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
 			return new ArrayList<Fornecedor>();
 		}
 		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			Utils.setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
-			Utils.setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+			setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
+			setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
 			return new ArrayList<Fornecedor>();
 		}
 		return this.formataCNPJ(this.fornecedorMapper.obterFornecedorPorParametro(fornecedor));
@@ -79,7 +79,7 @@ public class FornecedorBO {
 	private List<Fornecedor> formataCNPJ(List<Fornecedor> lstFornecedor){
 		List<Fornecedor> lstFornecedorNovo = new ArrayList<Fornecedor>();
 		for(Fornecedor f:lstFornecedor){
-			f.setCnpjFormatado(Utils.format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()))));
+			f.setCnpjFormatado(format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()))));
 			lstFornecedorNovo.add(f);
 		}
 		return lstFornecedorNovo;

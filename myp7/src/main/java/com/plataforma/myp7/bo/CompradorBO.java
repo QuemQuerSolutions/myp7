@@ -1,6 +1,6 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.setRetorno;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.ArrayList;
 import java.util.List;

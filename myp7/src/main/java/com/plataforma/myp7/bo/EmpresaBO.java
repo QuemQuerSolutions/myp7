@@ -12,7 +12,7 @@ import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.EmpresaMapper;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class EmpresaBO {
@@ -33,7 +33,7 @@ public class EmpresaBO {
 	}
 	
 	public List<Empresa> obterPorParametro(Empresa empresa){
-		empresa.setNomeReduzido(Utils.toLike(empresa.getNomeReduzido()));
+		empresa.setNomeReduzido(toLike(empresa.getNomeReduzido()));
 		
 		int count = empresaMapper.countPorParametro(empresa);
 		

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Alias("Comprador")
 public class Comprador extends Pessoa implements Serializable {
@@ -38,7 +38,7 @@ public class Comprador extends Pessoa implements Serializable {
 	public Comprador(Comprador comprador) {
 		this();
 		this.id = comprador.getId();
-		this.apelido = Utils.toLike(comprador.getApelido()); 
+		this.apelido = toLike(comprador.getApelido()); 
 	}
 
 

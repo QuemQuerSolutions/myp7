@@ -1,7 +1,6 @@
 package com.plataforma.myp7.controller;
 
-import static com.plataforma.myp7.util.Utils.setCodRetorno;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.List;
 

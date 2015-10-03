@@ -11,7 +11,7 @@ public interface RepresentanteMapper {
 
 	List<Representante> obterTodosRepresentantes();
 	List<Representante> obterPorParametro(Representante representante);
-	List<Representante> obterPorParametroEUsuario(Representante representante);
+	List<Representante> obterPorParametroMaisRazao(Representante representante);
 	
 	int countPorParametro(Representante representante);
 

@@ -18,7 +18,7 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class UsuarioBO {
@@ -44,17 +44,17 @@ public class UsuarioBO {
 			usuario.setTipoUsuario(tpUsuario);
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
 			this.usuarioMapper.incluir(usuario);
-			Utils.setMsgRetorno(model, "Usuario inserido com sucesso.");
-			Utils.setCodRetorno(model, 0);
+			setMsgRetorno(model, "Usuario inserido com sucesso.");
+			setCodRetorno(model, 0);
 		}else{
-			Utils.setCodRetorno(model, -1);
+			setCodRetorno(model, -1);
 		}
 	}
 	
 	private boolean isValidInsert(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		
 		if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
-			Utils.setMsgRetorno(model, "Email já cadastrado.");
+			setMsgRetorno(model, "Email já cadastrado.");
 			return false;
 		}
 		
@@ -64,7 +64,7 @@ public class UsuarioBO {
 
 		SenhaBO senhaBO = new SenhaBO();
 		if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
-			Utils.setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
+			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
 			return false;
 		}
 		
@@ -80,18 +80,18 @@ public class UsuarioBO {
 			this.usuarioMapper.updateTheme(usuario);
 			
 			session.setAttribute(ATTR_THEME, theme);
-			Utils.setMsgRetorno(model, "Tema alterado com sucesso.");
-			Utils.setCodRetorno(model, 0);
+			setMsgRetorno(model, "Tema alterado com sucesso.");
+			setCodRetorno(model, 0);
 		}catch(Exception e){
 			e.printStackTrace();
-			Utils.setMsgRetorno(model, "Erro ao alterar tema, contate o administrador.");
-			Utils.setCodRetorno(model, -1);
+			setMsgRetorno(model, "Erro ao alterar tema, contate o administrador.");
+			setCodRetorno(model, -1);
 		}
 	}
 
 	public List<Usuario> selecionaComFiltro(Usuario usuario) {
-		usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : Utils.toLike(usuario.getRazaoSocial()));
-		usuario.setEmail(usuario.getEmail().trim().equals("") ? null : Utils.toLike(usuario.getEmail()));
+		usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
+		usuario.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
 		
 		return this.usuarioMapper.obterUsuarioComFiltro(usuario);
 	}

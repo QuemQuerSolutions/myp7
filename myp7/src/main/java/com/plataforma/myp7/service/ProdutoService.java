@@ -17,7 +17,7 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.MensagemWS;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 @RequestMapping("/wsproduto")
@@ -38,7 +38,7 @@ public class ProdutoService {
 		try {
 			Produto produto = new Produto();
 			produto.setIdProduto(id);
-			produto.setDesProduto(Utils.emptyToNull(desc));
+			produto.setDesProduto(emptyToNull(desc));
 			List<Produto> lstProduto = this.produtoBO.consultaProdutoService(produto);
 			return gson.toJson(lstProduto.size() == 0?MensagemWS.getMensagem(MensagemWS.CONSUL_VAZIA):lstProduto);
 		} catch (Exception e) {

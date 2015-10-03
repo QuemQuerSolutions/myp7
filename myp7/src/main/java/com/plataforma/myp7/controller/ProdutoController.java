@@ -1,7 +1,6 @@
 package com.plataforma.myp7.controller;
 
-import static com.plataforma.myp7.util.Utils.setCodRetorno;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.Objects;
 
@@ -21,7 +20,6 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
-import com.plataforma.myp7.util.Utils;
 
 @Controller
 public class ProdutoController {
@@ -80,8 +78,8 @@ public class ProdutoController {
 			
 			this.sucessoInsert = "Produto salvo com sucesso";
 		}catch(Exception e){
-			Utils.setMsgRetorno(model, "Falha na operação.");
-			Utils.setCodRetorno(model, -1);
+			setMsgRetorno(model, "Falha na operação.");
+			setCodRetorno(model, -1);
 			e.printStackTrace();
 		}
 		return "redirect:Produto";
@@ -97,8 +95,8 @@ public class ProdutoController {
 			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
 			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
 		} catch (Exception e) {
-			Utils.setMsgRetorno(model, "Falha na operação.");
-			Utils.setCodRetorno(model, -1);
+			setMsgRetorno(model, "Falha na operação.");
+			setCodRetorno(model, -1);
 			e.printStackTrace();
 		}
 		return "ProdutoLista";

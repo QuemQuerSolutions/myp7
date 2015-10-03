@@ -12,7 +12,7 @@ import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.RepresentanteMapper;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class RepresentanteBO {
@@ -25,7 +25,7 @@ public class RepresentanteBO {
 	}
 	
 	public List<Representante> obterPorParametro(Representante representante){
-		representante.setApelido(Utils.toLike(representante.getApelido()));
+		representante.setApelido(toLike(representante.getApelido()));
 		
 		int count = representanteMapper.countPorParametro(representante);
 		
@@ -38,9 +38,12 @@ public class RepresentanteBO {
 			return ret;
 		}
 		
-		if(representante.getUsuario() != null && !Utils.isEmpty(representante.getUsuario().getRazaoSocial()))
-			return representanteMapper.obterPorParametroEUsuario(representante);
-		return representanteMapper.obterPorParametro(representante);
+		if(isEmpty(representante.getRazao()))
+			return representanteMapper.obterPorParametro(representante);
+		
+		representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
+		return representanteMapper.obterPorParametroMaisRazao(representante);
+		
 		
 	}
 

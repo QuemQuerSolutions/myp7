@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Representante;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 public class RepresentanteController {
@@ -26,18 +26,16 @@ public class RepresentanteController {
 	}
 	
 	@RequestMapping("carregaListaRepresentante")
-	public String carregaListaRepresentante(Representante representante, String apelido, Model model){
+	public String carregaListaRepresentante(Representante representante, Model model){
 		try{
 			model.addAttribute("idRepresentante", representante != null ? representante.getIdRepresentante() : null );
-			model.addAttribute("apelido", representante != null && !Utils.isEmpty(representante.getApelido()) ? representante.getApelido() : null );
-			
-			representante.setRazao(!Utils.isEmpty(representante.getRazao()) ? Utils.toLike(representante.getRazao()) : null );
-			model.addAttribute("razao", representante.getRazao() );
+			model.addAttribute("apelido", representante != null ? emptyToNull(representante.getApelido().trim()) : null );
+			model.addAttribute("razao", representante != null ? emptyToNull(representante.getRazao().trim()) : null );
 			
 			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante));
 		}catch(Exception e){
-			Utils.setMsgRetorno(model, "Falha na Operação");
-			Utils.setCodRetorno(model, -1);
+			setMsgRetorno(model, "Falha na Operação");
+			setCodRetorno(model, -1);
 		}
 		return "RepresentanteLista";
 	}	
