@@ -30,6 +30,10 @@ public class FornecedorController {
 				setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
 				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
 				return "FornecedorLista";
+			}else if("error".equals(origem)){
+				setMsgRetorno(model, "Falha na Operação");
+				setCodRetorno(model, -1);
+				return "FornecedorLista";
 			}
 			model.addAttribute("idFornecedor", idFornecedor);
 			model.addAttribute("cnpj", "".equals(cnpjFornecedor) || Objects.isNull(cnpjFornecedor)? "" :format("##.###.###/####-##", cnpjFornecedor));
@@ -56,8 +60,7 @@ public class FornecedorController {
 			this.fornecedorBO.salvarFornecedor(fornecedor);
 		}catch(Exception e){
 			e.printStackTrace();
-			setMsgRetorno(model, "Falha na Operação");
-			setCodRetorno(model, -1);
+			return "redirect:carregaListaFornecedor?origem=error";
 		}
 		return "redirect:carregaListaFornecedor?origem=save";
 	}
