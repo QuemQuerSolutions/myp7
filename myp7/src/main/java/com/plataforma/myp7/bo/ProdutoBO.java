@@ -1,7 +1,11 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.*;
+import static com.plataforma.myp7.util.Utils.cleanLike;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.toLike;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +19,9 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
+import com.plataforma.myp7.enums.SituacaoEnum;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
 import com.plataforma.myp7.util.Upload;
@@ -141,4 +147,35 @@ public class ProdutoBO {
 			return false;
 		}
 	}
+	
+	public List<Produto> obterParaAprovacao(Produto produto){
+		produto.setDesProduto(Utils.toLike(produto.getDesProduto()));
+		produto.setSituacao(SituacaoEnum.getSigla(produto.getSituacao()));
+		
+		int count = produtoMapper.countProdutoAprovacao(produto);
+		
+		if(count == 0)
+			return new ArrayList<Produto>();
+		
+		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			List<Produto> ret = new ArrayList<Produto>();
+			ret.add(new Produto(Mensagem.REFINE_SUA_PESQUISA));
+			return ret;
+		}
+		List<Produto> lista = produtoMapper.obterProdutoAprovacao(produto);
+		
+		for(Produto p: lista)
+			p.setDescSituacao(SituacaoEnum.getDescricao(p.getSituacao()));
+			
+		return lista;
+	}
+	
+	public void aprovarProduto(Long idProduto){
+		produtoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idProduto);
+	}
+
+	public List<Produto> obterQtdPorSituacao(Long idUsuario) {
+		return produtoMapper.qtdPorSituacao(idUsuario);
+	}
+
 }

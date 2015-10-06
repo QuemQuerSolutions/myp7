@@ -22,7 +22,7 @@ $(document).ready(function(){
 	
 	$("input").keypress(function(e){
 		e.stopPropagation();
-		goComprador();
+		if(e.which == 13) goComprador();
 	});
 
 

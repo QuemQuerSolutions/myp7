@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.plataforma.myp7.enums.Mensagem;
+
 @Alias("Produto")
 public class Produto implements Serializable{
 
@@ -26,12 +28,86 @@ public class Produto implements Serializable{
 	private NCM ncmProduto;
 	private Embalagem embalagem;
 	private Usuario usuario;
+	private int qtdPorSituacao;
+	private String situacao;
+	private String descSituacao;
+	private Long idUsuario;
+	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
 	
 	public Produto(){
 		ncmProduto = new NCM();
 		embalagem = new Embalagem();
 	}
 	
+	public Produto(Mensagem msg) {
+		this.msgRetorno = msg.getMensagem();
+		this.codRetorno = msg.getCodigo();
+	}
+
+
+	
+	
+	public String getDescSituacao() {
+		return descSituacao;
+	}
+
+	public void setDescSituacao(String descSituacao) {
+		this.descSituacao = descSituacao;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
+
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+
+	public int getQtdPorSituacao() {
+		return qtdPorSituacao;
+	}
+
+
+	public void setQtdPorSituacao(int qtdPorSituacao) {
+		this.qtdPorSituacao = qtdPorSituacao;
+	}
+
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

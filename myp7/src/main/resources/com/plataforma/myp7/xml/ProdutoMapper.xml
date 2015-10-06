@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.plataforma.myp7.mapper.ProdutoMapper">
+<mapper namespace="com.plataforma.myp7.mapper.ProdutoMapper"> 
 
 	<resultMap id="produtoMap" type="com.plataforma.myp7.data.Produto">
 		<id property="idProduto" 				column="ID_PRODUTO" />
@@ -39,6 +39,12 @@
 		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
 		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO 
 		  ]]>
+	</sql>
+	
+	<sql id="whereComSituacao">
+		<if test="situacao != null"> 	AND SITUACAO = #{situacao}</if>
+		<if test="idProduto != null">	AND ID_PRODUTO = #{idProduto}</if>
+		<if test="desProduto != null">	AND upper(DESCRICAO) like upper(#{desProduto})</if>
 	</sql>
 	
 	<select id="obterProdutoPorId" resultMap="produtoMap">
@@ -83,7 +89,6 @@
 	</select>
 	
 	<select id="consultaProdutoService" resultMap="produtoMap">
-		<!-- <include refid="selectProduto"/> -->
 		SELECT ID_PRODUTO, ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
 		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
 		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO
@@ -98,15 +103,39 @@
 		</if>
 	</select>
 	
+	<select id="obterProdutoAprovacao" resultType="com.plataforma.myp7.data.Produto">
+		SELECT ID_PRODUTO as idProduto, 
+			   SITUACAO, 
+			   DESCRICAO as desProduto, 
+			   EANDUN as eanDunProduto
+		FROM PRD_USUARIO_PRODUTO
+		WHERE ID_USUARIO = #{idUsuario}
+		<include refid="whereComSituacao"/>
+	</select>
+	
+	<select id="countProdutoAprovacao" resultType="int">
+		SELECT COUNT(1)
+		FROM PRD_USUARIO_PRODUTO
+		WHERE ID_USUARIO = #{idUsuario}
+		<include refid="whereComSituacao"/>	
+	</select>
+	
+	<select id="qtdPorSituacao" resultType="com.plataforma.myp7.data.Produto">
+		SELECT SITUACAO, COUNT(1) as qtdPorSituacao
+		FROM PRD_USUARIO_PRODUTO
+		WHERE ID_USUARIO = #{idUsuario}
+		GROUP BY SITUACAO
+	</select>
+	
 	<insert  id="salvarProduto" keyProperty="ID_PRODUTO" keyColumn="ID_PRODUTO" useGeneratedKeys="true">
 		INSERT INTO prd_usuario_produto 
 			(ID_USUARIO, DESCRICAO, CODIGO_INDUSTRIA, PESO_BRUTO,
 		    PESO_LIQUIDO, ALTURA, LARGURA, PROFUNDIDADE, ID_NCM, ID_EMBALAGEM,
-		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO)
+		    QTD_EMBALAGEM, EANDUN, IMAGEM_PRODUTO, SITUACAO)
 		VALUES
 			(#{usuario.idUsuario}, #{desProduto}, #{codIndustria}, #{pesoBruto},
 			#{pesoLiquido},#{alturaProduto},#{larguraProduto},#{profunProduto},#{ncmProduto.idNcm},#{embalagem.idEmbalagem},
-			#{qtdEmbalagem},#{eanDunProduto},#{caminhoImagem}) 
+			#{qtdEmbalagem},#{eanDunProduto},#{caminhoImagem}, #{situacao}) 
 	</insert>
 	
 	<update id="atualizaProduto">
@@ -119,6 +148,10 @@
 			WHERE ID_PRODUTO=#{idProduto}
 	</update>
 	
-	
+	<update id="updateStatus">
+		UPDATE prd_usuario_produto
+		SET SITUACAO = #{situacao}
+		WHERE ID_PRODUTO=#{idProduto}
+	</update>
 	
 </mapper>
