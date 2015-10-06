@@ -98,14 +98,27 @@ function getLineAprovacao(produto){
 
 function onClickAprovar(idProduto){
 	
-	$.get("aprovarProduto?idProduto=".concat(idProduto), function(){
-		pesquisar();
-		var qtdAguardando = parseInt($("#qtdAguardando").text());
-		var qtdAprovado = parseInt($("#qtdAprovado").text());
-		
-		$("#qtdAguardando").text(--qtdAguardando);
-		$("#qtdAprovado").text(++qtdAprovado);
-		alerta("Produto aprovado com sucesso","success");
+	swal({
+		title : "",
+		text : "Tem certeza que deseja Aprovar?",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#F0AD4E",
+		confirmButtonText : "Aprovar",
+		cancelButtonText: "Cancelar",
+		closeOnConfirm : false,
+		html: false
+	},
+	function() {
+		$.get("aprovarProduto?idProduto=".concat(idProduto), function(){
+			pesquisar();
+			var qtdAguardando = parseInt($("#qtdAguardando").text());
+			var qtdAprovado = parseInt($("#qtdAprovado").text());
+			
+			$("#qtdAguardando").text(--qtdAguardando);
+			$("#qtdAprovado").text(++qtdAprovado);
+			swal("Produto aprovado com sucesso", "", "success");
+		});
 	});
 }
 
@@ -153,6 +166,7 @@ function addLineRepresentanteTab(representante){
 		<form action="CarregaListaProdutoAprovacao" id="frmAprovacaoProduto" method="GET">
 			<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 			<input type="hidden" id="codMsgem" value="${codMsgem}" />
+			<input type="hidden" id="theme" value="${theme}" />
 		
 		<div id="content-header">
 			<div class="row">
