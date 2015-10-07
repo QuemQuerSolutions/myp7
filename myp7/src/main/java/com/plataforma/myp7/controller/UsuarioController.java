@@ -46,23 +46,4 @@ public class UsuarioController {
 		return this.usuarioBO.selecionaComFiltro(usuario);
 	}
 	
-	private String geraTabelaResultado(List<Usuario> lista){
-		StringBuilder sb = new StringBuilder();
-		
-		for(Usuario usu : lista){
-			sb.append("<tr>");
-			sb.append("		<td class=\"idUsu\">");
-			sb.append(			usu.getIdUsuario());
-			sb.append("		</td>");
-			sb.append("		<td class=\"razaoUsu\">");
-			sb.append(			usu.getRazaoSocial());
-			sb.append("		</td>");
-			sb.append("		<td>");
-			sb.append(			usu.getEmail());
-			sb.append("		</td>");			
-			sb.append("</tr>");
-		}
-		
-		return sb.toString();
-	}	
 }
