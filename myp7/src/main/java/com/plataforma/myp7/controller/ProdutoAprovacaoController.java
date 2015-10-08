@@ -38,4 +38,10 @@ public class ProdutoAprovacaoController {
 		produtoBO.aprovarProduto(idProduto);
 		return "ProdutoAprovacaoLista";
 	}
+	
+	@RequestMapping(value="reprovarProduto", method=RequestMethod.GET)
+	public String reprovarProduto(Long idProduto){
+		produtoBO.reprovarProduto(idProduto);
+		return "ProdutoAprovacaoLista";
+	}
 }

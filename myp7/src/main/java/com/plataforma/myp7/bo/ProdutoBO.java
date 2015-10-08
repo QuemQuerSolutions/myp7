@@ -173,6 +173,10 @@ public class ProdutoBO {
 	public void aprovarProduto(Long idProduto){
 		produtoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idProduto);
 	}
+	
+	public void reprovarProduto(Long idProduto){
+		produtoMapper.updateStatus(SituacaoEnum.REPROVADO.getSigla(), idProduto);
+	}
 
 	public List<Produto> obterQtdPorSituacao(Long idUsuario) {
 		return produtoMapper.qtdPorSituacao(idUsuario);

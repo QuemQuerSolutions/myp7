@@ -73,19 +73,22 @@ function pesquisar(){
 function getLineAprovacao(produto){
 	var line = "";
 
-	line = line.concat("<tr onclick='onClickLine(", produto.idProduto ,")'>");
-	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
+	line = line.concat("<tr>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.eanDunProduto ,"</td>");
 // 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
-	line = line.concat("<td>", produto.desProduto ,"</td>");
-	line = line.concat("<td>", produto.descSituacao ,"</td>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.desProduto ,"</td>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.descSituacao ,"</td>");
 	
 	line = line.concat("<td align='center'>");
 	//Se a situacao for aguardando
-	if(produto.situacao === "G")
-		line = line.concat( "<a href='#' class='preto' onclick=\"onClickAprovar('", produto.idProduto , "')\">",
+	if(produto.situacao === "G"){
+		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", produto.idProduto , "')\">",
 								"<span class='glyphicon glyphicon-ok' title='Aprovar' aria-hidden='true'></span>",
+							"</a>&nbsp;&nbsp;&nbsp;");
+		line = line.concat( "<a href='#' class='red' onclick=\"onClickReprovar('", produto.idProduto , "')\">",
+								"<span class='glyphicon glyphicon-remove' title='Reprovar' aria-hidden='true'></span>",
 							"</a>");
-	else
+	}else
 		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
 								"<span class='glyphicon glyphicon-asterisk' title='Esse produto não pode ser alterado' aria-hidden='true'></span>",
 							"</a>");
@@ -101,6 +104,32 @@ function onClickLine(idProduto){
 	$("#allDisabled").val(true);
 	$("#actionCancelar").val("ProdutoAprovacao");
 	go("#frmEditarProduto");
+}
+
+function onClickReprovar(idProduto){
+	
+	swal({
+		title : "",
+		text : "Tem certeza que deseja Reprovar?",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#F0AD4E",
+		confirmButtonText : "Reprovar",
+		cancelButtonText: "Cancelar",
+		closeOnConfirm : false,
+		html: false
+	},
+	function() {
+		$.get("reprovarProduto?idProduto=".concat(idProduto), function(){
+			pesquisar();
+			var qtdAguardando = parseInt($("#qtdAguardando").text());
+			var qtdReprovado = parseInt($("#qtdReprovado").text());
+			
+			$("#qtdAguardando").text(--qtdAguardando);
+			$("#qtdReprovado").text(++qtdReprovado);
+			swal("Produto reprovado com sucesso", "", "success");
+		});
+	});
 }
 
 function onClickAprovar(idProduto){
@@ -272,7 +301,7 @@ function addLineRepresentanteTab(representante){
 <!-- 						<th width="15%">Código Import</th> -->
 						<th width="60%">Descrição</th>
 						<th width="15%">Situação</th>
-						<th width="10%" class="text-center">Aprovar</th>
+						<th width="10%" class="text-center">Ação</th>
 					</tr>
 				</thead>
 				<tbody id="lstProdutoAprovacao"></tbody>
