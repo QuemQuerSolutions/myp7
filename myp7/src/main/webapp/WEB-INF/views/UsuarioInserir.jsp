@@ -82,7 +82,6 @@ $(document).ready(function() {
 				<input type="hidden" id="mensagemCadastro" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<input type="hidden" id=tpUsuarioRetorno name="tpUsuarioRetorno" value="" />
-				<div class="row">
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-6">
@@ -137,7 +136,6 @@ $(document).ready(function() {
 						</div>
 					</div>								
 					<div class="col-md-3">&nbsp;</div>
-				</div>
 			</form>
 		</div>
 	</div>
