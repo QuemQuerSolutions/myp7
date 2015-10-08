@@ -13,6 +13,24 @@ function clearAll(escopo){
 //    });	
 }
 
+function disableAll(){
+
+	$(":text").each(function () {
+		$(this).attr("disabled", true);
+    });
+ 
+    $(":radio").each(function () {
+    	$(this).attr("disabled", true);
+    });
+ 
+    $("select").each(function () {
+    	$(this).attr("disabled", true);
+    });	
+    
+    $("#btnSalvar").hide();
+}
+
+
 function hasInformation(escopo){
 	var hasValue = false;
 	$(escopo + " input[type=text]").each(function(){

@@ -5,12 +5,22 @@
 	
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	if($("#allDisabled").val()){
+		disableAll();
+	}
+	
 	$("#btnSalvar").click(function(){
 		salvar();
 	});
 
 	$("#btnCancelar").click(function(){
-		window.open('Produto','_self');
+		if($("#allDisabled").val()){
+			go($("#actionCancelar").val());
+			return;
+		}
+		
+		go("Produto");
 	});
 
 	$(".campo-salvar").keypress(function(e){
@@ -126,6 +136,9 @@ function removeClass(){
 <body>
 	<c:import url="components/header.jsp" />
 	<c:import url="components/menu.jsp" /> 
+
+<input type="hidden" id="allDisabled" value="${allDisabled}" />
+<input type="hidden" id="actionCancelar" value="${actionCancelar}" />
 	
 	<div id="content">	
 		<div id="content-title">

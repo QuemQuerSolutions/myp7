@@ -52,7 +52,13 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("EditarProduto")
-	public String editar(Model model, Long codProduto){
+	public String editar(Model model, Long codProduto, boolean allDisabled, String actionCancelar){
+		
+		if(allDisabled){
+			model.addAttribute("allDisabled", allDisabled);
+			model.addAttribute("actionCancelar", actionCancelar);
+		}
+		
 		Produto produto = produtoBO.obterPorId(codProduto);
 		this.imagemAnterior = produto.getCaminhoImagem();
 		this.carregaSelectEmbalagem(model);

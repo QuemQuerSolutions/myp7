@@ -73,9 +73,9 @@ function pesquisar(){
 function getLineAprovacao(produto){
 	var line = "";
 
-	line = line.concat("<tr>");
+	line = line.concat("<tr onclick='onClickLine(", produto.idProduto ,")'>");
 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
-	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
+// 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
 	line = line.concat("<td>", produto.desProduto ,"</td>");
 	line = line.concat("<td>", produto.descSituacao ,"</td>");
 	
@@ -94,6 +94,13 @@ function getLineAprovacao(produto){
 	line = line.concat("</tr>");
 	
 	return line;
+}
+
+function onClickLine(idProduto){
+	$("#codProduto").val(idProduto);
+	$("#allDisabled").val(true);
+	$("#actionCancelar").val("ProdutoAprovacao");
+	go("#frmEditarProduto");
 }
 
 function onClickAprovar(idProduto){
@@ -162,6 +169,12 @@ function addLineRepresentanteTab(representante){
 		<div id="content-title">
 			<h4>Aprovação de Produtos</h4>
 		</div>
+		
+		<form action="EditarProduto" id="frmEditarProduto" method="post" >
+			<input type="hidden" id="codProduto" name="codProduto" />
+			<input type="hidden" id="allDisabled" name="allDisabled" />
+			<input type="hidden" id="actionCancelar" name="actionCancelar" />	
+		</form>
 		
 		<form action="CarregaListaProdutoAprovacao" id="frmAprovacaoProduto" method="GET">
 			<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
@@ -256,9 +269,9 @@ function addLineRepresentanteTab(representante){
 				<thead>
 					<tr>
 						<th width="15%">Código EAN</th>
-						<th width="15%">Código Import</th>
-						<th width="50%">Descrição</th>
-						<th width="10%">Situação</th>
+<!-- 						<th width="15%">Código Import</th> -->
+						<th width="60%">Descrição</th>
+						<th width="15%">Situação</th>
 						<th width="10%" class="text-center">Aprovar</th>
 					</tr>
 				</thead>
