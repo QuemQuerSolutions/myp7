@@ -6,6 +6,23 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	if($("#filtro").val() !== ""){
+		var filtro = $("#filtro").val().split(";");
+		
+		addLineRepresentanteTab({idRepresentante: filtro[0], apelido: filtro[1]});
+		
+	 	$("input[name=situacoes]").parent().removeClass("active");
+	 	$("input[name=situacoes]").attr("checked", false);
+		$("#"+filtro[2]).parent().addClass("active");
+		$("#"+filtro[2]).attr("checked", true);
+
+		$("#idProduto").val(filtro[3]);
+		$("#descricao").val(filtro[4]);
+		
+		pesquisar();
+	}
+		
+	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
 		if(!isValidRequired()){
@@ -32,7 +49,7 @@ $(document).ready(function(){
 });
 
 function pesquisar(){
-	var filtro = {idUsuario: 	$("#idRepresentante").val(),
+	var filtroBusca = {idUsuario: 	$("#idRepresentante").val(),
 			  situacao: 	$("input[name=situacoes]:checked").attr("id"),
 			  idProduto:	$("#idProduto").val(),
 			  desProduto:	$("#descricao").val()};
@@ -40,7 +57,7 @@ function pesquisar(){
 	$.ajax({
 	  type: "GET",
 	  url: "obterProdutoAprovacao",
-	  data: filtro,
+	  data: filtroBusca,
 	  contentType: "application/json; charset=ISO-8859-1",
 	  dataType: "json",
 	  success: function(lista) {
@@ -103,6 +120,16 @@ function onClickLine(idProduto){
 	$("#codProduto").val(idProduto);
 	$("#allDisabled").val(true);
 	$("#actionCancelar").val("ProdutoAprovacao");
+	
+	var filtro = "";
+	filtro = filtro.concat(	$("#idRepresentante").val(), ";",
+						 	$("#representante").val(), ";",
+						 	$("input[name=situacoes]:checked").attr("id"), ";",
+						 	$("#idProduto").val(), ";",
+						 	$("#descricao").val());
+	
+	$("#filtroAnterior").val(filtro);
+	
 	go("#frmEditarProduto");
 }
 
@@ -202,13 +229,15 @@ function addLineRepresentanteTab(representante){
 		<form action="EditarProduto" id="frmEditarProduto" method="post" >
 			<input type="hidden" id="codProduto" name="codProduto" />
 			<input type="hidden" id="allDisabled" name="allDisabled" />
-			<input type="hidden" id="actionCancelar" name="actionCancelar" />	
+			<input type="hidden" id="actionCancelar" name="actionCancelar" />
+			<input type="hidden" id="filtroAnterior" name="filtroAnterior" />	
 		</form>
 		
 		<form action="CarregaListaProdutoAprovacao" id="frmAprovacaoProduto" method="GET">
 			<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 			<input type="hidden" id="codMsgem" value="${codMsgem}" />
 			<input type="hidden" id="theme" value="${theme}" />
+			<input type="hidden" id="filtro" value="${filtro}" />
 		
 		<div id="content-header">
 			<div class="row">
