@@ -52,11 +52,11 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("EditarProduto")
-	public String editar(Model model, Long codProduto, boolean allDisabled, String actionCancelar){
+	public String editar(Model model, Long codProduto, boolean allDisabled, String actionCancelar, String filtroAnterior){
 		
 		if(allDisabled){
 			model.addAttribute("allDisabled", allDisabled);
-			model.addAttribute("actionCancelar", actionCancelar);
+			model.addAttribute("actionCancelar", String.format("%s?filtroAnterior=%s", actionCancelar, filtroAnterior));
 		}
 		
 		Produto produto = produtoBO.obterPorId(codProduto);

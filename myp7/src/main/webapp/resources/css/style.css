@@ -122,7 +122,8 @@ thead{
 tr.registroAtivo{border-left: 3px solid #0BBD0B;}
 tr.registroInativo{border-left: 3px solid #CACACA;}
 
-.red{color:red;}
+.red{color:red !important;}
+.red:hover{color:#E03333 !important;}
 
 .text-middle{ vertical-align: middle !important; }
 

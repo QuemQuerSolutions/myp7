@@ -6,6 +6,23 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	if($("#filtro").val() !== ""){
+		var filtro = $("#filtro").val().split(";");
+		
+		addLineRepresentanteTab({idRepresentante: filtro[0], apelido: filtro[1]});
+		
+	 	$("input[name=situacoes]").parent().removeClass("active");
+	 	$("input[name=situacoes]").attr("checked", false);
+		$("#"+filtro[2]).parent().addClass("active");
+		$("#"+filtro[2]).attr("checked", true);
+
+		$("#idProduto").val(filtro[3]);
+		$("#descricao").val(filtro[4]);
+		
+		pesquisar();
+	}
+		
+	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
 		if(!isValidRequired()){
@@ -32,7 +49,7 @@ $(document).ready(function(){
 });
 
 function pesquisar(){
-	var filtro = {idUsuario: 	$("#idRepresentante").val(),
+	var filtroBusca = {idUsuario: 	$("#idRepresentante").val(),
 			  situacao: 	$("input[name=situacoes]:checked").attr("id"),
 			  idProduto:	$("#idProduto").val(),
 			  desProduto:	$("#descricao").val()};
@@ -40,7 +57,7 @@ function pesquisar(){
 	$.ajax({
 	  type: "GET",
 	  url: "obterProdutoAprovacao",
-	  data: filtro,
+	  data: filtroBusca,
 	  contentType: "application/json; charset=ISO-8859-1",
 	  dataType: "json",
 	  success: function(lista) {
@@ -73,19 +90,22 @@ function pesquisar(){
 function getLineAprovacao(produto){
 	var line = "";
 
-	line = line.concat("<tr onclick='onClickLine(", produto.idProduto ,")'>");
-	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
+	line = line.concat("<tr>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.eanDunProduto ,"</td>");
 // 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
-	line = line.concat("<td>", produto.desProduto ,"</td>");
-	line = line.concat("<td>", produto.descSituacao ,"</td>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.desProduto ,"</td>");
+	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.descSituacao ,"</td>");
 	
 	line = line.concat("<td align='center'>");
 	//Se a situacao for aguardando
-	if(produto.situacao === "G")
-		line = line.concat( "<a href='#' class='preto' onclick=\"onClickAprovar('", produto.idProduto , "')\">",
+	if(produto.situacao === "G"){
+		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", produto.idProduto , "')\">",
 								"<span class='glyphicon glyphicon-ok' title='Aprovar' aria-hidden='true'></span>",
+							"</a>&nbsp;&nbsp;&nbsp;");
+		line = line.concat( "<a href='#' class='red' onclick=\"onClickReprovar('", produto.idProduto , "')\">",
+								"<span class='glyphicon glyphicon-remove' title='Reprovar' aria-hidden='true'></span>",
 							"</a>");
-	else
+	}else
 		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
 								"<span class='glyphicon glyphicon-asterisk' title='Esse produto não pode ser alterado' aria-hidden='true'></span>",
 							"</a>");
@@ -100,7 +120,43 @@ function onClickLine(idProduto){
 	$("#codProduto").val(idProduto);
 	$("#allDisabled").val(true);
 	$("#actionCancelar").val("ProdutoAprovacao");
+	
+	var filtro = "";
+	filtro = filtro.concat(	$("#idRepresentante").val(), ";",
+						 	$("#representante").val(), ";",
+						 	$("input[name=situacoes]:checked").attr("id"), ";",
+						 	$("#idProduto").val(), ";",
+						 	$("#descricao").val());
+	
+	$("#filtroAnterior").val(filtro);
+	
 	go("#frmEditarProduto");
+}
+
+function onClickReprovar(idProduto){
+	
+	swal({
+		title : "",
+		text : "Tem certeza que deseja Reprovar?",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#F0AD4E",
+		confirmButtonText : "Reprovar",
+		cancelButtonText: "Cancelar",
+		closeOnConfirm : false,
+		html: false
+	},
+	function() {
+		$.get("reprovarProduto?idProduto=".concat(idProduto), function(){
+			pesquisar();
+			var qtdAguardando = parseInt($("#qtdAguardando").text());
+			var qtdReprovado = parseInt($("#qtdReprovado").text());
+			
+			$("#qtdAguardando").text(--qtdAguardando);
+			$("#qtdReprovado").text(++qtdReprovado);
+			swal("Produto reprovado com sucesso", "", "success");
+		});
+	});
 }
 
 function onClickAprovar(idProduto){
@@ -173,13 +229,15 @@ function addLineRepresentanteTab(representante){
 		<form action="EditarProduto" id="frmEditarProduto" method="post" >
 			<input type="hidden" id="codProduto" name="codProduto" />
 			<input type="hidden" id="allDisabled" name="allDisabled" />
-			<input type="hidden" id="actionCancelar" name="actionCancelar" />	
+			<input type="hidden" id="actionCancelar" name="actionCancelar" />
+			<input type="hidden" id="filtroAnterior" name="filtroAnterior" />	
 		</form>
 		
 		<form action="CarregaListaProdutoAprovacao" id="frmAprovacaoProduto" method="GET">
 			<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 			<input type="hidden" id="codMsgem" value="${codMsgem}" />
 			<input type="hidden" id="theme" value="${theme}" />
+			<input type="hidden" id="filtro" value="${filtro}" />
 		
 		<div id="content-header">
 			<div class="row">
@@ -272,7 +330,7 @@ function addLineRepresentanteTab(representante){
 <!-- 						<th width="15%">Código Import</th> -->
 						<th width="60%">Descrição</th>
 						<th width="15%">Situação</th>
-						<th width="10%" class="text-center">Aprovar</th>
+						<th width="10%" class="text-center">Ação</th>
 					</tr>
 				</thead>
 				<tbody id="lstProdutoAprovacao"></tbody>
