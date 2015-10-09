@@ -24,6 +24,7 @@
 				<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
 				<myp7:itemMenu label="Fornecedor" link="Fornecedor" icon="glyphicon-bed" />
 				<myp7:itemMenu label="Aprovação de Produto" link="ProdutoAprovacao" icon="glyphicon-check" />
+				<myp7:itemMenu label="Aprovação de Custos" link="CustoAprovacao" icon="glyphicon-check" />
 				<myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
 			</c:if>
 		</ul>

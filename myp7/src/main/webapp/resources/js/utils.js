@@ -51,6 +51,17 @@ function isValidRequired(){
 	return isValid;
 }
 
+function isValidSelectRequired(){
+	clearRequired();
+	var isValid = true;
+	$(".req > select").each(function(){
+		if($(this).val() == "-1")
+			isValid = setRequired($(this).parent());
+	});
+	
+	return isValid;
+}
+
 
 function clearRequired(){
 	$(".has-error").removeClass("has-error");

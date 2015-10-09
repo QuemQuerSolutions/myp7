@@ -14,6 +14,7 @@ public interface RepresentanteMapper {
 	List<Representante> obterPorParametroMaisRazao(Representante representante);
 	
 	int countPorParametro(Representante representante);
+	int countPorParametroMaisRazao(Representante representante);
 
 	void updateRepresentante(Representante representante);
 	void insertRepresentante(Representante representante);

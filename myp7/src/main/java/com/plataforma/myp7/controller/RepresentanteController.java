@@ -32,7 +32,7 @@ public class RepresentanteController {
 			model.addAttribute("apelido", representante != null ? emptyToNull(representante.getApelido().trim()) : null );
 			model.addAttribute("razao", representante != null ? emptyToNull(representante.getRazao().trim()) : null );
 			
-			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante));
+			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		}catch(Exception e){
 			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);
@@ -41,8 +41,8 @@ public class RepresentanteController {
 	}	
 	
 	@RequestMapping(value="obterRepresentantePorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante) {
-		return representanteBO.obterPorParametro(representante);
+	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model) {
+		return representanteBO.obterPorParametro(representante, model);
 	}
 	
 }

@@ -1,11 +1,15 @@
 package com.plataforma.myp7.data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import com.plataforma.myp7.enums.Mensagem;
+
 @Alias("FornecedorCusto")
 public class FornecedorCusto {
+	
 	private Integer idTabCustoFornecedor;
 	private Fornecedor fornecedor;
 	private Integer idEmpresa;
@@ -13,7 +17,39 @@ public class FornecedorCusto {
 	private BigDecimal valorAnterior;
 	private BigDecimal valor;
 	private Integer idRepresentante;
+	private String situacao;
+	private Usuario usuAprovacao;
+	private Date dataAprovacao;
+	private int qtdPorSituacao;
 	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
+	
+	public FornecedorCusto() {
+	}
+	
+	public FornecedorCusto(Mensagem msg) {
+		this.msgRetorno = msg.getMensagem();
+		this.codRetorno = msg.getCodigo();
+	}
+	
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
+
 	public Integer getIdTabCustoFornecedor() {
 		return idTabCustoFornecedor;
 	}
@@ -86,4 +122,36 @@ public class FornecedorCusto {
 	public void setValorAnterior(BigDecimal valorAnterior) {
 		this.valorAnterior = valorAnterior;
 	}
+	
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+	public Usuario getUsuAprovacao() {
+		return usuAprovacao;
+	}
+
+	public void setUsuAprovacao(Usuario usuAprovacao) {
+		this.usuAprovacao = usuAprovacao;
+	}
+
+	public Date getDataAprovacao() {
+		return dataAprovacao;
+	}
+
+	public void setDataAprovacao(Date dataAprovacao) {
+		this.dataAprovacao = dataAprovacao;
+	}
+	
+	public int getQtdPorSituacao() {
+		return qtdPorSituacao;
+	}
+
+	public void setQtdPorSituacao(int qtdPorSituacao) {
+		this.qtdPorSituacao = qtdPorSituacao;
+	}	
 }

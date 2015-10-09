@@ -73,7 +73,14 @@
 		WHERE 1=1
 		<include refid="whereRepresentante" />
 	</select>
-		
+	
+	<select id="countPorParametroMaisRazao" resultType="int">
+		SELECT COUNT(1) FROM rpr_Representante REP
+		INNER JOIN gbl_pessoa PESS on (REP.ID_REPRESENTANTE = PESS.ID_PESSOA)
+		WHERE 1=1
+		<include refid="whereRepresentanteMaisRazao" />
+	</select>
+			
 	<select id="obterTodosRepresentantes" resultMap="representanteMap">
 		<include refid="selectRepresentante"/>
 		ORDER BY ID_REPRESENTANTE

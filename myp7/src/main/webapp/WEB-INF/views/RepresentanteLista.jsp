@@ -125,19 +125,26 @@ function onClickLine(id){
 				<thead>
 					<tr style="text-align: center">
 						<th width="10%">Código</th>
-						<th width="30%">Razãzo social</th>	
-						<th width="30%">Apelido</th>
-						<th width="10%">Status</th>
+						<th width="35%">Razãzo social</th>	
+						<th width="35%">Apelido</th>
 						<th width="20%">Usuário</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${lstRepresentante}" var="repre">
+						<c:choose>
+							<c:when test="${repre.status eq 'A'}">
+								<c:set var="classLine" value="registroAtivo" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="classLine" value="registroInativo" />
+							</c:otherwise>
+						</c:choose>
+						
 						<tr class="${classLine}" onclick="onClickLine('${repre.idRepresentante}')">
 							<td>${repre.idRepresentante}</td>
 							<td>${repre.razao}</td>
 							<td>${repre.apelido}</td>
-							<td>${repre.status}</td>
 							<td>${repre.usuario.razaoSocial}</td>
 						</tr>
 					</c:forEach>

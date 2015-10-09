@@ -4,19 +4,25 @@
 <mapper namespace="com.plataforma.myp7.mapper.FornecedorCustoMapper">
 
 	<resultMap id="fornecedorCustoMap" type="com.plataforma.myp7.data.FornecedorCusto">
-		<id property="idTabCustoFornecedor" column="ID_TAB_CUSTO_FORNECEDOR" />
-		<result property="idEmpresa"  		column="ID_EMPRESA" />
-		<result property="valorAnterior"  	column="VALOR_ANTERIOR" />
-		<result property="valor"  			column="VALOR" />
-		<result property="idRepresentante"  column="ID_REPRESENTANTE" />
-		<association property="fornecedor" 	column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
-		<association property="produto" 	column="ID_PRODUTO" select="com.plataforma.myp7.mapper.ProdutoMapper.obterProdutoPorId"/>
+		<id property="idTabCustoFornecedor" 	column="ID_TAB_CUSTO_FORNECEDOR" />
+		<result property="idEmpresa"  			column="ID_EMPRESA" />
+		<result property="valorAnterior"  		column="VALOR_ANTERIOR" />
+		<result property="valor"  				column="VALOR" />
+		<result property="idRepresentante"  	column="ID_REPRESENTANTE" />
+		
+		<result property="situacao"  			column="SITUACAO" />
+		<result property="dataAprovacao"  		column="DATA_APROVACAO" />
+		<association property="usuAprovacao"	column="USU_APROVACAO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
+		
+		<association property="fornecedor" 		column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
+		<association property="produto" 		column="ID_PRODUTO" select="com.plataforma.myp7.mapper.ProdutoMapper.obterProdutoPorId"/>
 	</resultMap>
 	
 	<sql id="selectFornecedorCusto">
 		<![CDATA[
 			SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE 
+			ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, SITUACAO,
+			DATA_APROVACAO, USU_APROVACAO 
 			FROM tab_custo_fornecedor
 		  ]]>
 	</sql>
@@ -25,9 +31,16 @@
 		<include refid="selectFornecedorCusto"/>
 	</select>
 	
+	<sql id="whereComSituacao">
+		<if test="situacao != null"> 	AND SITUACAO = #{situacao}</if>
+		<if test="produto.idProduto != null">	AND prd_usuario_produto.ID_PRODUTO = #{produto.idProduto}</if>
+		<if test="produto.desProduto != null">	AND upper(prd_usuario_produto.DESCRICAO) like upper(#{produto.desProduto})</if>
+	</sql>	
+	
 	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
 		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE 
+			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
+			   SITUACAO, DATA_APROVACAO, USU_APROVACAO  
 		  FROM tab_custo_fornecedor, prd_usuario_produto
 		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
 		
@@ -52,6 +65,37 @@
 			AND prd_usuario_produto.DESCRICAO LIKE #{produto.desProduto}
 		</if>
 	</select>
+	
+	<select id="obterFornecedorCustoAprovacao" resultMap="fornecedorCustoMap">
+		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
+			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
+			   SITUACAO, DATA_APROVACAO, USU_APROVACAO  
+		  FROM tab_custo_fornecedor, prd_usuario_produto
+		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		<include refid="whereComSituacao"/>
+	</select>	
+	
+	<select id="countFornecedorCustoAprovacao" resultType="int">
+		SELECT COUNT(1)
+		  FROM tab_custo_fornecedor, prd_usuario_produto
+		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		<include refid="whereComSituacao"/>	
+	</select>
+	
+	<select id="qtdPorSituacao" resultMap="fornecedorCustoMap">
+		SELECT SITUACAO, COUNT(1) as qtdPorSituacao
+		  FROM TAB_CUSTO_FORNECEDOR
+		 WHERE ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		GROUP BY SITUACAO
+	</select>	
+	
+	<update id="updateStatus">
+		UPDATE TAB_CUSTO_FORNECEDOR
+		SET SITUACAO = #{situacao}
+		WHERE ID_FORNECEDOR = #{fornecedor.idFornecedor}
+	</update>	
 	
 	<update id="atualizarFornecedorCusto">
 		UPDATE tab_custo_fornecedor SET VALOR = #{valor}, VALOR_ANTERIOR = #{valorAnterior} WHERE ID_TAB_CUSTO_FORNECEDOR = #{idTabCustoFornecedor}

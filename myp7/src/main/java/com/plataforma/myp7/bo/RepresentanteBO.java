@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.enums.ConfigEnum;
@@ -12,6 +13,7 @@ import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.RepresentanteMapper;
+
 import static com.plataforma.myp7.util.Utils.*;
 
 @Service
@@ -24,13 +26,16 @@ public class RepresentanteBO {
 		return this.representanteMapper.obterTodosRepresentantes();
 	}
 	
-	public List<Representante> obterPorParametro(Representante representante){
+	public List<Representante> obterPorParametro(Representante representante, Model model){
 		representante.setApelido(toLike(representante.getApelido()));
+		representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
 		
-		int count = representanteMapper.countPorParametro(representante);
+		int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
 		
-		if(count == 0)
+		if(count == 0){
+			setRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO);
 			return new ArrayList<Representante>();
+		}
 		
 		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
 			List<Representante> ret = new ArrayList<Representante>();
@@ -40,11 +45,7 @@ public class RepresentanteBO {
 		
 		if(isEmpty(representante.getRazao()))
 			return representanteMapper.obterPorParametro(representante);
-		
-		representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
 		return representanteMapper.obterPorParametroMaisRazao(representante);
-		
-		
 	}
 
 	public void update(Representante representante) throws ManterEntidadeException {

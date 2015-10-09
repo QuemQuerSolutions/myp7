@@ -1,8 +1,10 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.*;
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.enums.SituacaoEnum;
 import com.plataforma.myp7.mapper.FornecedorCustoMapper;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class FornecedorCustoBO {
@@ -59,6 +65,36 @@ public class FornecedorCustoBO {
 		fc.setIdEmpresa(Integer.parseInt(empresa));
 		
 		return this.fornecedorCustoMapper.obterComFiltro(fc);
+	}
+
+	public List<FornecedorCusto> obterQtdPorSituacao(Long idUsuario) {
+		return this.fornecedorCustoMapper.qtdPorSituacao(idUsuario);
+	}
+
+	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto) {
+		fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
+		fornecedorCusto.setSituacao(SituacaoEnum.getSigla(fornecedorCusto.getSituacao()));
+		
+		int count = fornecedorCustoMapper.countFornecedorCustoAprovacao(fornecedorCusto);
+		
+		if(count == 0)
+			return new ArrayList<FornecedorCusto>();
+		
+		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			List<FornecedorCusto> ret = new ArrayList<FornecedorCusto>();
+			ret.add(new FornecedorCusto(Mensagem.REFINE_SUA_PESQUISA));
+			return ret;
+		}
+		List<FornecedorCusto> lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
+		
+		for(FornecedorCusto fc: lista)
+			fc.getProduto().setDescSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));
+			
+		return lista;
+	}
+
+	public void aprovarFornecedorCusto(Long idFornecedorCusto) {
+		this.fornecedorCustoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idFornecedorCusto);
 	}	
 
 }

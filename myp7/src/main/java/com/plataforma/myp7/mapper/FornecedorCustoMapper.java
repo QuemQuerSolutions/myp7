@@ -14,4 +14,12 @@ public interface FornecedorCustoMapper {
 	List<FornecedorCusto> obterComFiltro(FornecedorCusto fc);
 
 	void atualizarFornecedorCusto(FornecedorCusto fc) throws Exception;
+
+	List<FornecedorCusto> qtdPorSituacao(Long idUsuario);
+
+	List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
+
+	int countFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
+
+	void updateStatus(String sigla, Long idFornecedorCusto);
 }
