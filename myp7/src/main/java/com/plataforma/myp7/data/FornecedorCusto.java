@@ -62,6 +62,9 @@ public class FornecedorCusto {
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
+	public void setidFornecedor(String idFornecedor) {
+		this.fornecedor = new Fornecedor(Long.parseLong(idFornecedor));
+	}	
 	public Integer getIdEmpresa() {
 		return idEmpresa;
 	}
@@ -74,6 +77,10 @@ public class FornecedorCusto {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	public void setDesProduto(String desProduto) {
+		if(!desProduto.trim().equals(""))
+			this.produto = new Produto(desProduto);
+	}	
 	public BigDecimal getValor() {
 		return valor;
 	}

@@ -32,9 +32,13 @@
 	</select>
 	
 	<sql id="whereComSituacao">
-		<if test="situacao != null"> 	AND SITUACAO = #{situacao}</if>
-		<if test="produto.idProduto != null">	AND prd_usuario_produto.ID_PRODUTO = #{produto.idProduto}</if>
-		<if test="produto.desProduto != null">	AND upper(prd_usuario_produto.DESCRICAO) like upper(#{produto.desProduto})</if>
+		<if test="situacao != null"> 	AND FORNEC.SITUACAO = #{situacao}</if>
+		
+		<if test="produto != null">
+			<if test="produto.idProduto != null">	AND USU.ID_PRODUTO = #{produto.idProduto}</if>
+			<if test="produto.eanDunProduto != null">	AND USU.EANDUN = #{produto.eanDunProduto}</if>
+			<if test="produto.desProduto != null">	AND upper(USU.DESCRICAO) like upper(#{produto.desProduto})</if>
+		</if>
 	</sql>	
 	
 	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
@@ -68,18 +72,18 @@
 	
 	<select id="obterFornecedorCustoAprovacao" resultMap="fornecedorCustoMap">
 		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
-			   SITUACAO, DATA_APROVACAO, USU_APROVACAO  
-		  FROM tab_custo_fornecedor, prd_usuario_produto
-		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+			   FORNEC.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
+			   USU.SITUACAO, FORNEC.DATA_APROVACAO, FORNEC.USU_APROVACAO  
+		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
+		 WHERE FORNEC.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
 		<include refid="whereComSituacao"/>
 	</select>	
 	
 	<select id="countFornecedorCustoAprovacao" resultType="int">
 		SELECT COUNT(1)
-		  FROM tab_custo_fornecedor, prd_usuario_produto
-		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
+		 WHERE FORNEC.ID_PRODUTO = USU.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
 		<include refid="whereComSituacao"/>	
 	</select>

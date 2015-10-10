@@ -24,6 +24,11 @@ public class Fornecedor extends Pessoa implements Serializable{
 		this.representantes = new ArrayList<Representante>();
 	}
 	
+	public Fornecedor(Long idFornecedor){
+		this();
+		this.setIdFornecedor(idFornecedor);
+	}
+	
 	public Long getIdFornecedor() {
 		return idFornecedor;
 	}

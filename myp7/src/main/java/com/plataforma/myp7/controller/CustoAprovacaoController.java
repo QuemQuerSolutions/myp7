@@ -39,8 +39,8 @@ public class CustoAprovacaoController {
 	}
 	
 	@RequestMapping(value="obterFornecedorCustoAprovacao", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto) {
-		return fornecedorCustoBO.obterParaAprovacao(fornecedorCusto);
+	public @ResponseBody List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto, String tipo, String codigo) {
+		return fornecedorCustoBO.obterParaAprovacao(fornecedorCusto, codigo, tipo);
 	}
 	
 	@RequestMapping(value="aprovarFornecedorCusto", method=RequestMethod.GET)
@@ -59,9 +59,5 @@ public class CustoAprovacaoController {
 		filtro.put(2, "EAN/DUN");
 		
 		model.addAttribute("filtros", filtro);
-	}
-	
-	private void carregaSelectEmpresa(Model model){
-		
-	}
+	}	
 }

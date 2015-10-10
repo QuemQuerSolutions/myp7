@@ -6,15 +6,15 @@
 	
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#empresa").attr("disabled", true);
+	$("#idEmpresa").attr("disabled", true);
 
 	$("#uf").change(function(){
 		if($("#uf").val() != "-1"){
-			$("#empresa").removeAttr("disabled");
+			$("#idEmpresa").removeAttr("disabled");
 			atualizarComboEmpresa();
 		}else{
-			$("#empresa").html("<option value='-1'>Selecione uma Empresa</option>");
-			$("#empresa").attr("disabled", true);
+			$("#idEmpresa").html("<option value='-1'>Selecione uma Empresa</option>");
+			$("#idEmpresa").attr("disabled", true);
 		}
 	});
 
@@ -24,7 +24,7 @@ $(document).ready(function(){
 	        data: { uf:$("#uf").val() },
 	        url : 'consultaEmpresaPorUF',
 	        success : function(data) {
-	        	$("#empresa").html(data);
+	        	$("#idEmpresa").html(data);
 	        }
 	    });
 	}	
@@ -55,15 +55,18 @@ $(document).ready(function(){
 });
 
 function pesquisar(){
-	var filtro = {idUsuario: 	$("#idFornecedor").val(),
-			  situacao: 		$("input[name=situacoes]:checked").attr("id"),
-			  idProduto:		$("#produto.idProduto").val(),
-			  desProduto:		$("#produto.descricao").val()};
+	var fornecedorCusto = {
+				situacao: 		$("input[name=situacoes]:checked").attr("id"),
+				codigo:			$("#codigo").val(),
+				idEmpresa:		$("#idEmpresa").val(),
+				tipo:			$("#tipo").val(),
+				desProduto:		$("#desProduto").val(),
+				idFornecedor: 	$("#idFornecedor").val()};
 
 	$.ajax({
 	  type: "GET",
 	  url: "obterFornecedorCustoAprovacao",
-	  data: filtro,
+	  data: fornecedorCusto,
 	  contentType: "application/json; charset=ISO-8859-1",
 	  dataType: "json",
 	  success: function(lista) {
@@ -98,7 +101,7 @@ function getLineAprovacao(custo){
 
 	line = line.concat("<tr>");
 	line = line.concat("<td>", custo.produto.idProduto ,"</td>");
-	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
+	line = line.concat("<td>", custo.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
 	line = line.concat("<td>", custo.situacao ,"</td>");
 	
@@ -203,13 +206,13 @@ function addLineRepresentanteTab(representante){
 						<label for="uf">UF</label>
 					</div>
 					<div class="col-md-5">
-						<label for="empresa">Empresa</label>
+						<label for="idEmpresa">Empresa</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 form-group req">
-						<input type="hidden" id="idFornecedor">
-						<input type="text" class="form-control" readonly="readonly" id="fornecedor"/>
+						<input type="hidden" id="idFornecedor" value=1>
+						<input type="text" class="form-control" readonly="readonly" id="fornecedor" value="Teste"/>
 					</div>
 					<div class="col-md-1 form-group paddingleft0">
 					  	<a href="#" target="_self" class="form-control icon-search" id="buscaFornecedor"><span class="glyphicon glyphicon-search"></span></a>
@@ -223,29 +226,26 @@ function addLineRepresentanteTab(representante){
 				  		</select>
 					</div>
 					<div class="col-md-5 form-group req">
-						<select id="empresa" name="empresa" class="form-control" autofocus="autofocus">
+						<select id="idEmpresa" name="empresa" class="form-control" autofocus="autofocus">
 				  			<option value="-1">Selecione uma Empresa</option>
-				  			<c:forEach var="empresa" items="${empresas}">
-				  				<option value="${empresa}">${empresa}</option>
-   							</c:forEach>				  			
 				  		</select>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-						<label for="produto.tipo">Tipo</label>
+						<label for="tipo">Tipo</label>
 					</div>			
 					<div class="col-md-1">
-						<label for="produto.idProduto">Código</label>
+						<label for="codigo">Código</label>
 					</div>
 					<div class="col-md-5">
-						<label for="produto.descricao">Descrição</label>
+						<label for="desProduto">Descrição</label>
 					</div>
 				</div>
 					
 				<div class="row">	
 					<div class="col-md-3 form-group">
-						<select id="produto.tipo" name="produto.tipo" class="form-control">
+						<select id="tipo" name="tipo" class="form-control">
 							<c:forEach var="filtro" items="${filtros}">
 								<option value="${filtro.key}">${filtro.value}</option>
 							</c:forEach>
@@ -255,16 +255,16 @@ function addLineRepresentanteTab(representante){
 					<div class="col-md-1 form-group">
 				    	<input type="text" 
 				    			class="form-control" 
-				    			id="produto.idProduto" 
-				    			name="produto.idProduto" 
+				    			id="codigo" 
+				    			name="codigo" 
 				    			maxlength="11" />
 					</div>
 					
 					<div class="col-md-8 form-group">
 				    	<input type="text" 
 				    			class="form-control" 
-				    			id="produto.descricao" 
-				    			name="produto.descricao" 
+				    			id="desProduto" 
+				    			name="desProduto" 
 				    			maxlength="45"/>
 					</div>
 				</div>

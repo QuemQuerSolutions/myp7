@@ -71,9 +71,18 @@ public class FornecedorCustoBO {
 		return this.fornecedorCustoMapper.qtdPorSituacao(idUsuario);
 	}
 
-	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto) {
-		fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
+	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto, String codigo, String tipo) {
+		if(fornecedorCusto.getProduto() != null)
+			fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
+		
 		fornecedorCusto.setSituacao(SituacaoEnum.getSigla(fornecedorCusto.getSituacao()));
+		
+		if(!codigo.trim().equals("")){
+			if(tipo.equalsIgnoreCase("1"))
+				fornecedorCusto.getProduto().setIdProduto(Long.parseLong(codigo));
+			else
+				fornecedorCusto.getProduto().setEanDunProduto(codigo);			
+		}
 		
 		int count = fornecedorCustoMapper.countFornecedorCustoAprovacao(fornecedorCusto);
 		
@@ -85,7 +94,13 @@ public class FornecedorCustoBO {
 			ret.add(new FornecedorCusto(Mensagem.REFINE_SUA_PESQUISA));
 			return ret;
 		}
-		List<FornecedorCusto> lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
+		
+		List<FornecedorCusto> lista = new ArrayList<FornecedorCusto>();
+		try{
+		lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
+		}catch(Exception e){
+		System.out.println(e.getMessage());	
+		}
 		
 		for(FornecedorCusto fc: lista)
 			fc.getProduto().setDescSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));

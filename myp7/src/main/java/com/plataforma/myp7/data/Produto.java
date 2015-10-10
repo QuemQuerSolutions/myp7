@@ -47,8 +47,10 @@ public class Produto implements Serializable{
 		this.codRetorno = msg.getCodigo();
 	}
 
-
-	
+	public Produto(String desProduto){
+		this();
+		this.setDesProduto(desProduto);
+	}
 	
 	public String getDescSituacao() {
 		return descSituacao;
