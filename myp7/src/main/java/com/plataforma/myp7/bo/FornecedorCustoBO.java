@@ -95,12 +95,7 @@ public class FornecedorCustoBO {
 			return ret;
 		}
 		
-		List<FornecedorCusto> lista = new ArrayList<FornecedorCusto>();
-		try{
-		lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
-		}catch(Exception e){
-		System.out.println(e.getMessage());	
-		}
+		List<FornecedorCusto> lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
 		
 		for(FornecedorCusto fc: lista)
 			fc.getProduto().setDescSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));

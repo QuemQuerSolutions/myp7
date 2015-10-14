@@ -75,7 +75,7 @@
 			   FORNEC.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
 			   USU.SITUACAO, FORNEC.DATA_APROVACAO, FORNEC.USU_APROVACAO  
 		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
-		 WHERE FORNEC.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
+		 WHERE FORNEC.ID_PRODUTO = USU.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
 		<include refid="whereComSituacao"/>
 	</select>	

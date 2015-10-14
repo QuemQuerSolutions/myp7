@@ -27,8 +27,17 @@
   	margin-right: 20px;
   	border-color: white;
 }
+#footer #btnAprovar{
+	float: right;
+  	margin-right: 20px;
+  	border-color: white;
+}
 
 #footer #btnCancelar{
+	float: right;
+  	margin-right: 20px;
+}
+#footer #btnReprovar{
 	float: right;
   	margin-right: 20px;
 }

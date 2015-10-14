@@ -16,6 +16,11 @@
 			<button type="button" class="btn btn-default navbar-btn" id="btnCancelar">Cancelar</button>
 		</c:when>
 		
+		<c:when test="${param.salvar eq 'reprovar_aprovar'}">
+			<button type="button" class="btn btn-default navbar-btn ${theme}" id="btnAprovar">Aprovar</button>
+			<button type="button" class="btn btn-default navbar-btn" id="btnReprovar">Reprovar</button>
+		</c:when>		
+		
 		<c:otherwise>
 			<div style="padding-top: 20px">&nbsp;</div>	
 		</c:otherwise>

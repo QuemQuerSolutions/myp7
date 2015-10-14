@@ -134,3 +134,5 @@ tr.registroInativo{border-left: 3px solid #CACACA;}
 .tabela-usuario .col-email{ width: 40%; }
 
 button.btn-align-top{ margin-top: 25px; }
+
+.centralizar-componente{ text-align: center !important; vertical-align: middle !important; }

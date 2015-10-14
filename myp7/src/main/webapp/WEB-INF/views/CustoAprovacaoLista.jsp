@@ -37,6 +37,15 @@ $(document).ready(function(){
 		}
 		pesquisar();
 	});
+
+	$("#cbTodos").click(function(e){
+		$('.cbAprovacao').each(function(){
+			if($('#cbTodos').prop('checked'))
+				$(this).prop('checked', true);
+			else
+				$(this).prop('checked', false);
+		});
+	});
 	
 	$("#limpar").click(function(e){
 		e.stopPropagation();
@@ -100,10 +109,11 @@ function getLineAprovacao(custo){
 	var line = "";
 
 	line = line.concat("<tr>");
-	line = line.concat("<td>", custo.produto.idProduto ,"</td>");
-	line = line.concat("<td>", custo.desProduto ,"</td>");
+	line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' id='cb", custo.idTabCustoFornecedor ,"'></td>");
+	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
+	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
+	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
-	line = line.concat("<td>", custo.situacao ,"</td>");
 	
 	line = line.concat("<td align='center'>");
 	//Se a situacao for aguardando
@@ -314,11 +324,14 @@ function addLineRepresentanteTab(representante){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr>
-						<th width="15%">Código Produto</th>
-						<th width="45%">Nome Produto</th>
-						<th width="15%">Valor</th>
-						<th width="15%">Situação</th>
-						<th width="10%" class="text-center">Aprovar</th>
+						<th width="5%" class="centralizar-componente">
+							<input type="checkbox" id="cbTodos">
+						</th>
+						<th width="15%">Código EAN</th>
+						<th width="40%">Descrição</th>
+						<th width="15%">Valor Anterior</th>
+						<th width="15%">Valor novo</th>
+						<th width="10%">Situação</th>
 					</tr>
 				</thead>
 				<tbody id="lstCustoAprovacao"></tbody>
@@ -326,7 +339,8 @@ function addLineRepresentanteTab(representante){
 		</div>
 	
 	</div>
-	<c:import url="RepresentanteModalLista.jsp"/>
-	<c:import url="components/footer.jsp" />
+	<c:import url="components/footer.jsp">
+		<c:param name="salvar" value="reprovar_aprovar" />
+	</c:import>
 </body>
 </html>
