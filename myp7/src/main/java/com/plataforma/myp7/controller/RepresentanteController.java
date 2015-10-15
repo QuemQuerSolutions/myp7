@@ -5,6 +5,7 @@ import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Representante;
+import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
 public class RepresentanteController {
@@ -29,11 +31,20 @@ public class RepresentanteController {
 	}
 	
 	@RequestMapping("carregaListaRepresentante")
-	public String carregaListaRepresentante(Representante representante, Model model){
+	public String carregaListaRepresentante(Representante representante, String origem, Model model){
 		try{
-			model.addAttribute("idRepresentante", representante != null ? representante.getIdRepresentante() : null );
-			model.addAttribute("apelido", representante != null ? emptyToNull(representante.getApelido().trim()) : null );
-			model.addAttribute("razao", representante != null ? emptyToNull(representante.getRazao().trim()) : null );
+			if ("save".equals(origem)){
+				setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
+				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
+				return "RepresentanteLista";
+			}else if("error".equals(origem)){
+				setMsgRetorno(model, "Falha na Operação");
+				setCodRetorno(model, -1);
+				return "RepresentanteLista";
+			}
+			model.addAttribute("idRepresentante", !Objects.isNull(representante)? representante.getIdRepresentante() : null );
+			model.addAttribute("apelido", !Objects.isNull(representante) ? emptyToNull(representante.getApelido().trim()) : null );
+			model.addAttribute("razao", !Objects.isNull(representante)? emptyToNull(representante.getRazao().trim()) : null );
 			
 			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		}catch(Exception e){
@@ -56,4 +67,15 @@ public class RepresentanteController {
 		return "RepresentanteSalvar";
 	}
 	
+	
+	@RequestMapping("salvarRepresentante")
+	public String salvarFornecedor(Representante representante, Model model){
+		try{
+			this.representanteBO.salvarRepresentante(representante);
+		}catch(Exception e){
+			e.printStackTrace();
+			return "redirect:carregaListaRepresentante?origem=error";
+		}
+		return "redirect:carregaListaRepresentante?origem=save";
+	}
 }

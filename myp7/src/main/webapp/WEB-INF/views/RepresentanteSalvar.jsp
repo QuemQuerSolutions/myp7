@@ -21,6 +21,13 @@ $(document).ready(function() {
 		}
 		go("#frmSalvarRepresentante");
 	});	
+
+	$("#clickUsuario").click(function(e){
+		e.stopPropagation();
+		$(this).addClass("clicked");
+		$("#consulta_usuario").modal();
+	});	
+	
 	
 	$("#clickPessoa").click(function(e){
 		e.stopPropagation();
@@ -74,7 +81,7 @@ function onAddFornecedor(){
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				
 				<div class="row">
-				  	<div class="col-md-6 form-group req">
+				  	<div class="col-md-5 form-group req">
 				   		<label for="nomePessoa">Pessoa</label>
 				    	<input type="hidden" id="idPessoa" name="idRepresentante" value="${objRepresentante.idRepresentante}">
 				    	<input type="text" class="form-control" id="razao" maxlength="11" value="${objRepresentante.razao}" readonly="readonly">
@@ -83,6 +90,22 @@ function onAddFornecedor(){
 				  		<label for="nomePessoa">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" id="clickPessoa"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
+				  	<div class="col-md-6 form-group req">
+				   		<label for="apelido">Apelido</label>
+				    	<input type="text" class="form-control" id="apelido" name="apelido" maxlength="11" value="${objRepresentante.apelido}">
+				  	</div>
+				</div>
+					
+				<div class="row">
+				  	<div class="col-md-5 form-group req">
+				   		<label for="usuario">Usuário</label>
+				   		<input type="hidden" name="usuario.idUsuario" id="idusuario" value="${objRepresentante.usuario.idUsuario}"/>
+				    	<input type="text" class="form-control" id="usuario" value="${objRepresentante.usuario.razaoSocial}" readonly="readonly">
+				  	</div>
+				  	<div class="col-md-1 form-group paddingleft0">
+				  		<label for="buscaUsuario">&nbsp;</label>
+				  		<a href="#" target="_self" class="form-control icon-search" id="clickUsuario" name="usuario"><span class="glyphicon glyphicon-search"></span></a>
+				  	</div>
 				  	<div class="col-md-2 form-group req">
 				   		<label for="status">Status</label>
 			   			<form:select path="objRepresentante.status" cssClass="form-control">
@@ -90,8 +113,8 @@ function onAddFornecedor(){
 			   				<form:option value="I" label="Inativo" />
 			   			</form:select>
 				  	</div>
-				  	
 				</div>
+				
 				<div class="row">&nbsp;</div>
 				<table  class="table table-hover table-bordered table-striped margin0" >	
 					<thead>

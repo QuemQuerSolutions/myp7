@@ -59,7 +59,7 @@ function pesquisarPessoa(){
 				return;
 	        }
 	        
-	        $("#resultado").html(montaTable(retornoList));
+	        $("#resultado").html(loadTable(retornoList));
         },
         error: function (xhr, textStatus, errorThrown) {
 	    	console.log("Erro ao retornar lista: ",errorThrown)	;
@@ -69,7 +69,7 @@ function pesquisarPessoa(){
 	
 }
 
-function montaTable(lista){
+function loadTable(lista){
 	var linha = "";
 	lista.forEach(function(item){
 		linha = linha.concat("<tr onclick=\"onClickLineModal('resultado',", item.idPessoa,")\"","'>", 
@@ -77,6 +77,7 @@ function montaTable(lista){
 									"<td data-nome>", item.razao,"</td>",
 							  "</tr>");
 	});
+	
 	return linha;
 }
 </script>
@@ -112,7 +113,7 @@ function montaTable(lista){
 							    		   maxlength="8"
 							    		   placeholder="Código"
 							    		   autofocus="autofocus" 
-							    		   value="${pessoa.idPessoa}" 
+							    		   value="" 
 							    		   />
 							    		   
 							  	</div>
@@ -124,7 +125,7 @@ function montaTable(lista){
 							    		   id="nome" 
 							    		   maxlength="100" 
 							    		   placeholder="Nome pessoa" 
-							    		   value="${pessoa.razao}"/>
+							    		   value=""/>
 							  	</div>
 		  					</div>
 		  					<div class="col-md-2" id="btnpesquisar">

@@ -74,5 +74,14 @@ public class RepresentanteBO {
 			return null;
 		}
 	}
+
+	public void salvarRepresentante(Representante representante) throws Exception{
+		if(Objects.isNull(representanteMapper.obterPorId(representante.getIdRepresentante()))){
+			this.representanteMapper.insertRepresentante(representante);
+		}else{
+			this.representanteMapper.updateRepresentante(representante);
+//			this.representanteFornecedorMapper.deletePorFornecedor(fornecedor.getIdFornecedor());
+		}
+	}
 	
 }
