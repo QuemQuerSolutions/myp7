@@ -4,8 +4,13 @@
 <mapper namespace="com.plataforma.myp7.mapper.RepresentanteFornecedorMapper">
 	
 	<resultMap type="RepresentanteFornecedor" id="mapSimples">
-		<result property="idFornecedor" column="ID_FORNECEDOR" /> 
+		<result property="id" column="ID_FORNECEDOR" /> 
 		<association property="representante" column="ID_REPRESENTANTE" select="com.plataforma.myp7.mapper.RepresentanteMapper.obterPorId"/>
+	</resultMap>
+	
+	<resultMap type="RepresentanteFornecedor" id="mapPorRepresentante">
+		<result property="id" column="ID_REPRESENTANTE" /> 
+		<association property="fornecedor" column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
 	</resultMap>
 	
 	<sql id="selectRepresentanteFornecedor">
@@ -15,18 +20,35 @@
 
 	<select id="obterPorFornecedor" resultMap="mapSimples">
 		<include refid="selectRepresentanteFornecedor" />
-		where ID_FORNECEDOR = #{idFornecedor}
+		where ID_FORNECEDOR = #{id}
 	</select>
+	
+	<select id="obterPorRepresentante" resultMap="mapPorRepresentante">
+		<include refid="selectRepresentanteFornecedor" />
+		where ID_REPRESENTANTE = #{id}
+	</select>
+	
 	
 	<insert id="insert">
 		INSERT INTO rpr_representante_fornecedor
 			(ID_REPRESENTANTE, ID_FORNECEDOR) 
 		VALUES 
-			(#{representante.idRepresentante}, #{idFornecedor})
+			(#{representante.idRepresentante}, #{id})
+	</insert>
+	
+	<insert id="insertPorRepresentante">
+		INSERT INTO rpr_representante_fornecedor
+			(ID_REPRESENTANTE, ID_FORNECEDOR) 
+		VALUES 
+			(#{id}, #{fornecedor.idFornecedor})
 	</insert>	
 	
 	<delete id="deletePorFornecedor">
 		DELETE FROM rpr_representante_fornecedor WHERE ID_FORNECEDOR = #{idFornecedor} 
+	</delete>
+	
+	<delete id="deletePorRepresentante">
+		DELETE FROM rpr_representante_fornecedor WHERE ID_REPRESENTANTE = #{id} 
 	</delete>
 	
 </mapper>

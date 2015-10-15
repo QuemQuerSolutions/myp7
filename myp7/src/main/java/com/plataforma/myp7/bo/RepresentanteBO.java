@@ -1,5 +1,9 @@
 package com.plataforma.myp7.bo;
 
+import static com.plataforma.myp7.util.Utils.isEmpty;
+import static com.plataforma.myp7.util.Utils.setRetorno;
+import static com.plataforma.myp7.util.Utils.toLike;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,20 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.data.Representante;
+import com.plataforma.myp7.data.RepresentanteFornecedor;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
+import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteMapper;
-
-import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class RepresentanteBO {
 	
 	@Autowired
 	private RepresentanteMapper representanteMapper;
+	
+	@Autowired
+	private RepresentanteFornecedorMapper representanteFornecedorMapper;
 	
 	public List<Representante> selecionaTodos(){
 		return this.representanteMapper.obterTodosRepresentantes();
@@ -69,7 +77,9 @@ public class RepresentanteBO {
 		try{
 			if(Objects.isNull(idRepresentante))
 				return new Representante();
-			return this.representanteMapper.obterPorId(idRepresentante);
+			Representante representante = this.representanteMapper.obterPorId(idRepresentante);
+			representante.setFornecedores(getListFornecedor(this.representanteFornecedorMapper.obterPorRepresentante(idRepresentante)));
+			return representante;
 		}catch(Exception e){
 			return null;
 		}
@@ -80,8 +90,25 @@ public class RepresentanteBO {
 			this.representanteMapper.insertRepresentante(representante);
 		}else{
 			this.representanteMapper.updateRepresentante(representante);
-//			this.representanteFornecedorMapper.deletePorFornecedor(fornecedor.getIdFornecedor());
+			this.representanteFornecedorMapper.deletePorRepresentante(representante.getIdRepresentante());
+		}
+
+		this.associaRepresentante(representante.getFornecedores(), representante.getIdRepresentante());
+	}
+	
+	private void associaRepresentante(List<Fornecedor> lstFornecedor, Long  id) throws Exception{
+		for(Fornecedor fn: lstFornecedor){
+			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(fn,id);
+			if(!Objects.isNull(rpFornecedor.getFornecedor().getIdFornecedor()))
+				this.representanteFornecedorMapper.insertRepresentante(rpFornecedor);	
 		}
 	}
 	
+	private List<Fornecedor> getListFornecedor(List<RepresentanteFornecedor> lstRepresentanteFornecedor){
+		List<Fornecedor> lstFornecedor= new ArrayList<Fornecedor>();
+		for(RepresentanteFornecedor representante: lstRepresentanteFornecedor){
+			lstFornecedor.add(representante.getFornecedor());
+		}
+		return lstFornecedor;
+	}
 }

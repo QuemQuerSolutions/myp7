@@ -10,15 +10,30 @@ public class RepresentanteFornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Representante representante;
-	private Long idFornecedor;
+	private Fornecedor fornecedor;
+	private Long id;
 	
 	public RepresentanteFornecedor(){
 		representante = new Representante();
+		fornecedor = new Fornecedor();
 	}
 	
 	public RepresentanteFornecedor(Representante representante, Long idFornecedor){
 		this.representante = representante;
-		this.idFornecedor = idFornecedor;
+		this.id = idFornecedor;
+	}
+	
+	public RepresentanteFornecedor(Fornecedor fornecedor, Long idRepresentante){
+		this.fornecedor = fornecedor;
+		this.id = idRepresentante;
+	}
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	public Representante getRepresentante() {
@@ -30,14 +45,11 @@ public class RepresentanteFornecedor implements Serializable {
 	}
 
 	public Long getIdFornecedor() {
-		return idFornecedor;
+		return id;
 	}
 
 	public void setIdFornecedor(Long idFornecedor) {
-		this.idFornecedor = idFornecedor;
+		this.id = idFornecedor;
 	}
 
-	
-
-	
 }
