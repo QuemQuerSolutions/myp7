@@ -13,18 +13,19 @@ $(document).ready(function(){
 	$("#btnLimparFornecedor").click(function(e){
 		e.stopPropagation();
 		clearAll("#filtroModalFornecedor");
+		$("#lstFornecedorModal").html("");
 	});
 
 	$("#btnSelecionarFornecedor").click(function(e){
 		e.stopPropagation();
-		var representante;
+		var fornecedor;
 		$("#lstFornecedorModal tr").each(function(){
 			if($(this).hasClass($("#theme").val())){
-				representante = {idRepresentante	: $(this).find('td[data-id]').text(),
+				fornecedor = {idFornecedor	: $(this).find('td[data-id]').text(),
 						   		 razao			: $(this).find('td[data-razao]').text(),}
 			}
 		});	
-		addLineRepresentanteTab(representante);
+		addLineFornecedor(fornecedor);
 		$('#consulta_fornecedor').modal("hide");
 	});
 	
@@ -37,7 +38,7 @@ $(document).ready(function(){
 		}
 		
 		var fornecedor = {idFornecedor	: $("#idFornecedorBusca").val(), 
-							 apelido			: $("#razaoBusca").val()};
+							 razao			: $("#razaoBusca").val()};
 		
 		$.ajax({
 		    type: "GET",
@@ -59,7 +60,7 @@ $(document).ready(function(){
 			    	return;
 			    }
 			    
-			    lista.forEach(function(representante){
+			    lista.forEach(function(fornecedor){
 			    	lines += getLineFornecedor(fornecedor);
 			    });
 			    
@@ -78,7 +79,7 @@ $(document).ready(function(){
 function getLineFornecedor(fornecedor){
 	var line = "";
 	
-	line = line.concat("<tr onclick='onClickLineModal(lstFornecedorModal",", ", fornecedor.idFornecedor,")'>");
+	line = line.concat("<tr onclick='onClickLineModal(\"lstFornecedorModal\", ", fornecedor.idFornecedor,")'>");
 		line = line.concat("<td data-id>", fornecedor.idFornecedor, "</td>");
 		line = line.concat("<td data-razao>", fornecedor.razao, "</td>");
 	line = line.concat("</tr>");

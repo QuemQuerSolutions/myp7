@@ -29,6 +29,31 @@ $(document).ready(function() {
 
 });
 
+
+function addLineFornecedor(fornecedor){
+	var line = "", id = fornecedor.fornecedor;
+	if(isExist("linesFornecedor", "idFornecedor", id)) 
+		return;
+	
+	var atual = $("#linesFornecedor").html(), uuid = guid();
+	
+	line = line.concat("<tr>");
+	line = line.concat("<td class='text-middle'>", fornecedor.razao);
+	line = line.concat("	<input type='hidden' name='objRepresentante.fornecedores[0].idFornecedor' id='pk' value='", id, "'/>");
+	line = line.concat("</td>");
+	
+	line = line.concat("<td class='text-center text-middle'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdFornecedor\"); reindex(\"#linesFornecedor\", \"fornecedores\");'>");
+	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
+	line = line.concat(		"</a>");
+	line = line.concat(	"</td>");
+	line = line.concat("</tr>");
+	
+	$("#linesFornecedor").html(atual + line);
+	addContador(qtdFornecedor);
+	reindex("#linesFornecedor", "fornecedores");
+}
+
 function onAddFornecedor(){
 	$("#consulta_fornecedor").modal();
 }
@@ -75,6 +100,21 @@ function onAddFornecedor(){
 							<th width="10%" class="text-center"><a href="#" onclick="onAddFornecedor()"><span class="glyphicon glyphicon-plus"></span></a></th>
 						</tr>
 					</thead>
+					<tbody id="linesFornecedor">
+						<c:forEach items="${objRepresentante.fornecedores}" var="fornec" varStatus="i">
+							<tr>
+								<td class="text-middle">
+									${fornec.razao}
+									<form:hidden path="objRepresentante.fornecedores[${i.index}].idFornecedor" />
+								</td>
+								<td class="text-center text-middle">
+									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}', 'qtdFornecedor'); reindex('#linesFornecedor', 'fornecedores');" >
+										<span class="glyphicon glyphicon-remove red"></span>
+									</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</form>		
 		</div>

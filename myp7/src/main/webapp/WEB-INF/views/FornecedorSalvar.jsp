@@ -42,7 +42,7 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLineBruno(\"",uuid,"\", \"qtdRepresentante\"); reindex(\"#linesRepresentante\", \"representantes\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdRepresentante\"); reindex(\"#linesRepresentante\", \"representantes\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
@@ -113,7 +113,7 @@ function onAddRepresentante(){
 									<form:hidden path="objFornecedor.representantes[${i.index}].idRepresentante" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${rep.uuid}" onclick="onRemoveLineBruno('${rep.uuid}', 'qtdRepresentante'); reindex('#linesRepresentante', 'representantes');" >
+									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}', 'qtdRepresentante'); reindex('#linesRepresentante', 'representantes');" >
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>
