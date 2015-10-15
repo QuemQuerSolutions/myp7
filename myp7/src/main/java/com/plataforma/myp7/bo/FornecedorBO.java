@@ -1,5 +1,11 @@
 package com.plataforma.myp7.bo;
 
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.format;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.toLike;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +23,6 @@ import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
-import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class FornecedorBO {
@@ -30,6 +35,22 @@ public class FornecedorBO {
 	
 	public List<Fornecedor> obterTodos(){
 		return this.fornecedorMapper.obterTodos();
+	}
+	
+	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor){
+		fornecedor.setRazao(toLike(fornecedor.getRazao()));
+		int countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
+		if (countFornecedor == 0) 
+			return new ArrayList<Fornecedor>();
+		
+		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
+			List<Fornecedor> lstFornecedor = new ArrayList<Fornecedor>();
+			fornecedor.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem());
+			fornecedor.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+			lstFornecedor.add(fornecedor);
+			return lstFornecedor;
+		}
+		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
 	
 	public void inserir(Fornecedor fornecedor) throws ManterEntidadeException{

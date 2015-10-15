@@ -19,7 +19,6 @@ $(document).ready(function() {
 			alerta("Preencha os campos obrigatórios.", "warning");
 			return;
 		}
-		
 		go("#frmSalvarFornecedor");
 	});	
 	

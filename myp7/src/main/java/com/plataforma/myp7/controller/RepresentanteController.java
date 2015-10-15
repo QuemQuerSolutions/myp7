@@ -1,5 +1,9 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Representante;
-import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 public class RepresentanteController {
@@ -43,6 +46,14 @@ public class RepresentanteController {
 	@RequestMapping(value="obterRepresentantePorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model) {
 		return representanteBO.obterPorParametro(representante, model);
+	}
+	
+	@RequestMapping("editarRepresentante")
+	public String editarRepresentante(Model model, Long id){
+		Representante representante = this.representanteBO.selecionaPorId(id);
+		model.addAttribute("qtdFornecedor", representante.getFornecedores().size());
+		model.addAttribute("objRepresentante", representante);
+		return "RepresentanteSalvar";
 	}
 	
 }

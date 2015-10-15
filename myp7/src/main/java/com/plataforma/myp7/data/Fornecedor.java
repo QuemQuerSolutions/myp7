@@ -19,6 +19,10 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private String cnpjFormatado;
 	private List<Representante> representantes;
 	
+	//Mensagens
+	private String msgRetorno;
+	private Integer codRetorno;
+	
 	public Fornecedor(){
 		super();
 		this.representantes = new ArrayList<Representante>();
@@ -29,6 +33,23 @@ public class Fornecedor extends Pessoa implements Serializable{
 		this.setIdFornecedor(idFornecedor);
 	}
 	
+	
+	public String getMsgRetorno() {
+		return msgRetorno;
+	}
+
+	public void setMsgRetorno(String msgRetorno) {
+		this.msgRetorno = msgRetorno;
+	}
+
+	public Integer getCodRetorno() {
+		return codRetorno;
+	}
+
+	public void setCodRetorno(Integer codRetorno) {
+		this.codRetorno = codRetorno;
+	}
+
 	public Long getIdFornecedor() {
 		return idFornecedor;
 	}

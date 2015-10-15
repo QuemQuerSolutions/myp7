@@ -2,6 +2,7 @@ package com.plataforma.myp7.bo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,9 +67,12 @@ public class RepresentanteBO {
 
 	public Representante selecionaPorId(Long idRepresentante) {
 		try{
+			if(Objects.isNull(idRepresentante))
+				return new Representante();
 			return this.representanteMapper.obterPorId(idRepresentante);
 		}catch(Exception e){
 			return null;
 		}
 	}
+	
 }

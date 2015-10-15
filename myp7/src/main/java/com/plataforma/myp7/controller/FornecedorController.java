@@ -1,16 +1,23 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.util.Utils.format;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.enums.Mensagem;
-import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 public class FornecedorController {
@@ -63,6 +70,11 @@ public class FornecedorController {
 			return "redirect:carregaListaFornecedor?origem=error";
 		}
 		return "redirect:carregaListaFornecedor?origem=save";
+	}
+	
+	@RequestMapping(value="consultarFornecedor", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Fornecedor> consultarFornecedor(Fornecedor fornecedor){
+			return this.fornecedorBO.obterFornecedorPorParametro(fornecedor);
 	}
 	
 }

@@ -32,7 +32,7 @@ $(document).ready(function(){
 });
 
 function onClickLine(id){
-	
+	go("editarRepresentante?id=".concat(id));
 }
 
 
