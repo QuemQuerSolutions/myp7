@@ -2,6 +2,7 @@ package com.plataforma.myp7.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.plataforma.myp7.data.FornecedorCusto;
@@ -21,5 +22,5 @@ public interface FornecedorCustoMapper {
 
 	int countFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
 
-	void updateStatus(String sigla, Long idFornecedorCusto);
+	void updateStatusFornecedorCusto(@Param("situacao") String situacao, @Param("idFornecedorCusto") Long idFornecedorCusto);
 }

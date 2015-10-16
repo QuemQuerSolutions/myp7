@@ -18,6 +18,27 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#btnAprovar").click(function(){
+		var arraySelecionados = new Array();
+		pupulaArraySelecionados(arraySelecionados);
+		$("#cbTodos").prop('checked', false);
+		onClickAprovar(arraySelecionados);
+	});
+
+	$("#btnReprovar").click(function(){
+		var arraySelecionados = new Array();
+		pupulaArraySelecionados(arraySelecionados);
+		$("#cbTodos").prop('checked', false);
+		onClickAprovar(arraySelecionados);
+	});
+
+	function pupulaArraySelecionados(arraySelecionados){
+		$('.cbAprovacao').each(function(){
+			if($(this).prop('checked'))
+				arraySelecionados.push($(this).attr("idLinha"));
+		});
+	}
+
 	function atualizarComboEmpresa(){
 		$.ajax({
 			type: "POST",
@@ -109,7 +130,7 @@ function getLineAprovacao(custo){
 	var line = "";
 
 	line = line.concat("<tr>");
-	line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' id='cb", custo.idTabCustoFornecedor ,"'></td>");
+	line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
 	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
 	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
@@ -117,14 +138,17 @@ function getLineAprovacao(custo){
 	
 	line = line.concat("<td align='center'>");
 	//Se a situacao for aguardando
-	if(custo.situacao === "G")
-		line = line.concat( "<a href='#' class='preto' onclick=\"onClickAprovar('", custo.produto.idProduto , "')\">",
+	if(custo.situacao == "G"){
+		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", custo.idTabCustoFornecedor , "')\">",
 								"<span class='glyphicon glyphicon-ok' title='Aprovar' aria-hidden='true'></span>",
+							"</a>&nbsp;&nbsp;&nbsp;");
+		line = line.concat( "<a href='#' class='red' onclick=\"onClickReprovar('", custo.idTabCustoFornecedor , "')\">",
+								"<span class='glyphicon glyphicon-remove' title='Reprovar' aria-hidden='true'></span>",
 							"</a>");
-	else
+	}else
 		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
-								"<span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser alterado' aria-hidden='true'></span>",
-							"</a>");
+								"<span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser aprovado' aria-hidden='true'></span>",
+							"</a>");	
 	line = line.concat("</td>");
 	
 	line = line.concat("</tr>");
@@ -132,8 +156,8 @@ function getLineAprovacao(custo){
 	return line;
 }
 
-function onClickAprovar(idProduto){
-	
+function onClickAprovar(idTabCustoFornecedor){
+
 	swal({
 		title : "",
 		text : "Tem certeza que deseja Aprovar?",
@@ -146,7 +170,7 @@ function onClickAprovar(idProduto){
 		html: false
 	},
 	function() {
-		$.get("aprovarFornecedorCusto?idProduto=".concat(idProduto), function(){
+		$.get("aprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
 			pesquisar();
 			var qtdAguardando = parseInt($("#qtdAguardando").text());
 			var qtdAprovado = parseInt($("#qtdAprovado").text());
@@ -154,6 +178,32 @@ function onClickAprovar(idProduto){
 			$("#qtdAguardando").text(--qtdAguardando);
 			$("#qtdAprovado").text(++qtdAprovado);
 			swal("Custo aprovado com sucesso", "", "success");
+		});
+	});
+}
+
+function onClickReprovar(idTabCustoFornecedor){
+	
+	swal({
+		title : "",
+		text : "Tem certeza que deseja Reprovar?",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#F0AD4E",
+		confirmButtonText : "Reprovar",
+		cancelButtonText: "Cancelar",
+		closeOnConfirm : false,
+		html: false
+	},
+	function() {
+		$.get("reprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
+			pesquisar();
+			var qtdAguardando = parseInt($("#qtdAguardando").text());
+			var qtdReprovado = parseInt($("#qtdReprovado").text());
+			
+			$("#qtdAguardando").text(--qtdAguardando);
+			$("#qtdReprovado").text(++qtdReprovado);
+			swal("Produto reprovado com sucesso", "", "success");
 		});
 	});
 }

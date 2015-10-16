@@ -73,7 +73,7 @@
 	<select id="obterFornecedorCustoAprovacao" resultMap="fornecedorCustoMap">
 		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
 			   FORNEC.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
-			   USU.SITUACAO, FORNEC.DATA_APROVACAO, FORNEC.USU_APROVACAO  
+			   FORNEC.SITUACAO, FORNEC.DATA_APROVACAO, FORNEC.USU_APROVACAO  
 		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
 		 WHERE FORNEC.ID_PRODUTO = USU.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
@@ -95,10 +95,10 @@
 		GROUP BY SITUACAO
 	</select>	
 	
-	<update id="updateStatus">
+	<update id="updateStatusFornecedorCusto">
 		UPDATE TAB_CUSTO_FORNECEDOR
 		SET SITUACAO = #{situacao}
-		WHERE ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		WHERE ID_TAB_CUSTO_FORNECEDOR = #{idFornecedorCusto}
 	</update>	
 	
 	<update id="atualizarFornecedorCusto">

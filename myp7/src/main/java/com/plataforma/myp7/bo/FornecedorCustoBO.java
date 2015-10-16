@@ -103,8 +103,8 @@ public class FornecedorCustoBO {
 		return lista;
 	}
 
-	public void aprovarFornecedorCusto(Long idFornecedorCusto) {
-		this.fornecedorCustoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idFornecedorCusto);
-	}	
-
+	public void alterarSituacaoFornecedorCusto(Long[] idFornecedorCusto, SituacaoEnum situacaoEnum) {
+		for(Long id : idFornecedorCusto)
+			this.fornecedorCustoMapper.updateStatusFornecedorCusto(situacaoEnum.getSigla(), id);
+	}
 }
