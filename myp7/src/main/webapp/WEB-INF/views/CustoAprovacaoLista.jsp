@@ -19,24 +19,26 @@ $(document).ready(function(){
 	});
 
 	$("#btnAprovar").click(function(){
-		var arraySelecionados = new Array();
-		pupulaArraySelecionados(arraySelecionados);
-		$("#cbTodos").prop('checked', false);
-		onClickAprovar(arraySelecionados);
+		pupulaArraySelecionados();
+		onClickAprovar(pupulaArraySelecionados());
 	});
 
 	$("#btnReprovar").click(function(){
-		var arraySelecionados = new Array();
-		pupulaArraySelecionados(arraySelecionados);
-		$("#cbTodos").prop('checked', false);
-		onClickAprovar(arraySelecionados);
+		pupulaArraySelecionados();
+		onClickReprovar(pupulaArraySelecionados());
 	});
 
-	function pupulaArraySelecionados(arraySelecionados){
+	function pupulaArraySelecionados(){
+		var arraySelecionados = new Array();
+		
 		$('.cbAprovacao').each(function(){
 			if($(this).prop('checked'))
 				arraySelecionados.push($(this).attr("idLinha"));
 		});
+
+		$("#cbTodos").prop('checked', false);
+
+		return arraySelecionados;
 	}
 
 	function atualizarComboEmpresa(){
@@ -128,15 +130,21 @@ function pesquisar(){
 
 function getLineAprovacao(custo){
 	var line = "";
-
+	
 	line = line.concat("<tr>");
-	line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
+	
+	if(custo.situacao == "G")
+		line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
+	else
+		line = line.concat("<td class='centralizar-componente'></td>");
+	
 	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
 	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
 	
 	line = line.concat("<td align='center'>");
+	
 	//Se a situacao for aguardando
 	if(custo.situacao == "G"){
 		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", custo.idTabCustoFornecedor , "')\">",
@@ -149,6 +157,7 @@ function getLineAprovacao(custo){
 		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
 								"<span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser aprovado' aria-hidden='true'></span>",
 							"</a>");	
+	
 	line = line.concat("</td>");
 	
 	line = line.concat("</tr>");
@@ -157,55 +166,65 @@ function getLineAprovacao(custo){
 }
 
 function onClickAprovar(idTabCustoFornecedor){
-
-	swal({
-		title : "",
-		text : "Tem certeza que deseja Aprovar?",
-		type : "warning",
-		showCancelButton : true,
-		confirmButtonColor : "#F0AD4E",
-		confirmButtonText : "Aprovar",
-		cancelButtonText: "Cancelar",
-		closeOnConfirm : false,
-		html: false
-	},
-	function() {
-		$.get("aprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
-			pesquisar();
-			var qtdAguardando = parseInt($("#qtdAguardando").text());
-			var qtdAprovado = parseInt($("#qtdAprovado").text());
-			
-			$("#qtdAguardando").text(--qtdAguardando);
-			$("#qtdAprovado").text(++qtdAprovado);
-			swal("Custo aprovado com sucesso", "", "success");
+	if(idTabCustoFornecedor.length > 0){
+		swal({
+			title : "",
+			text : "Tem certeza que deseja Aprovar?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#F0AD4E",
+			confirmButtonText : "Aprovar",
+			cancelButtonText: "Cancelar",
+			closeOnConfirm : false,
+			html: false
+		},
+		function() {
+			$.get("aprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
+				pesquisar();
+				var qtdAguardando = parseInt($("#qtdAguardando").text());
+				var qtdAprovado = parseInt($("#qtdAprovado").text());
+	
+				$.each(idTabCustoFornecedor, function() {
+					$("#qtdAguardando").text(--qtdAguardando);
+					$("#qtdAprovado").text(++qtdAprovado);
+				});
+				swal("Custo aprovado com sucesso", "", "success");
+			});
 		});
-	});
+	}else{
+		swal("Selecione ao menos uma linha", "", "warning");
+	}
 }
 
 function onClickReprovar(idTabCustoFornecedor){
+	if(idTabCustoFornecedor.length > 0){
+		swal({
+			title : "",
+			text : "Tem certeza que deseja Reprovar?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#F0AD4E",
+			confirmButtonText : "Reprovar",
+			cancelButtonText: "Cancelar",
+			closeOnConfirm : false,
+			html: false
+		},
+		function() {
+			$.get("reprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
+				pesquisar();
+				var qtdAguardando = parseInt($("#qtdAguardando").text());
+				var qtdReprovado = parseInt($("#qtdReprovado").text());
 	
-	swal({
-		title : "",
-		text : "Tem certeza que deseja Reprovar?",
-		type : "warning",
-		showCancelButton : true,
-		confirmButtonColor : "#F0AD4E",
-		confirmButtonText : "Reprovar",
-		cancelButtonText: "Cancelar",
-		closeOnConfirm : false,
-		html: false
-	},
-	function() {
-		$.get("reprovarFornecedorCusto?idFornecedorCusto=".concat(idTabCustoFornecedor), function(){
-			pesquisar();
-			var qtdAguardando = parseInt($("#qtdAguardando").text());
-			var qtdReprovado = parseInt($("#qtdReprovado").text());
-			
-			$("#qtdAguardando").text(--qtdAguardando);
-			$("#qtdReprovado").text(++qtdReprovado);
-			swal("Produto reprovado com sucesso", "", "success");
+				$.each(idTabCustoFornecedor, function() {
+					$("#qtdAguardando").text(--qtdAguardando);
+					$("#qtdReprovado").text(++qtdReprovado);
+				});
+				swal("Produto reprovado com sucesso", "", "success");
+			});
 		});
-	});
+	}else{
+		swal("Selecione ao menos uma linha", "", "warning");
+	}
 }
 
 function onClickBlank(){
