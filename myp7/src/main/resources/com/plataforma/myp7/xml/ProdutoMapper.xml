@@ -151,6 +151,12 @@
 	<update id="updateStatus">
 		UPDATE prd_usuario_produto
 		SET SITUACAO = #{situacao}
+		
+		<if test="idUsuAprovacao != null">
+			,USU_APROVACAO = #{idUsuAprovacao}
+			,DATA_APROVACAO = #{dataAprovacao}
+		</if>
+		
 		WHERE ID_PRODUTO=#{idProduto}
 	</update>
 	

@@ -1,5 +1,6 @@
 package com.plataforma.myp7.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -22,5 +23,8 @@ public interface FornecedorCustoMapper {
 
 	int countFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
 
-	void updateStatusFornecedorCusto(@Param("situacao") String situacao, @Param("idFornecedorCusto") Long idFornecedorCusto);
+	void updateStatusFornecedorCusto(@Param("situacao") String situacao, 
+									 @Param("idFornecedorCusto") Long idFornecedorCusto,
+									 @Param("idUsuAprovacao") Long idUsuAprovacao,
+									 @Param("dataAprovacao") Date dataAprovacao);
 }

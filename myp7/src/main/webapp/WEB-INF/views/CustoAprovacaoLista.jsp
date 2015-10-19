@@ -133,32 +133,16 @@ function getLineAprovacao(custo){
 	
 	line = line.concat("<tr>");
 	
-	if(custo.situacao == "G")
+	if(custo.situacao.indexOf("Aguard.") > -1)
 		line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
 	else
-		line = line.concat("<td class='centralizar-componente'></td>");
+		line = line.concat("<td class='centralizar-componente'><span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser alterado' aria-hidden='true'></span></td>");
 	
 	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
 	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
-	
-	line = line.concat("<td align='center'>");
-	
-	//Se a situacao for aguardando
-	if(custo.situacao == "G"){
-		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", custo.idTabCustoFornecedor , "')\">",
-								"<span class='glyphicon glyphicon-ok' title='Aprovar' aria-hidden='true'></span>",
-							"</a>&nbsp;&nbsp;&nbsp;");
-		line = line.concat( "<a href='#' class='red' onclick=\"onClickReprovar('", custo.idTabCustoFornecedor , "')\">",
-								"<span class='glyphicon glyphicon-remove' title='Reprovar' aria-hidden='true'></span>",
-							"</a>");
-	}else
-		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
-								"<span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser aprovado' aria-hidden='true'></span>",
-							"</a>");	
-	
-	line = line.concat("</td>");
+	line = line.concat("<td align='center'>", custo.situacao,"</td>");
 	
 	line = line.concat("</tr>");
 	
@@ -232,10 +216,10 @@ function onClickBlank(){
 	alerta("Esse custo não pode ser alterado","warning");
 }
 
-function addLineRepresentanteTab(representante){
-	var id = representante.idRepresentante;
+function addLineFornecedor(fornecedor){
+	var id = fornecedor.idFornecedor;
 	$("#idFornecedor").val(id);
-	$("#fornecedor").val(representante.apelido);
+	$("#razao").val(fornecedor.razao);
 	
 	$.ajax({
 	    type: "GET",
@@ -259,10 +243,6 @@ function addLineRepresentanteTab(representante){
 	});
 }
 
-function addLineFornecedor(fornecedor){
-	$("#idFornecedor").val(fornecedor.idFornecedor);
-	$("#razao").val(fornecedor.razao);
-}
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -280,16 +260,16 @@ function addLineFornecedor(fornecedor){
 		
 			<div id="content-header">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4 req">
 						<label for="fornecedor" >Fornecedor</label>
 					</div>
 					<div class="col-md-1">
 						<label for="buscaFornecedor">&nbsp;</label>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 req">
 						<label for="uf">UF</label>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-5 req">
 						<label for="idEmpresa">Empresa</label>
 					</div>
 				</div>
@@ -403,9 +383,9 @@ function addLineFornecedor(fornecedor){
 						</th>
 						<th width="15%">Código EAN</th>
 						<th width="40%">Descrição</th>
-						<th width="15%">Valor Anterior</th>
-						<th width="15%">Valor novo</th>
-						<th width="10%">Situação</th>
+						<th width="10%">Valor Anterior</th>
+						<th width="10%">Valor novo</th>
+						<th width="20%" class="text-center">Situação</th>
 					</tr>
 				</thead>
 				<tbody id="lstCustoAprovacao"></tbody>

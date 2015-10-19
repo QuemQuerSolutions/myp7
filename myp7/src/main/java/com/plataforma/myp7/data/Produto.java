@@ -26,7 +26,7 @@ public class Produto implements Serializable{
 	private String caminhoImagem;
 	private String eanDunProduto;
 	private NCM ncmProduto;
-	private Embalagem embalagem;
+	private Embalagem embalagem; 
 	private Usuario usuario;
 	private int qtdPorSituacao;
 	private String situacao;

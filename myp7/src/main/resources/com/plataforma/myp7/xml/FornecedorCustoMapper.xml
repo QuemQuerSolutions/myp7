@@ -98,6 +98,12 @@
 	<update id="updateStatusFornecedorCusto">
 		UPDATE TAB_CUSTO_FORNECEDOR
 		SET SITUACAO = #{situacao}
+		
+		<if test="idUsuAprovacao != null">
+			,USU_APROVACAO = #{idUsuAprovacao}
+			,DATA_APROVACAO = #{dataAprovacao}
+		</if>
+		
 		WHERE ID_TAB_CUSTO_FORNECEDOR = #{idFornecedorCusto}
 	</update>	
 	

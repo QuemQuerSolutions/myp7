@@ -1,5 +1,6 @@
 package com.plataforma.myp7.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -26,7 +27,10 @@ public interface ProdutoMapper {
 	
 	void salvarProduto(Produto produto);
 	void atualizaProduto(Produto produto);
-	void updateStatus(@Param("situacao") String situacao, @Param("idProduto") Long idProduto);
+	void updateStatus(@Param("situacao") String situacao, 
+					  @Param("idProduto") Long idProduto,
+					  @Param("idUsuAprovacao") Long idUsuAprovacao,
+					  @Param("dataAprovacao") Date dataAprovacao);
 	
 	NCM obterNCMporId(Produto produto);
 	

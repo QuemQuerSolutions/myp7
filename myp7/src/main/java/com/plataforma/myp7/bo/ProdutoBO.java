@@ -6,6 +6,7 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.dto.MensagemRetornoDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
@@ -170,12 +172,12 @@ public class ProdutoBO {
 		return lista;
 	}
 	
-	public void aprovarProduto(Long idProduto){
-		produtoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idProduto);
+	public void aprovarProduto(Long idProduto, Usuario usuario){
+		produtoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idProduto, usuario.getIdUsuario(), new Date());
 	}
 	
 	public void reprovarProduto(Long idProduto){
-		produtoMapper.updateStatus(SituacaoEnum.REPROVADO.getSigla(), idProduto);
+		produtoMapper.updateStatus(SituacaoEnum.REPROVADO.getSigla(), idProduto, null,null);
 	}
 
 	public List<Produto> obterQtdPorSituacao(Long idUsuario) {

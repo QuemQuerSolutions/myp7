@@ -5,6 +5,7 @@ import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.SituacaoEnum;
@@ -98,13 +100,15 @@ public class FornecedorCustoBO {
 		List<FornecedorCusto> lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
 		
 		for(FornecedorCusto fc: lista)
-			fc.getProduto().setDescSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));
+			fc.setSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));
 			
 		return lista;
 	}
 
-	public void alterarSituacaoFornecedorCusto(Long[] idFornecedorCusto, SituacaoEnum situacaoEnum) {
+	public void alterarSituacaoFornecedorCusto(Long[] idFornecedorCusto, SituacaoEnum situacaoEnum, Usuario usuarioAtualizacao) {
+		Date hoje = new Date();
+		Long idUsuario = usuarioAtualizacao.getIdUsuario();
 		for(Long id : idFornecedorCusto)
-			this.fornecedorCustoMapper.updateStatusFornecedorCusto(situacaoEnum.getSigla(), id);
+			this.fornecedorCustoMapper.updateStatusFornecedorCusto(situacaoEnum.getSigla(), id, idUsuario, hoje);
 	}
 }
