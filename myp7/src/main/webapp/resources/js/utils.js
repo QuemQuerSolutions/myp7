@@ -201,8 +201,6 @@ function controlTabs(tab){
 }
 
 function onRemoveLine(idLine, contador){
-	alert(idLine);
-	alert(contador);
 	var cont = parseInt($("#".concat(contador)).text());
 	$("#".concat(idLine)).parent().parent("tr").remove();
 	$("#".concat(contador)).text(parseInt(--cont));

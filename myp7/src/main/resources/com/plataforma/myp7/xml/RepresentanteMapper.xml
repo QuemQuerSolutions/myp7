@@ -62,10 +62,10 @@
 		</if>
 	</sql>	
 	
-	<select id="obterPorParametro" resultMap="mapSimples">
-		<include refid="selectRepresentante" />
+	<select id="obterPorParametro" resultMap="representanteMaisRazaoMap">
+		<include refid="selectRepresentanteMaisRazao" />
 		WHERE 1=1
-		<include refid="whereRepresentante" />
+		<include refid="whereRepresentanteMaisRazao" />
 	</select>
 	
 	<select id="obterPorParametroMaisRazao" resultMap="representanteMaisRazaoMap">

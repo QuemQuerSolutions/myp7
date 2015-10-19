@@ -25,8 +25,6 @@ $(document).ready(function(){
 						   		 razao			: $(this).find('td[data-razao]').text(),}
 			}
 		});	
-		alert(fornecedor.idFornecedor);
-		alert(fornecedor.razao);
 		addLineFornecedor(fornecedor);
 		$('#consulta_fornecedor').modal("hide");
 	});
