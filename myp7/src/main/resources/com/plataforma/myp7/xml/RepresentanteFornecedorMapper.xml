@@ -44,7 +44,7 @@
 	</insert>	
 	
 	<delete id="deletePorFornecedor">
-		DELETE FROM rpr_representante_fornecedor WHERE ID_FORNECEDOR = #{idFornecedor} 
+		DELETE FROM rpr_representante_fornecedor WHERE ID_FORNECEDOR = #{id} 
 	</delete>
 	
 	<delete id="deletePorRepresentante">

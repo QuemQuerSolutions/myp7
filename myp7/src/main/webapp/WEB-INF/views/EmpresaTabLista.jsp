@@ -16,7 +16,7 @@ function addLineEmpresaTab(empresa){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-		line = line.concat("<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", qtdEmpresa); reindex(\"#linesEmpresaTab\", \"empresa\");' >");
+		line = line.concat("<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdEmpresa \"); reindex(\"#linesEmpresaTab\", \"empresa\");' >");
 			line = line.concat("<span class='glyphicon glyphicon-remove red'></span>");
 		line = line.concat("</a>");
 	line = line.concat("</td>");
@@ -48,7 +48,7 @@ function addLineEmpresaTab(empresa){
 						<form:input path="obj.empresa[${i.index}].alcada" onkeydown="onlyNumber(event)" cssClass="form-control" />
 					</td>
 					<td class="text-center text-middle">
-						<a href="#" id="${emp.uuid}"  onclick="onRemoveLine('${emp.uuid}', qtdEmpresa); reindex('#linesEmpresaTab', 'empresa');" >
+						<a href="#" id="${emp.uuid}"  onclick="onRemoveLine('${emp.uuid}', 'qtdEmpresa'); reindex('#linesEmpresaTab', 'empresa');" >
 							<span class="glyphicon glyphicon-remove red"></span>
 						</a>
 					</td>

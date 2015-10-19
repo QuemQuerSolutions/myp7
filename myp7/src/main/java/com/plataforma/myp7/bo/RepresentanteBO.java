@@ -81,10 +81,11 @@ public class RepresentanteBO {
 			representante.setFornecedores(getListFornecedor(this.representanteFornecedorMapper.obterPorRepresentante(idRepresentante)));
 			return representante;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
-
+	
 	public void salvarRepresentante(Representante representante) throws Exception{
 		if(Objects.isNull(representanteMapper.obterPorId(representante.getIdRepresentante()))){
 			this.representanteMapper.insertRepresentante(representante);
@@ -100,7 +101,7 @@ public class RepresentanteBO {
 		for(Fornecedor fn: lstFornecedor){
 			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(fn,id);
 			if(!Objects.isNull(rpFornecedor.getFornecedor().getIdFornecedor()))
-				this.representanteFornecedorMapper.insertRepresentante(rpFornecedor);	
+				this.representanteFornecedorMapper.insertPorRepresentante(rpFornecedor);	
 		}
 	}
 	

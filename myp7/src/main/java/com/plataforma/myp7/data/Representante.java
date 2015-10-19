@@ -1,5 +1,6 @@
 package com.plataforma.myp7.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,14 +11,19 @@ import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Alias("Representante")
-public class Representante {
+public class Representante extends Pessoa implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Long idRepresentante;
 	private String apelido;
 	private String status;
 	private Usuario usuario;
 	private String uuid;
 	private List<Fornecedor> fornecedores;
-	private String razao;
+	
 	
 	//Mensagens
 	private String msgRetorno;
@@ -28,6 +34,7 @@ public class Representante {
 	}
 	
 	public Representante() {
+		super();
 		uuid = UUID.randomUUID().toString();
 		this.fornecedores = new ArrayList<Fornecedor>();
 	}
@@ -107,11 +114,4 @@ public class Representante {
 		this.status = status;
 	}
 
-	public String getRazao() {
-		return razao;
-	}
-
-	public void setRazao(String razaoSocial) {
-		this.razao = razaoSocial;
-	}
 }

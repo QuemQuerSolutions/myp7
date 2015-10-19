@@ -200,17 +200,19 @@ function controlTabs(tab){
 	$("#"+$(tab).attr("contextmenu")).attr("hidden", false);
 }
 
-function onRemoveLineBruno(idLine, contador){
+function onRemoveLine(idLine, contador){
+	alert(idLine);
+	alert(contador);
 	var cont = parseInt($("#".concat(contador)).text());
 	$("#".concat(idLine)).parent().parent("tr").remove();
 	$("#".concat(contador)).text(parseInt(--cont));
 }
 
-function onRemoveLine(idLine, contador){
-	$("#"+idLine).parent().parent("tr").remove();
-	var cont = parseInt($(contador).text());
-	$(contador).text(--cont);
-}
+//function onRemoveLine(idLine, contador){
+//	$("#"+idLine).parent().parent("tr").remove();
+//	var cont = parseInt($(contador).text());
+//	$(contador).text(--cont);
+//}
 
 function addContador(contador){
 	var cont = parseInt($(contador).text());

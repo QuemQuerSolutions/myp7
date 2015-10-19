@@ -38,10 +38,9 @@ $(document).ready(function() {
 
 
 function addLineFornecedor(fornecedor){
-	var line = "", id = fornecedor.fornecedor;
+	var line = "", id = fornecedor.idFornecedor;
 	if(isExist("linesFornecedor", "idFornecedor", id)) 
-		return;
-	
+		return;	
 	var atual = $("#linesFornecedor").html(), uuid = guid();
 	
 	line = line.concat("<tr>");
@@ -131,7 +130,7 @@ function onAddFornecedor(){
 									<form:hidden path="objRepresentante.fornecedores[${i.index}].idFornecedor" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}', 'qtdFornecedor'); reindex('#linesFornecedor', 'fornecedores');" >
+									<a href="#" id="${fornec.uuid}" onclick="onRemoveLine('${fornec.uuid}', 'qtdFornecedor'); reindex('#linesFornecedor', 'fornecedores');" >
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>

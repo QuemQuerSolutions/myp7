@@ -14,9 +14,11 @@
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
 		<result property="status"  			column="STATUS" />
 		<result property="apelido" 			column="APELIDO" />
-		<result property="razao" 			column="PESS.RAZAO" />
+		<result property="razao" 			column="RAZAO" />
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>	
+	
+	
 	
 	<resultMap id="mapSimples" type="com.plataforma.myp7.data.Representante">
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
@@ -33,9 +35,13 @@
 	
 	<sql id="selectRepresentanteMaisRazao">
 		<![CDATA[
-			SELECT ID_REPRESENTANTE, STATUS, APELIDO, PESS.RAZAO ,ID_USUARIO
-			FROM rpr_Representante REP
-			INNER JOIN gbl_pessoa PESS on (REP.ID_REPRESENTANTE = PESS.ID_PESSOA)
+			SELECT ID_REPRESENTANTE,
+				   STATUS, APELIDO,
+				   RAZAO ,
+				   ID_USUARIO,
+				   RAZAO
+			FROM rpr_Representante 
+			JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = rpr_Representante.ID_REPRESENTANTE
 		  ]]>
 	</sql>	
 	
@@ -52,7 +58,7 @@
 		<include refid="whereRepresentante" />
 		
 		<if test="razao != null">
-			AND UPPER(PESS.RAZAO) like UPPER(#{razao})
+			AND UPPER(RAZAO) like UPPER(#{razao})
 		</if>
 	</sql>	
 	
@@ -86,8 +92,8 @@
 		ORDER BY ID_REPRESENTANTE
 	</select>
 	
-	<select id="obterPorId" resultMap="representanteMap">
-		<include refid="selectRepresentante"/>
+	<select id="obterPorId" resultMap="representanteMaisRazaoMap">
+		<include refid="selectRepresentanteMaisRazao"/>
 		WHERE ID_REPRESENTANTE = #{idRepresentante}
 	</select>
 	

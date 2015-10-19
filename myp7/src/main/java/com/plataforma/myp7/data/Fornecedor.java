@@ -3,6 +3,7 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.ibatis.type.Alias;
 
@@ -17,6 +18,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private String statusFornecedor;
 	private String utilTabCustoFornc;
 	private String cnpjFormatado;
+	private String uuid;
 	private List<Representante> representantes;
 	
 	//Mensagens
@@ -25,6 +27,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	
 	public Fornecedor(){
 		super();
+		uuid = UUID.randomUUID().toString();
 		this.representantes = new ArrayList<Representante>();
 	}
 	
@@ -33,7 +36,14 @@ public class Fornecedor extends Pessoa implements Serializable{
 		this.setIdFornecedor(idFornecedor);
 	}
 	
-	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getMsgRetorno() {
 		return msgRetorno;
 	}
