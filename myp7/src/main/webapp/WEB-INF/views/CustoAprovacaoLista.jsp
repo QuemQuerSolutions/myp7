@@ -77,7 +77,7 @@ $(document).ready(function(){
 		$("input[name=situacoes]").parent().removeClass("active");
 		$("#aguardando").parent().addClass("active");
 		$("#lstCustoAprovacao").html("");
-	});
+	});	
 	
 	$("#buscaFornecedor").click(function(e){
 		e.stopPropagation();
@@ -196,6 +196,7 @@ function onClickAprovar(idTabCustoFornecedor){
 	}
 }
 
+
 function onClickReprovar(idTabCustoFornecedor){
 	if(idTabCustoFornecedor.length > 0){
 		swal({
@@ -258,6 +259,10 @@ function addLineRepresentanteTab(representante){
 	});
 }
 
+function addLineFornecedor(fornecedor){
+	$("#idFornecedor").val(fornecedor.idFornecedor);
+	$("#razao").val(fornecedor.razao);
+}
 </script>
 <body>
 	<c:import url="components/header.jsp" />
@@ -290,8 +295,8 @@ function addLineRepresentanteTab(representante){
 				</div>
 				<div class="row">
 					<div class="col-md-4 form-group req">
-						<input type="hidden" id="idFornecedor" value=1>
-						<input type="text" class="form-control" readonly="readonly" id="fornecedor" value="Teste"/>
+						<input type="hidden" id="idFornecedor" name="idFornecedor"value="">
+						<input type="text" class="form-control" readonly="readonly" id="razao" value=""/>
 					</div>
 					<div class="col-md-1 form-group paddingleft0">
 					  	<a href="#" target="_self" class="form-control icon-search" id="buscaFornecedor"><span class="glyphicon glyphicon-search"></span></a>
@@ -408,6 +413,8 @@ function addLineRepresentanteTab(representante){
 		</div>
 	
 	</div>
+	<c:import url="FornecedorModalLista.jsp"/>
+	
 	<c:import url="components/footer.jsp">
 		<c:param name="salvar" value="reprovar_aprovar" />
 	</c:import>

@@ -100,7 +100,7 @@ function onAddFornecedor(){
 				  	<div class="col-md-5 form-group req">
 				   		<label for="usuario">Usuário</label>
 				   		<input type="hidden" name="usuario.idUsuario" id="idusuario" value="${objRepresentante.usuario.idUsuario}"/>
-				    	<input type="text" class="form-control" id="usuario" value="${objRepresentante.usuario.razaoSocial}" readonly="readonly">
+				    	<input type="text" class="form-control" id="usuario" name="usuario.razaoSocial" value="${objRepresentante.usuario.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="buscaUsuario">&nbsp;</label>
