@@ -69,11 +69,12 @@ function onAddRepresentante(){
 			<form action="salvarComprador" id="frmSalvarComprador" method="POST">
 				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
+				<input type="hidden" id="id" name="id" value="${obj.id}">
 				
 				<div class="row">
 				  	<div class="col-md-5 form-group req">
 				   		<label for="nomePessoa">Pessoa</label>
-				    	<input type="hidden" id="idPessoa" name="id" value="${obj.id}">
+				    	<input type="hidden" id="idPessoa" name="idPessoa" value="${obj.idPessoa}">
 				    	<input type="text" class="form-control" id="razao" maxlength="11" value="${obj.razao}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">

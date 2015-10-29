@@ -1,5 +1,7 @@
 package com.plataforma.myp7.exception;
 
+import java.sql.SQLException;
+
 import com.plataforma.myp7.enums.MensagemWS;
 
 public class ManterEntidadeException extends RuntimeException {
@@ -9,7 +11,7 @@ public class ManterEntidadeException extends RuntimeException {
 	private MensagemWS mensagemEnum;
 	
 	public ManterEntidadeException(MensagemWS message) {
-		super(message.getMensagem(), new Exception());
+		super(message.getMensagem(), new SQLException());
 		this.mensagemEnum = message;
 	}
 

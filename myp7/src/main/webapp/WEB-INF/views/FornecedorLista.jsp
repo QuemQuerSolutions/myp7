@@ -107,7 +107,7 @@ function onClickLine(id){
 							<input type="text" 
 								   class="form-control  campo-buscar upper" 
 								   name="razao"
-								   placeholder="Insira o nome" 
+								   placeholder="Razão Social" 
 								   id="razao" 
 								   maxlength="100" 
 								   value="${razao}">
@@ -137,7 +137,7 @@ function onClickLine(id){
 						<th width="10%">Código</th>
 						<th width="60%">Razãzo social</th>	
 						<th width="15%">CNPJ</th>
-						<th>Utiliza Tabela de Custo</th>
+						<th>Util. Tab. de Custo</th>
 					</tr>
 				</thead>
 				<tbody>

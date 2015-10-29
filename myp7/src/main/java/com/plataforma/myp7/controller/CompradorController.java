@@ -1,5 +1,7 @@
 package com.plataforma.myp7.controller;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.plataforma.myp7.bo.CompradorBO;
 import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.enums.Mensagem;
+
 import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
@@ -35,12 +38,19 @@ public class CompradorController {
 	@RequestMapping("editarComprador")
 	public String editarComprador(Model model, Integer id){
 		
+		if(Objects.isNull(id)){
+			model.addAttribute("obj", new Comprador());
+			model.addAttribute("qtdEmpresa", 0);
+			model.addAttribute("qtdRepresentante", 0);
+			return "CompradorSalvar";
+		}
+		
 		Comprador comprador = compradorBO.obterPorId(id);
 		int qtdEmpresa = comprador.getEmpresa().size(),
 			qtdRepresentante = comprador.getRepresentantes().size();
 		
-		
-		model.addAttribute("obj", comprador);
+		comprador.setIdPessoa(Long.valueOf(comprador.getId()));
+		model.addAttribute("obj",comprador);
 		model.addAttribute("qtdEmpresa", qtdEmpresa);
 		model.addAttribute("qtdRepresentante", qtdRepresentante);
 		
