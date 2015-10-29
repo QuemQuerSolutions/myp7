@@ -47,7 +47,7 @@ public class FornecedorController {
 			model.addAttribute("razao", razao);
 			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		}catch(Exception e){
-			setMsgRetorno(model, "Falha na Operação");
+			setMsgRetorno(model, "Erro ao carregar lista");
 			setCodRetorno(model, -1);
 		}
 		return "FornecedorLista";

@@ -105,7 +105,7 @@ function onAddFornecedor(){
 				  		<label for="buscaUsuario">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" id="clickUsuario" name="usuario"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
-				  	<div class="col-md-2 form-group req">
+				  	<div class="col-md-6 form-group req">
 				   		<label for="status">Status</label>
 			   			<form:select path="objRepresentante.status" cssClass="form-control">
 			   				<form:option value="A" label="Ativo" />
@@ -118,7 +118,7 @@ function onAddFornecedor(){
 				<table  class="table table-hover table-bordered table-striped margin0" >	
 					<thead>
 						<tr style="text-align: center">
-							<th width="90%"><b>Fornecedor</b><span id="qtdFornecedor" class="badge">${qtdFornecedor}</span></th>
+							<th width="90%"><b>Fornecedor</b>&nbsp;<span id="qtdFornecedor" class="badge">${qtdFornecedor}</span></th>
 							<th width="10%" class="text-center"><a href="#" onclick="onAddFornecedor()"><span class="glyphicon glyphicon-plus"></span></a></th>
 						</tr>
 					</thead>

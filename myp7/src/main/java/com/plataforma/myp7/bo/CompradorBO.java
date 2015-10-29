@@ -75,8 +75,10 @@ public class CompradorBO {
 	
 	public void salvar(Comprador comprador){
 		final Integer id = comprador.getId();
+		comprador.setEdiCodigo(Objects.isNull(comprador.getEdiCodigo()) ? 0 : comprador.getEdiCodigo());
 		
 		if(Objects.isNull(id)){
+			comprador.setId((int) comprador.getIdPessoa().longValue());
 			this.inserir(comprador);
 		}else{
 			this.update(comprador);

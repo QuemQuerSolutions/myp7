@@ -39,7 +39,7 @@ public class CompradorController {
 		int qtdEmpresa = comprador.getEmpresa().size(),
 			qtdRepresentante = comprador.getRepresentantes().size();
 		
-		
+		comprador.setIdPessoa(Long.valueOf(comprador.getId()));
 		model.addAttribute("obj", comprador);
 		model.addAttribute("qtdEmpresa", qtdEmpresa);
 		model.addAttribute("qtdRepresentante", qtdRepresentante);
