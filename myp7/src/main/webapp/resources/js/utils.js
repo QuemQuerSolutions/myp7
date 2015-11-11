@@ -103,9 +103,51 @@ function getEmptyValidation(){
 	return isValid;
 }
 
+
+function validarCPF(cpf) {  
+    cpf = cpf.replace(/[^\d]+/g,'');    
+    if(cpf == '') return false; 
+    // Elimina CPFs invalidos conhecidos    
+    if (cpf.length != 11 || 
+        cpf == "00000000000" || 
+        cpf == "11111111111" || 
+        cpf == "22222222222" || 
+        cpf == "33333333333" || 
+        cpf == "44444444444" || 
+        cpf == "55555555555" || 
+        cpf == "66666666666" || 
+        cpf == "77777777777" || 
+        cpf == "88888888888" || 
+        cpf == "99999999999")
+            return false;       
+    // Valida 1o digito 
+    add = 0;    
+    for (i=0; i < 9; i ++)       
+        add += parseInt(cpf.charAt(i)) * (10 - i);  
+        rev = 11 - (add % 11);  
+        if (rev == 10 || rev == 11)     
+            rev = 0;    
+        if (rev != parseInt(cpf.charAt(9)))     
+            return false;       
+    // Valida 2o digito 
+    add = 0;    
+    for (i = 0; i < 10; i ++)        
+        add += parseInt(cpf.charAt(i)) * (11 - i);  
+    rev = 11 - (add % 11);  
+    if (rev == 10 || rev == 11) 
+        rev = 0;    
+    if (rev != parseInt(cpf.charAt(10)))
+        return false;       
+    return true;   
+}
+
+function validaCNPJCPF(numDocumento){
+	numDocumento = numDocumento.replace( /\D/g , "");
+	return numDocumento.length < 14? validarCPF(numDocumento) : validarCNPJ(numDocumento);
+}
+
 function validarCNPJ(cnpj) {
-	 
-    cnpj = cnpj.replace(/[^\d]+/g,'');
+	cnpj = cnpj.replace(/[^\d]+/g,'');
  
     if(cnpj == '') return false;
      
@@ -157,13 +199,22 @@ function validarCNPJ(cnpj) {
     
 }
 
-function FormatarCnpj(cnpj) {
-    cnpj = cnpj.replace( /\D/g , ""); //Remove tudo o cnpj que não é dígito
-    cnpj = cnpj.replace( /^(\d{2})(\d)/ , "$1.$2"); //Coloca ponto entre o segundo e o terceiro dígitos
-    cnpj = cnpj.replace( /^(\d{2})\.(\d{3})(\d)/ , "$1.$2.$3"); //Coloca ponto entre o quinto e o sexto dígitos
-    cnpj = cnpj.replace( /\.(\d{3})(\d)/ , ".$1/$2"); //Coloca uma barra entre o oitavo e o nono dígitos
-    cnpj = cnpj.replace( /(\d{4})(\d)/ , "$1-$2"); //Coloca um hífen depois do bloco de quatro dígitos
-    return cnpj;
+function FormatarCnpjCPF(numDocumento) {
+	numDocumento = numDocumento.replace( /\D/g , ""); //Remove tudo o que não é dígito
+    
+    if (numDocumento.length < 14){//CPF
+		numDocumento=numDocumento.replace(/(\d{3})(\d)/,"$1.$2")  //Coloca um ponto entre o terceiro e o quarto dígitos
+		numDocumento=numDocumento.replace(/(\d{3})(\d)/,"$1.$2") //Coloca um ponto entre o terceiro e o quarto dígitos
+		numDocumento=numDocumento.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hífen entre o terceiro e o quarto dígitos
+    	
+    }else{//CPNPJ
+    	
+       	numDocumento = numDocumento.replace( /^(\d{2})(\d)/ , "$1.$2"); //Coloca ponto entre o segundo e o terceiro dígitos
+    	numDocumento = numDocumento.replace( /^(\d{2})\.(\d{3})(\d)/ , "$1.$2.$3"); //Coloca ponto entre o quinto e o sexto dígitos
+    	numDocumento = numDocumento.replace( /\.(\d{3})(\d)/ , ".$1/$2"); //Coloca uma barra entre o oitavo e o nono dígitos
+    	numDocumento = numDocumento.replace( /(\d{4})(\d)/ , "$1-$2"); //Coloca um hífen depois do bloco de quatro dígitos
+    }
+    return numDocumento;
 }
 
 
@@ -205,12 +256,6 @@ function onRemoveLine(idLine, contador){
 	$("#".concat(idLine)).parent().parent("tr").remove();
 	$("#".concat(contador)).text(parseInt(--cont));
 }
-
-//function onRemoveLine(idLine, contador){
-//	$("#"+idLine).parent().parent("tr").remove();
-//	var cont = parseInt($(contador).text());
-//	$(contador).text(--cont);
-//}
 
 function addContador(contador){
 	var cont = parseInt($(contador).text());

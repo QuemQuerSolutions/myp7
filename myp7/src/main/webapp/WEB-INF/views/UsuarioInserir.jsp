@@ -6,8 +6,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$("#inputCnpj").change(function(){
-		$("#inputCnpj").val(FormatarCnpj($.trim($("#inputCnpj").val())));
+	$("#inputCnpjCPF").change(function(){
+		$("#inputCnpjCPF").val(FormatarCnpjCPF($.trim($("#inputCnpjCPF").val())));
 	});
 	
 	$("#btnCancelar").click(function(){
@@ -27,14 +27,14 @@ $(document).ready(function() {
 		}else{
 			
 			
-			if(!validarCNPJ($.trim($("#inputCnpj").val()))){
-				alerta("CNPJ inválido", "warning");
+			if(!validaCNPJCPF($.trim($("#inputCnpjCPF").val()))){
+				alerta("Documento inválido", "warning");
 				$("#divCnpj").attr("class","form-group has-error");
 			}else if(!validaEmail($("#inputEmailUsuario").val())){
 				alerta("Não é um endereço de e-mail válido.", "warning");
 				$("#divEmail").attr("class","form-group has-error");
 			}else{
-				$("#inputCnpj").val($("#inputCnpj").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
+				$("#inputCnpjCPF").val($("#inputCnpjCPF").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
 				$("#frmCadastro").submit();
 				
 			}
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 	function limpaCampos(){
 		$("#inputRzSocial").val("");
-		$("#inputCnpj").val("");
+		$("#inputCnpjCPF").val("");
 		$("#inputEmailUsuario").val("");
 		$("#inputSenhaUsuario").val("");
 	}
@@ -97,9 +97,9 @@ $(document).ready(function() {
 					<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-3">
 							<div class="form-group" id="divCnpj">
-								<label for="inputCnpj" class="control-label">CNPJ</label>
+								<label for="inputCnpjCPF" class="control-label">CNPJ / CPF</label>
 									<input type="text" class="form-control campo-salvar" name="nDocumento"
-										placeholder="00.000.000/0000-00" id="inputCnpj" maxlength="14" value="${usuario.nDocumento}">
+										placeholder="00.000.000/0000-00" id="inputCnpjCPF" maxlength="14" value="${usuario.nDocumento}">
 							</div>
 						</div>
 					</div>
@@ -126,12 +126,14 @@ $(document).ready(function() {
 					</div>
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<div class="form-group" id="divTipoUsuario">
 								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" checked="checked" onclick="onClickTipoUsuario();"/>
 								<label for="inputRadioPortal" class="control-label">Portal</label>
 								<input type="radio" name="tpUsuario" id="inputRadioRetaguarda" value="R" onclick="onClickTipoUsuario();" />
 								<label for="inputRadioRetaguarda" class="control-label">Retaguarda</label>
+								<input type="radio" name="tpUsuario" id="inputRadioTodos" value="T" onclick="onClickTipoUsuario();" />
+								<label for="inputRadioTodos" class="control-label">Todos</label>
 							</div>
 						</div>
 					</div>								
