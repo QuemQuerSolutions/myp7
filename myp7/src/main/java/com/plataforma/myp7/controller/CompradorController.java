@@ -50,7 +50,11 @@ public class CompradorController {
 			qtdRepresentante = comprador.getRepresentantes().size();
 		
 		comprador.setIdPessoa(Long.valueOf(comprador.getId()));
+<<<<<<< HEAD
 		model.addAttribute("obj",comprador);
+=======
+		model.addAttribute("obj", comprador);
+>>>>>>> branch 'master' of https://github.com/QuemQuerSolutions/myp7.git
 		model.addAttribute("qtdEmpresa", qtdEmpresa);
 		model.addAttribute("qtdRepresentante", qtdRepresentante);
 		

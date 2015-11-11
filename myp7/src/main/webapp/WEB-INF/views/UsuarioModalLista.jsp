@@ -125,13 +125,13 @@ function montaTable(lista){
 							<div class="col-md-4">
 								<div class="form-group">
 							   		<label for="sigla" class="control-label">Razão Social</label>
-							    	<input type="text" class="form-control campo-pesquisa" id="razao_social" name="razaoSocial" maxlength="50" placeholder="Razão Social">
+							    	<input type="text" class="form-control campo-pesquisa" id="razao_social" name="razaoSocial" maxlength="200" placeholder="Razão Social">
 							  	</div>
 							</div>
 		  					<div class="col-md-4">
 								<div class="form-group">
 							   		<label for="descricao" class="control-label">Email</label>
-							    	<input type="text" class="form-control campo-pesquisa" id="email" name="email" maxlength="50" placeholder="Email">
+							    	<input type="text" class="form-control campo-pesquisa" id="email" name="email" maxlength="100" placeholder="Email">
 							  	</div>
 		  					</div>
 		  					<div class="col-md-2">
