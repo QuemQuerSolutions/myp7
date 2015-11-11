@@ -19,7 +19,7 @@
 	<context:component-scan base-package="com.plataforma.myp7" />
 	
 	<mvc:annotation-driven />
-	
+	<mvc:default-servlet-handler/>
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<mvc:interceptors>
