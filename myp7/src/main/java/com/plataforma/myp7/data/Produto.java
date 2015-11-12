@@ -150,9 +150,9 @@ public class Produto implements Serializable{
 		this.pesoBruto = pesoBruto;
 	}
 	
-	public void setPesoBruto(String pesoBruto) {
+	public void setPesoBrutoSt(String pesoBruto) {
 		try{
-			this.pesoBruto = new BigDecimal(pesoBruto);
+			this.pesoBruto = new BigDecimal(pesoBruto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.pesoBruto = null;
 		}		
@@ -166,9 +166,9 @@ public class Produto implements Serializable{
 		this.pesoLiquido = pesoLiquido;
 	}
 	
-	public void setPesoLiquido(String pesoLiquido) {
+	public void setPesoLiquidoSt(String pesoLiquido) {
 		try{
-			this.pesoLiquido = new BigDecimal(pesoLiquido);
+			this.pesoLiquido = new BigDecimal(pesoLiquido.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.pesoLiquido = null;
 		}			
@@ -182,9 +182,9 @@ public class Produto implements Serializable{
 		this.alturaProduto = alturaProduto;
 	}
 	
-	public void setAlturaProduto(String alturaProduto) {
+	public void setAlturaProdutoSt(String alturaProduto) {
 		try{
-			this.alturaProduto = new BigDecimal(alturaProduto);
+			this.alturaProduto = new BigDecimal(alturaProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.alturaProduto = null;
 		}			
@@ -198,9 +198,9 @@ public class Produto implements Serializable{
 		this.larguraProduto = larguraProduto;
 	}
 	
-	public void setLarguraProduto(String larguraProduto) {
+	public void setLarguraProdutoSt(String larguraProduto) {
 		try{
-			this.larguraProduto = new BigDecimal(larguraProduto);
+			this.larguraProduto = new BigDecimal(larguraProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.larguraProduto = null;
 		}		
@@ -214,9 +214,9 @@ public class Produto implements Serializable{
 		this.profunProduto = profunProduto;
 	}
 	
-	public void setProfunProduto(String profunProduto) {
+	public void setProfunProdutoSt(String profunProduto) {
 		try{
-			this.profunProduto = new BigDecimal(profunProduto);
+			this.profunProduto = new BigDecimal(profunProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.profunProduto = null;
 		}

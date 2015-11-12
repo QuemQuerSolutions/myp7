@@ -27,7 +27,7 @@ import com.plataforma.myp7.enums.SituacaoEnum;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
 import com.plataforma.myp7.util.Upload;
-import com.plataforma.myp7.util.Utils;
+import static com.plataforma.myp7.util.Utils.*;
 
 @Service
 public class ProdutoBO {
@@ -50,6 +50,8 @@ public class ProdutoBO {
 				this.setCaminhoImagem(produto, session, imagemAnterior);
 				produto.setUsuario(this.usuarioBO.getUserSession(session));
 				produto.setNcmProduto(this.ncmMapper.obterNcmPorCodigo(produto.getNcmProduto()));
+				
+				produto.setSituacao(isEmpty(produto.getSituacao()) ? "A" : produto.getSituacao());
 				
 				if(Objects.isNull(produto.getIdProduto()))
 					this.produtoMapper.salvarProduto(produto);
@@ -74,7 +76,7 @@ public class ProdutoBO {
 		
 		//remove o arquivo se nao houver id e se a imagem nao for a mesma.
 		if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
-			Utils.removeArquivo(session,imagemAnterior);
+			removeArquivo(session,imagemAnterior);
 	}
 
 	public boolean isInsertValido(Produto produto, Model model) {
@@ -99,8 +101,8 @@ public class ProdutoBO {
 		
 		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
 			produto.setDesProduto(cleanLike(produto.getDesProduto()));
-			Utils.setMsgRetorno(model, "Refine sua pesquisa.");
-			Utils.setCodRetorno(model, -1);
+			setMsgRetorno(model, "Refine sua pesquisa.");
+			setCodRetorno(model, -1);
 			return null;
 		}
 		
@@ -151,7 +153,7 @@ public class ProdutoBO {
 	}
 	
 	public List<Produto> obterParaAprovacao(Produto produto){
-		produto.setDesProduto(Utils.toLike(produto.getDesProduto()));
+		produto.setDesProduto(toLike(produto.getDesProduto()));
 		produto.setSituacao(SituacaoEnum.getSigla(produto.getSituacao()));
 		
 		int count = produtoMapper.countProdutoAprovacao(produto);

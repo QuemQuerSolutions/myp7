@@ -62,6 +62,18 @@ function isValidSelectRequired(){
 	return isValid;
 }
 
+function isNumeric(num){
+	var result = true;
+	var array = num.split(',');
+	
+	if(array.length <= 0)
+		return $.isNumeric(num);
+	
+	$.each(array , function(i, val) {
+		result = result && $.isNumeric($.trim(val));
+	});
+	return result;
+}
 
 function clearRequired(){
 	$(".has-error").removeClass("has-error");
