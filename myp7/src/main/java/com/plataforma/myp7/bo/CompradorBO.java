@@ -1,6 +1,6 @@
 package com.plataforma.myp7.bo;
 
-import static com.plataforma.myp7.util.Utils.*;
+import static com.plataforma.myp7.util.Utils.setRetorno;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteComprador;
-import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
@@ -65,10 +64,10 @@ public class CompradorBO {
 			return null;
 		}
 		
-		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			setRetorno(model, Mensagem.REFINE_SUA_PESQUISA);
-			return null;
-		}
+//		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
+//			setRetorno(model, Mensagem.REFINE_SUA_PESQUISA);
+//			return null;
+//		}
 		
 		return compradorMapper.obterPorParametro(comprador);
 	}
