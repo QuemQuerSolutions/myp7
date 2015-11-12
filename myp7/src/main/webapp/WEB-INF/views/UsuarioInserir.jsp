@@ -10,9 +10,9 @@ $(document).ready(function() {
 		$("#inputCnpjCPF").val(FormatarCnpjCPF($.trim($("#inputCnpjCPF").val())));
 	});
 	
-	$("#btnCancelar").click(function(){
-		removeClass();
-		limpaCampos();
+	$("#btnCancelar").click(function(e){
+		e.stopPropagation();
+		go("ListaUsuario");
 	});
 
 	if($("#mensagemCadastro").val() != ""){
@@ -142,7 +142,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<c:import url="components/footer.jsp">
-		<c:param name="salvar" value="salvar" />
+		<c:param name="salvar" value="cancelar_salvar" />
 	</c:import>
 </body>
 </html>

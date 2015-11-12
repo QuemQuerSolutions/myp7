@@ -3,6 +3,7 @@ package com.plataforma.myp7.bo;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
+
 import static com.plataforma.myp7.util.Utils.*;
 
 @Service
@@ -90,9 +92,14 @@ public class UsuarioBO {
 	}
 
 	public List<Usuario> selecionaComFiltro(Usuario usuario) {
-		usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
-		usuario.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
+		if(Objects.isNull(usuario))
+			return new ArrayList<Usuario>();
 		
-		return this.usuarioMapper.obterUsuarioComFiltro(usuario);
+		Usuario busca = new Usuario();
+		
+		busca.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
+		busca.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
+		
+		return this.usuarioMapper.obterUsuarioComFiltro(busca);
 	}
 }
