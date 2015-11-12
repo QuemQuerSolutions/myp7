@@ -40,6 +40,18 @@ public class UsuarioController {
 		}
 		return "UsuarioInserir";
 	}
+
+	@RequestMapping(value="ListaUsuario")
+	public String pesquisarUsuario() {
+		return "UsuarioLista";
+	}
+	
+	@RequestMapping(value="CarregaListaUsuario")
+	public String carregaListaUsuario(Model model, Usuario usuario) {
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("lstUsuario", this.usuarioBO.selecionaComFiltro(usuario));
+		return "UsuarioLista";
+	}
 	
 	@RequestMapping(value="pesquisarUsuarioAJAX", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Usuario> pesquisarUsuarioAJAX(Usuario usuario) {
