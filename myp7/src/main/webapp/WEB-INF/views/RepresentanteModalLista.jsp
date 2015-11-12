@@ -87,7 +87,8 @@ function getLineRepresentante(representante){
 	var line = "";
 	
 	line = line.concat("<tr onclick='onClickLineRepresentante(", representante.idRepresentante,")'>");
-		line = line.concat("<td data-id>", representante.idRepresentante, "</td>");
+	line = line.concat("<td>", representante.idRepresentante, "</td>");
+	line = line.concat("<td data-id>", representante.usuario.idUsuario, "</td>");
 		line = line.concat("<td data-apelido>", representante.apelido, "</td>");
 	line = line.concat("</tr>");
 	
@@ -136,6 +137,7 @@ function getLineRepresentante(representante){
 						<thead>
 							<tr>
 								<th width="10%">Código</th>
+								<th width="25%">Código Usuário</th>
 								<th>Razão Social</th>
 							</tr>
 						</thead>

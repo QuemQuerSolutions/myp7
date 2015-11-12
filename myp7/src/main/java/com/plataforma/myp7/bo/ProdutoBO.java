@@ -51,7 +51,7 @@ public class ProdutoBO {
 				produto.setUsuario(this.usuarioBO.getUserSession(session));
 				produto.setNcmProduto(this.ncmMapper.obterNcmPorCodigo(produto.getNcmProduto()));
 				
-				produto.setSituacao(isEmpty(produto.getSituacao()) ? "A" : produto.getSituacao());
+				produto.setSituacao(isEmpty(produto.getSituacao()) ? "G" : produto.getSituacao());
 				
 				if(Objects.isNull(produto.getIdProduto()))
 					this.produtoMapper.salvarProduto(produto);
