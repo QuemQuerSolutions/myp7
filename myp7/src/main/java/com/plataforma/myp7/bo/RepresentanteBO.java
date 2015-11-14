@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
-import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
@@ -46,11 +45,11 @@ public class RepresentanteBO {
 			return new ArrayList<Representante>();
 		}
 		
-		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			List<Representante> ret = new ArrayList<Representante>();
-			ret.add(new Representante(Mensagem.REFINE_SUA_PESQUISA));
-			return ret;
-		}
+//		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
+//			List<Representante> ret = new ArrayList<Representante>();
+//			ret.add(new Representante(Mensagem.REFINE_SUA_PESQUISA));
+//			return ret;
+//		}
 		
 		if(isEmpty(representante.getRazao()))
 			return representanteMapper.obterPorParametro(representante);

@@ -13,6 +13,7 @@ $(document).ready(function(){
 	$("#btnLimparRepresentante").click(function(e){
 		e.stopPropagation();
 		clearAll("#filtroModalRepresentante");
+		$("#lstRepresentanteModal").html("");
 	});
 
 	$("#btnSelecionarRepresentante").click(function(e){
@@ -30,13 +31,9 @@ $(document).ready(function(){
 	
 	$("#btnPesquisarRepresentante").click(function(e){
 		e.stopPropagation();
-		
-		if(!hasInformation("#filtroModalRepresentante")){
-			alerta("Informe ao menos um filtro para continuar", "warning");
-			return;
-		}
-		
-		var representante = {idRepresentante	: $("#idRepresentanteBusca").val(), 
+				
+		var representante = {idRepresentante	: $("#idRepresentanteBusca").val(),
+							 razao				: $("#razaoSocialBusca").val(),
 							 apelido			: $("#apelidoBusca").val()};
 		
 		$.ajax({
@@ -113,7 +110,10 @@ function getLineRepresentante(representante){
 						<div class="col-md-2">
 							<label for="idRepresentanteBusca" class="control-label">Código</label>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-3">
+							<label for="razaoSocialBusca" class="control-label">Razão Social</label>
+						</div>
+						<div class="col-md-3">
 							<label for="apelidoBusca" class="control-label">Apelido</label>
 						</div>
 					</div>
@@ -121,14 +121,17 @@ function getLineRepresentante(representante){
 						<div class="col-md-2 form-group">
 					    	<input type="text" class="form-control onlyNumber" id="idRepresentanteBusca" maxlength="11">
 						</div>
-	  					<div class="col-md-5 form-group">
+						<div class="col-md-3 form-group">
+					    	<input type="text" class="form-control" id="razaoSocialBusca" maxlength="100">
+	  					</div>
+	  					<div class="col-md-3 form-group">
 					    	<input type="text" class="form-control" id="apelidoBusca" maxlength="100">
 	  					</div>
-	  					<div class="col-md-2 form-group margin-right-50px">
-							<button type="button" class="btn ${theme} btn-large" id="btnPesquisarRepresentante">Pesquisar</button>
+	  					<div class="col-md-2 form-group">
+							<button type="button" class="btn ${theme}" id="btnPesquisarRepresentante">Pesquisar</button>
 						</div>
 						<div class="col-md-2 form-group">
-							<button type="button" class="btn btn-default btn-large" id="btnLimparRepresentante">Limpar</button>
+							<button type="button" class="btn btn-default" id="btnLimparRepresentante">Limpar</button>
 						</div>
 					</div>
 				</div>
