@@ -39,10 +39,10 @@ function onClickLine(id){
 }
 
 function goComprador(){
-	if(!hasInformation("#frmComprador")){
-		alerta("Informe ao menos um filtro para buscar", "warning");
-		return;
-	}
+// 	if(!hasInformation("#frmComprador")){
+// 		alerta("Informe ao menos um filtro para buscar", "warning");
+// 		return;
+// 	}
 	go("#frmComprador");
 }
 

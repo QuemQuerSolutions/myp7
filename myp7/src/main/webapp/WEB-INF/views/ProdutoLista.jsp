@@ -25,11 +25,7 @@ $(document).ready(function(){
 	}
 	
 	$("#pesquisar").click(function(){
-		if($("#desProduto").val() === "" &&  $("#idProduto").val() === ""){
-			alerta("Preencha um dos campos de pesquisa.", "warning");
-		}else{
-			$("#frmProduto").submit();
-		}
+		$("#frmProduto").submit();
 	});
 
 	

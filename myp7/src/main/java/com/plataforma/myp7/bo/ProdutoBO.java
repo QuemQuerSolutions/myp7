@@ -99,13 +99,13 @@ public class ProdutoBO {
 			return null;
 		}
 		
-		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
-			produto.setDesProduto(cleanLike(produto.getDesProduto()));
-			setMsgRetorno(model, "Refine sua pesquisa.");
-			setCodRetorno(model, -1);
-			return null;
-		}
-		
+//		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
+//			produto.setDesProduto(cleanLike(produto.getDesProduto()));
+//			setMsgRetorno(model, "Refine sua pesquisa.");
+//			setCodRetorno(model, -1);
+//			return null;
+//		}
+//		
 		List<Produto> lista = produtoMapper.obterProdutos(produto);
 		produto.setDesProduto(cleanLike(produto.getDesProduto()));
 		return 	lista;
