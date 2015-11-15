@@ -24,10 +24,6 @@ $(document).ready(function(){
 	
 	$("#btnPesquisar").click(function(e){
 		e.stopPropagation();
-		if(!hasInformation("#filtroModalPessoa")){
-			alerta("Informe ao menos um filtro para continuar.", "warning");
-			return;
-		}
 		pesquisarPessoa();
 	});
 	$("#btnSelecionar").click(function(e){
