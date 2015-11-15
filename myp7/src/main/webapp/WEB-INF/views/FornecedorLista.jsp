@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 
 	$("#cnpjFornecedor").change(function(){
-		$("#cnpjFornecedor").val(FormatarCnpj($.trim($("#cnpjFornecedor").val())));
+		$("#cnpjFornecedor").val(FormatarCnpjCPF($.trim($("#cnpjFornecedor").val())));
 	});
 	
 	$("#pesquisar").click(function(e){
@@ -31,7 +31,7 @@ $(document).ready(function(){
 			return;
 		}
 		
-		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($.trim($("#cnpjFornecedor").val()))){
+		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($("#cnpjFornecedor").val())){
 			alerta("CNPJ inválido.", "warning");
 			return;
 		}
