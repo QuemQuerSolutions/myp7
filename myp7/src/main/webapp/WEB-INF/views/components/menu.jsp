@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<<<<<<< HEAD
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
 
 
@@ -16,6 +17,7 @@
 			<c:if test="${tipoUsuarioRetorno eq 'P'}">
 <myp7:itemMenu label="Produto" link="Produto" icon="glyphicon-plus" />
 <myp7:itemMenu label="Manutenção de Custos" link="ManutencaoCustos" icon="glyphicon-usd"/>
+				<c:import url="components/menuPortal.jsp" />
 			</c:if>
 			<c:if test="${tipoUsuarioRetorno eq 'R'}">
 <myp7:itemMenu label="Usuário" link="ListaUsuario" icon="glyphicon glyphicon-user"/>
@@ -42,6 +44,7 @@
 </li>
 
 <myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
+				<c:import url="components/menuRetaguarda.jsp" />
 			</c:if>
 			<c:if test="${tipoUsuarioRetorno eq 'T'}">
 <myp7:itemMenu label="Produto" link="Produto" icon="glyphicon-plus" />
@@ -70,6 +73,8 @@
 </li>
 
 <myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
+				<c:import url="components/menuPortal.jsp" />
+				<c:import url="components/menuRetaguarda.jsp" />
 			</c:if>
 		</ul>
 	</div>
