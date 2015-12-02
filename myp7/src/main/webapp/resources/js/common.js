@@ -1,18 +1,36 @@
 $(document).ready(function () {
   $('#close-arrow').attr('style', 'display:none');
   $('#menu-nav > li > a').click(function(e){
-    if ($(this).attr('class') != 'active'){
-      $('#menu-nav li ul').slideUp();
-      $(this).next().slideToggle();
-      $('#menu-nav li a').removeClass('active');
-      $('#menu-nav li a changeIcon').removeClass('glyphicon glyphicon-menu-down');
-      $('#menu-nav li a changeIcon').addClass('glyphicon glyphicon-menu-left');
-      $(this).addClass('active');
-      $(this).find('changeIcon').removeClass('glyphicon glyphicon-menu-left');
-      $(this).find('changeIcon').addClass('glyphicon glyphicon-menu-down');
-    }
+	
+	  //Se estiver ativo, fecha
+	  //Se não estiver ativo, verificar se tem submenu, se tem abre e não faz nada, se não tem fecha
+	  
+	//Tem submenu
+	if($(this).find('span.changeIcon').length > 0){
+		if($(this).find('span.glyphicon-menu-down').length > 0){
+			$(this).next().slideToggle();
+		    $(this).find('span.changeIcon').removeClass('glyphicon glyphicon-menu-down');
+		    $(this).find('span.changeIcon').addClass('glyphicon glyphicon-menu-left');
+		}else{
+			$('#menu-nav li ul').slideUp();
+		    $(this).find('span.changeIcon').removeClass('glyphicon glyphicon-menu-left');
+		    $(this).find('span.changeIcon').addClass('glyphicon glyphicon-menu-down');
+		}
+	}else{
+		fecharMenu(e);
+	}
+		
+//    if ($(this).attr('class') != 'active'){
+      
+      
+//      $('#menu-nav li a').removeClass('active');
+//      $('#menu-nav li a changeIcon').removeClass('glyphicon glyphicon-menu-down');
+//      $('#menu-nav li a changeIcon').addClass('glyphicon glyphicon-menu-left');
+//      $(this).addClass('active');
+
+//    }
     
-    fecharMenu(e);
+    
   });
 
   $('#side-bar').click(function(){
@@ -24,9 +42,9 @@ $(document).ready(function () {
 	  fecharMenu(e);
   });
   
-  $('#side-bar').on('mouseleave', function(e){
-	  fecharMenu(e);
-  });
+//  $('#side-bar').on('mouseleave', function(e){
+//	  fecharMenu(e);
+//  });
   
   $( "#target" ).blur(function() {
 	  alert( "Handler for .blur() called." );

@@ -22,11 +22,6 @@ $(document).ready(function(){
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-		if(!hasInformation("#representante_lista_body")){
-			alerta("Informe ao menos um filtro para buscar.", "warning");
-			return;
-		}
-		
 		go("#frmRepresentante");
 	});
 });

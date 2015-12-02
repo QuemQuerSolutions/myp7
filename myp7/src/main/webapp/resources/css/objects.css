@@ -156,3 +156,10 @@ th.req:after {
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
+
+.menu-down{
+    float: right;
+    margin-right: 20px;
+    margin-top: 3px;
+    font-size: 75%;
+}
