@@ -101,6 +101,7 @@ public class CompradorBO {
 		try{
 			this.compradorMapper.inserirComprador(comprador);
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
 		}
 	}

@@ -140,7 +140,16 @@
 }
 
 #menu-nav li ul li a {
-	background: #3f3f3f;
+
+}
+
+.submenu a{
+    padding-left: 20px !important;
+    font-size: 1em !important;
+}
+
+#menu-nav li ul{
+	list-style-type: none;
 }
 
 #side-bar a {
