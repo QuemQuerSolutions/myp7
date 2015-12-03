@@ -168,3 +168,7 @@
 	width: 100%;
 	background-color: #e0e0e0;
 }
+
+li.submenu > a{
+	padding-top: 16px !important;
+}

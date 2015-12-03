@@ -1,26 +1,29 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
 
-<myp7:itemMenu label="Usuário" link="ListaUsuario" icon="glyphicon glyphicon-user"/>
-<myp7:itemMenu label="Comprador" link="Comprador" icon="glyphicon-shopping-cart" />
-<myp7:itemMenu label="Representante" link="Representante" icon="glyphicon-briefcase" />
-<myp7:itemMenu label="Embalagem" link="Embalagem" icon="glyphicon-barcode" />
-<myp7:itemMenu label="Fornecedor" link="Fornecedor" icon="glyphicon-bed" />
-<myp7:itemMenu label="Aprovação de Produto" link="ProdutoAprovacao" icon="glyphicon-check" />
-<myp7:itemMenu label="Aprovação de Custos" link="CustoAprovacao" icon="glyphicon-check" />
-
 <li>
-	<a href="#" target="_self">
-		<span class="glyphicon glyphicon-file"></span>
-		 &nbsp;Relatórios<span class="changeIcon glyphicon glyphicon-menu-down menu-down"></span> 
-	</a>
+	<myp7:menuComSub label="Cadastro" icon="glyphicon-pencil" />
 	<ul>
-		<li class="submenu">
-			<a href="#" target="_self">Relatório de Estoque</a>
-		</li>
-		<li class="submenu">
-			<a href="#" target="_self">Relatório de Títulos</a>
-		</li>
+		<myp7:subMenu label="Usuário" link="ListaUsuario" />
+		<myp7:subMenu label="Comprador" link="Comprador" />
+		<myp7:subMenu label="Representante" link="Representante" />
+		<myp7:subMenu label="Embalagem" link="Embalagem" />
+		<myp7:subMenu label="Fornecedor" link="Fornecedor" />
 	</ul>
 </li>
 
-<myp7:itemMenu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
+<li>
+	<myp7:menuComSub label="Aprovações" icon="glyphicon-check" />
+	<ul>
+		<myp7:subMenu label="Aprovação de Produto" link="ProdutoAprovacao" />
+		<myp7:subMenu label="Aprovação de Custos" link="CustoAprovacao" />
+	</ul>
+</li>
+<li>
+	<myp7:menuComSub label="Relatórios" icon="glyphicon-file" />
+	<ul>
+		<myp7:subMenu label="Relatório de Estoque" link="RelatorioEstoque" />
+		<myp7:subMenu label="Relatório de Títulos" link="#" />
+	</ul>
+</li>
+
+<myp7:menu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
