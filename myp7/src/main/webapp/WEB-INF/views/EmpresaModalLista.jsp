@@ -17,14 +17,25 @@ $(document).ready(function(){
 
 	$("#btnSelecionarEmpresa").click(function(e){
 		e.stopPropagation();
-		var empresa;
+		var empresa = null;
+		var nomeReduzido;
+		var idEmpresa;
 		$("#lstEmpresaModal tr").each(function(){
 			if($(this).hasClass($("#theme").val())){
 				empresa = {idEmpresa	: $(this).find('td[data-id]').text(),
 						   nomeReduzido	: $(this).find('td[data-nome]').text(),}
+
+				nomeReduzido = $(this).find('td[data-nome]').text();
+				idEmpresa = $(this).find('td[data-id]').text();
 			}
 		});	
-		addLineEmpresaTab(empresa);
+		
+		if (typeof addLineEmpresaTab !== 'undefined'){
+			addLineEmpresaTab(empresa);
+		}else{
+			$("#nomeReduzido").val(nomeReduzido);
+			$("#idEmpresa").val(idEmpresa);
+		}
 		$('#consulta_empresa').modal("hide");
 	});
 	

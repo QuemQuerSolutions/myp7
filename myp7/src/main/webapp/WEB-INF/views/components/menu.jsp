@@ -33,7 +33,7 @@
 					</a>
 					<ul>
 						<li class="submenu">
-							<a href="#" target="_self">Relatório de Estoque</a>
+							<a href="RelatorioEstoque" target="_self">Relatório de Estoque</a>
 						</li>
 						<li class="submenu">
 							<a href="#" target="_self">Relatório de Títulos</a>
@@ -61,7 +61,7 @@
 					</a>
 					<ul>
 						<li class="submenu">
-							<a href="#" target="_self">Relatório de Estoque</a>
+							<a href="RelatorioEstoque" target="_self">Relatório de Estoque</a>
 						</li>
 						<li class="submenu">
 							<a href="#" target="_self">Relatório de Títulos</a>
