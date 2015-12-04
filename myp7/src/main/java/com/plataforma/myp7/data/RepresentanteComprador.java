@@ -10,17 +10,35 @@ public class RepresentanteComprador implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Representante representante;
+	private Comprador comprador;
+	private Long idRepresentante;
 	private Integer idComprador;
-	
-	public RepresentanteComprador(){
-		representante = new Representante();
-	}
 	
 	public RepresentanteComprador(Representante representante, Integer idComprador){
 		this.representante = representante;
 		this.idComprador = idComprador;
 	}
+	
+	public Comprador getComprador() {
+		return comprador;
+	}
 
+	public void setComprador(Comprador comprador) {
+		this.comprador = comprador;
+	}
+
+	public Long getIdRepresentante() {
+		return idRepresentante;
+	}
+
+	public void setIdRepresentante(Long idRepresentante) {
+		this.idRepresentante = idRepresentante;
+	}
+
+	public RepresentanteComprador(){
+		representante = new Representante();
+	}
+	
 	public Representante getRepresentante() {
 		return representante;
 	}

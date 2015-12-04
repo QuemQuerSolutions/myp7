@@ -5,6 +5,7 @@ import static com.plataforma.myp7.util.Utils.setRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.data.Representante;
+import com.plataforma.myp7.data.RepresentanteComprador;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
+import com.plataforma.myp7.mapper.RepresentanteCompradorMapper;
 import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteMapper;
 
@@ -29,6 +34,9 @@ public class RepresentanteBO {
 	
 	@Autowired
 	private RepresentanteFornecedorMapper representanteFornecedorMapper;
+	
+	@Autowired
+	private RepresentanteCompradorMapper representanteCompradorMapper;
 	
 	public List<Representante> selecionaTodos(){
 		return this.representanteMapper.obterTodosRepresentantes();
@@ -110,5 +118,30 @@ public class RepresentanteBO {
 			lstFornecedor.add(representante.getFornecedor());
 		}
 		return lstFornecedor;
+	}
+
+	public Representante selecionaPorIdUsuario(Long idUsuario) {
+		try{
+			return representanteMapper.obterPorIdUsuario(idUsuario);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	public List<Representante> obterPorComprador(Comprador comp) {
+		try{
+			List<RepresentanteComprador> listRc = representanteCompradorMapper.obterPorComprador(comp.getId());
+			
+			List<Representante> listRepr = new ArrayList<>();
+			
+			for(RepresentanteComprador rc : listRc){
+				listRepr.add(rc.getRepresentante());
+			}
+			
+			return listRepr;
+			
+		}catch(Exception e){
+			return null;
+		}
 	}
 }

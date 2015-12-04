@@ -113,4 +113,29 @@ public class CompradorBO {
 			throw new ManterEntidadeException(MensagemWS.ATUALIZA_COMPRADOR_ERRO);
 		}
 	}
+
+	public Comprador obterPorIdUsuario(Long idUsuario) {
+		try{
+			return compradorMapper.obterPorIdUsuario(idUsuario);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	public List<Comprador> obterPorIdRepresentante(Representante repr) {
+		try{
+			List<RepresentanteComprador> listRc = representanteCompradorMapper.obterPorRepresentante(repr.getIdRepresentante());
+			
+			List<Comprador> listCompr = new ArrayList<>();
+			
+			for(RepresentanteComprador rc : listRc){
+				listCompr.add(rc.getComprador());
+			}
+			
+			return listCompr;
+			
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

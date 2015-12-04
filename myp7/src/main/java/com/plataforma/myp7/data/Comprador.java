@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
+import com.plataforma.myp7.interfaces.ComboPessoa;
+
 import static com.plataforma.myp7.util.Utils.*;
 
 @Alias("Comprador")
-public class Comprador extends Pessoa implements Serializable {
+public class Comprador extends Pessoa implements Serializable, ComboPessoa {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -104,6 +106,16 @@ public class Comprador extends Pessoa implements Serializable {
 
 	public void setApelido(String apelido) {
 		this.apelido = apelido;
+	}
+
+	@Override
+	public Long getIdCombo() {
+		return this.getId().longValue();
+	}
+
+	@Override
+	public String getDescricaoCombo() {
+		return this.getApelido();
 	}
 
 	

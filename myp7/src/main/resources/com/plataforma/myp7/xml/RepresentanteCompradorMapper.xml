@@ -7,11 +7,22 @@
 		<result property="idComprador" column="ID_COMPRADOR" /> 
 		<association property="representante" column="ID_REPRESENTANTE" select="com.plataforma.myp7.mapper.RepresentanteMapper.obterPorId"/>
 	</resultMap>
+	
+	<resultMap type="RepresentanteComprador" id="mapSimplesComprador">
+		<result property="idRepresentante" column="ID_REPRESENTANTE" /> 
+		<association property="comprador" column="ID_COMPRADOR" select="com.plataforma.myp7.mapper.CompradorMapper.obterPorId"/>
+	</resultMap>
 
 	<select id="obterPorComprador" resultMap="mapSimples">
 		select ID_REPRESENTANTE, ID_COMPRADOR
 		from rpr_representante_comprador
 		where ID_COMPRADOR = #{idComprador}
+	</select>
+	
+	<select id="obterPorRepresentante" resultMap="mapSimplesComprador">
+		select ID_REPRESENTANTE, ID_COMPRADOR
+		from rpr_representante_comprador
+		where ID_REPRESENTANTE = #{idRepresentante}
 	</select>
 	
 	<insert id="insert">

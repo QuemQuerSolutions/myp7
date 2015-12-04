@@ -21,4 +21,5 @@ public interface RepresentanteMapper {
 	void delete(Long idRepresentante);
 	
 	Representante obterPorId(Long idRepresentante);
+	Representante obterPorIdUsuario(Long id);
 }

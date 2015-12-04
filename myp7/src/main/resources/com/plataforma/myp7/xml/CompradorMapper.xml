@@ -67,6 +67,11 @@
 		WHERE ID_COMPRADOR = #{id} 
 	</select>
 	
+	<select id="obterPorIdUsuario" resultMap="compradorMap">
+		<include refid="selectSimples"/>
+		WHERE ID_USUARIO = #{id} 
+	</select>
+	
 	<insert id="inserirComprador">
 		INSERT INTO cpr_comprador
 			(ID_COMPRADOR, ID_USUARIO, STATUS, EDI_CODIGO, APELIDO, ID_GERENTE) 

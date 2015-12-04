@@ -157,5 +157,4 @@ public class Pessoa {
 	public void setNroRgInscrEstadual(String nroRgInscrEstadual) {
 		this.nroRgInscrEstadual = nroRgInscrEstadual;
 	}
-	
 }	

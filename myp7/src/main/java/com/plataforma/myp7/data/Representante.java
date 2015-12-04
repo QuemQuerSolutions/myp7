@@ -9,9 +9,10 @@ import org.apache.ibatis.type.Alias;
 
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.interfaces.ComboPessoa;
 
 @Alias("Representante")
-public class Representante extends Pessoa implements Serializable{
+public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	/**
 	 * 
 	 */
@@ -114,4 +115,13 @@ public class Representante extends Pessoa implements Serializable{
 		this.status = status;
 	}
 
+	@Override
+	public Long getIdCombo() {
+		return this.getIdRepresentante();
+	}
+
+	@Override
+	public String getDescricaoCombo() {
+		return this.getApelido();
+	}
 }

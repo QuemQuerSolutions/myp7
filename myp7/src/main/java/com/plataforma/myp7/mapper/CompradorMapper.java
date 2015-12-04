@@ -13,4 +13,5 @@ public interface CompradorMapper {
 	List<Comprador> obterPorParametro(Comprador comprador);
 	void inserirComprador(Comprador fornecedor);
 	void updateComprador(Comprador fornecedor);
+	Comprador obterPorIdUsuario(Long id);
 }

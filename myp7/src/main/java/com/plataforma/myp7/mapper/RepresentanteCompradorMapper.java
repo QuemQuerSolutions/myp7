@@ -11,4 +11,5 @@ public interface RepresentanteCompradorMapper {
 	List<RepresentanteComprador> obterPorComprador(Integer idComprador);
 	void insert(RepresentanteComprador representanteComprador);
 	void deletePorComprador(Integer idComprador);
+	List<RepresentanteComprador> obterPorRepresentante(Long idRepresentante);
 }

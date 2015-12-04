@@ -42,40 +42,40 @@ $(document).ready(function(){
 		
 		<div id="content-header">
 			<div class="row">
-				<div class="col-md-5">
-					<label for="empresa" class="control-label">Empresa</label>
+				<div class="col-md-3">
+					<label for="empresa" class="control-label">Código Produto</label>
 				</div>
-				<div class="col-md-4">
-					<label for="produto" class="control-label">Produto</label>
+				<div class="col-md-3">
+					<label for="produto" class="control-label">Descrição Produto</label>
+				</div>
+				<div class="col-md-3">
+					<label for="produto" class="control-label">${tituloPessoa}</label>
 				</div>
 			</div>
 			
 			<form action="CarregaListaUsuario" id="frmUsuario" method="GET">
 				
 				<div class="row">	
-					<div class="col-md-4">
-						<div class="form-group">
-					    	<input type="hidden" id="idEmpresa" name="idEmpresa" value="">
-					    	<input type="text" class="form-control" id="nomeReduzido" maxlength="11" value="" readonly="readonly">
-						</div>
-					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<a href="#" target="_self" class="form-control icon-search" id="clickEmpresa"><span class="glyphicon glyphicon-search"></span></a>
-						</div>
-					</div>
-					
 					<div class="col-md-3">
 						<div class="form-group">
-					    	<input type="hidden" id="idProduto" name="idProduto" value="">
-					    	<input type="text" class="form-control" id="nomeProduto" maxlength="11" value="" readonly="readonly">
-					  	</div>
-					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<a href="#" target="_self" class="form-control icon-search" id="clickProduto"><span class="glyphicon glyphicon-search"></span></a>
+					    	<input type="text" class="form-control" id="idProduto" maxlength="11" value="">
 						</div>
 					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+					    	<input type="text" class="form-control" id="descProduto" maxlength="11" value="">
+					  	</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<select id="idPessoa" name="idPessoa" class="form-control" autofocus="autofocus">
+					  			<option value="-1">-</option>
+					  			<c:forEach var="pessoa" items="${pessoas}">
+					  				<option value="${pessoa.idCombo}">${pessoa.descricaoCombo}</option>
+	   							</c:forEach>				  			
+					  		</select>
+					  	</div>
+					</div>					
 					
 					<div class="col-md-1" id="btnpesquisar">
 						<div class="form-group">
@@ -97,24 +97,21 @@ $(document).ready(function(){
 			<table  class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important;">Empresa</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Produto</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Qtd Estoque</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Qtd Estoque Troca</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Qtd Pendente Compras</th>	
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Qtd em Trânsito</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Qtd Pendente Expedir</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Média Venda Dia</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Dias de Estoque</th>
-						<th width="10%"  style="vertical-align: middle !important; text-align: center !important;">Dias Ultima Entrada</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Empresa</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Produto</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Estoque</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Estoque Troca</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Pendente Compras</th>	
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd em Trânsito</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Pendente Expedir</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Média Venda Dia</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Dias de Estoque</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Dias Ultima Entrada</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${lstUsuario}" var="u">
 						<tr class="${classLine}">
-							<td>${u.idUsuario}</td>
-							<td>${u.razaoSocial}</td>
-							<td>${u.email}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

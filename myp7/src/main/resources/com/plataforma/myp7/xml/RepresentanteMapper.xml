@@ -97,6 +97,11 @@
 		WHERE ID_REPRESENTANTE = #{idRepresentante}
 	</select>
 	
+	<select id="obterPorIdUsuario" resultMap="representanteMap">
+		<include refid="selectRepresentante"/>
+		WHERE ID_USUARIO = #{id} 
+	</select>
+	
 	<insert id="insertRepresentante">
 		INSERT INTO rpr_Representante
 			(ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO) 
