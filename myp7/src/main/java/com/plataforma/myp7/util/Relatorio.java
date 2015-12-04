@@ -26,7 +26,6 @@ public class Relatorio {
 	 * @param params Parametros do Relatorio
 	 * @param lista Collection<?> a ser usada nos registros
 	 * @param report Nome do Relatorio
-	 * @param nomeReportSaida
 	 * @param res HttpServletResponse
 	 * 
 	 */
