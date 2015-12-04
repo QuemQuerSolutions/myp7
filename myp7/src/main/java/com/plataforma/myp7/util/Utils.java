@@ -1,8 +1,6 @@
 package com.plataforma.myp7.util;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
@@ -57,10 +55,7 @@ public class Utils {
 		return (Objects.isNull(campo) ? null : campo.replaceAll("%", ""));
 	}
 	
-	public static String getDataAtualString(String formato) {
-		return new SimpleDateFormat(formato).format(new Date());
-	}
-	
+
 	public static String getExtensaoArq(String arquivo){
 		return arquivo.substring(arquivo.lastIndexOf('.'), arquivo.length());
 	}

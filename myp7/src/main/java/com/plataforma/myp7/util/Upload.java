@@ -23,7 +23,7 @@ public class Upload {
 		try {
 			byte[] bytes = produto.getImagem().getBytes();
 			
-			String dataHoraAtual = Utils.getDataAtualString("yyyyMMddHHmmss");
+			String dataHoraAtual = DateUtils.getDataAtualString("yyyyMMddHHmmss");
 			
 			//verifica se não teve nenhum input de imagem
 			if(produto.getImagem().getOriginalFilename().equals("")) 
