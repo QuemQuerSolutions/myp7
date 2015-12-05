@@ -13,20 +13,75 @@ $(document).ready(function(){
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-		go("#frmUsuario");
+		pesquisar();
 	});
 	
 	$("input").keypress(function(e){
 		e.stopPropagation();
-		if(e.which == 13) go("#frmUsuario");
+		if(e.which == 13) pesquisar();
 	});
-
 
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();
+		$("#idPessoa").val(-1);
 		$("#id").focus();
 	});
+
+	function pesquisar(){
+		$.ajax({
+		  type: "GET",
+		  url: "pesquisaRelatorioEstoque",
+		  data: {idProduto: $("#idProduto").val(), descProduto: $("#descProduto").val(), idPessoa: $("#idPessoa").val()},
+		  contentType: "application/json; charset=ISO-8859-1",
+		  dataType: "json",
+		  success: function(lista) {
+			    var lines = "";
+			    
+			    if(lista.length == 0){
+			    	$("#lstRelatorioEstoque").html("<tr><td colspan='10'>Nenhum registro encontrado</td></tr>");
+			    	return;
+			    }
+			    
+			    if(lista[0].codRetorno == -1){
+			    	alerta(lista[0].msgRetorno, "warning");
+			    	$("#lstCustoAprovacao").html("");
+			    	return;
+			    }
+			    
+			    lista.forEach(function(relatEstoque){
+			    	lines += getLine(relatEstoque);
+			    });
+			    
+			    $("#lstRelatorioEstoque").html(lines);
+		  },
+		  error: function (xhr, textStatus, errorThrown) {
+		  	console.log("Erro ao retornar lista: ",errorThrown);
+		      alerta("Erro ao retornar lista","warning");
+		  }
+		});	
+	}	
+
+	function getLine(relatEstoque){
+		var line = "";
+		
+		line = line.concat("<tr>");
+		
+		line = line.concat("<td style=\"font-size: 70% !important;\">", relatEstoque.empresa ,	"</td>");
+		line = line.concat("<td style=\"font-size: 70% !important;\">", relatEstoque.produto ,	"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdEstoque ,		"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdEstoqueTroca,	"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdPendenteCompras ,"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdTransito ,		"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdPendenteExpedir,	"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.mediaVendaDia ,		"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.diasEstoque,		"</td>");
+		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.diasUltimaEntrada ,	"</td>");
+		
+		line = line.concat("</tr>");
+		
+		return line;
+	}
 	
 });
 
@@ -53,12 +108,12 @@ $(document).ready(function(){
 				</div>
 			</div>
 			
-			<form action="CarregaListaUsuario" id="frmUsuario" method="GET">
+			<form id="frmRelatorioEstoque" method="GET">
 				
 				<div class="row">	
 					<div class="col-md-3">
 						<div class="form-group">
-					    	<input type="text" class="form-control" id="idProduto" maxlength="11" value="">
+					    	<input type="number" class="form-control" id="idProduto" maxlength="11" value="">
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -109,12 +164,7 @@ $(document).ready(function(){
 						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Dias Ultima Entrada</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach items="${lstUsuario}" var="u">
-						<tr class="${classLine}">
-						</tr>
-					</c:forEach>
-				</tbody>
+				<tbody id="lstRelatorioEstoque"></tbody>
 			</table>
 		</div>
 	

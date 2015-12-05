@@ -1,5 +1,6 @@
 package com.plataforma.myp7.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.data.RelatorioEstoque;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.interfaces.ComboPessoa;
@@ -62,7 +64,7 @@ public class RelatorioEstoqueController {
 	}
 	
 	@RequestMapping(value="pesquisaRelatorioEstoque", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String pesquisaRelatorioEstoqueAJAX(String idProduto, String descProduto, String idPessoa) {
+	public @ResponseBody List<RelatorioEstoque> pesquisaRelatorioEstoqueAJAX(String idProduto, String descProduto, String idPessoa) {
 		try {
 			Produto produto = null;
 			ComboPessoa pessoa = null;
@@ -73,16 +75,15 @@ public class RelatorioEstoqueController {
 				produto.setDesProduto(descProduto);
 			}
 
-			if(!Utils.isEmpty(idPessoa) || !idPessoa.equalsIgnoreCase("-1")){
+			if(!Utils.isEmpty(idPessoa) && !idPessoa.equalsIgnoreCase("-1")){
 				Comprador comprador = new Comprador();
 				comprador.setId(Integer.parseInt(idPessoa));
 				pessoa = comprador;
 			}
 			
-			//TODO
-			return this.relatorioEstoqueBO.obterPorParametros(produto, pessoa).toString();
+			return this.relatorioEstoqueBO.obterPorParametros(produto, pessoa);
 		} catch (Exception e) {
-			return "false";
+			return new ArrayList<RelatorioEstoque>();
 		}
 	}
 }
