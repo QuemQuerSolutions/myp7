@@ -5,7 +5,6 @@ import static com.plataforma.myp7.util.Utils.setRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.data.Fornecedor;
-import com.plataforma.myp7.data.Pessoa;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteComprador;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
