@@ -1,5 +1,7 @@
 package com.plataforma.myp7.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,5 +15,17 @@ public class DateUtils {
 	
 	public static String getDataString(Date date) {
 		return new SimpleDateFormat(FMT_DATA_DEFAULT).format(date);
+	}
+	
+	public static Date getDate(String data, String formato){
+		if(data == null) return null;
+		
+        DateFormat formatter = new SimpleDateFormat(formato);  
+        try {
+        	return formatter.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}  
 	}
 }

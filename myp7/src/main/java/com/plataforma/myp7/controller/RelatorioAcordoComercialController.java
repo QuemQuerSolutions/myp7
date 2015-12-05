@@ -17,8 +17,8 @@ public class RelatorioAcordoComercialController {
 	private RelatorioAcordoComercialBO relatorioAcordoComercialBO;
 	
 	@RequestMapping("rptAcordoComercial")
-	public void visualizarAplicacaoFuncional(HttpServletResponse res) {
-		relatorioAcordoComercialBO.gerarPDF(res);
+	public void visualizarAplicacaoFuncional(HttpServletResponse res, RelatorioAcordoComercial relatorioAcordoComercial) {
+		relatorioAcordoComercialBO.gerarPDF(res, relatorioAcordoComercial);
 	}
 	
 	@RequestMapping("RelatorioAcordoComercial")
@@ -28,10 +28,8 @@ public class RelatorioAcordoComercialController {
 	
 	@RequestMapping(value="pesquisaRelatorioTitulo")
 	public String pesquisaRelatorioTitulo(Model model, RelatorioAcordoComercial relatorioAcordoComercial) {
-		
 		model.addAttribute("obj", relatorioAcordoComercial);
 		model.addAttribute("lstRelatorio", relatorioAcordoComercialBO.obterPorParametro(relatorioAcordoComercial));
-		
 		return "RelatorioAcordoComercial";
 	}
 }

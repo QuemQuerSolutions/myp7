@@ -20,6 +20,13 @@ $(document).ready(function(){
 	$("#gerarPDF").click(function(e){
 		e.stopPropagation();
 		$("#titulo-modal").val("Relatório de Títulos");
+		var link = "rptAcordoComercial?".concat("nroTitulo=", $("#nroTitulo").val(),
+												"&situacao=", $("#situacao option:selected").val(),
+												"&dataInclusaoDe=", $("#dataInclusaoDe").val(),
+												"&dataInclusaoAte=", $("#dataInclusaoAte").val(),
+												"&dataVencimentoDe=", $("#dataVencimentoDe").val(),
+												"&dataVencimentoAte=", $("#dataVencimentoAte").val());
+		$("#link-modal").val(link);
 		$('#relatorioModalPDF').modal();
 	});
 
@@ -69,8 +76,8 @@ $(document).ready(function(){
 				</div>
 				<div class="row">
 					<div class="col-md-2 form-group">
-						<label for="nrotitulo">Nro Título</label>
-				    	<input type="number" class="form-control" id="nrotitulo" name="nroTitulo" min="0" max="99999" value="${obj.nroTitulo}">
+						<label for="nroTitulo">Nro Título</label>
+				    	<input type="number" class="form-control" id="nroTitulo" name="nroTitulo" min="0" max="99999" value="${obj.nroTitulo}">
 				  	</div>
 					<div class="col-md-2 form-group">
 						<label for="situacao">Situação</label>

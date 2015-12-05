@@ -6,7 +6,7 @@
 $(document).ready(function(){
 	$('#relatorioModalPDF').on('show.bs.modal', function () {
 		$(".modal-title").text($("#titulo-modal").val())
-		$("#frame-report").attr("src", "rptAcordoComercial");
+		$("#frame-report").attr("src", $("#link-modal").val());
 	});
 
 	$("#relatorioModalPDF").on('hidden.bs.modal', function (e) {
@@ -17,6 +17,7 @@ $(document).ready(function(){
 </script>
 
 <input type="hidden" id="titulo-modal" value="" />
+<input type="hidden" id="link-modal" value="" />
 <div class="modal fade bs-example-modal-lg" id="relatorioModalPDF" >
 	<div class="modal-dialog">
 		<div class="modal-content modal-report-landscape">

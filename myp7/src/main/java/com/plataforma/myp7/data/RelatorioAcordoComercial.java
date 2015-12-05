@@ -3,8 +3,6 @@ package com.plataforma.myp7.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class RelatorioAcordoComercial implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,15 +17,15 @@ public class RelatorioAcordoComercial implements Serializable {
 	private Double valor;
 	private String situacao;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String dataInclusaoDe;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String dataVencimentoDe;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String dataInclusaoAte;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String dataVencimentoAte;
-	
+
+	private Date dataInclusaoDeDate;
+	private Date dataVencimentoDeDate;
+	private Date dataInclusaoAteDate;
+	private Date dataVencimentoAteDate;
 	
 	public RelatorioAcordoComercial() {	}
 
@@ -136,4 +134,37 @@ public class RelatorioAcordoComercial implements Serializable {
 		this.situacao = situacao;
 	}
 
+	public Date getDataInclusaoDeDate() {
+		return dataInclusaoDeDate;
+	}
+
+	public Date getDataVencimentoDeDate() {
+		return dataVencimentoDeDate;
+	}
+
+	public Date getDataInclusaoAteDate() {
+		return dataInclusaoAteDate;
+	}
+
+	public Date getDataVencimentoAteDate() {
+		return dataVencimentoAteDate;
+	}
+
+	public void setDataInclusaoDeDate(Date dataInclusaoDeDate) {
+		this.dataInclusaoDeDate = dataInclusaoDeDate;
+	}
+
+	public void setDataVencimentoDeDate(Date dataVencimentoDeDate) {
+		this.dataVencimentoDeDate = dataVencimentoDeDate;
+	}
+
+	public void setDataInclusaoAteDate(Date dataInclusaoAteDate) {
+		this.dataInclusaoAteDate = dataInclusaoAteDate;
+	}
+
+	public void setDataVencimentoAteDate(Date dataVencimentoAteDate) {
+		this.dataVencimentoAteDate = dataVencimentoAteDate;
+	}
+
+	
 }

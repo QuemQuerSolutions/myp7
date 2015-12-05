@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.RelatorioAcordoComercialMapper">
+
+	<sql id="selectFull">
+		<![CDATA[
+			SELECT RPR_REPRESENTANTE.APELIDO as representante,
+			       FORNC.FANTASIA as fornecedor,
+			       COMPR.FANTASIA as comprador,
+				   REL_REPRESENTANTE_TITULO.NROTITULO as nroTitulo,
+				   REL_REPRESENTANTE_TITULO.VALOR as valor,
+				   REL_REPRESENTANTE_TITULO.SITUACAO as situacao,
+				   REL_REPRESENTANTE_TITULO.ESPECIE as especie,
+				   REL_REPRESENTANTE_TITULO.DTAINCLUSAO as dataInclusao,
+				   REL_REPRESENTANTE_TITULO.DTAVENCIMENTO as dataVencimento
+			FROM REL_REPRESENTANTE_TITULO
+			JOIN RPR_REPRESENTANTE ON RPR_REPRESENTANTE.ID_REPRESENTANTE = REL_REPRESENTANTE_TITULO.ID_REPRESENTANTE
+			JOIN GBL_PESSOA FORNC ON FORNC.ID_PESSOA = REL_REPRESENTANTE_TITULO.ID_FORNECEDOR
+			JOIN GBL_PESSOA COMPR ON COMPR.ID_PESSOA = REL_REPRESENTANTE_TITULO.ID_COMPRADOR
+		  ]]>
+	</sql>
+	
+	<select id="obterPorParametro" resultType="com.plataforma.myp7.data.RelatorioAcordoComercial">
+		<include refid="selectFull"/>
+		WHERE 1=1
+		
+		<if test="nroTitulo != null">
+			AND REL_REPRESENTANTE_TITULO.NROTITULO = #{nroTitulo}
+		</if>
+		
+		<if test="situacao != null">
+			AND REL_REPRESENTANTE_TITULO.SITUACAO = #{situacao}
+		</if>
+		
+		<if test="dataInclusaoDeDate != null">
+			AND REL_REPRESENTANTE_TITULO.DTAINCLUSAO BETWEEN #{dataInclusaoDeDate} AND #{dataInclusaoAteDate}
+		</if>
+		
+		<if test="dataVencimentoDeDate != null">
+			AND REL_REPRESENTANTE_TITULO.DTAVENCIMENTO BETWEEN #{dataVencimentoDeDate} AND #{dataVencimentoAteDate}
+		</if>
+	</select>
+	
+</mapper>
