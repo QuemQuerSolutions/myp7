@@ -1,6 +1,6 @@
 package com.plataforma.myp7.enums;
 
-public enum SituacaoEnum {
+public enum SituacaoIntegracaoEnum {
 	INTEGRADO("I", "integrado", "Integrado"),
 	APROVADO("A", "aprovado", "Aprovado"),
 	REPROVADO("R", "reprovado", "Reprovado"),
@@ -10,7 +10,7 @@ public enum SituacaoEnum {
 	private String valorHtml;
 	private String descricao;
 
-	private SituacaoEnum(String valor, String valorHtml, String desc){
+	private SituacaoIntegracaoEnum(String valor, String valorHtml, String desc){
 		this.valor = valor;
 		this.valorHtml = valorHtml;
 		this.descricao = desc;
@@ -21,7 +21,7 @@ public enum SituacaoEnum {
 	public String getDescricao() { return descricao; }
 	
 	public static String getDescricao(String sigla){
-		for(SituacaoEnum situacao: SituacaoEnum.values()){
+		for(SituacaoIntegracaoEnum situacao: SituacaoIntegracaoEnum.values()){
 			if(sigla.equals(situacao.getSigla())){
 				return situacao.getDescricao();
 			}
@@ -33,7 +33,7 @@ public enum SituacaoEnum {
 		
 		if("todos".equals(valorHtml)) return null;
 		
-		for(SituacaoEnum situacao: SituacaoEnum.values()){
+		for(SituacaoIntegracaoEnum situacao: SituacaoIntegracaoEnum.values()){
 			if(valorHtml.equals(situacao.getValorHtml())){
 				return situacao.getSigla();
 			}

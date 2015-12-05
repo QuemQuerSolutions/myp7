@@ -27,6 +27,14 @@ public class RelatorioAcordoComercialBO {
 		Relatorio.gerar(parametros, lista, "rptAcordoComercial", res);
 	}
 	
+	public List<RelatorioAcordoComercial> obterPorParametro(RelatorioAcordoComercial rac){
+		
+		List<RelatorioAcordoComercial> lista = new ArrayList<RelatorioAcordoComercial>();
+		
+		mockTemp(lista);
+		return lista;
+	}
+	
 	private void mockTemp(List<RelatorioAcordoComercial> lista){
 		RelatorioAcordoComercial rac = new RelatorioAcordoComercial();
 		rac.setNroTitulo(145643);

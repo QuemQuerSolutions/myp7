@@ -19,7 +19,7 @@ import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Usuario;
-import com.plataforma.myp7.enums.SituacaoEnum;
+import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 
 @Controller
 public class CustoAprovacaoController {
@@ -55,13 +55,13 @@ public class CustoAprovacaoController {
 	@RequestMapping(value="aprovarFornecedorCusto", method=RequestMethod.GET)
 	public String aprovarFornecedorCusto(Long[] idFornecedorCusto, HttpSession session){
 		Usuario usuario = usuarioBO.getUserSession(session);
-		fornecedorCustoBO.alterarSituacaoFornecedorCusto(idFornecedorCusto, SituacaoEnum.APROVADO, usuario);
+		fornecedorCustoBO.alterarSituacaoFornecedorCusto(idFornecedorCusto, SituacaoIntegracaoEnum.APROVADO, usuario);
 		return "CustoAprovacaoLista";
 	}
 	
 	@RequestMapping(value="reprovarFornecedorCusto", method=RequestMethod.GET)
 	public String reprovarFornecedorCusto(Long[] idFornecedorCusto){
-		fornecedorCustoBO.alterarSituacaoFornecedorCusto(idFornecedorCusto, SituacaoEnum.REPROVADO, new Usuario(null, null));
+		fornecedorCustoBO.alterarSituacaoFornecedorCusto(idFornecedorCusto, SituacaoIntegracaoEnum.REPROVADO, new Usuario(null, null));
 		return "CustoAprovacaoLista";
 	}
 	

@@ -16,7 +16,7 @@ import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
-import com.plataforma.myp7.enums.SituacaoEnum;
+import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 import com.plataforma.myp7.mapper.FornecedorCustoMapper;
 import com.plataforma.myp7.util.Utils;
 
@@ -77,7 +77,7 @@ public class FornecedorCustoBO {
 		if(fornecedorCusto.getProduto() != null)
 			fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
 		
-		fornecedorCusto.setSituacao(SituacaoEnum.getSigla(fornecedorCusto.getSituacao()));
+		fornecedorCusto.setSituacao(SituacaoIntegracaoEnum.getSigla(fornecedorCusto.getSituacao()));
 		
 		if(!codigo.trim().equals("")){
 			if(tipo.equalsIgnoreCase("1"))
@@ -100,12 +100,12 @@ public class FornecedorCustoBO {
 		List<FornecedorCusto> lista = fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornecedorCusto);
 		
 		for(FornecedorCusto fc: lista)
-			fc.setSituacao(SituacaoEnum.getDescricao(fc.getSituacao()));
+			fc.setSituacao(SituacaoIntegracaoEnum.getDescricao(fc.getSituacao()));
 			
 		return lista;
 	}
 
-	public void alterarSituacaoFornecedorCusto(Long[] idFornecedorCusto, SituacaoEnum situacaoEnum, Usuario usuarioAtualizacao) {
+	public void alterarSituacaoFornecedorCusto(Long[] idFornecedorCusto, SituacaoIntegracaoEnum situacaoEnum, Usuario usuarioAtualizacao) {
 		Date hoje = new Date();
 		Long idUsuario = usuarioAtualizacao.getIdUsuario();
 		for(Long id : idFornecedorCusto)

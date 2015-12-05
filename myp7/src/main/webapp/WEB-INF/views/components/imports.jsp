@@ -11,7 +11,6 @@
 	<link href="resources/css/hack.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/css/menu.css" rel="stylesheet" type="text/css"/>
 	<link href="resources/node_modules/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css" >
-<!-- 	<link href="resources/node_modules/sweetalert/themes/twitter/twitter.css" rel="stylesheet" type="text/css" /> -->
 		
 	<script src="resources/node_modules/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="resources/js/jquery-2.1.4.min.js" type="text/javascript">	</script>
@@ -19,5 +18,6 @@
 	<script src="resources/js/humane.min.js" type="text/javascript"> </script>
 	<script src="resources/js/common.js" type="text/javascript"> </script>
 	<script src="resources/js/utils.js" type="text/javascript"> </script>
+	<script src="resources/js/jquery.mask.min.js" type="text/javascript"> </script>
 	
 </head>

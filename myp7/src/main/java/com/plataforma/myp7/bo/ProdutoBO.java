@@ -23,7 +23,7 @@ import com.plataforma.myp7.dto.MensagemRetornoDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
-import com.plataforma.myp7.enums.SituacaoEnum;
+import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 import com.plataforma.myp7.mapper.NcmMapper;
 import com.plataforma.myp7.mapper.ProdutoMapper;
 import com.plataforma.myp7.util.Upload;
@@ -154,7 +154,7 @@ public class ProdutoBO {
 	
 	public List<Produto> obterParaAprovacao(Produto produto){
 		produto.setDesProduto(toLike(produto.getDesProduto()));
-		produto.setSituacao(SituacaoEnum.getSigla(produto.getSituacao()));
+		produto.setSituacao(SituacaoIntegracaoEnum.getSigla(produto.getSituacao()));
 		
 		int count = produtoMapper.countProdutoAprovacao(produto);
 		
@@ -169,17 +169,17 @@ public class ProdutoBO {
 		List<Produto> lista = produtoMapper.obterProdutoAprovacao(produto);
 		
 		for(Produto p: lista)
-			p.setDescSituacao(SituacaoEnum.getDescricao(p.getSituacao()));
+			p.setDescSituacao(SituacaoIntegracaoEnum.getDescricao(p.getSituacao()));
 			
 		return lista;
 	}
 	
 	public void aprovarProduto(Long idProduto, Usuario usuario){
-		produtoMapper.updateStatus(SituacaoEnum.APROVADO.getSigla(), idProduto, usuario.getIdUsuario(), new Date());
+		produtoMapper.updateStatus(SituacaoIntegracaoEnum.APROVADO.getSigla(), idProduto, usuario.getIdUsuario(), new Date());
 	}
 	
 	public void reprovarProduto(Long idProduto){
-		produtoMapper.updateStatus(SituacaoEnum.REPROVADO.getSigla(), idProduto, null,null);
+		produtoMapper.updateStatus(SituacaoIntegracaoEnum.REPROVADO.getSigla(), idProduto, null,null);
 	}
 
 	public List<Produto> obterQtdPorSituacao(Long idUsuario) {

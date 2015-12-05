@@ -3,14 +3,23 @@ function clearAll(escopo){
 	$(escopo + " :text").each(function () {
 		$(this).val("");
     });
+	
+	$(escopo + " input[type=date]").each(function () {
+		$(this).val("");
+    });
+	
+	$(escopo + " input[type=number]").each(function () {
+		$(this).val("");
+    });
  
     $(escopo + " :radio").each(function () {
     	$(this).prop({ checked: false })
     });
  
-//    $("select").each(function () {
-//    	$(this).val("");
-//    });	
+    $(escopo + " select").each(function(){
+    	$(this).children("option:selected").removeAttr("selected").end()
+    	.children("option:first").attr("selected", "selected");
+	});
 }
 
 function disableAll(){

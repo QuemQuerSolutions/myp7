@@ -136,3 +136,19 @@ tr.registroInativo{border-left: 3px solid #CACACA;}
 button.btn-align-top{ margin-top: 25px; }
 
 .centralizar-componente{ text-align: center !important; vertical-align: middle !important; }
+
+table.relatorio thead th, table.relatorio tbody td{
+	vertical-align: middle !important;
+	font-size: 70%;
+}
+
+
+/*----------
+  Quebra de texto com reticencias
+-----------*/
+table{table-layout: fixed;}
+.truncText {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}

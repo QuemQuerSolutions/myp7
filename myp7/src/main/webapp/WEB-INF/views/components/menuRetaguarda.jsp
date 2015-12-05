@@ -22,7 +22,7 @@
 	<myp7:menuComSub label="Relatórios" icon="glyphicon-file" />
 	<ul>
 		<myp7:subMenu label="Relatório de Estoque" link="RelatorioEstoque" />
-		<myp7:subMenu label="Relatório de Títulos" link="rptAcordoComercial" />
+		<myp7:subMenu label="Relatório de Títulos" link="RelatorioAcordoComercial" />
 	</ul>
 </li>
 
