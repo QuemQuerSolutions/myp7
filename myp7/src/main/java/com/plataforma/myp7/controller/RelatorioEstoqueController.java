@@ -3,6 +3,7 @@ package com.plataforma.myp7.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import com.plataforma.myp7.bo.RelatorioEstoqueBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Comprador;
-import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.RelatorioEstoque;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.Usuario;
@@ -27,6 +27,8 @@ import com.plataforma.myp7.util.Utils;
 
 @Controller
 public class RelatorioEstoqueController {
+	
+	private Usuario usuario;
 	
 	@Autowired
 	private UsuarioBO usuarioBO;
@@ -42,8 +44,8 @@ public class RelatorioEstoqueController {
 	
 	@RequestMapping("RelatorioEstoque")
 	public String produtoAprovacao(Model model, HttpSession session){
-		
-		model.addAttribute("pessoas", this.carregaListaPessoa(usuarioBO.getUserSession(session), model));
+		this.usuario = usuarioBO.getUserSession(session);
+		model.addAttribute("pessoas", this.carregaListaPessoa(usuario, model));
 		
 		return "RelatorioEstoque";
 	} 
@@ -52,7 +54,7 @@ public class RelatorioEstoqueController {
 		Representante repr = representanteBO.selecionaPorIdUsuario(usuario.getIdUsuario());
 		if(null == repr){
 			model.addAttribute("tituloPessoa", "Representantes");
-			Comprador comp = compradorBO.obterPorIdUsuario(usuario.getIdUsuario());
+			Comprador comp = compradorBO.obterPorIdUsuario(usuario.getIdUsuario());	
 			
 			if(null == comp)
 				return null;
@@ -63,27 +65,35 @@ public class RelatorioEstoqueController {
 		return compradorBO.obterPorIdRepresentante(repr);
 	}
 	
+	
+	@RequestMapping("rpdEstoque")
+	public void visualizarAplicacaoFuncional(HttpServletResponse res, RelatorioEstoque relatorioEstoque) {
+		relatorioEstoque.setIdUsuario(usuario.getIdUsuario());
+		relatorioEstoque.setProduto("".equals(relatorioEstoque.getProduto()) ? null:relatorioEstoque.getProduto());
+		relatorioEstoqueBO.gerarPDF(res, relatorioEstoque);
+	}
+	
 	@RequestMapping(value="pesquisaRelatorioEstoque", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<RelatorioEstoque> pesquisaRelatorioEstoqueAJAX(String idProduto, String descProduto, String idPessoa) {
 		try {
-			Produto produto = null;
-			ComboPessoa pessoa = null;
+			RelatorioEstoque relEstoque = new RelatorioEstoque();
 			
-			if(!Utils.isEmpty(idProduto) || !Utils.isEmpty(descProduto)){
-				produto = new Produto();
-				produto.setIdProduto(Long.parseLong(idProduto));
-				produto.setDesProduto(descProduto);
-			}
-
-			if(!Utils.isEmpty(idPessoa) && !idPessoa.equalsIgnoreCase("-1")){
-				Comprador comprador = new Comprador();
-				comprador.setId(Integer.parseInt(idPessoa));
-				pessoa = comprador;
-			}
-			
-			return this.relatorioEstoqueBO.obterPorParametros(produto, pessoa);
+			relEstoque.setIdProduto("".equals(idProduto)? null: Long.parseLong(idProduto));
+			relEstoque.setProduto("".equals(descProduto)? null: Utils.toLike(descProduto));
+			relEstoque.setIdUsuario(this.usuario.getIdUsuario());
+			relEstoque.setIdRepresentante("".equals(idPessoa)?null: Long.parseLong(idPessoa));
+			return this.relatorioEstoqueBO.obterPorParametros(relEstoque);
 		} catch (Exception e) {
 			return new ArrayList<RelatorioEstoque>();
 		}
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 }

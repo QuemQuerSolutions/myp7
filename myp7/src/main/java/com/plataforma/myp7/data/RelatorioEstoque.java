@@ -1,95 +1,105 @@
 package com.plataforma.myp7.data;
 
-public class RelatorioEstoque {
+import java.io.Serializable;
+import java.math.BigDecimal;
 
-	public String empresa;
-	public String produto;
-	public Integer qtdEstoque;
-	public Integer qtdEstoqueTroca;
-	public Integer qtdPendenteCompras;
-	public Integer qtdTransito;
-	public Integer qtdPendenteExpedir;
-	public Integer mediaVendaDia;
-	public Integer diasEstoque;
-	public Integer diasUltimaEntrada;
+import org.apache.ibatis.type.Alias;
+
+@Alias("RelatorioEstoque")
+public class RelatorioEstoque implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String produto;
+	private Integer qtdEstoque;
+	private BigDecimal mediaVendaDia;
 	
-	public String getEmpresa() {
-		return empresa;
-	}
+	private String dataUltimaCompra;
+	private String comprador;
+	private String representante;
+	private String fornecedor;
 	
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	
+	
+	private Long idUsuario;
+	private Long idProduto;
+	private Long idRepresentante;
+	
+	public RelatorioEstoque(){
+		
 	}
 	
 	public String getProduto() {
 		return produto;
 	}
-	
 	public void setProduto(String produto) {
 		this.produto = produto;
 	}
-	
 	public Integer getQtdEstoque() {
 		return qtdEstoque;
 	}
-	
 	public void setQtdEstoque(Integer qtdEstoque) {
 		this.qtdEstoque = qtdEstoque;
 	}
-	
-	public Integer getQtdEstoqueTroca() {
-		return qtdEstoqueTroca;
-	}
-	
-	public void setQtdEstoqueTroca(Integer qtdEstoqueTroca) {
-		this.qtdEstoqueTroca = qtdEstoqueTroca;
-	}
-	
-	public Integer getQtdPendenteCompras() {
-		return qtdPendenteCompras;
-	}
-	
-	public void setQtdPendenteCompras(Integer qtdPendenteCompras) {
-		this.qtdPendenteCompras = qtdPendenteCompras;
-	}
-	
-	public Integer getQtdTransito() {
-		return qtdTransito;
-	}
-	
-	public void setQtdTransito(Integer qtdTransito) {
-		this.qtdTransito = qtdTransito;
-	}
-	
-	public Integer getQtdPendenteExpedir() {
-		return qtdPendenteExpedir;
-	}
-	
-	public void setQtdPendenteExpedir(Integer qtdPendenteExpedir) {
-		this.qtdPendenteExpedir = qtdPendenteExpedir;
-	}
-	
-	public Integer getMediaVendaDia() {
+	public BigDecimal getMediaVendaDia() {
 		return mediaVendaDia;
 	}
-	
-	public void setMediaVendaDia(Integer mediaVendaDia) {
+	public void setMediaVendaDia(BigDecimal mediaVendaDia) {
 		this.mediaVendaDia = mediaVendaDia;
 	}
-	
-	public Integer getDiasEstoque() {
-		return diasEstoque;
+	public String getDataUltimaCompra() {
+		return dataUltimaCompra;
 	}
-	
-	public void setDiasEstoque(Integer diasEstoque) {
-		this.diasEstoque = diasEstoque;
+	public void setDataUltimaCompra(String dataUltimaCompra) {
+		this.dataUltimaCompra = dataUltimaCompra;
 	}
-	
-	public Integer getDiasUltimaEntrada() {
-		return diasUltimaEntrada;
+	public String getComprador() {
+		return comprador;
 	}
-	
-	public void setDiasUltimaEntrada(Integer diasUltimaEntrada) {
-		this.diasUltimaEntrada = diasUltimaEntrada;
+	public void setComprador(String comprador) {
+		this.comprador = comprador;
 	}
+	public String getRepresentante() {
+		return representante;
+	}
+	public void setRepresentante(String representante) {
+		this.representante = representante;
+	}
+	public String getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(String fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Long getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
+	}
+
+	public Long getIdRepresentante() {
+		return idRepresentante;
+	}
+
+	public void setIdRepresentante(Long idRepresentante) {
+		this.idRepresentante = idRepresentante;
+	}
+
+	
+	
+	
 }

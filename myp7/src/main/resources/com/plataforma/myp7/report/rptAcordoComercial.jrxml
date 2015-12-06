@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAcordoComercial" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b5eedb7-54df-4c4c-99e3-e4d89949518c">
-	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.zoom" value="3.797498335832415"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="149"/>
+	<property name="ireport.y" value="212"/>
 	<parameter name="logo" class="java.lang.Object" isForPrompting="false"/>
 	<field name="nroTitulo" class="java.lang.Integer"/>
 	<field name="especie" class="java.lang.String"/>
@@ -162,17 +162,6 @@
 				<textFieldExpression><![CDATA[$F{especie}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="138" y="0" width="109" height="20" uuid="ca7cea6e-dc78-4116-beed-bc0bb8dd9ebc"/>
-				<box leftPadding="3">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textFieldExpression><![CDATA[$F{comprador}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="247" y="0" width="107" height="20" uuid="d5389d5a-2618-48a8-a47b-58a6250efb43"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.0"/>
@@ -273,6 +262,17 @@
 			<line>
 				<reportElement x="0" y="0" width="1" height="20" uuid="bc434bd9-1ca1-4d7b-82e7-244a0ff3d50c"/>
 			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="0" width="109" height="20" uuid="ca7cea6e-dc78-4116-beed-bc0bb8dd9ebc"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{comprador}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

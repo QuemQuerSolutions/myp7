@@ -5,11 +5,6 @@
 	
 <script type="text/javascript">
 $(document).ready(function(){
-
-	$("#clickEmpresa").click(function(e){
-		e.stopPropagation();
-		$("#consulta_empresa").modal();
-	});
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
@@ -45,7 +40,7 @@ $(document).ready(function(){
 			    
 			    if(lista[0].codRetorno == -1){
 			    	alerta(lista[0].msgRetorno, "warning");
-			    	$("#lstCustoAprovacao").html("");
+			    	$("#lstRelatorioEstoque").html("");
 			    	return;
 			    }
 			    
@@ -64,24 +59,31 @@ $(document).ready(function(){
 
 	function getLine(relatEstoque){
 		var line = "";
-		
 		line = line.concat("<tr>");
 		
-		line = line.concat("<td style=\"font-size: 70% !important;\">", relatEstoque.empresa ,	"</td>");
-		line = line.concat("<td style=\"font-size: 70% !important;\">", relatEstoque.produto ,	"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdEstoque ,		"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdEstoqueTroca,	"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdPendenteCompras ,"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdTransito ,		"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.qtdPendenteExpedir,	"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.mediaVendaDia ,		"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.diasEstoque,		"</td>");
-		line = line.concat("<td style=\"text-align: right; font-size: 70% !important;\">", relatEstoque.diasUltimaEntrada ,	"</td>");
+		line = line.concat("<td style=\"font-size: 100% !important;\" id=\"produto\" >", relatEstoque.produto ,	"</td>");
+		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"qtdEstoque\" >", relatEstoque.qtdEstoque ,"</td>");
+		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"mediaVendaDia\" >", relatEstoque.mediaVendaDia ,"</td>");
+		line = line.concat("<td style=\"text-align: cennter; font-size: 100% !important;\" id=\"dataUltimaCompra\" >", relatEstoque.dataUltimaCompra,		"</td>");
+		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"comprador\" >", relatEstoque.comprador ,"</td>");	
+		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"representante\" >", relatEstoque.representante ,"</td>");
+		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\"id=\"fornecedor\" >", relatEstoque.fornecedor ,"</td>");
+		
 		
 		line = line.concat("</tr>");
 		
 		return line;
 	}
+
+	$("#gerarPDF").click(function(e){
+		e.stopPropagation();
+		$("#titulo-modal").val("Relatório de Estoque");
+		var link = "rpdEstoque?".concat("idProduto=", $("#idProduto").val(),
+												"&produto=", $("#descProduto").val(),
+												"&representante=", $("#idPessoa option:selected").val());
+		$("#link-modal").val(link);
+		$('#relatorioModalPDF').modal();
+	});
 	
 });
 
@@ -92,7 +94,7 @@ $(document).ready(function(){
 
 	<div id="content">
 		<div id="content-title">
-			<h4>Relatório de Estoque</h4>
+			<h4>Relatório de Estoque <span class="glyphicon glyphicon-file btn-pdf" title="Gerar PDF" id="gerarPDF"><label>PDF</label></span></h4>
 		</div>
 		
 		<div id="content-header">
@@ -104,7 +106,7 @@ $(document).ready(function(){
 					<label for="produto" class="control-label">Descrição Produto</label>
 				</div>
 				<div class="col-md-3">
-					<label for="produto" class="control-label">${tituloPessoa}</label>
+					<label for="produto" class="control-label" >${tituloPessoa}</label>
 				</div>
 			</div>
 			
@@ -124,7 +126,7 @@ $(document).ready(function(){
 					<div class="col-md-3">
 						<div class="form-group">
 							<select id="idPessoa" name="idPessoa" class="form-control" autofocus="autofocus">
-					  			<option value="-1">-</option>
+					  			<option value="-1">--Selecione--</option>
 					  			<c:forEach var="pessoa" items="${pessoas}">
 					  				<option value="${pessoa.idCombo}">${pessoa.descricaoCombo}</option>
 	   							</c:forEach>				  			
@@ -152,16 +154,13 @@ $(document).ready(function(){
 			<table  class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Empresa</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Produto</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Estoque</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Estoque Troca</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Pendente Compras</th>	
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd em Trânsito</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Qtd Pendente Expedir</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Média Venda Dia</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Dias de Estoque</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 70% !important;">Dias Ultima Entrada</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Produto</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Qtd Estoque</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Média Venda Dia</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Data Última Compra</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Comprador</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Representante</th>
+						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Fornecedor</th>
 					</tr>
 				</thead>
 				<tbody id="lstRelatorioEstoque"></tbody>
@@ -169,9 +168,7 @@ $(document).ready(function(){
 		</div>
 	
 	</div>
-	
-	<c:import url="EmpresaModalLista.jsp"/>
-	
+	<c:import url="RelatorioModalPDF.jsp"/>
 	<c:import url="components/footer.jsp"/>
 </body>
 </html>

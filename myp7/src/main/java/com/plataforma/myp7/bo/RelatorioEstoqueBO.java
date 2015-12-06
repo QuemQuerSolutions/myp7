@@ -1,15 +1,19 @@
 package com.plataforma.myp7.bo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.RelatorioEstoque;
-import com.plataforma.myp7.interfaces.ComboPessoa;
 import com.plataforma.myp7.mapper.RelatorioEstoqueMapper;
+import com.plataforma.myp7.util.Relatorio;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class RelatorioEstoqueBO {
@@ -17,29 +21,35 @@ public class RelatorioEstoqueBO {
 	@Autowired
 	private RelatorioEstoqueMapper relatorioEstoqueMapper;
 	
-	public List<RelatorioEstoque> obterPorParametros(Produto produto, ComboPessoa pessoa){
+	
+	public void gerarPDF(HttpServletResponse res, RelatorioEstoque relEstoque){
 		try{
-			/* MOCK */
-			List<RelatorioEstoque> lista = new ArrayList<>();
-			RelatorioEstoque re = new RelatorioEstoque();
-			re.setDiasEstoque		(15);
-			re.setDiasUltimaEntrada	(12);
-			re.setEmpresa			("Empresa do Robson");
-			re.setMediaVendaDia		(32);
-			re.setProduto			("Produto legal");
-			re.setQtdEstoque		(221);
-			re.setQtdEstoqueTroca	(35);
-			re.setQtdPendenteCompras(12);
-			re.setQtdPendenteExpedir(16);
-			re.setQtdTransito		(9);
-			lista.add(re);
 			
-			return lista;
-			/* MOCK */
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			List<RelatorioEstoque> lstEstoques = relatorioEstoqueMapper.obterPorParametro(relEstoque);
 			
-//			return this.relatorioEstoqueMapper.obterPorParametros(produto, pessoa);
+			Relatorio.setImageParam(parametros, "logo", "logopeq.jpg");
+			Relatorio.gerar(parametros, lstEstoques, "rpdEstoque", res);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public List<RelatorioEstoque> obterPorParametros(RelatorioEstoque relatorioEstoque){
+		try{
+			return relatorioEstoqueMapper.obterPorParametro(relatorioEstoque);
 		}catch(Exception e){
 			return null;
 		}
+	}
+	
+	public List<RelatorioEstoque> setFormatDate(List<RelatorioEstoque> lstRel){
+		List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
+		
+		for(RelatorioEstoque iRel: lstRel){
+			iRel.setDataUltimaCompra(Utils.format("yyyy-dd-mm", iRel.getDataUltimaCompra()));
+			lstRelTransformado.add(iRel);
+		}
+		return lstRel;
 	}
 }
