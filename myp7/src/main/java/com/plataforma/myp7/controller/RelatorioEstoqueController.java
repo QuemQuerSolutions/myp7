@@ -2,6 +2,7 @@ package com.plataforma.myp7.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class RelatorioEstoqueController {
 	private RelatorioEstoqueBO relatorioEstoqueBO;
 	
 	@RequestMapping("RelatorioEstoque")
-	public String produtoAprovacao(Model model, HttpSession session){
+	public String relatorioEstoque(Model model, HttpSession session){
 		this.usuario = usuarioBO.getUserSession(session);
 		model.addAttribute("pessoas", this.carregaListaPessoa(usuario, model));
 		
@@ -52,11 +53,11 @@ public class RelatorioEstoqueController {
 	
 	private List<? extends ComboPessoa> carregaListaPessoa(Usuario usuario, Model model){
 		Representante repr = representanteBO.selecionaPorIdUsuario(usuario.getIdUsuario());
-		if(null == repr){
+		if(Objects.isNull(repr)){
 			model.addAttribute("tituloPessoa", "Representantes");
 			Comprador comp = compradorBO.obterPorIdUsuario(usuario.getIdUsuario());	
 			
-			if(null == comp)
+			if(Objects.isNull(comp))
 				return null;
 			
 			return representanteBO.obterPorComprador(comp);
@@ -67,7 +68,7 @@ public class RelatorioEstoqueController {
 	
 	
 	@RequestMapping("rpdEstoque")
-	public void visualizarAplicacaoFuncional(HttpServletResponse res, RelatorioEstoque relatorioEstoque) {
+	public void visualizaRelEstoque(HttpServletResponse res, RelatorioEstoque relatorioEstoque) {
 		relatorioEstoque.setIdUsuario(usuario.getIdUsuario());
 		relatorioEstoque.setProduto("".equals(relatorioEstoque.getProduto()) ? null:relatorioEstoque.getProduto());
 		relatorioEstoqueBO.gerarPDF(res, relatorioEstoque);
@@ -81,7 +82,7 @@ public class RelatorioEstoqueController {
 			relEstoque.setIdProduto("".equals(idProduto)? null: Long.parseLong(idProduto));
 			relEstoque.setProduto("".equals(descProduto)? null: Utils.toLike(descProduto));
 			relEstoque.setIdUsuario(this.usuario.getIdUsuario());
-			relEstoque.setIdRepresentante("".equals(idPessoa)?null: Long.parseLong(idPessoa));
+			relEstoque.setIdRepresentante("-1".equals(idPessoa)?null: Long.parseLong(idPessoa));
 			return this.relatorioEstoqueBO.obterPorParametros(relEstoque);
 		} catch (Exception e) {
 			return new ArrayList<RelatorioEstoque>();

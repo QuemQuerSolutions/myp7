@@ -22,8 +22,6 @@ public class RelatorioEstoque implements Serializable{
 	private String representante;
 	private String fornecedor;
 	
-	
-	
 	private Long idUsuario;
 	private Long idProduto;
 	private Long idRepresentante;
@@ -32,6 +30,11 @@ public class RelatorioEstoque implements Serializable{
 		
 	}
 	
+	public String getDataUltimaCompra() {
+		return dataUltimaCompra;
+	}
+
+
 	public String getProduto() {
 		return produto;
 	}
@@ -49,12 +52,6 @@ public class RelatorioEstoque implements Serializable{
 	}
 	public void setMediaVendaDia(BigDecimal mediaVendaDia) {
 		this.mediaVendaDia = mediaVendaDia;
-	}
-	public String getDataUltimaCompra() {
-		return dataUltimaCompra;
-	}
-	public void setDataUltimaCompra(String dataUltimaCompra) {
-		this.dataUltimaCompra = dataUltimaCompra;
 	}
 	public String getComprador() {
 		return comprador;
@@ -97,6 +94,10 @@ public class RelatorioEstoque implements Serializable{
 
 	public void setIdRepresentante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
+	}
+
+	public void setDataUltimaCompra(String dataUltimaCompra) {
+		this.dataUltimaCompra = dataUltimaCompra;
 	}
 
 	

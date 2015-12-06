@@ -64,7 +64,7 @@ $(document).ready(function(){
 		line = line.concat("<td style=\"font-size: 100% !important;\" id=\"produto\" >", relatEstoque.produto ,	"</td>");
 		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"qtdEstoque\" >", relatEstoque.qtdEstoque ,"</td>");
 		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"mediaVendaDia\" >", relatEstoque.mediaVendaDia ,"</td>");
-		line = line.concat("<td style=\"text-align: cennter; font-size: 100% !important;\" id=\"dataUltimaCompra\" >", relatEstoque.dataUltimaCompra,		"</td>");
+		line = line.concat("<td style=\"text-align: cennter; font-size: 100% !important;\" id=\"dataUltimaCompra\" >", relatEstoque.dataUltimaCompraConvertido,		"</td>");
 		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"comprador\" >", relatEstoque.comprador ,"</td>");	
 		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"representante\" >", relatEstoque.representante ,"</td>");
 		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\"id=\"fornecedor\" >", relatEstoque.fornecedor ,"</td>");

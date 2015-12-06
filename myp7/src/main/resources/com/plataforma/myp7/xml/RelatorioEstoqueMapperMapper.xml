@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plataforma.myp7.mapper.RelatorioEstoqueMapper">
+	
+				
+	<sql id="selectFull">
+	<![CDATA[
+		SELECT  prd_usuario_produto.DESCRICAO as produto,
+				rel_representante_estoque.QTDESTOQUE as qtdEstoque,
+		        rel_representante_estoque.MEDIAVENDADIA as mediaVendaDia, 
+		        rel_representante_estoque.DTAULTIMACOMPRA as dataUltimaCompra,
+		        cpr_comprador.APELIDO AS comprador,
+		        rpr_representante.APELIDO as representante,
+		        gbl_pessoa.RAZAO as fornecedor
+		        FROM rel_representante_estoque
+		JOIN prd_usuario_produto ON prd_usuario_produto.ID_PRODUTO = rel_representante_estoque.ID_PRODUTO
+		JOIN usu_usuario ON usu_usuario.ID_USUARIO = prd_usuario_produto.ID_USUARIO
+		JOIN cpr_comprador ON cpr_comprador.ID_USUARIO=  usu_usuario.ID_USUARIO
+		JOIN rpr_representante_comprador ON  rpr_representante_comprador.ID_COMPRADOR= cpr_comprador.ID_COMPRADOR
+		JOIN rpr_representante ON rpr_representante.ID_REPRESENTANTE = rpr_representante_comprador.ID_REPRESENTANTE
+		JOIN rpr_representante_fornecedor ON rpr_representante_fornecedor.ID_REPRESENTANTE = rpr_representante.ID_REPRESENTANTE
+		JOIN frn_fornecedor ON frn_fornecedor.ID_FORNECEDOR = rpr_representante_fornecedor.ID_FORNECEDOR
+		JOIN gbl_pessoa ON gbl_pessoa.ID_PESSOA = frn_fornecedor.ID_FORNECEDOR	
+		 ]]>
+	</sql>
+	
+	<select id="obterPorParametro" resultType="com.plataforma.myp7.data.RelatorioEstoque">
+		<include refid="selectFull"/>
+		<include refid="whereProdutoComprador" />
+	</select>
+	
+	<sql id="whereProdutoComprador">
+		WHERE usu_usuario.ID_USUARIO = #{idUsuario}
+		<if test="idProduto != null">
+			AND prd_usuario_produto.ID_PRODUTO = #{idProduto}
+		</if>
+		<if test="produto != null">
+			AND prd_usuario_produto.DESCRICAO like #{produto}
+		</if>
+		<if test="idRepresentante  != null">
+			AND rpr_representante.ID_REPRESENTANTE = #{idRepresentante}
+		</if>
+		ORDER BY prd_usuario_produto.DESCRICAO
+	</sql>
+	
+</mapper>
