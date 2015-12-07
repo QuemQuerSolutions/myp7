@@ -55,7 +55,7 @@ public class RelatorioAcordoComercialBO {
 		rac.setDataVencimentoDeDate(DateUtils.getDate(rac.getDataVencimentoDe(), formatoDataTela));
 		rac.setDataVencimentoAteDate(DateUtils.getDate(rac.getDataVencimentoAte(), formatoDataTela));
 		
-		rac.setSituacao(SituacaoTituloEnum.getSigla(rac.getSituacao()));
+//		rac.setSituacao(SituacaoTituloEnum.getSigla(rac.getSituacao()));
 	}
 	
 }

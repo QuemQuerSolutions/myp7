@@ -3,7 +3,7 @@ package com.plataforma.myp7.enums;
 public enum SituacaoTituloEnum {
 	ABERTO("A", "Aberto"),
 	QUITADO("Q", "Quitado"),
-	PARCIAL("P", "Parcial Quitado");
+	PARCIAL("P", "Parcial");
 	
 	private String sigla;
 	private String nome;

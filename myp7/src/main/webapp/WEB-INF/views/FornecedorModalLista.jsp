@@ -129,7 +129,7 @@ function getLineFornecedor(fornecedor){
 						<thead>
 							<tr>
 								<th width="10%">Código</th>
-								<th>Razão Social</th>
+								<th width="90%">Razão Social</th>
 							</tr>
 						</thead>
 						<tbody id="lstFornecedorModal"></tbody>

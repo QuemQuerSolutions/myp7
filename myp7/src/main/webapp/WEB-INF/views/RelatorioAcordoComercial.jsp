@@ -83,9 +83,9 @@ $(document).ready(function(){
 						<label for="situacao">Situação</label>
 						<input type="hidden" id="cmbSituacao" value="${obj.situacao}">
 						<select id="situacao" name="situacao" class="form-control">
-				  			<option value="Aberto">Aberto</option>
-				  			<option value="Quitado">Quitado</option>
-				  			<option value="Parcial">Parcial Quitado</option>	
+				  			<option value="A">Aberto</option>
+				  			<option value="Q">Quitado</option>
+				  			<option value="P">Parcial Quitado</option>	
 				  		</select>
 				  	</div>
 				  	<div class="col-md-4 form-group"></div>

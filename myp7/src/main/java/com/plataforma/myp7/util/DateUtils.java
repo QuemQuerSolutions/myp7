@@ -18,7 +18,7 @@ public class DateUtils {
 	}
 	
 	public static Date getDate(String data, String formato){
-		if(data == null) return null;
+		if(data == null || data == "") return null;
 		
         DateFormat formatter = new SimpleDateFormat(formato);  
         try {
