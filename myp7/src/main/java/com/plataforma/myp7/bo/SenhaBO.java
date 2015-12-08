@@ -25,9 +25,9 @@ public class SenhaBO {
 	 * 
 	 * @param senha - Senha digitada
 	 * @param usuario - Usuario digitado
-	 * @param dominio - Perfil do usuário que esta fazendo login
+	 * @param dominio - Perfil do usuï¿½rio que esta fazendo login
 	 * @return Boolean
-	 * Método para validar se a senha esta de acordo com os parametros.
+	 * Mï¿½todo para validar se a senha esta de acordo com os parametros.
 	 */
 	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
 		List<Parametro> parametros;
@@ -49,7 +49,7 @@ public class SenhaBO {
 	private boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
 		switch(parametro.getNome().toUpperCase()){
 			/**
-			 * Valida se há ao menos um numero na senha
+			 * Valida se hï¿½ ao menos um numero na senha
 			 */			
 			case "NUMEROS":
 				for(char letra : senha.toCharArray()){
@@ -61,7 +61,7 @@ public class SenhaBO {
 				return false;
 				
 			/**
-			 * Valida se há ao menos uma letra na senha
+			 * Valida se hÃ¡ ao menos uma letra na senha
 			 */
 			case "LETRAS":
 				for(char letra : senha.toCharArray()){
@@ -72,7 +72,7 @@ public class SenhaBO {
 				return false;
 			
 			/**
-			 * Valida se há ao menos uma letra maúscula na senha
+			 * Valida se hÃ¡ ao menos uma letra maiscula na senha
 			 */
 			case "UMA LETRA MAIUSCULA":
 				for(char letra : senha.toCharArray()){
@@ -83,7 +83,7 @@ public class SenhaBO {
 				return false;
 				
 			/**
-			 * Valida se a senha tem a quantidade mínima de caracteres requeridos
+			 * Valida se a senha tem a quantidade mÃ­nima de caracteres requeridos
 			 */
 			case "QTDE MINIMA":
 				return (!(senha.length() < Integer.parseInt(parametro.getAuxiliar())));
@@ -92,7 +92,7 @@ public class SenhaBO {
 	}
 	
 	/**
-	 * Valida se a quantidade de senhas anteriores igual à da especificado no parametro não repete a senha
+	 * Valida se a quantidade de senhas anteriores igual a da especificado no parametro nÃ£o repete a senha
 	 * que esta sendo informada
 	 * @param usuario 
 	 * @param parametro 

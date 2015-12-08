@@ -38,7 +38,7 @@ public class FornecedorController {
 				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
 				return "FornecedorLista";
 			}else if("error".equals(origem)){
-				setMsgRetorno(model, "Falha na Operação");
+				setMsgRetorno(model, "Falha na OperaÃ§Ã£o");
 				setCodRetorno(model, -1);
 				return "FornecedorLista";
 			}

@@ -64,7 +64,7 @@ public class ProdutoBO {
 			}
 		}
 		
-		//se o retorno do insert não for valido ele pega o caminho da ultima imagem
+		//se o retorno do insert nï¿½o for valido ele pega o caminho da ultima imagem
 		produto.setCaminhoImagem(imagemAnterior);
 		return false;
 	}
@@ -81,7 +81,7 @@ public class ProdutoBO {
 
 	public boolean isInsertValido(Produto produto, Model model) {
 		if(Objects.isNull(produto.getNcmProduto())){
-			setMsgRetorno(model, "NCM não encontrado.");
+			setMsgRetorno(model, "NCM nÃ£o encontrado.");
 			setCodRetorno(model, -1);
 			return false;
 		}

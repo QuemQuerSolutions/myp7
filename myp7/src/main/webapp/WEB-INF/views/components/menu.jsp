@@ -20,8 +20,7 @@
 				<c:import url="/WEB-INF/views/components/menuRetaguarda.jsp" />
 			</c:if>
 			<c:if test="${tipoUsuarioRetorno eq 'T'}">
-				<c:import url="/WEB-INF/views/components/menuPortal.jsp" />
-				<c:import url="/WEB-INF/views/components/menuRetaguarda.jsp" />
+				<c:import url="/WEB-INF/views/components/menuTodos.jsp" />
 			</c:if>
 		</ul>
 	</div>

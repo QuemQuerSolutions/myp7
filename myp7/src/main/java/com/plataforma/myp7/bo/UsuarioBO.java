@@ -56,7 +56,7 @@ public class UsuarioBO {
 	private boolean isValidInsert(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		
 		if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
-			setMsgRetorno(model, "Email já cadastrado.");
+			setMsgRetorno(model, "Email jÃ¡ cadastrado.");
 			return false;
 		}
 		
@@ -66,7 +66,7 @@ public class UsuarioBO {
 
 		SenhaBO senhaBO = new SenhaBO();
 		if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
-			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
+			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um nÃºmero e uma letra maiÃºscula.");
 			return false;
 		}
 		

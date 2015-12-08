@@ -64,9 +64,9 @@ function removerClasseClicked(){
 }
 
 function pesquisarUsuario(razaoSocial, email){
-	if(!hasInformation("#usaurio_modal_body")){
-		alerta("Informe ao menos um filtro para continuar", "warning");
-	}else{
+//	if(!hasInformation("#usaurio_modal_body")){
+//		alerta("Informe ao menos um filtro para continuar", "warning");
+//	}else { 
 		var usuario = {razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
 		$.ajax({
 			type: "GET",
@@ -91,7 +91,7 @@ function pesquisarUsuario(razaoSocial, email){
 		        alerta("Erro ao retornar lista","warning");
 	        }
 	    });
-	}
+//	}
 }
 
 function montaTable(lista){

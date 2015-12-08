@@ -42,10 +42,10 @@ $(document).ready(function(){
 	$("#btnPesquisarEmpresa").click(function(e){
 		e.stopPropagation();
 		
-		if(!hasInformation("#filtroModalEmpresa")){
-			alerta("Informe ao menos um filtro para continuar", "warning");
-			return;
-		}
+	//	if(!hasInformation("#filtroModalEmpresa")){
+	//		alerta("Informe ao menos um filtro para continuar", "warning");
+	//		return;
+//		}
 		
 		var empresa = {idEmpresa	: $("#idEmpresaBusca").val(), 
 					   nomeReduzido	: $("#nomeReduzidoBusca").val()};

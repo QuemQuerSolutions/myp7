@@ -13,7 +13,6 @@ $(document).ready(function() {
 		$("#idEmbalagem").val("");
 		$("#sigla").val("");
 		$("#descricao").val("");
-		$("#quantidade").val("");
 	});
 
 	$(".campo-salvar").keypress(function(e){
@@ -27,14 +26,11 @@ $(document).ready(function() {
 			($("#codMsgem").val() == "" && $("#idEmbalagem").val() == "")){
 			$("#sigla").val("");
 			$("#descricao").val("");
-			$("#quantidade").val("");
 			$("#sigla").removeClass("disabled");
-			$("#quantidade").removeClass("disabled");
 		}
 
 		if($("#idEmbalagem").val() !== "0" && $("#idEmbalagem").val() !== ""){
 			$("#sigla").addClass("disabled");
-			$("#quantidade").addClass("disabled");
 		}
 		$('#sigla').focus();
 		refreshDisabled();
@@ -71,7 +67,6 @@ function validaCamposObrigatorios(){
 function removeClass(){
 	$("#divsiglamodal").attr("class","form-group");
 	$("#divdescricaomodal").attr("class","form-group");
-	$("#divquantidademodal").attr("class","form-group");
 }
 
 </script>
@@ -105,21 +100,7 @@ function removeClass(){
 						  	</div>
 	  					</div>
 					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group" id="divquantidademodal">
-						   		<label for="quantidade" class="control-label">Quantidade</label>
-						    	<input type="number" 
-						    		   class="form-control campo-salvar onlyNumber" 
-						    		   id="quantidade" 
-						    		   name="qtdEmbalagem" 
-						    		   max="99"
-						    		   min="0"
-						    		   placeholder="Quantidade" 
-						    		   value="${embalagem.qtdEmbalagem}">
-						  	</div>
-						</div>
-					</div>
+					
 				</form>
 			</div>
 			<div class="modal-footer">

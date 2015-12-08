@@ -13,8 +13,8 @@ import com.plataforma.myp7.enums.ConfigEnum;
 public class Upload {
 
 	/**
-	 *  Efetua o upload da máquina do usuário para o servidor
-	 * @param request Usado para pegar o contexto e o caminho da aplicação
+	 *  Efetua o upload da mÃ¡quina do usuÃ¡rio para o servidor
+	 * @param request Usado para pegar o contexto e o caminho da aplicaÃ§ao
 	 * @param file Arquivo a ser efeutado o upload
 	 * @return
 	 */
@@ -25,7 +25,7 @@ public class Upload {
 			
 			String dataHoraAtual = DateUtils.getDataAtualString("yyyyMMddHHmmss");
 			
-			//verifica se não teve nenhum input de imagem
+			//verifica se nï¿½o teve nenhum input de imagem
 			if(produto.getImagem().getOriginalFilename().equals("")) 
 				return new File("");
 			

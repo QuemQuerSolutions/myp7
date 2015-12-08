@@ -260,10 +260,11 @@ function addLineRepresentanteTab(representante){
 				  	<a href="#" target="_self" class="form-control icon-search" id="buscaRepresentante"><span class="glyphicon glyphicon-search"></span></a>
 				</div>
 				<div class="col-md-7 form-group btn-group" data-toggle="buttons">
-					<label class="btn ${theme}">
-					    <input type="radio" name="situacoes" id="integrado" autocomplete="off"> Integrado 
-					    <span id="qtdIntegrado" class="badge">0</span>
-					  </label>
+					<label class="btn ${theme} active">
+    					<input type="radio" name="situacoes" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
+    					<span id="qtdAguardando" class="badge">0</span>
+  					</label>
+					
 					<label class="btn ${theme}">
     					<input type="radio" name="situacoes" id="aprovado" autocomplete="off"> Aprovado 
     					<span id="qtdAprovado" class="badge">0</span>
@@ -272,10 +273,12 @@ function addLineRepresentanteTab(representante){
     					<input type="radio" name="situacoes" id="reprovado" autocomplete="off"> Reprovado 
     					<span id="qtdReprovado" class="badge">0</span>
   					</label>
-  					<label class="btn ${theme} active">
-    					<input type="radio" name="situacoes" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
-    					<span id="qtdAguardando" class="badge">0</span>
-  					</label>
+
+					<label class="btn ${theme}">
+					    <input type="radio" name="situacoes" id="integrado" autocomplete="off"> Integrado 
+					    <span id="qtdIntegrado" class="badge">0</span>
+					  </label>
+  					
 					<label class="btn ${theme}">
     					<input type="radio" name="situacoes" id="todos" autocomplete="off"> Todos 
     					<span id="qtdTodos" class="badge">0</span>

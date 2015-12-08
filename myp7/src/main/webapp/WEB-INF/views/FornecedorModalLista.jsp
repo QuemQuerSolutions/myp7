@@ -32,10 +32,10 @@ $(document).ready(function(){
 	$("#btnPesquisarFornecedor").click(function(e){
 		e.stopPropagation();
 		
-		if(!hasInformation("#filtroModalFornecedor")){
-			alerta("Informe ao menos um filtro para continuar", "warning");
-			return;
-		}
+//		if(!hasInformation("#filtroModalFornecedor")){
+//			alerta("Informe ao menos um filtro para continuar", "warning");
+//			return;
+//		}
 		
 		var fornecedor = {idFornecedor	: $("#idFornecedorBusca").val(), 
 							 razao			: $("#razaoBusca").val()};

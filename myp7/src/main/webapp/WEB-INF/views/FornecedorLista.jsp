@@ -26,10 +26,10 @@ $(document).ready(function(){
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-		if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === "" && $("#razao").val() === ""){
-			alerta("Informe ao menos um filtro para buscar.", "warning");
-			return;
-		}
+	//	if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === "" && $("#razao").val() === ""){
+	//		alerta("Informe ao menos um filtro para buscar.", "warning");
+	//		return;
+    //		}
 		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($("#cnpjFornecedor").val())){
 			alerta("CNPJ inválido.", "warning");

@@ -25,13 +25,11 @@ $(document).ready(function(){
 	
 });
 
-function onClickLine(id,sigla,nome,qtd){
+function onClickLine(id,sigla,nome){
 	$("#btnNovo").click();
-	
 	$("#idEmbalagem").val(id);
 	$("#sigla").val(sigla);
 	$("#descricao").val(nome);
-	$("#quantidade").val(qtd);
 }
 
 
@@ -106,15 +104,13 @@ function onClickLine(id,sigla,nome,qtd){
 					<tr style="text-align: center">
 						<th>Sigla</th>
 						<th>Descrição</th>
-						<th>Quantidade</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${lista}" var="e">
-						<tr onclick="onClickLine('${e.idEmbalagem}','${e.siglaEmbalagem}','${e.nomeEmbalagem}','${e.qtdEmbalagem}')">
+						<tr onclick="onClickLine('${e.idEmbalagem}','${e.siglaEmbalagem}','${e.nomeEmbalagem}')">
 							<td>${e.siglaEmbalagem}</td>
 							<td>${e.nomeEmbalagem}</td>
-							<td>${e.qtdEmbalagem}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

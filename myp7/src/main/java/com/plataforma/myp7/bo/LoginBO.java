@@ -31,12 +31,12 @@ public class LoginBO {
 			usuBanco = this.usuarioMapper.obterPorEmail(usuario.getEmail());
 			
 			if(Objects.isNull(usuBanco)){
-				setMsgRetorno(model, "O usu·rio n„o existe!");
+				setMsgRetorno(model, "O usu√°rio n√£o existe!");
 				return "components/login";
 			}
 			
 			if(!CriptografarBO.criptografar(usuario.getSenha()).equals(usuBanco.getSenha())){
-				setMsgRetorno(model, "A senha informada est· incorreta!");
+				setMsgRetorno(model, "A senha informada est√° incorreta!");
 				return "components/login";
 			}
 			this.setTipoUsuarioSession(session, usuBanco);

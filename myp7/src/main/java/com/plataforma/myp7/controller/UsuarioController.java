@@ -35,7 +35,7 @@ public class UsuarioController {
 		try {
 			this.usuarioBO.inserir(usuario, model, tpUsuario);
 		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			setMsgRetorno(model, "Falha na operação.");
+			setMsgRetorno(model, "Falha na operaÃ§Ã£o.");
 			setCodRetorno(model, -1);
 		}
 		return "UsuarioInserir";

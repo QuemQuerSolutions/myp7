@@ -67,10 +67,9 @@ public class EmbalagemBO {
 		
 		Embalagem embalagemConsulta = new Embalagem();
 		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
-		embalagemConsulta.setQtdEmbalagem(embalagem.getQtdEmbalagem());
 		
 		if(this.embalagemMapper.obterEmbalagens(embalagemConsulta).size() > 0){
-			setMsgRetorno(model, "Embalagem j· existente");
+			setMsgRetorno(model, "Embalagem j√° existente");
 			setCodRetorno(model, -1);
 			model.addAttribute("outraPagina", "insert");
 			model.addAttribute("embalagem", embalagem);
