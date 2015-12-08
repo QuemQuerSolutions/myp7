@@ -84,8 +84,8 @@ function getLineRepresentante(representante){
 	var line = "";
 	
 	line = line.concat("<tr onclick='onClickLineRepresentante(", representante.idRepresentante,")'>");
-	line = line.concat("<td>", representante.idRepresentante, "</td>");
-	line = line.concat("<td data-id>", representante.usuario.idUsuario, "</td>");
+	line = line.concat("<td data-id>", representante.idRepresentante, "</td>");
+	line = line.concat("<td>", representante.usuario.idUsuario, "</td>");
 		line = line.concat("<td data-apelido>", representante.apelido, "</td>");
 	line = line.concat("</tr>");
 	
