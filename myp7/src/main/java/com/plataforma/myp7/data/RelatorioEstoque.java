@@ -34,7 +34,6 @@ public class RelatorioEstoque implements Serializable{
 		return dataUltimaCompra;
 	}
 
-
 	public String getProduto() {
 		return produto;
 	}

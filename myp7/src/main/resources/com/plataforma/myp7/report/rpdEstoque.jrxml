@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpdEstoque.jrxml" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ce7e9b2-4282-464d-9b38-43e412c46f89">
 	<property name="ireport.zoom" value="2.4157650000000044"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="428"/>
 	<property name="ireport.y" value="47"/>
 	<parameter name="logo" class="java.lang.Object"/>
 	<field name="produto" class="java.lang.String"/>
@@ -179,7 +179,7 @@
 			<line>
 				<reportElement x="228" y="0" width="1" height="18" uuid="06338cab-c4d9-4213-9b47-6f95dc93d927"/>
 			</line>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement x="318" y="2" width="105" height="15" uuid="35da3ce5-ffd0-4d03-bfed-cef6673f32c5"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.0"/>
@@ -193,7 +193,7 @@
 			<line>
 				<reportElement x="318" y="0" width="1" height="18" uuid="217c9279-868f-4e5e-93bc-2ed7bf8e196a"/>
 			</line>
-			<textField isBlankWhenNull="true">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement x="230" y="0" width="88" height="17" uuid="792763e5-6fd1-4447-9347-f824d9b964a6"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.0"/>

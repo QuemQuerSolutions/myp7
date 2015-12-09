@@ -44,7 +44,7 @@ public class RelatorioEstoqueBO {
 //	public List<RelatorioEstoque> setFormatDate(List<RelatorioEstoque> lstRel){
 //		List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
 //		for(RelatorioEstoque iRel: lstRel){
-//			iRel.setDataUltimaCompraConvertido(DateUtils.getDate(iRel.getDataUltimaCompra(), "yyyy-MM-dd"));
+//			iRel.setDataUltimaCompraConvertido(DateUtils.getDate(iRel.getDataUltimaCompra(), "dd-mm-yyyy"));
 //			lstRelTransformado.add(iRel);
 //		}
 //		return lstRel;
