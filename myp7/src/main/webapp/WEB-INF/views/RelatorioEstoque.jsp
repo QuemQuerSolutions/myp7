@@ -61,13 +61,13 @@ $(document).ready(function(){
 		var line = "";
 		line = line.concat("<tr>");
 		
-		line = line.concat("<td style=\"font-size: 100% !important;\" id=\"produto\" >", relatEstoque.produto ,	"</td>");
-		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"qtdEstoque\" >", relatEstoque.qtdEstoque ,"</td>");
-		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"mediaVendaDia\" >", relatEstoque.mediaVendaDia ,"</td>");
-		line = line.concat("<td style=\"text-align: cennter; font-size: 100% !important;\" id=\"dataUltimaCompra\" >", relatEstoque.dataUltimaCompra,		"</td>");
-		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"comprador\" >", relatEstoque.comprador ,"</td>");	
-		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\" id=\"representante\" >", relatEstoque.representante ,"</td>");
-		line = line.concat("<td style=\"text-align: center; font-size: 100% !important;\"id=\"fornecedor\" >", relatEstoque.fornecedor ,"</td>");
+		line = line.concat("<td>", relatEstoque.produto ,	"</td>");
+		line = line.concat("<td>", relatEstoque.qtdEstoque ,"</td>");
+		line = line.concat("<td>", relatEstoque.mediaVendaDia ,"</td>");
+		line = line.concat("<td>", relatEstoque.dataUltimaCompra,"</td>");
+		line = line.concat("<td>", relatEstoque.comprador ,"</td>");	
+		line = line.concat("<td>", relatEstoque.representante ,"</td>");
+		line = line.concat("<td>", relatEstoque.fornecedor ,"</td>");
 		
 		
 		line = line.concat("</tr>");
@@ -151,16 +151,16 @@ $(document).ready(function(){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped">
+			<table  class="table table-hover table-bordered table-striped relatorio">
 				<thead>
 					<tr>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Produto</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Qtd Estoque</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Média Venda Dia</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Data Última Compra</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Comprador</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Representante</th>
-						<th width="10%" style="vertical-align: middle !important; text-align: center !important; font-size: 100% !important;">Fornecedor</th>
+						<th width="10%">Produto</th>
+						<th width="10%">Qtd Estoque</th>
+						<th width="10%">Média Venda Dia</th>
+						<th width="10%">Data Última Compra</th>
+						<th width="20%">Comprador</th>
+						<th width="20%">Representante</th>
+						<th width="20%">Fornecedor</th>
 					</tr>
 				</thead>
 				<tbody id="lstRelatorioEstoque"></tbody>

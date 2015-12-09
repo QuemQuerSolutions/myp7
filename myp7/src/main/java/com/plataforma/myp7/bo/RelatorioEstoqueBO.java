@@ -1,5 +1,6 @@
 package com.plataforma.myp7.bo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class RelatorioEstoqueBO {
 		try{
 			
 			Map<String, Object> parametros = new HashMap<String, Object>();
-			List<RelatorioEstoque> lstEstoques = relatorioEstoqueMapper.obterPorParametro(relEstoque);
+			List<RelatorioEstoque> lstEstoques = setFormatDate(relatorioEstoqueMapper.obterPorParametro(relEstoque));
 			
 			Relatorio.setImageParam(parametros, "logo", "logopeq.jpg");
 			Relatorio.gerar(parametros, lstEstoques, "rpdEstoque", res);
@@ -35,18 +36,18 @@ public class RelatorioEstoqueBO {
 	
 	public List<RelatorioEstoque> obterPorParametros(RelatorioEstoque relatorioEstoque){
 		try{
-			return relatorioEstoqueMapper.obterPorParametro(relatorioEstoque);
+			return setFormatDate(relatorioEstoqueMapper.obterPorParametro(relatorioEstoque));
 		}catch(Exception e){
 			return null;
 		}
 	}
 	
-//	public List<RelatorioEstoque> setFormatDate(List<RelatorioEstoque> lstRel){
-//		List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
-//		for(RelatorioEstoque iRel: lstRel){
-//			iRel.setDataUltimaCompraConvertido(DateUtils.getDate(iRel.getDataUltimaCompra(), "yyyy-MM-dd"));
-//			lstRelTransformado.add(iRel);
-//		}
-//		return lstRel;
-//	}
+	public List<RelatorioEstoque> setFormatDate(List<RelatorioEstoque> lstRel){
+		List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
+		for(RelatorioEstoque iRel: lstRel){
+			iRel.setDataUltimaCompra(iRel.getDataUltimaCompra().substring(0, iRel.getDataUltimaCompra().indexOf(":")-3));
+			lstRelTransformado.add(iRel);
+		}
+		return lstRel;
+	}
 }

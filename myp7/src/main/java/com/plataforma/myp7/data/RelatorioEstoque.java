@@ -30,8 +30,13 @@ public class RelatorioEstoque implements Serializable{
 		
 	}
 	
+	
 	public String getDataUltimaCompra() {
 		return dataUltimaCompra;
+	}
+	
+	public void setDataUltimaCompra(String dataUltimaCompra) {
+		this.dataUltimaCompra = dataUltimaCompra;
 	}
 
 
@@ -95,12 +100,6 @@ public class RelatorioEstoque implements Serializable{
 	public void setIdRepresentante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
 	}
-
-	public void setDataUltimaCompra(String dataUltimaCompra) {
-		this.dataUltimaCompra = dataUltimaCompra;
-	}
-
-	
 	
 	
 }
