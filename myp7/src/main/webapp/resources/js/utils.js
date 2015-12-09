@@ -325,7 +325,7 @@ function getValueLineModal(tBody){
 	$(tBody.concat(" tr")).each(function(){
 		if($(this).hasClass($("#theme").val())){
 			data = {id	: $(this).find('td[data-id]').text(),
-					nome: $(this).find('td[data-nome]').text(),}
+					nome: $(this).find('td[data-nome]').text()}
 			return; 
 		}
 		
