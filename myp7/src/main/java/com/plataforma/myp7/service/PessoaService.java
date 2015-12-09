@@ -29,7 +29,7 @@ public class PessoaService {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/consultaPessoa",produces="application/json")
 	@ResponseBody
-	public String consultaProduto(@RequestParam(value="idPessoa", required=false) Long idPessoa,
+	public String consultaPessoa(@RequestParam(value="idPessoa", required=false) Long idPessoa,
 								  @RequestParam(value="razaoSocial", required=false) String razaoSocial){
 		Pessoa pessoa = new Pessoa();
 		pessoa.setIdPessoa(idPessoa);

@@ -53,6 +53,7 @@ public class EmpresaBO {
 		try{
 			this.empresaMapper.inserirEmpresa(empresa);
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new ManterEntidadeException(MensagemWS.INSERT_EMPRESA_ERRO);
 		}
 		
@@ -62,6 +63,7 @@ public class EmpresaBO {
 		try{
 			this.empresaMapper.updateEmpresa(empresa);
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new ManterEntidadeException(MensagemWS.ATUALIZA_EMPRESA_ERRO);
 		}
 	}	

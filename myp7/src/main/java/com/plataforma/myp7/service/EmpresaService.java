@@ -33,7 +33,7 @@ public class EmpresaService {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/manterEmpresa", produces="application/json")
 	@ResponseBody
-	public String manterRepresentante(@RequestParam(value="idEmpresa", required=false) Long idEmpresa,
+	public String manterEmpresa(@RequestParam(value="idEmpresa", required=false) Long idEmpresa,
 								   @RequestParam(value="nomeReduzido", required=true) String nomeReduzido,
 								   @RequestParam(value="idPessoa", required=true) Integer idPessoa){
 		
@@ -60,7 +60,7 @@ public class EmpresaService {
 				}
 			}
 			
-			return gson.toJson(mensagem);
+			return gson.toJson(MensagemWS.getMensagem(mensagem));
 		} catch (ManterEntidadeException e) {
 			return gson.toJson(MensagemWS.getMensagem(e.getMensagemEnum()));
 		}

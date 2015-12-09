@@ -28,7 +28,7 @@ public enum MensagemWS {
 	INSERT_EMPRESA_ERRO(23,"Erro ao inserir o empresa."),
 	INSERT_EMPRESA_SUCESSO(24,"Empresa inserido com sucesso."),
 	ATUALIZA_EMPRESA_SUCESSO(25,"Empresa atualizado com sucesso."),
-	ATUALIZA_EMPRESA_ERRO(26, "Erro ao atualizar o empresa"),	
+	ATUALIZA_EMPRESA_ERRO(26, "Erro ao atualizar a empresa"),	
 	
 	INSERT_PESSOA_ERRO(6, "Erro ao inserir os dados da pessoa."),
 	INSERT_PESSOA_SUCESSO(7,"Pessoa inserida com sucesso."),
