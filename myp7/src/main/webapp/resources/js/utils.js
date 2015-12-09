@@ -315,6 +315,7 @@ function onClickLineModal(tBody,id){
 		$(this).removeClass($("#theme").val());
 		if($(this).children().html() == id){
 			$(this).addClass($("#theme").val());
+			return;
 		}
 	});	
 }
