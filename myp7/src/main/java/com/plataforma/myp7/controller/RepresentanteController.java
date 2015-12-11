@@ -48,7 +48,7 @@ public class RepresentanteController {
 			
 			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		}catch(Exception e){
-			setMsgRetorno(model, "Falha na Operação");
+			setMsgRetorno(model, "Falha na OperaÃ§Ã£o");
 			setCodRetorno(model, -1);
 		}
 		return "RepresentanteLista";

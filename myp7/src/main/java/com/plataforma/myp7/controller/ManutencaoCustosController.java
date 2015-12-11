@@ -126,6 +126,7 @@ public class ManutencaoCustosController {
 			sb.append(emp.getNomeReduzido());
 			sb.append("</option>");
 		}
+		sb.append("<option value='999'>Todos</option>");
 		
 		return sb.toString();
 	}

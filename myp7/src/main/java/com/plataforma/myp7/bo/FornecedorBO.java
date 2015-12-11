@@ -127,9 +127,9 @@ public class FornecedorBO {
 			this.fornecedorMapper.inserirFornecedor(fornecedor);
 		}else{
 			this.fornecedorMapper.updateFornecedor(fornecedor);
-			//TODO: Não está sendo possível excluir se já existe um registro relacionado na tabela de custos
-			// Deve-se obter os representantes já associados, e incluir os que faltam e excluir os que sairam
-			// Criar método auxiliar, pois em vários casos isso vai ocorrer
+			//TODO: Nao esta sendo possivel excluir se ja existe um registro relacionado na tabela de custos
+			// Deve-se obter os representantes ja associados, e incluir os que faltam e excluir os que sairam
+			// Criar metodo auxiliar, pois em varios casos isso vai ocorrer
 			this.representanteFornecedorMapper.deletePorFornecedor(fornecedor.getIdFornecedor());
 		}
 		

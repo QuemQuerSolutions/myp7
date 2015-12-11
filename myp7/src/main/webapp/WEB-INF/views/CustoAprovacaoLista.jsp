@@ -6,6 +6,7 @@
 	
 <script type="text/javascript">
 $(document).ready(function(){
+
 	$("#idEmpresa").attr("disabled", true);
 
 	$("#uf").change(function(){
@@ -395,6 +396,7 @@ function addLineFornecedor(fornecedor){
 		</div>
 	
 	</div>
+	
 	<c:import url="FornecedorModalLista.jsp"/>
 	
 	<c:import url="components/footer.jsp">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
 
 <html>
@@ -7,12 +8,18 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
+			
+			$("#buscaFornecedor").click(function(e){
+				e.stopPropagation();
+				$("#consulta_fornecedor").modal();	
+			});
+			
 			$("#empresa").attr("disabled", true);
 			
 			$("#btnPesquisar").click(function(){
 				pesquisarManutencaoCusto(true);
 			});
-
+			
 			$("#fornecedor").change(function(){
 				pesquisarManutencaoCusto(false);
 			});
@@ -22,20 +29,23 @@
 			});		
 
 			$("#btnLimpar").click(function(){
+				$("#idFornecedor").val("");
+				$("#razao").val("");
+				$("#uf").val("");
+				$("#empresa").val("");
 				$("#idProduto").val("");
 				$("#desProduto").val("");
 			});
 
 			$("#uf").change(function(){
 				if($("#uf").val() != "-1"){
-					$("#empresa").removeAttr("disabled");
+					$("#idEmpresa").removeAttr("disabled");
 					atualizarComboEmpresa();
 				}else{
-					$("#empresa").html("<option value='-1'>Selecione uma Empresa</option>");
-					$("#empresa").attr("disabled", true);
+					$("#idEmpresa").html("<option value='-1'>Selecione uma Empresa</option>");
+					$("#idEmpresa").attr("disabled", true);
 				}
-				
-			});
+			});			
 			
 			$("#btnSalvar").click(function(){
 				$(".valorNovo").each(function() {
@@ -44,8 +54,11 @@
 					}
 				});
 			});
+			
+		
 		});
 
+			
 		function salvarManutencaoCusto(id, novoValor, valorAnterior){
 			$.ajax({
 				type: "POST",
@@ -85,11 +98,26 @@
 		        data: { uf:$("#uf").val() },
 		        url : 'consultaEmpresaPorUF',
 		        success : function(data) {
-		        	$("#empresa").html(data);
+		        	$("#idEmpresa").html(data);
 		        }
 		    });
 		}
-
+		
+		function addLineFornecedor(fornecedor){
+			var id = fornecedor.idFornecedor;
+			$("#idFornecedor").val(id);
+			$("#razao").val(fornecedor.razao);
+			
+			$.ajax({
+			    type: "GET",
+			    url: "obterQtdFornecedorCustoPorSituacao?idUsuario=".concat(id),
+			    contentType: "application/json; charset=ISO-8859-1",
+			    dataType: "json",
+			   
+			   
+			});
+		}
+		
 		function validaCamposObrigatorios(alertar){
 			var isValid = true;
 			var texto;
@@ -155,30 +183,34 @@
 			<h4>Manutenção de Custos</h4>
 		</div>
 		
+		<form action="CarregaManutencaoCustos" id="frmManutencaoCusto" method="GET">
+				
 		<div id="content-header">
-			<form>
+			
 				<div class="row">
-					<div class="col-md-4">
-						<label for="fornecedor" class="control-label">Fornecedor</label>
+					<div class="col-md-4 req">
+						<label for="fornecedor" >Fornecedor</label>
 					</div>
-					<div class="col-md-2">
-						<label for="uf" class="control-label">UF</label>
+					<div class="col-md-1">
+						<label for="buscaFornecedor">&nbsp;</label>
 					</div>
-					<div class="col-md-6">
-						<label for="empresa" class="control-label">Empresa</label>
+					<div class="col-md-2 req">
+						<label for="uf">UF</label>
+					</div>
+					<div class="col-md-5 req">
+						<label for="idEmpresa">Empresa</label>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-md-4 form-group" id="fornecedorDiv">
-						<select id="fornecedor" name="fornecedor" class="form-control" autofocus="autofocus">
-				  			<option value="-1">Selecione um Fornecedor</option>
-				  			<c:forEach var="representante" items="${representantes}">
-				  				<option value="${representante.idRepresentante}">${representante.apelido}</option>
-   							</c:forEach>				  			
-				  		</select>
+					<div class="col-md-4 form-group req">
+						<input type="hidden" id="idFornecedor" name="idFornecedor"value="">
+						<input type="text" class="form-control" readonly="readonly" id="razao" value=""/>
 					</div>
-					<div class="col-md-2 form-group" id="ufDiv">
+					<div class="col-md-1 form-group paddingleft0">
+					  	<a href="#" target="_self" class="form-control icon-search" id="buscaFornecedor"><span class="glyphicon glyphicon-search"></span></a>
+					</div>
+					<div class="col-md-2 form-group req">
 						<select id="uf" name="uf" class="form-control" autofocus="autofocus">
 				  			<option value="-1">-</option>
 				  			<c:forEach var="uf" items="${ufs}">
@@ -186,20 +218,15 @@
    							</c:forEach>				  			
 				  		</select>
 					</div>
-					<div class="col-md-6 form-group" id="empresaDiv">
-						<select id="empresa" name="empresa" class="form-control">
+					<div class="col-md-5 form-group req">
+						<select id="idEmpresa" name="empresa" class="form-control" autofocus="autofocus">
 				  			<option value="-1">Selecione uma Empresa</option>
-				  			<c:forEach var="empresa" items="${empresas}">
-				  				<option value="${empresa.idEmpresa}">${empresa.nomeReduzido}</option>
-   							</c:forEach>
 				  		</select>
 					</div>
 				</div>
-			</form>
 		</div>
 		
 		<div id="content-header">
-			<form>
 				<div class="row">
 					<div class="col-md-2">
 						<label for="tipo" class="control-label">Tipo</label>
@@ -252,8 +279,9 @@
 					</div>
 				</div>
 			
-			</form>
 		</div>
+		</form>		
+
 		<div id="content-body">
 			<table class="table table-hover table-bordered table-striped">
 				<thead>
@@ -282,6 +310,8 @@
 		</div>
 	</div>
 
+	<c:import url="FornecedorModalLista.jsp"/>
+	
 	<c:import url="components/footer.jsp">
 		<c:param name="salvar" value="salvar" />
 	</c:import>

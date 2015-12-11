@@ -26,6 +26,7 @@ public class EmpresaBO {
 	
 	public List<Empresa> selecionaPorUF(String uf){
 		return this.empresaMapper.obterEmpresasPorUF(uf);
+		
 	}
 	
 	public Empresa selecionaPorId(Long id){

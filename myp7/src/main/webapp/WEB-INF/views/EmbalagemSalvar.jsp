@@ -56,10 +56,6 @@ function validaCamposObrigatorios(){
 		$("#divdescricaomodal").attr("class","form-group has-error");
 		isValid = false;
 	}
-	if($.trim($("#quantidade").val()) == ""){	
-		$("#divquantidademodal").attr("class","form-group has-error");
-		isValid = false;
-	}
 	
 	return isValid;
 }
