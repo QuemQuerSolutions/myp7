@@ -83,39 +83,7 @@
 		    });
 		}
 		
-		function pesquisarManutencaoCusto(alertar){
-			if(validaCamposObrigatorios(alertar)){
-				$.ajax({
-					type: "POST",
-			        data: { fornecedor:$("#idFornecedor").val(), empresa:$("#idEmpresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
-			        url : 'consultaManutencaoCusto',
-			        success: function(lista) {
-					    var lines = "";
-					    
-					    if(lista.length == 0){
-					    	$("#resultado").html("<tr><td colspan='1'>Nenhum registro encontrado</td></tr>");
-					    	return;
-					    }
-					    
-					    if(lista[0].codRetorno == -1){
-					    	alerta(lista[0].msgRetorno, "warning");
-					    	$("#resultado").html("");
-					    	return;
-					    }
-					    
-					    //lista.forEach(function(custo){
-					    //	lines += getLineAprovacao(custo);
-					    //});
-					    
-					    $("#resultado").html(data);
-				  },
-				  error: function (xhr, textStatus, errorThrown) {
-				  	console.log("Erro ao retornar lista: ",errorThrown);
-				      alerta("Erro ao retornar lista","warning");
-				  }
-			    });
-			}
-		}
+	
 
 		function atualizarComboEmpresa(){
 			$.ajax({
@@ -187,6 +155,40 @@
 					$(this).attr("class","form-group"); 
 				}
 			});
+		}
+		
+		function pesquisarManutencaoCusto(alertar){
+			if(validaCamposObrigatorios(alertar)){
+				$.ajax({
+					type: "POST",
+			        data: { fornecedor:$("#idFornecedor").val(), empresa:$("#idEmpresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
+			        url : 'consultaManutencaoCusto',
+			        success: function(lista) {
+					    var lines = "";
+					    
+					    if(lista.length == 0){
+					    	$("#resultado").html("<tr><td colspan='1'>Nenhum registro encontrado</td></tr>");
+					    	return;
+					    }
+					    
+					    if(lista[0].codRetorno == -1){
+					    	alerta(lista[0].msgRetorno, "warning");
+					    	$("#resultado").html("");
+					    	return;
+					    }
+					    
+					    //lista.forEach(function(custo){
+					    //	lines += getLineAprovacao(custo);
+					    //});
+					    
+					    $("#resultado").html(data);
+				  },
+				  error: function (xhr, textStatus, errorThrown) {
+				  	console.log("Erro ao retornar lista: ",errorThrown);
+				      alerta("Erro ao retornar lista","warning");
+				  }
+			    });
+			}
 		}
 		
 	</script>
