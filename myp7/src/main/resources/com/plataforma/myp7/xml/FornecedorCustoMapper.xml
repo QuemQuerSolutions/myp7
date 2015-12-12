@@ -42,9 +42,10 @@
 	</sql>	
 	
 	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
-		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
-			   tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 
-			   SITUACAO, DATA_APROVACAO, USU_APROVACAO  
+		SELECT tab_custo_fornecedor.ID_TAB_CUSTO_FORNECEDOR, tab_custo_fornecedor.ID_FORNECEDOR, 
+			   tab_custo_fornecedor.ID_EMPRESA, tab_custo_fornecedor.ID_PRODUTO, VALOR_ANTERIOR, 
+			   tab_custo_fornecedor.VALOR, tab_custo_fornecedor.ID_REPRESENTANTE, tab_custo_fornecedor.SITUACAO, 
+			   tab_custo_fornecedor.DATA_APROVACAO, tab_custo_fornecedor.USU_APROVACAO  
 		  FROM tab_custo_fornecedor, prd_usuario_produto
 		 WHERE tab_custo_fornecedor.ID_PRODUTO = prd_usuario_produto.ID_PRODUTO
 		

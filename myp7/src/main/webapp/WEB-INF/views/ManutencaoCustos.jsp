@@ -32,20 +32,24 @@
 				$("#idFornecedor").val("");
 				$("#razao").val("");
 				$("#uf").val("");
-				$("#empresa").val("");
+				$("#empresa").removeAttr("disabled");
+				atualizarComboEmpresa();
+				$("#empresa").html("<option value='-1'>Selecione uma Empresa</option>");
 				$("#idProduto").val("");
 				$("#desProduto").val("");
 			});
 
 			$("#uf").change(function(){
 				if($("#uf").val() != "-1"){
-					$("#idEmpresa").removeAttr("disabled");
+					$("#empresa").removeAttr("disabled");
 					atualizarComboEmpresa();
 				}else{
-					$("#idEmpresa").html("<option value='-1'>Selecione uma Empresa</option>");
-					$("#idEmpresa").attr("disabled", true);
+					$("#empresa").html("<option value='-1'>Selecione uma Empresa</option>");
+					$("#empresa").attr("disabled", true);
 				}
-			});			
+				
+			});
+			
 			
 			$("#btnSalvar").click(function(){
 				$(".valorNovo").each(function() {
@@ -83,11 +87,32 @@
 			if(validaCamposObrigatorios(alertar)){
 				$.ajax({
 					type: "POST",
-			        data: { fornecedor:$("#fornecedor").val(), empresa:$("#empresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
+			        data: { fornecedor:$("#idFornecedor").val(), empresa:$("#idEmpresa").val(), tipo:$("#tipo").val(), codigo:$("#idProduto").val(), descricao:$("#desProduto").val() },
 			        url : 'consultaManutencaoCusto',
-			        success : function(data) {
-			        	$("#resultado").html(data);
-			        }
+			        success: function(lista) {
+					    var lines = "";
+					    
+					    if(lista.length == 0){
+					    	$("#resultado").html("<tr><td colspan='1'>Nenhum registro encontrado</td></tr>");
+					    	return;
+					    }
+					    
+					    if(lista[0].codRetorno == -1){
+					    	alerta(lista[0].msgRetorno, "warning");
+					    	$("#resultado").html("");
+					    	return;
+					    }
+					    
+					    //lista.forEach(function(custo){
+					    //	lines += getLineAprovacao(custo);
+					    //});
+					    
+					    $("#resultado").html(data);
+				  },
+				  error: function (xhr, textStatus, errorThrown) {
+				  	console.log("Erro ao retornar lista: ",errorThrown);
+				      alerta("Erro ao retornar lista","warning");
+				  }
 			    });
 			}
 		}
@@ -122,14 +147,6 @@
 			var isValid = true;
 			var texto;
 
-			if($.trim($("#idProduto").val()) == "" && $.trim($("#desProduto").val()) == ""){
-				isValid = addRequired("#idProdutoDiv");
-				addRequired("#desProdutoDiv");
-				texto = "Preencha o campo código ou descrição.";
-			}else if($("#tipo").val() == 1 && $.trim($("#idProduto").val()) != "" && !$.isNumeric($.trim($("#idProduto").val()))){
-				isValid = addRequired("#idProdutoDiv");
-				texto = "A opção código só permite números no campo código.";
-			}
 			
 			if($("#uf").val() != "-1"){
 				if($("#empresa").val() == "-1"){
@@ -137,7 +154,7 @@
 					$("#empresaDiv").addClass("col-md-6");
 					texto = "Selecione uma Empresa.";
 				}
-			}else{
+			} else {
 				isValid = addRequired("#ufDiv");
 				$("#ufDiv").addClass("col-md-2");
 				texto = "Selecione uma UF.";

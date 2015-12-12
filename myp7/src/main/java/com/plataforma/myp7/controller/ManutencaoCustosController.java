@@ -67,7 +67,7 @@ public class ManutencaoCustosController {
 	public @ResponseBody String consultaManutencaoCustoAJAX(String fornecedor, 
 															String empresa, 
 															String tipo, 
-															String codigo, 
+														    String codigo, 
 															String descricao) {
 		return this.geraTabelaResultado(fornecedorCustoBO.selecionaComFiltro(fornecedor, empresa, tipo, codigo, descricao));
 	}
