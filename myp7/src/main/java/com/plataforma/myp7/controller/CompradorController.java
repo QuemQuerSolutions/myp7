@@ -14,6 +14,7 @@ import com.plataforma.myp7.enums.Mensagem;
 import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class CompradorController {
 
 	@Autowired

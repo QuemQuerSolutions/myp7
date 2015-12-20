@@ -15,6 +15,7 @@ import com.plataforma.myp7.bo.EmbalagemBO;
 import com.plataforma.myp7.data.Embalagem;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class EmbalagemController {
 	
 	@Autowired

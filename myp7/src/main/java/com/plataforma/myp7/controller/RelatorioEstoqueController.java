@@ -27,6 +27,7 @@ import com.plataforma.myp7.interfaces.ComboPessoa;
 import com.plataforma.myp7.util.Utils;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class RelatorioEstoqueController {
 	
 	private Usuario usuario;
@@ -87,14 +88,6 @@ public class RelatorioEstoqueController {
 		} catch (Exception e) {
 			return new ArrayList<RelatorioEstoque>();
 		}
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 	
 }

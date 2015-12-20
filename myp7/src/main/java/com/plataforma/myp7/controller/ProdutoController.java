@@ -22,6 +22,7 @@ import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 
 @Controller
+@RequestMapping(value={"/portal", "/admin"})
 public class ProdutoController {
 	
 	@Autowired

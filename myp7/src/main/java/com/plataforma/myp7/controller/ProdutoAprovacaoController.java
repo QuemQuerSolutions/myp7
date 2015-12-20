@@ -18,6 +18,7 @@ import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class ProdutoAprovacaoController {
 	
 	@Autowired

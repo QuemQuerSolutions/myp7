@@ -3,12 +3,16 @@ package com.plataforma.myp7.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.plataforma.myp7.bo.LoginBO;
-import com.plataforma.myp7.data.Usuario;
 
 @Controller
 public class LoginController {
@@ -16,24 +20,21 @@ public class LoginController {
 	@Autowired
 	private LoginBO loginBO;
 
-	@RequestMapping("efetuaLogin")
-	public String efetuaLogin(Usuario usuario, HttpSession session, Model model) { 
-		return this.loginBO.getDestinoLogin(usuario, session, model); 
+	@RequestMapping(value={"/", "/home**"}, method = RequestMethod.GET)
+	public String home(Model model, HttpSession session){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			this.loginBO.setUserSession(session, userDetail.getUsername());
+			return "components/home";
+		}
+		return "components/login";
 	}
 
-	@RequestMapping("/")
-	public String loginbarra() { 
-		return "redirect:login";
-	}
-	
 	@RequestMapping("/login")
-	public String login() {
+	public String login(String erro , String logout) {
 		return "components/login";
 	}
 	
-	@RequestMapping("logout")
-	public String mnLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:login";
-	}
 }

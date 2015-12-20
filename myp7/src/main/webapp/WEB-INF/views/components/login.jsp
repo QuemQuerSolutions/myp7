@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@page session="true"%>
 <html>
 
 <c:import url="imports.jsp" />
@@ -26,24 +26,16 @@ $(document).ready(function(){
 
 	$("#email").focus();
 	
-	if($("#mensagem").val() !== ""){
-		if($("#codMsgem").val() == "-1") $("#btnCadastrar").click();
-		alerta($("#mensagemCadastro").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
-	}
-
-	function limpaCampos(){
-		$("#inputRzSocial").val("");
-		$("#inputCnpj").val("");
-		$("#inputEmail").val("");
-		$("#inputSenha").val("");
+	if($.getUrlVar('erro') == "true"){
+		alerta("Falha na autenticação", "warning");
 	}
 
 });
 
 function login(){
-	if($.trim($("#email").val()) === ""){
+	if($.trim($("#j_password").val()) === ""){
 		alerta("Favor preencher o campo usuário.", "warning");
-	}else if($.trim($("#senha").val()) === ""){
+	}else if($.trim($("#j_password").val()) === ""){
 		alerta("Favor preencher o campo senha.", "warning");
 	}else{
 		$("#frmLogin").submit();
@@ -60,7 +52,7 @@ function login(){
         <div class="row">
 			<h5 align="center"><b>Bem vindo ao Portal Fornecedor</b></h5><br>
 		</div>
-			<form id="frmLogin" action="efetuaLogin" method="POST">
+			<form id="frmLogin" action="j_spring_security_check" method="POST">
 			<div class="row">
   				<div class="col-md-11 margin14px">
 					
@@ -69,7 +61,7 @@ function login(){
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						  </span>
-						  <input type="text" class="form-control campo-login" placeholder="Usuário" aria-describedby="basic-addon1" name="email" id="email">
+						  <input type="text" class="form-control campo-login" placeholder="Usuário" aria-describedby="basic-addon1" name="j_username" id="j_username">
 						</div>
 					</div>
 					
@@ -78,9 +70,8 @@ function login(){
 						  <span class="input-group-addon" id="basic-addon1">
 						  	<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 						  </span>
-						  <input type="password" class="form-control campo-login" placeholder="Senha" aria-describedby="basic-addon1" name="senha" id="senha">
+						  <input type="password" class="form-control campo-login" placeholder="Senha" aria-describedby="basic-addon1" name="j_password" id="j_password">
 						</div>
-						<!-- <button type="button" class="btn btn-link paddingleft0" id="btnCadastrar">Cadastre-se </button> -->
 					</div>
 					
 					<input type="hidden" id="mensagem" value="${mensagemRetorno}" />

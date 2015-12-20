@@ -20,6 +20,7 @@ import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class RepresentanteController {
 	
 	@Autowired

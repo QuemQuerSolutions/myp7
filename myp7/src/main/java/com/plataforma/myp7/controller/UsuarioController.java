@@ -20,6 +20,7 @@ import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Usuario;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class UsuarioController {
 	
 	@Autowired
@@ -35,7 +36,7 @@ public class UsuarioController {
 		try {
 			this.usuarioBO.inserir(usuario, model, tpUsuario);
 		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			setMsgRetorno(model, "Falha na operaÃ§Ã£o.");
+			setMsgRetorno(model, "Falha na operação.");
 			setCodRetorno(model, -1);
 		}
 		return "UsuarioInserir";

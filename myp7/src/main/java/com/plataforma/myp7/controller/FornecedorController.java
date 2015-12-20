@@ -20,6 +20,7 @@ import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class FornecedorController {
 	
 	@Autowired
@@ -38,7 +39,7 @@ public class FornecedorController {
 				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
 				return "FornecedorLista";
 			}else if("error".equals(origem)){
-				setMsgRetorno(model, "Falha na OperaÃ§Ã£o");
+				setMsgRetorno(model, "Falha na Operação");
 				setCodRetorno(model, -1);
 				return "FornecedorLista";
 			}

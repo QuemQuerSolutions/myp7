@@ -22,6 +22,7 @@ import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class CustoAprovacaoController {
 	
 	@Autowired
@@ -71,7 +72,7 @@ public class CustoAprovacaoController {
 	
 	private void carregaSelectTipo(Model model){
 		Map<Integer, String> filtro = new HashMap<Integer, String>();
-		filtro.put(1, "CÃ³digo");
+		filtro.put(1, "Código");
 		filtro.put(2, "EAN/DUN");
 		
 		model.addAttribute("filtros", filtro);

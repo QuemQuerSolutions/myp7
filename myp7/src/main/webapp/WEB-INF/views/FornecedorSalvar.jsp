@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
-	<c:import url="components/imports.jsp" />
+	<c:import url="/WEB-INF/views/components/imports.jsp" />
 	
 <script type="text/javascript">
 $(document).ready(function() {
@@ -59,8 +59,8 @@ function onAddRepresentante(){
 
 </script>
 <body>
-	<c:import url="components/header.jsp" />
-	<c:import url="components/menu.jsp" /> 
+	<c:import url="/WEB-INF/views/components/header.jsp" />
+	<c:import url="/WEB-INF/views/components/menu.jsp" /> 
 	
 	<div id="content">	
 		<div id="content-title">
@@ -128,7 +128,7 @@ function onAddRepresentante(){
 	<c:import url="PessoaModalLista.jsp"/>
 	<c:import url="RepresentanteModalLista.jsp"/>
 	
-	<c:import url="components/footer.jsp">
+	<c:import url="/WEB-INF/views/components/footer.jsp">
 		<c:param name="salvar" value="cancelar_salvar" />
 	</c:import>
 </body>

@@ -3,7 +3,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
 
 <html>
-	<c:import url="components/imports.jsp" />
+	<c:import url="/WEB-INF/views/components/imports.jsp" />
 	
 <script type="text/javascript">
 $(document).ready(function(){
@@ -26,8 +26,8 @@ function onClickTheme(tema){
 }
 </script>
 <body>
-	<c:import url="components/header.jsp" />
-	<c:import url="components/menu.jsp" /> 
+	<c:import url="/WEB-INF/views/components/header.jsp" />
+	<c:import url="/WEB-INF/views/components/menu.jsp" /> 
 	
 	<div id="content" class="hackrow">
 		<div id="content-title">
@@ -59,7 +59,7 @@ function onClickTheme(tema){
 		<div class="row">&nbsp;</div>
 	</div>
 	
-	<c:import url="components/footer.jsp">
+	<c:import url="/WEB-INF/views/components/footer.jsp">
 		<c:param name="salvar" value="salvar" />
 	</c:import>
 </body>

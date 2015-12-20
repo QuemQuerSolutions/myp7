@@ -10,18 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.plataforma.myp7.bo.UsuarioBO;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class ConfiguracaoController {
 	
 	@Autowired
 	private UsuarioBO usuarioBO;
 	
 	@RequestMapping("Configuracao")
-	public String salvar(){
+	public String configuracao(){
 		return "ConfiguracaoSalvar";
 	}
 	
 	@RequestMapping("SalvarTema")
-	public String salvarTema(Model model, HttpSession session, String themeselected){
+	public String salvarConfiguracao(Model model, HttpSession session, String themeselected){
 		this.usuarioBO.updateTheme(themeselected, model, session);
 		return "ConfiguracaoSalvar";
 	}

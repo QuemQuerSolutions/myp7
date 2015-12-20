@@ -191,3 +191,10 @@ th.req:after {
     margin-left: -150px;
 }
 
+label.user-header{
+	float: right;
+    margin-right: 20px;
+    font-size: 13px;
+    color: black;
+    padding-top: 5px;
+}

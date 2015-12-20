@@ -4,7 +4,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
 
 <html>
-	<c:import url="components/imports.jsp" />
+	<c:import url="/WEB-INF/views/components/imports.jsp" />
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -194,8 +194,8 @@
 	</script>
 	
 <body>
-	<c:import url="components/header.jsp" />
-	<c:import url="components/menu.jsp" /> 
+	<c:import url="/WEB-INF/views/components/header.jsp" />
+	<c:import url="/WEB-INF/views/components/menu.jsp" /> 
 
 	<div id="content">
 		<div id="content-title">
@@ -331,7 +331,7 @@
 
 	<c:import url="FornecedorModalLista.jsp"/>
 	
-	<c:import url="components/footer.jsp">
+	<c:import url="/WEB-INF/views/components/footer.jsp">
 		<c:param name="salvar" value="salvar" />
 	</c:import>
 </body>

@@ -3,27 +3,27 @@
 <li>
 	<myp7:menuComSub label="Cadastro" icon="glyphicon-pencil" />
 	<ul>
-		<myp7:subMenu label="Usuário" link="ListaUsuario" />
-		<myp7:subMenu label="Comprador" link="Comprador" />
-		<myp7:subMenu label="Representante" link="Representante" />
-		<myp7:subMenu label="Embalagem" link="Embalagem" />
-		<myp7:subMenu label="Fornecedor" link="Fornecedor" />
+		<myp7:subMenu label="Usuário" link="/retaguarda/ListaUsuario" />
+		<myp7:subMenu label="Comprador" link="/retaguarda/Comprador" />
+		<myp7:subMenu label="Representante" link="/retaguarda/Representante" />
+		<myp7:subMenu label="Embalagem" link="/retaguarda/Embalagem" />
+		<myp7:subMenu label="Fornecedor" link="/retaguarda/Fornecedor" />
 	</ul>
 </li>
 
 <li>
 	<myp7:menuComSub label="Aprovações" icon="glyphicon-check" />
 	<ul>
-		<myp7:subMenu label="Aprovação de Produto" link="ProdutoAprovacao" />
-		<myp7:subMenu label="Aprovação de Custos" link="CustoAprovacao" />
+		<myp7:subMenu label="Aprovação de Produto" link="/retaguarda/ProdutoAprovacao" />
+		<myp7:subMenu label="Aprovação de Custos" link="/retaguarda/CustoAprovacao" />
 	</ul>
 </li>
 <li>
 	<myp7:menuComSub label="Relatórios" icon="glyphicon-file" />
 	<ul>
-		<myp7:subMenu label="Relatório de Estoque" link="RelatorioEstoque" />
-		<myp7:subMenu label="Relatório de Títulos" link="RelatorioAcordoComercial" />
+		<myp7:subMenu label="Relatório de Estoque" link="/retaguarda/RelatorioEstoque" />
+		<myp7:subMenu label="Relatório de Títulos" link="/retaguarda/RelatorioAcordoComercial" />
 	</ul>
 </li>
 
-<myp7:menu label="Configurações" link="Configuracao" icon="glyphicon-cog"/>
+<myp7:menu label="Configurações" link="/retaguarda/Configuracao" icon="glyphicon-cog"/>

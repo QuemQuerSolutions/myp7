@@ -20,6 +20,7 @@ import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.data.FornecedorCusto;
 
 @Controller
+@RequestMapping(value={"/portal", "/admin"})
 public class ManutencaoCustosController {
 
 	@Autowired
@@ -57,7 +58,7 @@ public class ManutencaoCustosController {
 	
 	private void carregaComboFiltro(Model model){
 		Map<Integer, String> filtro = new HashMap<Integer, String>();
-		filtro.put(1, "CÃ³digo");
+		filtro.put(1, "Código");
 		filtro.put(2, "EAN/DUN");
 		
 		model.addAttribute("filtros", filtro);
@@ -98,10 +99,10 @@ public class ManutencaoCustosController {
 			sb.append("		<td>");
 			sb.append(			fc.getProduto().getDesProduto());
 			sb.append("		</td>");
-			sb.append("		<td id=\"valorAnterior"+fc.getIdTabCustoFornecedor()+"\">");
+			sb.append("		<td id=\"valorAnterior").append(fc.getIdTabCustoFornecedor()).append("\">");
 			sb.append(			fc.getValorAnteriorFormatado());
 			sb.append("		</td>");
-			sb.append("		<td id=\"valorAtual"+fc.getIdTabCustoFornecedor()+"\">");
+			sb.append("		<td id=\"valorAtual").append(fc.getIdTabCustoFornecedor()).append("\">");
 			sb.append(			fc.getValorFormatado());
 			sb.append("		</td>");			
 			sb.append("		<td>");

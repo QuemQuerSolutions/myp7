@@ -15,7 +15,8 @@
 
 	<sql id="selectUsuario">
 		<![CDATA[
-			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, USU_CNPJ, USU_ATIVO, USU_SENHA, THEME, TIPOUSUARIO
+			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, 
+				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO
 			FROM USU_USUARIO
 		  ]]>
 	</sql>
@@ -31,7 +32,7 @@
 	
 	<select id="obterPorEmail" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
-		WHERE USU_EMAIL = #{email} and USU_ATIVO = 'A';
+		WHERE USU_EMAIL = #{email} and USU_ATIVO = 1;
 	</select>	
 	
 	<select id="obterUsuarioComFiltro" resultMap="usuarioMap">
@@ -50,10 +51,10 @@
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
      	INSERT INTO usu_usuario(  razao_social,
             					   usu_cnpj,
-            					   usu_email,
-            					   usu_ativo,
+            					   USU_EMAIL,
+            					   USU_ATIVO,
             					   usu_senha,
-            					   tipousuario
+            					   TIPOUSUARIO
             					   )
     						VALUES (#{razaoSocial}, 
     								#{nDocumento},

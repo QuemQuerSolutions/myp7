@@ -13,6 +13,7 @@ import com.plataforma.myp7.bo.EmpresaBO;
 import com.plataforma.myp7.data.Empresa;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class EmpresaController {
 	
 	@Autowired

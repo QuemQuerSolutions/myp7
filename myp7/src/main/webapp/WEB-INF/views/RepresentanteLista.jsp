@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-	<c:import url="components/imports.jsp" />
+	<c:import url="/WEB-INF/views/components/imports.jsp" />
 	
 <script type="text/javascript">
 $(document).ready(function(){
@@ -33,8 +33,8 @@ function onClickLine(id){
 
 </script>
 <body>
-	<c:import url="components/header.jsp" />
-	<c:import url="components/menu.jsp" /> 
+	<c:import url="/WEB-INF/views/components/header.jsp" />
+	<c:import url="/WEB-INF/views/components/menu.jsp" /> 
 	
 	<div id="content">
 		<div id="content-title">
@@ -148,7 +148,7 @@ function onClickLine(id){
 		</div>
 	
 	</div>
-	<c:import url="components/footer.jsp">
+	<c:import url="/WEB-INF/views/components/footer.jsp">
 		<c:param name="novo" value="novo_representante" />
 	</c:import>
 </body>

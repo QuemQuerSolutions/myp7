@@ -14,13 +14,14 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring.version>3.1.4.RELEASE</spring.version>
-		<mybatis.version>3.2.7</mybatis.version>
-		<mybatis-spring.version>1.2.2</mybatis-spring.version>
+		<mybatis.version>3.2.3</mybatis.version>
+		<mybatis-spring.version>1.2.1</mybatis-spring.version>
 		<mysql.version>5.1.6</mysql.version>
 		<servletapi.version>2.4</servletapi.version>
 		<servletjsp.version>2.1</servletjsp.version>
 		<jstl.version>1.2.1</jstl.version>
 		<jstl.impl.version>1.2</jstl.impl.version>
+		<spring.security.version>3.1.0.RELEASE</spring.security.version>
 	</properties>
 
 	<dependencies>
@@ -81,7 +82,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -101,12 +106,12 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.2.1</version>
+			<version>${mybatis-spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.2.3</version>
+			<version>${mybatis.version}</version>
 		</dependency>
 
 		<!-- Servlet Spec -->
@@ -142,6 +147,29 @@
 			<version>6.2.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
@@ -174,12 +202,12 @@
 			   <configuration>
 			      <path>/${project.build.finalName}</path>
 			      <!-- Embedded port -->
-			      <port>9090</port>
+			      <port>8080</port>
 			      <!--
 			         The default authentication credentials for remote deployment are username "admin" with no password To
 			         override credentials, define a server in settings.xml and activate it using the <server> element
 			      -->
-			      <url>http://localhost:9090/manager</url>
+			      <url>http://localhost:8080/manager</url>
 			   </configuration>
 			</plugin>
 			

@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myp7"%>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%-- <%@page session="true"%> --%>
 
 <div id="side-bar">
 	<div> 
@@ -13,15 +14,18 @@
 	</div>
 	<div id="menu">
 		<ul id="menu-nav" class="box">
-			<c:if test="${tipoUsuarioRetorno eq 'P'}">
+		
+			<sec:authorize access="hasRole('P')">
 				<c:import url="/WEB-INF/views/components/menuPortal.jsp" />
-			</c:if>
-			<c:if test="${tipoUsuarioRetorno eq 'R'}">
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('R')">
 				<c:import url="/WEB-INF/views/components/menuRetaguarda.jsp" />
-			</c:if>
-			<c:if test="${tipoUsuarioRetorno eq 'T'}">
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('T')">
 				<c:import url="/WEB-INF/views/components/menuTodos.jsp" />
-			</c:if>
+			</sec:authorize>
 		</ul>
 	</div>
 </div>

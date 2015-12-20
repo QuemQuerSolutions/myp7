@@ -13,6 +13,7 @@ import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.data.Pessoa;
 
 @Controller
+@RequestMapping(value={"/retaguarda", "/admin"})
 public class PessoaController {
 	
 	@Autowired
