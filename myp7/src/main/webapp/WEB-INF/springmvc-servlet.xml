@@ -77,7 +77,7 @@
 			<security:password-encoder hash="md5"/>
 			<security:jdbc-user-service
 					data-source-ref="dataSource"
-					users-by-username-query="SELECT usu_email as username, usu_email as password, usu_ativo as enabled FROM USU_USUARIO where usu_email = ? "
+					users-by-username-query="SELECT usu_email as username, usu_senha as password, usu_ativo as enabled FROM USU_USUARIO where usu_email = ? "
 					authorities-by-username-query="SELECT usu_email as username, tipousuario as authority FROM USU_USUARIO where usu_email = ? " />
 		</security:authentication-provider>
 	</security:authentication-manager>
