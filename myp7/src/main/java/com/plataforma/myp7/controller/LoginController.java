@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.plataforma.myp7.bo.LoginBO;
+import com.plataforma.myp7.bo.UsuarioBO;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
 	private LoginBO loginBO;
+	
+	@Autowired
+	private UsuarioBO usuarioBO;
 
 	@RequestMapping(value={"/", "/home**"}, method = RequestMethod.GET)
 	public String home(Model model, HttpSession session){
@@ -33,7 +37,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/login")
-	public String login(String erro , String logout) {
+	public String login(String erro , String logout, HttpSession session) {
+		if(usuarioBO.getUserSession(session) != null)
+			return "components/home";
 		return "components/login";
 	}
 	
