@@ -47,7 +47,7 @@ function pesquisarPessoa(){
 	    dataType: "json",
         success : function(retornoList) {
         	if(retornoList.length == 0){
-        		$("#resultado").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+        		$("#resultado").html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
         	}
 	        if(retornoList[0].codRetorno == -1){
 		        alerta(retornoList[0].msgRetorno,"warning");

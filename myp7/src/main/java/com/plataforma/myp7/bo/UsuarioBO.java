@@ -41,15 +41,20 @@ public class UsuarioBO {
 		return (Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor());
 	}
 	
-	public void inserir(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
-		if(this.isValidInsert(usuario, model)){
+	public void salvar(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
+		if(Objects.isNull(usuario.getIdUsuario())){
+			if(this.isValidInsert(usuario, model)){
+				usuario.setTipoUsuario(tpUsuario);
+				usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
+				this.usuarioMapper.incluir(usuario);
+			}else{
+				setCodRetorno(model, -1);
+			}
+			
+		}else{
 			usuario.setTipoUsuario(tpUsuario);
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
-			this.usuarioMapper.incluir(usuario);
-			setMsgRetorno(model, "Usuario inserido com sucesso.");
-			setCodRetorno(model, 0);
-		}else{
-			setCodRetorno(model, -1);
+			this.usuarioMapper.update(usuario);
 		}
 	}
 	

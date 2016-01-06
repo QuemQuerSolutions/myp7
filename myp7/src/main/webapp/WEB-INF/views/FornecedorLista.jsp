@@ -17,6 +17,7 @@ $(document).ready(function(){
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();
+		emptyTable("#tblFornecedor");
 		$("#idFornecedor").focus();
 	});
 
@@ -131,7 +132,7 @@ function onClickLine(id){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped mouse-click">
+			<table  class="table table-hover table-bordered table-striped mouse-click" id="tblFornecedor">
 				<thead>
 					<tr style="text-align: center">
 						<th width="10%">Código</th>

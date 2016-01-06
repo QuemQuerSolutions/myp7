@@ -12,16 +12,20 @@ public class Usuario implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String portal;
+	
 	private Long idUsuario;
 	private String razaoSocial;
 	private String email;
 	private String nDocumento;
-	private String ativo;
+	private Integer ativo;
 	private String senha;
 	private String theme;
 	private String tipoUsuario;
 	
-	public Usuario(){}
+	public Usuario(){
+		this.portal="P";
+	}
 	
 	public Usuario(Long idUsuario){
 		this.idUsuario = idUsuario;
@@ -74,17 +78,25 @@ public class Usuario implements Serializable{
 	public void setnDocumento(String nDocumento) {
 		this.nDocumento = nDocumento;
 	}
-	public String getAtivo() {
+	public Integer getAtivo() {
 		return ativo;
 	}
 	public void setAtivo(String ativo) {
-		this.ativo = ativo;
+		this.ativo = Integer.parseInt(ativo);
 	}
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getPortal() {
+		return portal;
+	}
+
+	public void setPortal(String portal) {
+		this.portal = portal;
 	}
 	
 	

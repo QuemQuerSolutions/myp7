@@ -29,6 +29,7 @@ $(document).ready(function(){
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();
+		emptyTable("#tblComprador");
 		$("#id").focus();
 	});
 	
@@ -112,7 +113,7 @@ function goComprador(){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped mouse-click">
+			<table  class="table table-hover table-bordered table-striped mouse-click" id="tblComprador">
 				<thead>
 					<tr style="text-align: center">
 						<th width="10%">Código</th>

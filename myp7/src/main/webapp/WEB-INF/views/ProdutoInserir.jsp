@@ -28,7 +28,7 @@ $(document).ready(function() {
 	        salvar();
 	    }
 	});
-
+	
 	if($("#mensagem").val() != ""){
 		alerta($("#mensagem").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
 	}
@@ -42,6 +42,7 @@ $(document).ready(function() {
 	});
 
 	$('#codIndustria').focus();
+	
 	$("#idProduto").addClass("disabled");
 	refreshDisabled();
 });
@@ -75,9 +76,9 @@ function validaNcm(){
         	}else{
 	       	 	if(!validaCamposObrigatorios()){
 	        		alerta("Favor preencher os campos obrigatórios.", "warning");
-	        	}else if(!validaCamposNumericos()){
-	        		alerta("Os campos selecionados aceitam apenas números.", "warning");
+	        	
 	        	}else{
+		        	format();
 	        		$("#frmInserirProduto").submit();
 	        	}
             }
@@ -102,30 +103,6 @@ function validaCamposObrigatorios(){
 								 "#divlargura",
 								 "#divprofundidade");
 	 return isValid;
-}
-
-function validaCamposNumericos(){
-	var isValid = true;
-
-	if(!isNumeric($("#pesoBrutoSt").val()))
-		isValid = addRequired("#divpesobruto");
-
-	if(!isNumeric($("#pesoLiquidoSt").val()))	
-		isValid = addRequired("#divpesoliquido");
-						
-	if(!isNumeric($("#qtdEmbalagem").val()))	
-		isValid = addRequired("#divqtd");
-		
-	if(!isNumeric($("#alturaProdutoSt").val()))	
-		isValid = addRequired("#divaltura");
-		
-	if(!isNumeric($("#larguraProdutoSt").val()))	
-		isValid = addRequired("#divlargura");
-		
-	if(!isNumeric($("#profunProdutoSt").val()))	
-		isValid = addRequired("#divprofundidade");
-		
-	return isValid;	
 }
 
 function removeClass(){
@@ -197,19 +174,19 @@ function removeClass(){
 							<div class="col-md-6">
 								<div class="form-group" id="divncm">
 							   		<label for="ncmProdutoST" class="control-label">NCM</label>
-							    	<input type="text" class="form-control campo-salvar" id="ncmProdutoST" name="ncmProdutoST" maxlength="45" placeholder="Insira o NCM do produto" value="${produto.ncmProduto.codNcm}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="ncmProdutoST" name="ncmProdutoST" maxlength="45" placeholder="Insira o NCM do produto" value="${produto.ncmProduto.codNcm}">
 							  	</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group" id="divpesobruto">
 							   		<label for="pesoBrutoSt" class="control-label">Peso Bruto</label>
-							    	<input type="text" class="form-control campo-salvar" id="pesoBrutoSt" name="pesoBrutoSt" maxlength="11" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoBrutoSt" name="pesoBrutoSt" maxlength="11" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
 							  	</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group" id="divpesoliquido">
 							   		<label for="pesoLiquidoSt" class="control-label">Peso Líquido</label>
-							    	<input type="text" class="form-control campo-salvar" id="pesoLiquidoSt" name="pesoLiquidoSt" maxlength="11" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoLiquidoSt" name="pesoLiquidoSt" maxlength="11" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
 							  	</div>
 							</div>												
 						</div>			
@@ -222,10 +199,10 @@ function removeClass(){
 							  			<c:forEach var="emabalagem" items="${embalagens}">
 							  				<c:choose>
 		  										<c:when test="${emabalagem.idEmbalagem == produto.embalagem.idEmbalagem}">
-													<option value="${emabalagem.idEmbalagem}" selected="selected">${emabalagem.siglaEmbalagem} ${emabalagem.qtdEmbalagem}</option>
+													<option value="${emabalagem.idEmbalagem}" selected="selected">${emabalagem.siglaEmbalagem}</option>
 												</c:when>
 							  					<c:otherwise>
-							  						<option value="${emabalagem.idEmbalagem}">${emabalagem.siglaEmbalagem} ${emabalagem.qtdEmbalagem}</option>
+							  						<option value="${emabalagem.idEmbalagem}">${emabalagem.siglaEmbalagem}</option>
 							  					</c:otherwise>
 							  				</c:choose>
 		    							</c:forEach>
@@ -235,25 +212,25 @@ function removeClass(){
 							<div class="col-md-2">
 								<div class="form-group" id="divqtd">
 							   		<label for="qtdEmbalagem" class="control-label">Qtd. Emb.</label>
-							    	<input type="text" class="form-control campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="11" placeholder="Qtd" value="${produto.qtdEmbalagem}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="11" placeholder="Qtd" value="${produto.qtdEmbalagem}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group" id="divaltura">
 							   		<label for="alturaProdutoSt" class="control-label">Altura</label>
-							    	<input type="text" class="form-control campo-salvar" id="alturaProdutoSt" name="alturaProdutoSt" maxlength="11" placeholder="Altura" value="${produto.alturaProduto}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="alturaProdutoSt" name="alturaProdutoSt" maxlength="11" placeholder="Altura" value="${produto.alturaProduto}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group" id="divlargura">
 							   		<label for="larguraProdutoSt" class="control-label">Largura</label>
-							    	<input type="text" class="form-control campo-salvar" id="larguraProdutoSt" name="larguraProdutoSt" maxlength="11" placeholder="Largura" value="${produto.larguraProduto}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="larguraProdutoSt" name="larguraProdutoSt" maxlength="11" placeholder="Largura" value="${produto.larguraProduto}">
 							  	</div>
 							</div>	
 							<div class="col-md-2">
 								<div class="form-group" id="divprofundidade">
 							   		<label for="profunProdutoSt" class="control-label">Profundidade</label>
-							    	<input type="text" class="form-control campo-salvar" id="profunProdutoSt" name="profunProdutoSt" maxlength="11" placeholder="Profundidade" value="${produto.profunProduto}">
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="profunProdutoSt" name="profunProdutoSt" maxlength="11" placeholder="Profundidade" value="${produto.profunProduto}">
 							  	</div>
 							</div>	
 						</div>

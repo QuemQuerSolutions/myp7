@@ -20,6 +20,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private String cnpjFormatado;
 	private String uuid;
 	private List<Representante> representantes;
+	private Usuario usuario;
 	
 	//Mensagens
 	private String msgRetorno;
@@ -29,6 +30,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 		super();
 		uuid = UUID.randomUUID().toString();
 		this.representantes = new ArrayList<Representante>();
+		this.usuario=new Usuario();
 	}
 	
 	public Fornecedor(Long idFornecedor){
@@ -94,6 +96,15 @@ public class Fornecedor extends Pessoa implements Serializable{
 	public void setRepresentantes(List<Representante> representantes) {
 		this.representantes = representantes;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 	
 	
 }

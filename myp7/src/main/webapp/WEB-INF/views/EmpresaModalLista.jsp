@@ -60,7 +60,7 @@ $(document).ready(function(){
 			    var lines = "";
 			    
 			    if(lista.length == 0){
-			    	$("#lstEmpresaModal").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+			    	$("#lstEmpresaModal").html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
 			    	return;
 			    }
 			    

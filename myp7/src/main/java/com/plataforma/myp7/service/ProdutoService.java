@@ -1,6 +1,7 @@
 package com.plataforma.myp7.service;
 
-import java.math.BigDecimal;
+import static com.plataforma.myp7.util.Utils.emptyToNull;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.MensagemWS;
-import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 @RequestMapping("/wsproduto")
@@ -53,11 +53,11 @@ public class ProdutoService {
 								@RequestParam(value="idUsuario", required=true)Long idUsuario,
 								@RequestParam(value="descricaoProd", required=true) String descProd,
 								@RequestParam(value="codIndProd", required=true) String codIndProd,
-								@RequestParam(value="pesoBruto", required=true) BigDecimal pesoBruto,
-								@RequestParam(value="pesoLiquido", required=true) BigDecimal pesoLiquido,
-								@RequestParam(value="alturaProd", required=true) BigDecimal alturaProd, 
-								@RequestParam(value="profundidadeProd", required=true) BigDecimal profundidade,
-								@RequestParam(value="larguraProduto", required=true) BigDecimal larguraProduto,
+								@RequestParam(value="pesoBruto", required=true) Double pesoBruto,
+								@RequestParam(value="pesoLiquido", required=true) Double pesoLiquido,
+								@RequestParam(value="alturaProd", required=true) Double alturaProd, 
+								@RequestParam(value="profundidadeProd", required=true) Double profundidade,
+								@RequestParam(value="larguraProduto", required=true) Double larguraProduto,
 								@RequestParam(value="idNcmProd", required=true) Long idNcmProd,
 								@RequestParam(value="idEmbalagemProd", required=true) Long idEmbalagem,
 								@RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,

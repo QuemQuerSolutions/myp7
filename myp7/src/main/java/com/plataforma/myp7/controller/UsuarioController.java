@@ -2,11 +2,13 @@ package com.plataforma.myp7.controller;
 
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.setRetorno;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
 @RequestMapping(value={"/retaguarda", "/admin"})
@@ -26,20 +29,25 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioBO usuarioBO;
 	
-	@RequestMapping("Usuario")
-	public String inicio(Model model){
+	@RequestMapping("editarUsuario")
+	public String inicio(Model model, Long id){
+		if(Objects.isNull(id)){
+			model.addAttribute("usuario", new Usuario());
+			return "UsuarioInserir";
+		}
+		model.addAttribute("usuario", usuarioBO.obterPorId(id));
 		return "UsuarioInserir";
 	}
 	
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model, String tpUsuario){
 		try {
-			this.usuarioBO.inserir(usuario, model, tpUsuario);
+			this.usuarioBO.salvar(usuario, model, tpUsuario);
 		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			setMsgRetorno(model, "Falha na operação.");
 			setCodRetorno(model, -1);
 		}
-		return "UsuarioInserir";
+		return "redirect:CarregaListaUsuario?origem=save";
 	}
 
 	@RequestMapping(value="ListaUsuario")
@@ -48,7 +56,12 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="CarregaListaUsuario")
-	public String carregaListaUsuario(Model model, Usuario usuario) {
+	public String carregaListaUsuario(Model model, Usuario usuario, String origem) {
+		
+		if("save".equals(origem)){
+			setRetorno(model, Mensagem.SALVO_SUCESSO);
+			return "UsuarioLista";
+		}
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("lstUsuario", this.usuarioBO.selecionaComFiltro(usuario));
 		return "UsuarioLista";

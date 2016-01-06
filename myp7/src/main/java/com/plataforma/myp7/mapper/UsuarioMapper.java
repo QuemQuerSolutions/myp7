@@ -18,6 +18,8 @@ public interface UsuarioMapper {
 	void incluir(Usuario usuario);
 	
 	void updateTheme(Usuario usuario);
+	
+	void update(Usuario usuario);
 
 	List<Usuario> obterUsuarioComFiltro(Usuario usuario);
 }

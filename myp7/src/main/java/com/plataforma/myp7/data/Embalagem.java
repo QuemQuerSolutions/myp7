@@ -12,10 +12,11 @@ public class Embalagem implements Serializable{
 	private Long idEmbalagem;
 	private String nomeEmbalagem;
 	private String siglaEmbalagem;
-	private Integer qtdEmbalagem;
 	private String nomeEmbalagemCompra;
 	
-	public Embalagem(){}
+	public Embalagem(){
+				
+	}
 	
 	public Long getIdEmbalagem() {
 		return idEmbalagem;
@@ -34,19 +35,6 @@ public class Embalagem implements Serializable{
 	}
 	public void setSiglaEmbalagem(String siglaEmbalagem) {
 		this.siglaEmbalagem = siglaEmbalagem;
-	}
-	public Integer getQtdEmbalagem() {
-		return qtdEmbalagem;
-	}
-	public void setQtdEmbalagem(Integer qtdEmbalagem) {
-		this.qtdEmbalagem = qtdEmbalagem;
-	}
-	public void setQtdEmbalagem(String qtdEmbalagem) {
-		try{
-			this.qtdEmbalagem = Integer.valueOf(qtdEmbalagem.trim());
-		}catch(Exception e){
-			this.qtdEmbalagem = 0;
-		}
 	}
 	public String getNomeEmbalagemCompra() {
 		return nomeEmbalagemCompra;

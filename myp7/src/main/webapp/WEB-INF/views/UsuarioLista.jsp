@@ -6,6 +6,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+	if($("#mensagemRetorno").val() !== ""){
+		alerta($("#mensagemRetorno").val(), $("#codMsgem").val() == "0" ? "success" :"warning");
+	}
+
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
 		go("#frmUsuario");
@@ -13,7 +17,7 @@ $(document).ready(function(){
 	
 	$("#btnNovo").click(function(e){
 		e.stopPropagation();
-		go("Usuario");
+		go("editarUsuario");
 	});
 	
 	$("input").keypress(function(e){
@@ -25,11 +29,16 @@ $(document).ready(function(){
 	$("#limpar").click(function(e){
 		e.stopPropagation();
 		clearAll();
+		emptyTable("#tblUsuario");
 		$("#id").focus();
 	});
 	
 });
 
+
+function onClickLine(id){
+	go("editarUsuario?id=".concat(id));
+}
 </script>
 <body>
 	<c:import url="/WEB-INF/views/components/header.jsp" />
@@ -51,7 +60,8 @@ $(document).ready(function(){
 			</div>
 			
 			<form action="CarregaListaUsuario" id="frmUsuario" method="GET">
-				
+				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
+				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<div class="row">	
 					<div class="col-md-5">
 						<div class="form-group">
@@ -93,7 +103,7 @@ $(document).ready(function(){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped">
+			<table  class="table table-hover table-bordered table-striped mouse-click" id="tblUsuario">
 				<thead>
 					<tr>
 						<th width="10%">ID</th>
@@ -103,7 +113,7 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
 					<c:forEach items="${lstUsuario}" var="u">
-						<tr class="${classLine}">
+						<tr class="${classLine}" onclick="onClickLine('${u.idUsuario}');">
 							<td>${u.idUsuario}</td>
 							<td>${u.razaoSocial}</td>
 							<td>${u.email}</td>

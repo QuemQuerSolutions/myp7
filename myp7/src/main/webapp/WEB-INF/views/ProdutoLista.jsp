@@ -12,6 +12,7 @@ $(document).ready(function(){
 	$("#limpar").click(function(){
 		$("#idProduto").val("");
 		$("#desProduto").val("");
+		emptyTable("#tblProduto");
 	});
 
 	$(".campo-buscar").keypress(function(e){
@@ -98,7 +99,7 @@ function onClickLineProduto(id){
 			</form>
 		</div>
 		<div id="content-body">
-			<table class="table table-hover table-bordered table-striped mouse-click">
+			<table class="table table-hover table-bordered table-striped mouse-click" id="tblProduto">
 				<thead>
 					<tr>
 						<th>Código</th>

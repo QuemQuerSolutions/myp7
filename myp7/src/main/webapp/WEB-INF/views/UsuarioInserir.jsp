@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 	<c:import url="/WEB-INF/views/components/imports.jsp" />
 	
@@ -123,6 +124,16 @@ $(document).ready(function() {
 										placeholder="********" value="${usuario.senha}">
 							</div>
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">&nbsp;</div>
+						<div class="col-md-2 form-group">
+				   		<label for="status">Status</label>
+				   			<form:select path="usuario.ativo" cssClass="form-control">
+				   				<form:option value="1" label="Ativo" />
+				   				<form:option value="0" label="Inativo" />
+				   			</form:select>
+				  		</div>
 					</div>
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>

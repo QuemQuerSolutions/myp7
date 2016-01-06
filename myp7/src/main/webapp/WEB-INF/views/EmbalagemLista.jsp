@@ -21,6 +21,7 @@ $(document).ready(function(){
 	$("#limpar").click(function(){
 		$("#siglaEmbalagem").val("");
 		$("#nomeEmbalagem").val("");
+		emptyTable("#tblEmbalagem");
 	});
 	
 });
@@ -99,7 +100,7 @@ function onClickLine(id,sigla,nome){
 		</div>
 		
 		<div id="content-body">
-			<table  class="table table-hover table-bordered table-striped mouse-click">
+			<table  class="table table-hover table-bordered table-striped mouse-click" id="tblEmbalagem">
 				<thead>
 					<tr style="text-align: center">
 						<th>Sigla</th>

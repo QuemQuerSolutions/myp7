@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
-import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
@@ -37,19 +37,20 @@ public class FornecedorBO {
 		return this.fornecedorMapper.obterTodos();
 	}
 	
-	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor){
+	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor, Usuario usuario){
+		fornecedor.setUsuario(usuario);
 		fornecedor.setRazao(toLike(fornecedor.getRazao()));
-		int countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
-		if (countFornecedor == 0) 
-			return new ArrayList<Fornecedor>();
-		
-		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			List<Fornecedor> lstFornecedor = new ArrayList<Fornecedor>();
-			fornecedor.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem());
-			fornecedor.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
-			lstFornecedor.add(fornecedor);
-			return lstFornecedor;
-		}
+//		int countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
+//		if (countFornecedor == 0) 
+//			return new ArrayList<Fornecedor>();
+//		
+//		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
+//			List<Fornecedor> lstFornecedor = new ArrayList<Fornecedor>();
+//			fornecedor.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem());
+//			fornecedor.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+//			lstFornecedor.add(fornecedor);
+//			return lstFornecedor;
+//		}
 		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
 	
@@ -83,11 +84,11 @@ public class FornecedorBO {
 			setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
 			return new ArrayList<Fornecedor>();
 		}
-		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
-			setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
-			setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
-			return new ArrayList<Fornecedor>();
-		}
+//		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
+//			setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
+//			setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
+//			return new ArrayList<Fornecedor>();
+//		}
 		return this.formataCNPJ(this.fornecedorMapper.obterFornecedorPorParametro(fornecedor));
 	}
 	

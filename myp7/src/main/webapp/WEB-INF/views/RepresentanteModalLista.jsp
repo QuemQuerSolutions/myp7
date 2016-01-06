@@ -46,7 +46,7 @@ $(document).ready(function(){
 			    var lines = "";
 			    
 			    if(lista.length == 0){
-			    	$("#lstRepresentanteModal").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+			    	$("#lstRepresentanteModal").html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
 			    	return;
 			    }
 			    

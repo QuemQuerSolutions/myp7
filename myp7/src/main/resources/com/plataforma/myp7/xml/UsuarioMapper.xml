@@ -59,7 +59,7 @@
     						VALUES (#{razaoSocial}, 
     								#{nDocumento},
     								#{email}, 
-    								'A', 
+    								#{ativo}, 
     								#{senha},
     								#{tipoUsuario}
             						)
@@ -68,6 +68,12 @@
 	<update id="updateTheme">
 		UPDATE usu_usuario
 		   SET THEME=#{theme}
+		WHERE ID_USUARIO=#{idUsuario}
+	</update>
+	
+	<update id="update">
+		UPDATE usu_usuario SET razao_social=#{razaoSocial}, usu_cnpj=#{nDocumento},
+							   USU_ATIVO = #{ativo}, usu_senha=#{senha}, TIPOUSUARIO=#{tipoUsuario}
 		WHERE ID_USUARIO=#{idUsuario}
 	</update>
 	

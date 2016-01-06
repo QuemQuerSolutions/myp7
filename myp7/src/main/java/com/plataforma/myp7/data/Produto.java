@@ -1,7 +1,7 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,11 +16,11 @@ public class Produto implements Serializable{
 	private Long idProduto;
 	private String desProduto;
 	private String codIndustria;
-	private BigDecimal pesoBruto;
-	private BigDecimal pesoLiquido;
-	private BigDecimal alturaProduto;
-	private BigDecimal larguraProduto;
-	private BigDecimal profunProduto;
+	private Double pesoBruto;
+	private Double pesoLiquido;
+	private Double alturaProduto;
+	private Double larguraProduto;
+	private Double profunProduto;
 	private Integer qtdEmbalagem;
 	private MultipartFile imagem;
 	private String caminhoImagem;
@@ -32,6 +32,7 @@ public class Produto implements Serializable{
 	private String situacao;
 	private String descSituacao;
 	private Long idUsuario;
+	private DecimalFormat fmt;
 	
 	//Mensagens
 	private String msgRetorno;
@@ -40,6 +41,7 @@ public class Produto implements Serializable{
 	public Produto(){
 		ncmProduto = new NCM();
 		embalagem = new Embalagem();
+		fmt = new DecimalFormat("#.##");
 	}
 	
 	public Produto(Mensagem msg) {
@@ -142,81 +144,81 @@ public class Produto implements Serializable{
 		this.codIndustria = codIndustria;
 	}
 	
-	public BigDecimal getPesoBruto() {
+	public Double getPesoBruto() {
 		return pesoBruto;
 	}
 	
-	public void setPesoBruto(BigDecimal pesoBruto) {
-		this.pesoBruto = pesoBruto;
+	public void setPesoBruto(Double pesoBruto) {
+		this.pesoBruto = Double.parseDouble(this.fmt.format(pesoBruto));
 	}
 	
 	public void setPesoBrutoSt(String pesoBruto) {
 		try{
-			this.pesoBruto = new BigDecimal(pesoBruto.replace(".", "").replace(",", "."));
+			this.pesoBruto = new Double(pesoBruto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.pesoBruto = null;
 		}		
 	}	
 	
-	public BigDecimal getPesoLiquido() {
+	public Double getPesoLiquido() {
 		return pesoLiquido;
 	}
 	
-	public void setPesoLiquido(BigDecimal pesoLiquido) {
-		this.pesoLiquido = pesoLiquido;
+	public void setPesoLiquido(Double pesoLiquido) {
+		this.pesoLiquido = Double.parseDouble(this.fmt.format(pesoLiquido));
 	}
 	
 	public void setPesoLiquidoSt(String pesoLiquido) {
 		try{
-			this.pesoLiquido = new BigDecimal(pesoLiquido.replace(".", "").replace(",", "."));
+			this.pesoLiquido = new Double(pesoLiquido.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.pesoLiquido = null;
 		}			
 	}	
 	
-	public BigDecimal getAlturaProduto() {
+	public Double getAlturaProduto() {
 		return alturaProduto;
 	}
 	
-	public void setAlturaProduto(BigDecimal alturaProduto) {
-		this.alturaProduto = alturaProduto;
+	public void setAlturaProduto(Double alturaProduto) {
+		this.alturaProduto = Double.parseDouble(this.fmt.format(alturaProduto));
 	}
 	
 	public void setAlturaProdutoSt(String alturaProduto) {
 		try{
-			this.alturaProduto = new BigDecimal(alturaProduto.replace(".", "").replace(",", "."));
+			this.alturaProduto = new Double(alturaProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.alturaProduto = null;
 		}			
 	}	
 	
-	public BigDecimal getLarguraProduto() {
+	public Double getLarguraProduto() {
 		return larguraProduto;
 	}
 	
-	public void setLarguraProduto(BigDecimal larguraProduto) {
-		this.larguraProduto = larguraProduto;
+	public void setLarguraProduto(Double larguraProduto) {
+		this.larguraProduto = Double.parseDouble(this.fmt.format(larguraProduto));
 	}
 	
 	public void setLarguraProdutoSt(String larguraProduto) {
 		try{
-			this.larguraProduto = new BigDecimal(larguraProduto.replace(".", "").replace(",", "."));
+			this.larguraProduto = new Double(larguraProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.larguraProduto = null;
 		}		
 	}	
 	
-	public BigDecimal getProfunProduto() {
+	public Double getProfunProduto() {
 		return profunProduto;
 	}
 	
-	public void setProfunProduto(BigDecimal profunProduto) {
-		this.profunProduto = profunProduto;
+	public void setProfunProduto(Double profunProduto) {
+		this.profunProduto = Double.parseDouble(this.fmt.format(profunProduto));
 	}
 	
 	public void setProfunProdutoSt(String profunProduto) {
 		try{
-			this.profunProduto = new BigDecimal(profunProduto.replace(".", "").replace(",", "."));
+			this.profunProduto = new Double(profunProduto.replace(".", "").replace(",", "."));
 		}catch(Exception e){
 			this.profunProduto = null;
 		}

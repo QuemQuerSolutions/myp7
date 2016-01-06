@@ -7,6 +7,8 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.FornecedorBO;
+import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
-@RequestMapping(value={"/retaguarda", "/admin"})
+@RequestMapping(value={"/retaguarda", "/admin", "/portal"})
 public class FornecedorController {
 	
 	@Autowired
 	private FornecedorBO fornecedorBO;
+	
+	@Autowired
+	private UsuarioBO usuarioBO;
 	
 	@RequestMapping("Fornecedor")
 	public String inicio(){
@@ -48,6 +54,7 @@ public class FornecedorController {
 			model.addAttribute("razao", razao);
 			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		}catch(Exception e){
+			e.printStackTrace();
 			setMsgRetorno(model, "Erro ao carregar lista");
 			setCodRetorno(model, -1);
 		}
@@ -74,8 +81,8 @@ public class FornecedorController {
 	}
 	
 	@RequestMapping(value="consultarFornecedor", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Fornecedor> consultarFornecedor(Fornecedor fornecedor){
-			return this.fornecedorBO.obterFornecedorPorParametro(fornecedor);
+	public @ResponseBody List<Fornecedor> consultarFornecedor(Fornecedor fornecedor, HttpSession session){
+		return this.fornecedorBO.obterFornecedorPorParametro(fornecedor, this.usuarioBO.getUserSession(session));
 	}
 	
 	
