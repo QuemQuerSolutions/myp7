@@ -41,7 +41,8 @@ public class UsuarioBO {
 		return (Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor());
 	}
 	
-	public void salvar(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
+	public String salvar(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
+		String pagina="";
 		if(Objects.isNull(usuario.getIdUsuario())){
 			if(this.isValidInsert(usuario, model)){
 				usuario.setTipoUsuario(tpUsuario);
@@ -49,6 +50,7 @@ public class UsuarioBO {
 				this.usuarioMapper.incluir(usuario);
 			}else{
 				setCodRetorno(model, -1);
+				pagina="UsuarioInserir";
 			}
 			
 		}else{
@@ -56,12 +58,12 @@ public class UsuarioBO {
 			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
 			this.usuarioMapper.update(usuario);
 		}
+		return pagina;
 	}
 	
 	private boolean isValidInsert(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
-		
 		if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
-			setMsgRetorno(model, "Email jÃ¡ cadastrado.");
+			setMsgRetorno(model, "Email já cadastrado.");
 			return false;
 		}
 		
@@ -71,7 +73,7 @@ public class UsuarioBO {
 
 		SenhaBO senhaBO = new SenhaBO();
 		if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
-			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um nÃºmero e uma letra maiÃºscula.");
+			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
 			return false;
 		}
 		

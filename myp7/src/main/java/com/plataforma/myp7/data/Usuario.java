@@ -18,7 +18,7 @@ public class Usuario implements Serializable{
 	private String razaoSocial;
 	private String email;
 	private String nDocumento;
-	private Integer ativo;
+	private String ativo;
 	private String senha;
 	private String theme;
 	private String tipoUsuario;
@@ -78,11 +78,11 @@ public class Usuario implements Serializable{
 	public void setnDocumento(String nDocumento) {
 		this.nDocumento = nDocumento;
 	}
-	public Integer getAtivo() {
+	public String getAtivo() {
 		return ativo;
 	}
 	public void setAtivo(String ativo) {
-		this.ativo = Integer.parseInt(ativo);
+		this.ativo = ativo;
 	}
 	public String getSenha() {
 		return senha;

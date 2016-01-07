@@ -82,6 +82,7 @@ $(document).ready(function() {
 			<form action="cadastroUsuario" id="frmCadastro" method="POST" enctype="multipart/form-data">
 				<input type="hidden" id="mensagemCadastro" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
+				<input type="hidden" name="idUsuario" id="idUsuario" value="${usuario.idUsuario}" />
 				<input type="hidden" id=tpUsuarioRetorno name="tpUsuarioRetorno" value="" />
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
@@ -128,9 +129,9 @@ $(document).ready(function() {
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-2 form-group">
-				   		<label for="status">Status</label>
+				   		<label for="ativo">Status</label>
 				   			<form:select path="usuario.ativo" cssClass="form-control">
-				   				<form:option value="1" label="Ativo" />
+				   				<form:option value="1"  label="Ativo" />
 				   				<form:option value="0" label="Inativo" />
 				   			</form:select>
 				  		</div>

@@ -1,7 +1,6 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,6 @@ public class Produto implements Serializable{
 	private String situacao;
 	private String descSituacao;
 	private Long idUsuario;
-	private DecimalFormat fmt;
 	
 	//Mensagens
 	private String msgRetorno;
@@ -41,7 +39,6 @@ public class Produto implements Serializable{
 	public Produto(){
 		ncmProduto = new NCM();
 		embalagem = new Embalagem();
-		fmt = new DecimalFormat("#.##");
 	}
 	
 	public Produto(Mensagem msg) {
@@ -149,7 +146,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setPesoBruto(Double pesoBruto) {
-		this.pesoBruto = Double.parseDouble(this.fmt.format(pesoBruto));
+		this.pesoBruto = pesoBruto;
 	}
 	
 	public void setPesoBrutoSt(String pesoBruto) {
@@ -165,7 +162,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setPesoLiquido(Double pesoLiquido) {
-		this.pesoLiquido = Double.parseDouble(this.fmt.format(pesoLiquido));
+		this.pesoLiquido = pesoLiquido;
 	}
 	
 	public void setPesoLiquidoSt(String pesoLiquido) {
@@ -181,7 +178,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setAlturaProduto(Double alturaProduto) {
-		this.alturaProduto = Double.parseDouble(this.fmt.format(alturaProduto));
+		this.alturaProduto = alturaProduto;
 	}
 	
 	public void setAlturaProdutoSt(String alturaProduto) {
@@ -197,7 +194,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setLarguraProduto(Double larguraProduto) {
-		this.larguraProduto = Double.parseDouble(this.fmt.format(larguraProduto));
+		this.larguraProduto = larguraProduto;
 	}
 	
 	public void setLarguraProdutoSt(String larguraProduto) {
@@ -213,7 +210,7 @@ public class Produto implements Serializable{
 	}
 	
 	public void setProfunProduto(Double profunProduto) {
-		this.profunProduto = Double.parseDouble(this.fmt.format(profunProduto));
+		this.profunProduto = profunProduto;
 	}
 	
 	public void setProfunProdutoSt(String profunProduto) {

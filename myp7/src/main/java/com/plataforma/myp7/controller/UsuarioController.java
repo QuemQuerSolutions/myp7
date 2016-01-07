@@ -1,7 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import static com.plataforma.myp7.util.Utils.setCodRetorno;
-import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.setRetorno;
 
 import java.io.UnsupportedEncodingException;
@@ -42,10 +40,12 @@ public class UsuarioController {
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model, String tpUsuario){
 		try {
-			this.usuarioBO.salvar(usuario, model, tpUsuario);
+			String pagina = this.usuarioBO.salvar(usuario, model, tpUsuario);
+			if(!"".equals(pagina)){	
+				return pagina;
+			}
 		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			setMsgRetorno(model, "Falha na operação.");
-			setCodRetorno(model, -1);
+			e.printStackTrace();
 		}
 		return "redirect:CarregaListaUsuario?origem=save";
 	}

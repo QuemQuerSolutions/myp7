@@ -349,3 +349,11 @@ $.extend({
 	    return $.getUrlVars()[name];
 	  }
 });
+
+function emptyTable(escopo){
+	$(escopo.concat(" tbody")).remove();
+}
+
+function formatNum(val){
+	return val.toPrecision(3);
+}

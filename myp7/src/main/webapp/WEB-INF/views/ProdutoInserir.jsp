@@ -78,7 +78,6 @@ function validaNcm(){
 	        		alerta("Favor preencher os campos obrigatórios.", "warning");
 	        	
 	        	}else{
-		        	format();
 	        		$("#frmInserirProduto").submit();
 	        	}
             }
@@ -109,6 +108,13 @@ function removeClass(){
 	$(".has-error").each(function(){ $(this).attr("class","form-group"); });
 }
 
+function format(){
+	$("#pesoBruto").val(formatNum($("#pesoBruto").val));
+	$("#pesoLiquido").val(formatNum($("#pesoLiquido").val));
+	$("#alturaProduto").val(formatNum($("#alturaProduto").val));
+	$("#larguraProduto").val(formatNum($("#larguraProduto").val));
+	$("#profunProduto").val(formatNum($("#profunProduto").val));
+}
 </script>
 <body>
 	<c:import url="/WEB-INF/views/components/header.jsp" />
@@ -179,14 +185,14 @@ function removeClass(){
 							</div>
 							<div class="col-md-3">
 								<div class="form-group" id="divpesobruto">
-							   		<label for="pesoBrutoSt" class="control-label">Peso Bruto</label>
-							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoBrutoSt" name="pesoBrutoSt" maxlength="11" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
+							   		<label for="pesoBruto" class="control-label">Peso Bruto</label>
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoBruto" name="pesoBruto" maxlength="11" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
 							  	</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group" id="divpesoliquido">
-							   		<label for="pesoLiquidoSt" class="control-label">Peso Líquido</label>
-							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoLiquidoSt" name="pesoLiquidoSt" maxlength="11" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
+							   		<label for="pesoLiquido" class="control-label">Peso Líquido</label>
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoLiquido" name="pesoLiquido" maxlength="11" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
 							  	</div>
 							</div>												
 						</div>			
@@ -217,20 +223,20 @@ function removeClass(){
 							</div>
 							<div class="col-md-2">
 								<div class="form-group" id="divaltura">
-							   		<label for="alturaProdutoSt" class="control-label">Altura</label>
-							    	<input type="text" class="form-control onlyNumber campo-salvar" id="alturaProdutoSt" name="alturaProdutoSt" maxlength="11" placeholder="Altura" value="${produto.alturaProduto}">
+							   		<label for="alturaProduto" class="control-label">Altura</label>
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="alturaProduto" name="alturaProduto" maxlength="11" placeholder="Altura" value="${produto.alturaProduto}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group" id="divlargura">
-							   		<label for="larguraProdutoSt" class="control-label">Largura</label>
-							    	<input type="text" class="form-control onlyNumber campo-salvar" id="larguraProdutoSt" name="larguraProdutoSt" maxlength="11" placeholder="Largura" value="${produto.larguraProduto}">
+							   		<label for="larguraProduto" class="control-label">Largura</label>
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="larguraProduto" name="larguraProduto" maxlength="11" placeholder="Largura" value="${produto.larguraProduto}">
 							  	</div>
 							</div>	
 							<div class="col-md-2">
 								<div class="form-group" id="divprofundidade">
-							   		<label for="profunProdutoSt" class="control-label">Profundidade</label>
-							    	<input type="text" class="form-control onlyNumber campo-salvar" id="profunProdutoSt" name="profunProdutoSt" maxlength="11" placeholder="Profundidade" value="${produto.profunProduto}">
+							   		<label for="profunProduto" class="control-label">Profundidade</label>
+							    	<input type="text" class="form-control onlyNumber campo-salvar" id="profunProduto" name="profunProduto" maxlength="11" placeholder="Profundidade" value="${produto.profunProduto}">
 							  	</div>
 							</div>	
 						</div>
