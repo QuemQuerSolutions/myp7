@@ -329,9 +329,9 @@ function addLineRepresentanteTab(representante){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr>
-						<th width="15%">Código EAN</th>
+						<th width="30%">Código EAN</th>
 <!-- 						<th width="15%">Código Import</th> -->
-						<th width="60%">Descrição</th>
+						<th width="45%">Descrição</th>
 						<th width="15%">Situação</th>
 						<th width="10%" class="text-center">Ação</th>
 					</tr>

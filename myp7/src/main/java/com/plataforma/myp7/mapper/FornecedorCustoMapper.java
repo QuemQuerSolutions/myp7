@@ -20,6 +20,8 @@ public interface FornecedorCustoMapper {
 	List<FornecedorCusto> qtdPorSituacao(Long idUsuario);
 
 	List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
+	
+	List<FornecedorCusto> obterCustoAprovacaoPorFornecedor(FornecedorCusto fornecedorCusto);
 
 	int countFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto);
 

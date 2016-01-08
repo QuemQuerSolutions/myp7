@@ -140,11 +140,11 @@ $(document).ready(function() {
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-6">
 							<div class="form-group" id="divTipoUsuario">
-								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" checked="checked" onclick="onClickTipoUsuario();"/>
+								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" ${usuario.tipoUsuario eq 'P'? 'checked' : '' } checked="checked" onClickTipoUsuario();"/>
 								<label for="inputRadioPortal" class="control-label">Portal</label>
-								<input type="radio" name="tpUsuario" id="inputRadioRetaguarda" value="R" onclick="onClickTipoUsuario();" />
+								<input type="radio" name="tpUsuario" id="inputRadioRetaguarda" value="R" ${usuario.tipoUsuario eq 'R'? 'checked' : '' } onclick="onClickTipoUsuario();" />
 								<label for="inputRadioRetaguarda" class="control-label">Retaguarda</label>
-								<input type="radio" name="tpUsuario" id="inputRadioTodos" value="T" onclick="onClickTipoUsuario();" />
+								<input type="radio" name="tpUsuario" id="inputRadioTodos" value="T" ${usuario.tipoUsuario eq 'T'? 'checked' : '' } onclick="onClickTipoUsuario();" />
 								<label for="inputRadioTodos" class="control-label">Todos</label>
 							</div>
 						</div>

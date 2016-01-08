@@ -14,12 +14,15 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Comprador;
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteComprador;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
+import com.plataforma.myp7.mapper.FornecedorCustoMapper;
+import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteCompradorMapper;
 import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteMapper;
@@ -35,6 +38,12 @@ public class RepresentanteBO {
 	
 	@Autowired
 	private RepresentanteCompradorMapper representanteCompradorMapper;
+	
+	@Autowired
+	private FornecedorCustoMapper fornecedorCustoMapper;
+	
+	@Autowired
+	private FornecedorMapper fornecedorMapper;
 	
 	public List<Representante> selecionaTodos(){
 		return this.representanteMapper.obterTodosRepresentantes();
@@ -141,5 +150,12 @@ public class RepresentanteBO {
 		}catch(Exception e){
 			return null;
 		}
+	}
+	
+	public List<FornecedorCusto> obterCustoAprovacaoPorFornecedor(Long id){
+		FornecedorCusto fornCusto = new FornecedorCusto();
+		fornCusto.setFornecedor(fornecedorMapper.obterFornecedorPorId(id));
+		return this.fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornCusto);
+		
 	}
 }

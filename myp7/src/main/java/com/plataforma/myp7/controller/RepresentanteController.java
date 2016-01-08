@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.RepresentanteBO;
+import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.enums.Mensagem;
 
@@ -78,5 +79,10 @@ public class RepresentanteController {
 			return "redirect:carregaListaRepresentante?origem=error";
 		}
 		return "redirect:carregaListaRepresentante?origem=save";
+	}
+	
+	@RequestMapping(value="obterFornecedorCustoPorIdFornecedor", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FornecedorCusto> obterFornecedorPorId(Long id) {
+		return representanteBO.obterCustoAprovacaoPorFornecedor(id);
 	}
 }

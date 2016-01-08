@@ -71,6 +71,11 @@
 		</if>
 	</select>
 	
+	<select id="obterCustoAprovacaoPorFornecedor">
+		<include refid="selectFornecedorCusto"></include>
+		WHERE ID_FORNECEDOR =#{fornecedor.idFornecedor}
+	</select>
+	
 	<select id="obterFornecedorCustoAprovacao" resultMap="fornecedorCustoMap">
 		SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
 			   FORNEC.ID_PRODUTO, VALOR_ANTERIOR, VALOR, ID_REPRESENTANTE, 

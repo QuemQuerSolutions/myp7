@@ -36,6 +36,27 @@ $(document).ready(function() {
 
 });
 
+function verificaFornecedor(id, uuid, qtdFornecedor, escopo, lista){
+	$.ajax({
+		url : "obterFornecedorCustoPorIdFornecedor?id=".concat(id),
+		type: "GET",
+        contentType: "application/json; charset=ISO-8859-1",
+	    dataType: "json",
+        success : function(retornoList) {
+        	if(retornoList.length > 0){
+        		alerta("Fornecedor não pode ser dessacioado ao Representante.", "warning");
+        		return;
+        	}
+        	onRemoveLine(uuid,qtdFornecedor);
+        	reindex(escopo, lista);
+        	
+        },
+        error: function (xhr, textStatus, errorThrown) {
+	        alerta("Erro ao excluir.","warning");
+        }
+    });
+
+}
 
 function addLineFornecedor(fornecedor){
 	var line = "", id = fornecedor.idFornecedor;
@@ -49,7 +70,7 @@ function addLineFornecedor(fornecedor){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdFornecedor\"); reindex(\"#linesFornecedor\", \"fornecedores\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='verificaFornecedor(\"",id,"\"",uuid,"\", \"qtdFornecedor\",\"#linesFornecedor\", \"fornecedores\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
@@ -130,7 +151,7 @@ function onAddFornecedor(){
 									<form:hidden path="objRepresentante.fornecedores[${i.index}].idFornecedor" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${fornec.uuid}" onclick="onRemoveLine('${fornec.uuid}', 'qtdFornecedor'); reindex('#linesFornecedor', 'fornecedores');" >
+									<a href="#" id="${fornec.uuid}" onclick="verificaFornecedor('${fornec.idFornecedor}','${fornec.uuid}', 'qtdFornecedor','#linesFornecedor', 'fornecedores');" >
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>
