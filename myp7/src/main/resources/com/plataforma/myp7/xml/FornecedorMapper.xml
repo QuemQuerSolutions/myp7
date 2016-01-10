@@ -11,7 +11,7 @@
 	
 	
 	<resultMap id="fornecedorComPessoaMap" type="com.plataforma.myp7.data.Fornecedor">
-		<id property="idFornecedor" 			column="frn_fornecedor.ID_FORNECEDOR" />
+		<id property="idFornecedor" 			column="idFornecedor" />
 		<result property="statusFornecedor"  	column="STATUS" />
 		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
 		<result property="razao" 				column="RAZAO" />
