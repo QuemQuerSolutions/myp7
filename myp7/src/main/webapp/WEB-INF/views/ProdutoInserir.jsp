@@ -6,6 +6,12 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	$("#pesoBruto").mask("9999999.999");
+	$("#pesoLiquido").mask("9999999.999");
+	$("#alturaProduto").mask("9999.999999");
+	$("#larguraProduto").mask("9999.999999");
+	$("#profunProduto").mask("9999.999999");
+	
 	if($("#allDisabled").val()){
 		disableAll();
 	}
