@@ -53,7 +53,7 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("EditarProduto")
-	public String editar(Model model, Long codProduto, boolean allDisabled, String actionCancelar, String filtroAnterior){
+	public String editar(HttpServletRequest request, Model model, Long codProduto, boolean allDisabled, String actionCancelar, String filtroAnterior){
 		
 		if(allDisabled){
 			model.addAttribute("allDisabled", allDisabled);
@@ -63,8 +63,14 @@ public class ProdutoController {
 		Produto produto = produtoBO.obterPorId(codProduto);
 		this.imagemAnterior = produto.getCaminhoImagem();
 		this.carregaSelectEmbalagem(model);
+		this.ajustarCaminhoImagem(produto, request);
 		model.addAttribute("produto", produto);
 		return "ProdutoInserir";
+	}
+	
+	private void ajustarCaminhoImagem(Produto produto, HttpServletRequest request){
+		String url = request.getRequestURL().toString();
+		produto.setCaminhoImagem(url.substring(0, url.indexOf("myp7") + 5) + "resources/upload/" + produto.getCaminhoImagem());
 	}
 	
 	@RequestMapping("NovoProduto")
