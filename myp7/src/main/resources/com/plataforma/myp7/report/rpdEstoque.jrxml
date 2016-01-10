@@ -23,7 +23,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="18" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
-					<text><![CDATA[AnÃ¡lise de Estoque]]></text>
+					<text><![CDATA[Análise de Estoque]]></text>
 				</staticText>
 				<image isUsingCache="true">
 					<reportElement mode="Opaque" x="27" y="17" width="123" height="34" forecolor="#F2F1F1" backcolor="#F2F1F1" uuid="e4f3e424-9393-44a3-a8fc-10bb25981bdd"/>
@@ -42,14 +42,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[MÃ©dia de Venda]]></text>
+				<text><![CDATA[Média de Venda]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="319" y="2" width="107" height="20" uuid="42c7a40e-33ef-4dc6-b1e9-4eba2e68a33e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Data Ãšltima Compra]]></text>
+				<text><![CDATA[Data Última Compra]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="555" y="2" width="122" height="20" uuid="24176271-0a46-400f-9c08-c74f637d9005"/>
@@ -240,8 +240,8 @@
 				<textElement>
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Reservados todos os direitos de patentes, uso, cÃ³pia e reproduÃ§Ã£o em favor da Myp7
-Â© Myp7 â€“ 2016. Todos os direitos reservados]]></text>
+				<text><![CDATA[Reservados todos os direitos de patentes, uso, cópia e reprodução em favor da Myp7
+© Myp7 2016. Todos os direitos reservados]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="764" y="2" width="36" height="13" backcolor="#E6E6E6" uuid="4b99ae75-33e8-49a4-b809-bad683a5a0bb"/>
@@ -255,7 +255,7 @@
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["PÃ¡gina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="3" y="2" width="192" height="13" uuid="c6fcb986-112d-45d1-9d52-6e5bc8ca0193"/>

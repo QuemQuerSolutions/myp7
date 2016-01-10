@@ -87,7 +87,7 @@ $(document).ready(function() {
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-6">
-							<div class="form-group" id="divRzSocial">
+							<div class="form-group req" id="divRzSocial">
 								<label for="inputRzSocial" class="control-label">Razão	Social</label>
 									<input type="text" class="form-control campo-salvar" id="inputRzSocial" 
 									maxlength="200" name="razaoSocial" placeholder="razão social" value="${usuario.razaoSocial}">	
@@ -98,7 +98,7 @@ $(document).ready(function() {
 					<div class="row">
 					<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-3">
-							<div class="form-group" id="divCnpj">
+							<div class="form-group req" id="divCnpj">
 								<label for="inputCnpjCPF" class="control-label">CNPJ / CPF</label>
 									<input type="text" class="form-control campo-salvar" name="nDocumento"
 										placeholder="00.000.000/0000-00" id="inputCnpjCPF" maxlength="14" value="${usuario.nDocumento}">
@@ -109,7 +109,7 @@ $(document).ready(function() {
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-3">
-							<div class="form-group" id="divEmail">
+							<div class="form-group req" id="divEmail">
 								<label for="inputEmailUsuario" class="control-label">E-mail</label>
 									<input type="email" class="form-control campo-salvar" id="inputEmailUsuario" name="email"
 										maxlength="100" placeholder="e-mail" value="${usuario.email}">
@@ -119,10 +119,10 @@ $(document).ready(function() {
 					<div class="row">
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-3">
-							<div class="form-group" id="divSenha">
+							<div class="form-group req" id="divSenha">
 								<label for="inputSenhaUsuario" class="control-label">Senha</label>
 									<input type="password" class="form-control campo-salvar" id="inputSenhaUsuario" name="senha"
-										placeholder="********" value="${usuario.senha}">
+										   value="${usuario.senha}">
 							</div>
 						</div>
 					</div>
@@ -140,7 +140,7 @@ $(document).ready(function() {
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-6">
 							<div class="form-group" id="divTipoUsuario">
-								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" ${usuario.tipoUsuario eq 'P'? 'checked' : '' } checked="checked" onClickTipoUsuario();"/>
+								<input type="radio" name="tpUsuario" value="P" id="inputRadioPortal" ${usuario.tipoUsuario eq 'P'? 'checked' : '' } checked="checked" onclick="onClickTipoUsuario();"/>
 								<label for="inputRadioPortal" class="control-label">Portal</label>
 								<input type="radio" name="tpUsuario" id="inputRadioRetaguarda" value="R" ${usuario.tipoUsuario eq 'R'? 'checked' : '' } onclick="onClickTipoUsuario();" />
 								<label for="inputRadioRetaguarda" class="control-label">Retaguarda</label>

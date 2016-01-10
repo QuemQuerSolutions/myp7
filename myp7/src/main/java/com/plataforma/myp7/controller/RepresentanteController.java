@@ -40,7 +40,7 @@ public class RepresentanteController {
 				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
 				return "RepresentanteLista";
 			}else if("error".equals(origem)){
-				setMsgRetorno(model, "Falha na OperaÃ§Ã£o");
+				setMsgRetorno(model, "Falha na Operação");
 				setCodRetorno(model, -1);
 				return "RepresentanteLista";
 			}
@@ -50,7 +50,7 @@ public class RepresentanteController {
 			
 			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		}catch(Exception e){
-			setMsgRetorno(model, "Falha na OperaÃ§Ã£o");
+			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);
 		}
 		return "RepresentanteLista";

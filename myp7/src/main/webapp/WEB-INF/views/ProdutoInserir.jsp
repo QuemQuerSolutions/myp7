@@ -153,13 +153,13 @@ function format(){
 									  	</div>
 				 					</div>
 				 					<div class="col-md-3">
-										<div class="form-group" id="divcodigoindustria">
+										<div class="form-group req" id="divcodigoindustria">
 									   		<label for="codIndustria" class="control-label">Código da Indústria</label>
 									    	<input type="text" class="form-control campo-salvar" id="codIndustria" name="codIndustria" maxlength="30" placeholder="Cód da indústria" value="${produto.codIndustria}">
 									  	</div>
 				 					</div>
 				 					<div class="col-md-6">
-										<div class="form-group" id="diveandun">
+										<div class="form-group req" id="diveandun">
 									   		<label for="eanDunProduto" class="control-label">EAN/DUN</label>
 									    	<input type="text" class="form-control campo-salvar" id="eanDunProduto" name="eanDunProduto" maxlength="50" placeholder="Insira EAN/DUN" value="${produto.eanDunProduto}">
 									  	</div>
@@ -167,7 +167,7 @@ function format(){
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group" id="divdescricao">
+										<div class="form-group req" id="divdescricao">
 									   		<label for="desProduto" class="control-label">Descrição</label>
 									    	<input type="text" class="form-control campo-salvar" id="desProduto" name="desProduto" maxlength="100" placeholder="Insira a descrição do produto" value="${produto.desProduto}">
 									  	</div>
@@ -178,19 +178,19 @@ function format(){
 						
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group" id="divncm">
+								<div class="form-group req" id="divncm">
 							   		<label for="ncmProdutoST" class="control-label">NCM</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="ncmProdutoST" name="ncmProdutoST" maxlength="45" placeholder="Insira o NCM do produto" value="${produto.ncmProduto.codNcm}">
 							  	</div>
 							</div>
 							<div class="col-md-3">
-								<div class="form-group" id="divpesobruto">
+								<div class="form-group req" id="divpesobruto">
 							   		<label for="pesoBruto" class="control-label">Peso Bruto</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoBruto" name="pesoBruto" maxlength="11" placeholder="Insira o peso bruto" value="${produto.pesoBruto}">
 							  	</div>
 							</div>
 							<div class="col-md-3">
-								<div class="form-group" id="divpesoliquido">
+								<div class="form-group req" id="divpesoliquido">
 							   		<label for="pesoLiquido" class="control-label">Peso Líquido</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="pesoLiquido" name="pesoLiquido" maxlength="11" placeholder="Insira o peso líquido" value="${produto.pesoLiquido}">
 							  	</div>
@@ -198,7 +198,7 @@ function format(){
 						</div>			
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group" id="divembalagem">
+								<div class="form-group req" id="divembalagem">
 							   		<label for="embalagemST" class="control-label">Embalagem Compra</label>
 							  		<select id="embalagemST" name="embalagemST" class="form-control">
 							  			<option value="-1">Selecione uma Embalagem</option>
@@ -216,25 +216,25 @@ function format(){
 							  	</div>
 							</div>
 							<div class="col-md-2">
-								<div class="form-group" id="divqtd">
+								<div class="form-group req" id="divqtd">
 							   		<label for="qtdEmbalagem" class="control-label">Qtd. Emb.</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="qtdEmbalagem" name="qtdEmbalagem" maxlength="11" placeholder="Qtd" value="${produto.qtdEmbalagem}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
-								<div class="form-group" id="divaltura">
+								<div class="form-group req" id="divaltura">
 							   		<label for="alturaProduto" class="control-label">Altura</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="alturaProduto" name="alturaProduto" maxlength="11" placeholder="Altura" value="${produto.alturaProduto}">
 							  	</div>
 							</div>
 							<div class="col-md-2">
-								<div class="form-group" id="divlargura">
+								<div class="form-group req" id="divlargura">
 							   		<label for="larguraProduto" class="control-label">Largura</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="larguraProduto" name="larguraProduto" maxlength="11" placeholder="Largura" value="${produto.larguraProduto}">
 							  	</div>
 							</div>	
 							<div class="col-md-2">
-								<div class="form-group" id="divprofundidade">
+								<div class="form-group req" id="divprofundidade">
 							   		<label for="profunProduto" class="control-label">Profundidade</label>
 							    	<input type="text" class="form-control onlyNumber campo-salvar" id="profunProduto" name="profunProduto" maxlength="11" placeholder="Profundidade" value="${produto.profunProduto}">
 							  	</div>

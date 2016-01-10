@@ -20,7 +20,7 @@ public class Produto implements Serializable{
 	private Double alturaProduto;
 	private Double larguraProduto;
 	private Double profunProduto;
-	private Integer qtdEmbalagem;
+	private Long qtdEmbalagem;
 	private MultipartFile imagem;
 	private String caminhoImagem;
 	private String eanDunProduto;
@@ -253,19 +253,19 @@ public class Produto implements Serializable{
 		this.embalagem.setIdEmbalagem(Long.parseLong(embalagemST));
 	}
 
-	public Integer getQtdEmbalagem() {
+	public Long getQtdEmbalagem() {
 		return qtdEmbalagem;
 	}
 
-	public void setQtdEmbalagem(Integer qtdEmbalagem) {
+	public void setQtdEmbalagem(Long qtdEmbalagem) {
 		this.qtdEmbalagem = qtdEmbalagem;
 	}
 	
 	public void setQtdEmbalagem(String qtdEmbalagem) {
 		try{
-			this.qtdEmbalagem = Integer.parseInt(qtdEmbalagem);
+			this.qtdEmbalagem = Long.valueOf(qtdEmbalagem);
 		}catch(Exception e){
-			this.qtdEmbalagem = 0;
+			this.qtdEmbalagem = 0L;
 		}
 	}	
 	

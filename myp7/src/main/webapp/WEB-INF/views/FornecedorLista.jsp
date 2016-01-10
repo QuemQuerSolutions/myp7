@@ -38,7 +38,7 @@ $(document).ready(function(){
 		}
 
 		if($("#cnpjFornecedor").val() !== "")
-			$("#cnpjFornecedor").val($("#cnpjFornecedor").val().replace(/[^\d]+/g,'')); //retirar a formatação do cnpj
+			$("#cnpjFornecedor").val($("#cnpjFornecedor").val().replace(/[^\d]+/g,'')); //retirar a formataacao do cnpj
 			
 		go("#frmFornecedor");
 	});

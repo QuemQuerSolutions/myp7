@@ -4,7 +4,7 @@ public enum SituacaoIntegracaoEnum {
 	INTEGRADO("I", "integrado", "Integrado"),
 	APROVADO("A", "aprovado", "Aprovado"),
 	REPROVADO("R", "reprovado", "Reprovado"),
-	AGUARDANDO("G", "aguardando", "Aguard. AprovaÃ§Ã£o");
+	AGUARDANDO("G", "aguardando", "Aguard. Aprovação");
 	
 	private String valor;
 	private String valorHtml;

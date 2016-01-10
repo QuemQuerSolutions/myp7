@@ -25,7 +25,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="18" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
-					<text><![CDATA[AnÃ¡lise de Acordos Comerciais]]></text>
+					<text><![CDATA[Análise de Acordos Comerciais]]></text>
 				</staticText>
 				<image isUsingCache="true">
 					<reportElement mode="Opaque" x="27" y="17" width="123" height="34" forecolor="#F2F1F1" backcolor="#F2F1F1" uuid="04f473d3-4ee5-4119-8881-6d0f989b919d"/>
@@ -41,14 +41,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Nro TÃ­tulo]]></text>
+				<text><![CDATA[Nro Título]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="70" y="2" width="68" height="20" uuid="ca328375-c794-4b7e-9345-aad901a804a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[EspÃ©cie]]></text>
+				<text><![CDATA[Espécie]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="138" y="2" width="109" height="20" uuid="0b172943-84b9-4c7b-985b-2d7fc0308094"/>
@@ -76,7 +76,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Data InclusÃ£o]]></text>
+				<text><![CDATA[Data Inclusão]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="537" y="2" width="88" height="20" uuid="4e6cd94e-2b8a-4522-b7da-c9275576704e"/>
@@ -97,7 +97,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[SituaÃ§Ã£o]]></text>
+				<text><![CDATA[Situação]]></text>
 			</staticText>
 			<line>
 				<reportElement x="70" y="2" width="1" height="20" uuid="c6d554a3-25a8-4ddf-a07c-8daf8ba28b75"/>
@@ -292,15 +292,15 @@
 				<textElement>
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Reservados todos os direitos de patentes, uso, cÃ³pia e reproduÃ§Ã£o em favor da Myp7
-Â© Myp7 â€“ 2016. Todos os direitos reservados]]></text>
+				<text><![CDATA[Reservados todos os direitos de patentes, uso, cópia e reprodução em favor da Myp7
+© Myp7 2016. Todos os direitos reservados]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="0" y="0" width="762" height="13" backcolor="#E6E6E6" uuid="97b6aecd-330d-4faa-8cbc-2a9856311545"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["PÃ¡gina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="0" y="0" width="192" height="13" uuid="084276a2-1e05-4215-af98-b86ba2c6085a"/>

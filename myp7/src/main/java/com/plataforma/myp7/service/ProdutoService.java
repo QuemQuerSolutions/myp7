@@ -60,7 +60,7 @@ public class ProdutoService {
 								@RequestParam(value="larguraProduto", required=true) Double larguraProduto,
 								@RequestParam(value="idNcmProd", required=true) Long idNcmProd,
 								@RequestParam(value="idEmbalagemProd", required=true) Long idEmbalagem,
-								@RequestParam(value="qtdEmbalagemProd", required=true) Integer qtdEmbalagem,
+								@RequestParam(value="qtdEmbalagemProd", required=true) Long qtdEmbalagem,
 								@RequestParam(value="eandun", required=true)String eandun,
 								@RequestParam(value="caminhoImagem", required=false)String caminhoImagem){
 		
