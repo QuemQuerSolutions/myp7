@@ -113,7 +113,8 @@ function onClickLine(id){
 				</thead>
 				<tbody>
 					<c:forEach items="${lstUsuario}" var="u">
-						<tr class="${classLine}" onclick="onClickLine('${u.idUsuario}');">
+						<tr class="${u.ativo eq 1 ? 'registroAtivo' : 'registroInativo'}" 
+							onclick="onClickLine('${u.idUsuario}');">
 							<td>${u.idUsuario}</td>
 							<td>${u.razaoSocial}</td>
 							<td>${u.email}</td>

@@ -12,8 +12,8 @@
 	
 	<resultMap id="fornecedorComPessoaMap" type="com.plataforma.myp7.data.Fornecedor">
 		<id property="idFornecedor" 			column="frn_fornecedor.ID_FORNECEDOR" />
-		<result property="statusFornecedor"  	column="frn_fornecedor.STATUS" />
-		<result property="utilTabCustoFornc" 	column="frn_fornecedorUTILIZA_TABCUSTO" />
+		<result property="statusFornecedor"  	column="STATUS" />
+		<result property="utilTabCustoFornc" 	column="UTILIZA_TABCUSTO" />
 		<result property="razao" 				column="RAZAO" />
 		<result property="nroCpfCnpj" 			column="NRO_CPF_CNPJ" />
 		<result property="digCpfCnpj" 			column="DIG_CPF_CNPJ" />
@@ -33,8 +33,8 @@
 	<sql id="selectFornecedorComPessoaUsuario">
 		<![CDATA[
 			SELECT frn_fornecedor.ID_FORNECEDOR as idFornecedor, 
-					frn_fornecedor.STATUS, 
-			        frn_fornecedor.UTILIZA_TABCUSTO,	
+					frn_fornecedor.STATUS as status, 
+			        frn_fornecedor.UTILIZA_TABCUSTO as UTILIZA_TABCUSTO,	
 					RAZAO, 
 			        NRO_CPF_CNPJ, 
 			        DIG_CPF_CNPJ 

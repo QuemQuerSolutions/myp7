@@ -27,10 +27,6 @@ $(document).ready(function(){
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
-	//	if($("#idFornecedor").val() === "" && $("#cnpjFornecedor").val() === "" && $("#razao").val() === ""){
-	//		alerta("Informe ao menos um filtro para buscar.", "warning");
-	//		return;
-    //		}
 		
 		if( $("#cnpjFornecedor").val() !== "" &&!validarCNPJ($("#cnpjFornecedor").val())){
 			alerta("CNPJ inválido.", "warning");
@@ -136,36 +132,19 @@ function onClickLine(id){
 				<thead>
 					<tr style="text-align: center">
 						<th width="10%">Código</th>
-						<th width="60%">Razãzo social</th>	
+						<th width="60%">Razão social</th>	
 						<th width="15%">CNPJ</th>
 						<th>Util. Tab. de Custo</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${lstFornecedor}" var="fornec">
-					
-						<c:choose>
-							<c:when test="${fornec.statusFornecedor eq 'A'}">
-								<c:set var="classLine" value="registroAtivo" />
-							</c:when>
-							<c:otherwise>
-								<c:set var="classLine" value="registroInativo" />
-							</c:otherwise>
-						</c:choose>
-						
-						<c:choose>
-							<c:when test="${fornec.utilTabCustoFornc eq 'S'}">
-								<c:set var="valorTD" value="SIM" />
-							</c:when>
-							<c:otherwise>
-								<c:set var="valorTD" value="NÃƒO" />
-							</c:otherwise>
-						</c:choose>
-						<tr class="${classLine}" onclick="onClickLine('${fornec.idFornecedor}')">
+						<tr class="${fornec.statusFornecedor eq 'A' ? 'registroAtivo' : 'registroInativo'}" 
+							onclick="onClickLine('${fornec.idFornecedor}')">
 							<td>${fornec.idFornecedor}</td>
 							<td>${fornec.razao}</td>
 							<td>${fornec.cnpjFormatado}</td>
-							<td align="center">${valorTD}</td>
+							<td align="center">${fornec.utilTabCustoFornc eq 'S' ? 'Sim' : 'Não'}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
