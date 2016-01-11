@@ -13,6 +13,7 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String portal;
+	private String retaguarda;
 
 	private Long idUsuario;
 	private String razaoSocial;
@@ -25,6 +26,7 @@ public class Usuario implements Serializable{
 	
 	public Usuario(){
 		this.portal="P";
+		this.retaguarda = "R";
 	}
 	
 	public Usuario(Long idUsuario){
@@ -98,5 +100,15 @@ public class Usuario implements Serializable{
 	public void setPortal(String portal) {
 		this.portal = portal;
 	}
+
+	public String getRetaguarda() {
+		return retaguarda;
+	}
+
+	public void setRetaguarda(String retaguarda) {
+		this.retaguarda = retaguarda;
+	}
+	
+	
 
 }

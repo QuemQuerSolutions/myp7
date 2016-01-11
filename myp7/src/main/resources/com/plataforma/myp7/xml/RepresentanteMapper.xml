@@ -4,14 +4,14 @@
 <mapper namespace="com.plataforma.myp7.mapper.RepresentanteMapper">
 
 	<resultMap id="representanteMap" type="com.plataforma.myp7.data.Representante">
-		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
+		<id property="idRepresentante" 		column="idRepresentante"/>
 		<result property="status"  			column="rpr_Representante.STATUS" />
 		<result property="apelido" 			column="rpr_Representante.APELIDO" />
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
 	
 	<resultMap id="representanteMaisRazaoMap" type="com.plataforma.myp7.data.Representante">
-		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
+		<id property="idRepresentante" 		column="idRepresentante"/>
 		<result property="status"  			column="rpr_Representante.STATUS" />
 		<result property="apelido" 			column="rpr_Representante.APELIDO" />
 		<result property="razao" 			column="GBL_PESSOA.RAZAO" />
@@ -28,21 +28,21 @@
 
 	<sql id="selectRepresentante">
 		<![CDATA[
-			SELECT ID_REPRESENTANTE, 
+			SELECT rpr_representante.ID_REPRESENTANTE as idRepresentante, 
 				   rpr_representante.STATUS, 
 				   rpr_representante.APELIDO, 
-				   ID_USUARIO
+				   rpr_Representante.ID_USUARIO
 			FROM rpr_representante
 		  ]]>
 	</sql>
 	
 	<sql id="selectRepresentanteMaisRazao">
 		<![CDATA[
-			SELECT ID_REPRESENTANTE,
+			SELECT rpr_representante.ID_REPRESENTANTE as idRepresentante,
 				   rpr_representante.STATUS, 
 				   rpr_representante.APELIDO,
 				   GBL_PESSOA.RAZAO,
-				   ID_USUARIO
+				  rpr_Representante.ID_USUARIO
 			FROM rpr_representante 
 			JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = rpr_representante.ID_REPRESENTANTE
 		  ]]>
@@ -55,7 +55,16 @@
 		<if test="apelido != null">
 			AND UPPER(rpr_representante.APELIDO) like UPPER(#{apelido})
 		</if>
-		
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario = usuario.retaguarda)">
+ 			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
+ 		</if>
+	</sql>
+	
+	<sql id="joinUsuarioComprador">
+		<![CDATA[
+			JOIN rpr_representante_comprador ON rpr_representante_comprador.ID_REPRESENTANTE = rpr_representante.ID_REPRESENTANTE
+			JOIN cpr_comprador ON rpr_representante_comprador.ID_COMPRADOR = cpr_comprador.ID_COMPRADOR
+		]]>
 	</sql>
 	
 	<sql id="whereRepresentanteMaisRazao">
@@ -68,18 +77,27 @@
 	
 	<select id="obterPorParametro" resultMap="representanteMaisRazaoMap">
 		<include refid="selectRepresentanteMaisRazao" />
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+			<include refid="joinUsuarioComprador"></include>
+		</if>
 		WHERE 1=1
 		<include refid="whereRepresentanteMaisRazao" />
 	</select>
 	
 	<select id="obterPorParametroMaisRazao" resultMap="representanteMaisRazaoMap">
 		<include refid="selectRepresentanteMaisRazao" />
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+			<include refid="joinUsuarioComprador"></include>
+		</if>
 		WHERE 1=1
 		<include refid="whereRepresentanteMaisRazao" />
 	</select>	
 	
 	<select id="countPorParametro" resultType="int">
 		SELECT COUNT(1) FROM rpr_Representante
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+			<include refid="joinUsuarioComprador"></include>
+		</if>
 		WHERE 1=1
 		<include refid="whereRepresentante" />
 	</select>
@@ -87,6 +105,9 @@
 	<select id="countPorParametroMaisRazao" resultType="int">
 		SELECT COUNT(1) FROM rpr_Representante REP
 		INNER JOIN gbl_pessoa PESS on (REP.ID_REPRESENTANTE = PESS.ID_PESSOA)
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+			<include refid="joinUsuarioComprador"></include>
+		</if>
 		WHERE 1=1
 		<include refid="whereRepresentanteMaisRazao" />
 	</select>

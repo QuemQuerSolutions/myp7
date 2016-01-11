@@ -32,10 +32,15 @@ $(document).ready(function(){
 	
 	$("#btnPesquisarRepresentante").click(function(e){
 		e.stopPropagation();
+
+		console.log("valor: "+$("#lstProdutoAprovacao").length);
+		if($("#lstProdutoAprovacao").length > 0)
+			$("#paramTela").val("produtoAprovacao");
 				
 		var representante = {idRepresentante	: $("#idRepresentanteBusca").val(),
 							 razao				: $("#razaoSocialBusca").val(),
-							 apelido			: $("#apelidoBusca").val()};
+							 apelido			: $("#apelidoBusca").val(),
+							 param				: $("#paramTela").val()};
 		
 		$.ajax({
 		    type: "GET",
@@ -105,7 +110,9 @@ function getLineRepresentante(representante){
 				</button>
 				<h4 class="modal-title">Consulta de Representante</h4>
 			</div>
+			<input type="hidden" id="paramTela" value=""/>
 			<div class="modal-body" id="filtroModalRepresentante">
+				
 				<div id="content-header">
 					<div class="row">
 						<div class="col-md-2">

@@ -22,6 +22,7 @@ import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 @RequestMapping(value={"/retaguarda", "/admin"})
@@ -65,7 +66,8 @@ public class RepresentanteController {
 	
 	@RequestMapping(value="obterRepresentantePorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model, HttpSession session) {
-		representante.setUsuario(this.usuarioBO.getUserSession(session));
+		if(!Objects.isNull(representante.getParam()) && !Utils.isEmpty(representante.getParam()))
+			representante.setUsuario(this.usuarioBO.getUserSession(session));
 		return representanteBO.obterPorParametro(representante, model);
 	}
 	

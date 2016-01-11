@@ -51,7 +51,7 @@
 	</sql>
 	
 	<sql id="whereBuscaFornecedor">
-		WHERE 1=1
+		WHERE frn_fornecedor.STATUS = 'A'
 		<if test="idFornecedor != null">
 			AND frn_fornecedor.ID_FORNECEDOR = #{idFornecedor} 
 		</if>
@@ -84,7 +84,7 @@
 	
 	<select id="obterFornecedorPorId" resultMap="fornecedorMap">
 		<include refid="selectFornecedorComPessoaUsuario"/>
-		WHERE ID_FORNECEDOR = #{idFornecedor}
+		WHERE ID_FORNECEDOR = #{idFornecedor} AND STATUS = 'A'
 	</select>
 	
 	<select id="obterTodos" resultMap="fornecedorMap">
