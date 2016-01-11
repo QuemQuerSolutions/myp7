@@ -49,7 +49,7 @@ $(document).ready(function(){
 });
 
 function pesquisar(){
-	var filtroBusca = {idUsuario: 	$("#idRepresentante").val(),
+	var filtroBusca = {idUsuario: 	$("#idUsuario").val(),
 			  situacao: 	$("input[name=situacoes]:checked").attr("id"),
 			  idProduto:	$("#idProduto").val(),
 			  desProduto:	$("#descricao").val()};
@@ -191,12 +191,13 @@ function onClickBlank(){
 
 function addLineRepresentanteTab(representante){
 	var id = representante.idRepresentante;
+	$("#idUsuario").val(representante.idUsuario);
 	$("#idRepresentante").val(id);
 	$("#representante").val(representante.apelido);
 	
 	$.ajax({
 	    type: "GET",
-	    url: "obterQtdPorSituacao?idUsuario=".concat(id),
+	    url: "obterQtdPorSituacao?idUsuario=".concat(representante.idUsuario),
 	    contentType: "application/json; charset=ISO-8859-1",
 	    dataType: "json",
 	    success: function(data) {
@@ -254,7 +255,9 @@ function addLineRepresentanteTab(representante){
 			<div class="row">
 				<div class="col-md-4 form-group req">
 					<input type="hidden" id="idRepresentante">
+					<input type="hidden" id="idUsuario">
 					<input type="text" class="form-control" readonly="readonly" id="representante"/>
+					
 				</div>
 				<div class="col-md-1 form-group paddingleft0">
 				  	<a href="#" target="_self" class="form-control icon-search" id="buscaRepresentante"><span class="glyphicon glyphicon-search"></span></a>

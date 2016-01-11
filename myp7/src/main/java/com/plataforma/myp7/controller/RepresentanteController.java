@@ -7,6 +7,8 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.RepresentanteBO;
+import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.enums.Mensagem;
@@ -27,13 +30,16 @@ public class RepresentanteController {
 	@Autowired
 	private RepresentanteBO representanteBO;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
+	
 	@RequestMapping("Representante")
 	public String inicio(Model model){
 		return "RepresentanteLista";
 	}
 	
 	@RequestMapping("carregaListaRepresentante")
-	public String carregaListaRepresentante(Representante representante, String origem, Model model){
+	public String carregaListaRepresentante(Representante representante, String origem, Model model, HttpSession session){
 		try{
 			if ("save".equals(origem)){
 				setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
@@ -47,9 +53,10 @@ public class RepresentanteController {
 			model.addAttribute("idRepresentante", !Objects.isNull(representante)? representante.getIdRepresentante() : null );
 			model.addAttribute("apelido", !Objects.isNull(representante) ? emptyToNull(representante.getApelido().trim()) : null );
 			model.addAttribute("razao", !Objects.isNull(representante)? emptyToNull(representante.getRazao().trim()) : null );
-			
+			representante.setUsuario(this.usuarioBO.getUserSession(session));
 			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		}catch(Exception e){
+			e.printStackTrace();
 			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);
 		}
@@ -57,7 +64,8 @@ public class RepresentanteController {
 	}	
 	
 	@RequestMapping(value="obterRepresentantePorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model) {
+	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model, HttpSession session) {
+		representante.setUsuario(this.usuarioBO.getUserSession(session));
 		return representanteBO.obterPorParametro(representante, model);
 	}
 	

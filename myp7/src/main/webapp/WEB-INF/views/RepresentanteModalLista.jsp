@@ -22,7 +22,8 @@ $(document).ready(function(){
 		$("#lstRepresentanteModal tr").each(function(){
 			if($(this).hasClass($("#theme").val())){
 				representante = {idRepresentante	: $(this).find('td[data-id]').text(),
-						   		 apelido			: $(this).find('td[data-apelido]').text(),}
+						   		 apelido			: $(this).find('td[data-apelido]').text(),
+						   		 idUsuario			: $(this).find('td[data-idUsu]').text()}
 			}
 		});	
 		addLineRepresentanteTab(representante);
@@ -46,7 +47,7 @@ $(document).ready(function(){
 			    var lines = "";
 			    
 			    if(lista.length == 0){
-			    	$("#lstRepresentanteModal").html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
+			    	$("#lstRepresentanteModal").html("<tr><td colspan='3'>Nenhum registro encontrado</td></tr>");
 			    	return;
 			    }
 			    
@@ -85,8 +86,8 @@ function getLineRepresentante(representante){
 	
 	line = line.concat("<tr onclick='onClickLineRepresentante(", representante.idRepresentante,")'>");
 	line = line.concat("<td data-id>", representante.idRepresentante, "</td>");
-	line = line.concat("<td>", representante.usuario.idUsuario, "</td>");
-		line = line.concat("<td data-apelido>", representante.apelido, "</td>");
+	line = line.concat("<td data-idUsu>", representante.usuario.idUsuario, "</td>");
+	line = line.concat("<td data-apelido>", representante.apelido, "</td>");
 	line = line.concat("</tr>");
 	
 	return line;

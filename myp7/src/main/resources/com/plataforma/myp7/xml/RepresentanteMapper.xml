@@ -5,16 +5,16 @@
 
 	<resultMap id="representanteMap" type="com.plataforma.myp7.data.Representante">
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
-		<result property="status"  			column="STATUS" />
-		<result property="apelido" 			column="APELIDO" />
+		<result property="status"  			column="rpr_Representante.STATUS" />
+		<result property="apelido" 			column="rpr_Representante.APELIDO" />
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>
 	
 	<resultMap id="representanteMaisRazaoMap" type="com.plataforma.myp7.data.Representante">
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
-		<result property="status"  			column="STATUS" />
-		<result property="apelido" 			column="APELIDO" />
-		<result property="razao" 			column="RAZAO" />
+		<result property="status"  			column="rpr_Representante.STATUS" />
+		<result property="apelido" 			column="rpr_Representante.APELIDO" />
+		<result property="razao" 			column="GBL_PESSOA.RAZAO" />
 		<association property="usuario" 	column="ID_USUARIO" select="com.plataforma.myp7.mapper.UsuarioMapper.obterPorId"/>
 	</resultMap>	
 	
@@ -22,43 +22,47 @@
 	
 	<resultMap id="mapSimples" type="com.plataforma.myp7.data.Representante">
 		<id property="idRepresentante" 		column="ID_REPRESENTANTE"/>
-		<result property="status"  			column="STATUS" />
-		<result property="apelido" 			column="APELIDO" />
+		<result property="status"  			column="rpr_representante.STATUS" />
+		<result property="apelido" 			column="rpr_representante.APELIDO" />
 	</resultMap>
 
 	<sql id="selectRepresentante">
 		<![CDATA[
-			SELECT ID_REPRESENTANTE, STATUS, APELIDO, ID_USUARIO
-			FROM rpr_Representante
+			SELECT ID_REPRESENTANTE, 
+				   rpr_representante.STATUS, 
+				   rpr_representante.APELIDO, 
+				   ID_USUARIO
+			FROM rpr_representante
 		  ]]>
 	</sql>
 	
 	<sql id="selectRepresentanteMaisRazao">
 		<![CDATA[
 			SELECT ID_REPRESENTANTE,
-				   STATUS, APELIDO,
-				   RAZAO ,
-				   ID_USUARIO,
-				   RAZAO
-			FROM rpr_Representante 
-			JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = rpr_Representante.ID_REPRESENTANTE
+				   rpr_representante.STATUS, 
+				   rpr_representante.APELIDO,
+				   GBL_PESSOA.RAZAO,
+				   ID_USUARIO
+			FROM rpr_representante 
+			JOIN GBL_PESSOA ON GBL_PESSOA.ID_PESSOA = rpr_representante.ID_REPRESENTANTE
 		  ]]>
 	</sql>	
 	
 	<sql id="whereRepresentante">
 		<if test="idRepresentante != null">
-			AND ID_REPRESENTANTE = #{idRepresentante}
+			AND rpr_representante.ID_REPRESENTANTE = #{idRepresentante}
 		</if>
 		<if test="apelido != null">
-			AND UPPER(APELIDO) like UPPER(#{apelido})
+			AND UPPER(rpr_representante.APELIDO) like UPPER(#{apelido})
 		</if>
+		
 	</sql>
 	
 	<sql id="whereRepresentanteMaisRazao">
 		<include refid="whereRepresentante" />
 		
 		<if test="razao != null">
-			AND UPPER(RAZAO) like UPPER(#{razao})
+			AND UPPER(GBL_PESSOA.RAZAO) like UPPER(#{razao})
 		</if>
 	</sql>	
 	
@@ -89,17 +93,17 @@
 			
 	<select id="obterTodosRepresentantes" resultMap="representanteMap">
 		<include refid="selectRepresentante"/>
-		ORDER BY ID_REPRESENTANTE
+		ORDER BY rpr_Representante.ID_REPRESENTANTE
 	</select>
 	
 	<select id="obterPorId" resultMap="representanteMaisRazaoMap">
 		<include refid="selectRepresentanteMaisRazao"/>
-		WHERE ID_REPRESENTANTE = #{idRepresentante}
+		WHERE rpr_Representante.ID_REPRESENTANTE = #{idRepresentante}
 	</select>
 	
 	<select id="obterPorIdUsuario" resultMap="representanteMap">
 		<include refid="selectRepresentante"/>
-		WHERE ID_USUARIO = #{id} 
+		WHERE rpr_Representante.ID_USUARIO = #{id} 
 	</select>
 	
 	<insert id="insertRepresentante">

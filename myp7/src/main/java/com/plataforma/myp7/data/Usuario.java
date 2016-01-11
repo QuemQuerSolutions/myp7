@@ -13,7 +13,7 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String portal;
-	
+
 	private Long idUsuario;
 	private String razaoSocial;
 	private String email;
@@ -98,6 +98,5 @@ public class Usuario implements Serializable{
 	public void setPortal(String portal) {
 		this.portal = portal;
 	}
-	
-	
+
 }
