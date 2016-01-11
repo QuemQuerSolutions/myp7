@@ -135,8 +135,8 @@ function goComprador(){
 						
 						<tr class="${classLine}" onclick="onClickLine(${c.id})">
 							<td>${c.id}</td>
-							<td>${c.razao}</td>
 							<td>${c.apelido}</td>
+							<td>${c.razao}</td>
 							<td>${c.ediCodigo}</td>
 						</tr>
 					</c:forEach>

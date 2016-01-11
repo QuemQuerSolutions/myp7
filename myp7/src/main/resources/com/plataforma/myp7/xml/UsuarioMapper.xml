@@ -72,7 +72,7 @@
 	</update>
 	
 	<update id="update">
-		UPDATE usu_usuario SET razao_social=#{razaoSocial}, usu_cnpj=#{nDocumento},
+		UPDATE usu_usuario SET razao_social=#{razaoSocial}, usu_cnpj=#{nDocumento}, USU_EMAIL=#{email},
 							   USU_ATIVO = #{ativo}, usu_senha=#{senha}, TIPOUSUARIO=#{tipoUsuario}
 		WHERE ID_USUARIO=#{idUsuario}
 	</update>
