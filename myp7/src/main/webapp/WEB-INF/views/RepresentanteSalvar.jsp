@@ -44,7 +44,7 @@ function verificaFornecedor(id, uuid, qtdFornecedor, escopo, lista){
 	    dataType: "json",
         success : function(retornoList) {
         	if(retornoList.length > 0){
-        		alerta("Fornecedor não pode ser dessacioado ao Representante.", "warning");
+        		alerta("Fornecedor não pode ser desassocioado ao Representante.", "warning");
         		return;
         	}
         	onRemoveLine(uuid,qtdFornecedor);
