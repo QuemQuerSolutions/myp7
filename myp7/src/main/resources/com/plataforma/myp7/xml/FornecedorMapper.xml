@@ -51,7 +51,7 @@
 	</sql>
 	
 	<sql id="whereBuscaFornecedor">
-		WHERE frn_fornecedor.STATUS = 'A'
+		WHERE 1=1
 		<if test="idFornecedor != null">
 			AND frn_fornecedor.ID_FORNECEDOR = #{idFornecedor} 
 		</if>
