@@ -9,15 +9,14 @@ $(document).ready(function(){
 	if($("#filtro").val() !== ""){
 		var filtro = $("#filtro").val().split(";");
 		
-		addLineRepresentanteTab({idRepresentante: filtro[0], apelido: filtro[1]});
-		
-	 	$("input[name=situacoes]").parent().removeClass("active");
-	 	$("input[name=situacoes]").attr("checked", false);
-		$("#"+filtro[2]).parent().addClass("active");
-		$("#"+filtro[2]).attr("checked", true);
+		addLineRepresentanteTab({idRepresentante: filtro[0], idUsuario: filtro[1], apelido: filtro[2]});
+	 	$("input[name=situacao]").parent().removeClass("active");
+	 	$("input[name=situacao]").attr("checked", false);
+		$("#"+filtro[3]).parent().addClass("active");
+		$("#"+filtro[3]).prop("checked", true);
 
-		$("#idProduto").val(filtro[3]);
-		$("#descricao").val(filtro[4]);
+		$("#idProduto").val(filtro[4]);
+		$("#descricao").val(filtro[5]);
 		
 		pesquisar();
 	}
@@ -36,7 +35,7 @@ $(document).ready(function(){
 		e.stopPropagation();
 		clearAll();
 		$(".badge").text(0);
-		$("input[name=situacoes]").parent().removeClass("active");
+		$("input[name=situacao]").parent().removeClass("active");
 		$("#aguardando").parent().addClass("active");
 		$("#lstProdutoAprovacao").html("");
 	});
@@ -49,10 +48,12 @@ $(document).ready(function(){
 });
 
 function pesquisar(){
-	var filtroBusca = {idUsuario: 	$("#idUsuario").val(),
-			  situacao: 	$("input[name=situacoes]:checked").attr("id"),
+	var filtroBusca = {
+			  idUsuario: 	$("#idUsuario").val(),
+			  situacao: 	$("input[name=situacao]:checked").attr("id"),
 			  idProduto:	$("#idProduto").val(),
-			  desProduto:	$("#descricao").val()};
+			  desProduto:	$("#descricao").val()
+			  		};
 
 	$.ajax({
 	  type: "GET",
@@ -123,8 +124,9 @@ function onClickLine(idProduto){
 	
 	var filtro = "";
 	filtro = filtro.concat(	$("#idRepresentante").val(), ";",
+							$("#idUsuario").val() , ";",
 						 	$("#representante").val(), ";",
-						 	$("input[name=situacoes]:checked").attr("id"), ";",
+						 	$("input[name=situacao]:checked").attr("id"), ";",
 						 	$("#idProduto").val(), ";",
 						 	$("#descricao").val());
 	
@@ -264,26 +266,26 @@ function addLineRepresentanteTab(representante){
 				</div>
 				<div class="col-md-7 form-group btn-group" data-toggle="buttons">
 					<label class="btn ${theme} active">
-    					<input type="radio" name="situacoes" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
+    					<input type="radio" name="situacao" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
     					<span id="qtdAguardando" class="badge">0</span>
   					</label>
 					
 					<label class="btn ${theme}">
-    					<input type="radio" name="situacoes" id="aprovado" autocomplete="off"> Aprovado 
+    					<input type="radio" name="situacao" id="aprovado" autocomplete="off"> Aprovado 
     					<span id="qtdAprovado" class="badge">0</span>
   					</label>
   					<label class="btn ${theme}">
-    					<input type="radio" name="situacoes" id="reprovado" autocomplete="off"> Reprovado 
+    					<input type="radio" name="situacao" id="reprovado" autocomplete="off"> Reprovado 
     					<span id="qtdReprovado" class="badge">0</span>
   					</label>
 
 					<label class="btn ${theme}">
-					    <input type="radio" name="situacoes" id="integrado" autocomplete="off"> Integrado 
+					    <input type="radio" name="situacao" id="integrado" autocomplete="off"> Integrado 
 					    <span id="qtdIntegrado" class="badge">0</span>
 					  </label>
   					
 					<label class="btn ${theme}">
-    					<input type="radio" name="situacoes" id="todos" autocomplete="off"> Todos 
+    					<input type="radio" name="situacao" id="todos" autocomplete="off"> Todos 
     					<span id="qtdTodos" class="badge">0</span>
   					</label>
 				</div>
@@ -304,7 +306,8 @@ function addLineRepresentanteTab(representante){
 			    			class="form-control" 
 			    			id="idProduto" 
 			    			name="idProduto" 
-			    			maxlength="11" />
+			    			maxlength="11"
+			    			value="" />
 				</div>
 				
 				<div class="col-md-8 form-group">
@@ -312,7 +315,8 @@ function addLineRepresentanteTab(representante){
 			    			class="form-control" 
 			    			id="descricao" 
 			    			name="descricao" 
-			    			maxlength="45"/>
+			    			maxlength="45"
+			    			value="" />
 				</div>
 				
 				<div class="col-md-1 form-group" id="btnpesquisar">
