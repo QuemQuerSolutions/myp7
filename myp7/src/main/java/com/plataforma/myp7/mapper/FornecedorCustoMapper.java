@@ -29,4 +29,6 @@ public interface FornecedorCustoMapper {
 									 @Param("idFornecedorCusto") Long idFornecedorCusto,
 									 @Param("idUsuAprovacao") Long idUsuAprovacao,
 									 @Param("dataAprovacao") Date dataAprovacao);
+
+	List<FornecedorCusto> obterRepresentanteCustoAprovacao(@Param("idRepresentante") Long id);
 }

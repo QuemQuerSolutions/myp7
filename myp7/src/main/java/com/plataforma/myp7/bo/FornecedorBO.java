@@ -1,7 +1,6 @@
 package com.plataforma.myp7.bo;
 
 import static com.plataforma.myp7.util.Utils.emptyToNull;
-import static com.plataforma.myp7.util.Utils.format;
 import static com.plataforma.myp7.util.Utils.setCodRetorno;
 import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
@@ -15,14 +14,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
+import com.plataforma.myp7.mapper.FornecedorCustoMapper;
 import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.mapper.RepresentanteFornecedorMapper;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class FornecedorBO {
@@ -32,6 +34,9 @@ public class FornecedorBO {
 	
 	@Autowired
 	private RepresentanteFornecedorMapper representanteFornecedorMapper;
+	
+	@Autowired
+	private FornecedorCustoMapper fornecedorCustoMapper;
 	
 	public List<Fornecedor> obterTodos(){
 		return this.fornecedorMapper.obterTodos();
@@ -101,7 +106,7 @@ public class FornecedorBO {
 	private List<Fornecedor> formataCNPJ(List<Fornecedor> lstFornecedor){
 		List<Fornecedor> lstFornecedorNovo = new ArrayList<Fornecedor>();
 		for(Fornecedor f:lstFornecedor){
-			f.setCnpjFormatado(format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()))));
+			f.setCnpjFormatado(Utils.format("##.###.###/####-##", f.getNroCpfCnpj().concat(String.valueOf(f.getDigCpfCnpj()))));
 			lstFornecedorNovo.add(f);
 		}
 		return lstFornecedorNovo;
@@ -111,7 +116,8 @@ public class FornecedorBO {
 		if(Objects.isNull(idFornecedor)) 
 			return new Fornecedor();
 		Fornecedor fornecedor = this.fornecedorMapper.obterFornecedorPorId(idFornecedor);
-		fornecedor.setRepresentantes(this.getListRepresentante(this.representanteFornecedorMapper.obterPorFornecedor(idFornecedor)));
+		List<RepresentanteFornecedor> lstRepresentanteFornecedors = this.representanteFornecedorMapper.obterPorFornecedor(idFornecedor);
+		fornecedor.setRepresentantes(getListRepresentante(lstRepresentanteFornecedors));
 		return fornecedor;
 	}
 
@@ -143,6 +149,11 @@ public class FornecedorBO {
 			if(!Objects.isNull(rpFornecedor.getRepresentante().getIdRepresentante()))
 				this.representanteFornecedorMapper.insert(rpFornecedor);	
 		}
+	}
+	
+	public List<FornecedorCusto> obterCustoAprovacaoPorRepresentante(Long id){
+		return this.fornecedorCustoMapper.obterRepresentanteCustoAprovacao(id);
+		
 	}
 	
 }

@@ -55,7 +55,7 @@
 		<if test="apelido != null">
 			AND UPPER(rpr_representante.APELIDO) like UPPER(#{apelido})
 		</if>
-		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario = usuario.retaguarda)">
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
  			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
  		</if>
 	</sql>

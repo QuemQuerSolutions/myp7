@@ -16,7 +16,7 @@ public class FornecedorCusto {
 	private Produto produto;
 	private BigDecimal valorAnterior;
 	private BigDecimal valor;
-	private Integer idRepresentante;
+	private Long idRepresentante;
 	private String situacao;
 	private Usuario usuAprovacao;
 	private Date dataAprovacao;
@@ -117,10 +117,10 @@ public class FornecedorCusto {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	public Integer getIdRepresentante() {
+	public Long getIdRepresentante() {
 		return idRepresentante;
 	}
-	public void setIdRepresentante(Integer idRepresentante) {
+	public void setIdRepresentante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
 	}
 	public BigDecimal getValorAnterior() {

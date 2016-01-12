@@ -11,20 +11,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.plataforma.myp7.data.Fornecedor;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Produto;
+import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 import com.plataforma.myp7.mapper.FornecedorCustoMapper;
+import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.util.Utils;
 
 @Service
 public class FornecedorCustoBO {
-
+	
+	
 	@Autowired
 	private FornecedorCustoMapper fornecedorCustoMapper;
+	
+	@Autowired
+	private FornecedorMapper fornecedorMapper;
 	
 	public List<FornecedorCusto> seleciona() {
 		return this.fornecedorCustoMapper.obterTodos();
@@ -39,7 +46,6 @@ public class FornecedorCustoBO {
 		fc.setValorAnterior(new BigDecimal(valorAtual.replace(',', '.')));
 		
 		this.fornecedorCustoMapper.atualizarFornecedorCusto(fc);
-		
 		return fc;
 	}
 
@@ -63,7 +69,8 @@ public class FornecedorCustoBO {
 		}
 		
 		fc.setProduto(prodt);
-		fc.setIdRepresentante(Integer.parseInt(fornecedor));
+		
+		fc.setIdRepresentante(this.getRepresentante(this.fornecedorMapper.obterFornecedorPorId(Long.parseLong(fornecedor))));
 		fc.setIdEmpresa(Integer.parseInt(empresa));
 		
 		return this.fornecedorCustoMapper.obterComFiltro(fc);
@@ -110,5 +117,18 @@ public class FornecedorCustoBO {
 		Long idUsuario = usuarioAtualizacao.getIdUsuario();
 		for(Long id : idFornecedorCusto)
 			this.fornecedorCustoMapper.updateStatusFornecedorCusto(situacaoEnum.getSigla(), id, idUsuario, hoje);
+	}
+	
+	private Long getRepresentante(Fornecedor fornecedor){
+		Long idRepresentante= null;
+		for(Representante rp: fornecedor.getRepresentantes()){
+			for(Fornecedor forn:rp.getFornecedores()){
+				if(forn.getIdFornecedor().equals(fornecedor)){
+					idRepresentante = rp.getIdRepresentante();
+					return idRepresentante;
+				}
+			}
+		}
+		return idRepresentante;
 	}
 }

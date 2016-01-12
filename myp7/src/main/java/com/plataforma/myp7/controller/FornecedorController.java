@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.plataforma.myp7.bo.FornecedorBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Fornecedor;
+import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
@@ -83,6 +84,11 @@ public class FornecedorController {
 	@RequestMapping(value="consultarFornecedor", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Fornecedor> consultarFornecedor(Fornecedor fornecedor, HttpSession session){
 		return this.fornecedorBO.obterFornecedorPorParametro(fornecedor, this.usuarioBO.getUserSession(session));
+	}
+	
+	@RequestMapping(value="obterFornecedorCustoPorIdRepresentante", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FornecedorCusto> obterFornecedorCustoPorIdRepresentante(Long id) {
+		return fornecedorBO.obterCustoAprovacaoPorRepresentante(id);
 	}
 	
 	

@@ -32,14 +32,6 @@ public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	private String msgRetorno;
 	private Integer codRetorno;
 	
-	public String getParam() {
-		return param;
-	}
-
-	public void setParam(String param) {
-		this.param = param;
-	}
-
 	public Representante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
 	}
@@ -133,5 +125,13 @@ public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	@Override
 	public String getDescricaoCombo() {
 		return this.getApelido();
+	}
+	
+	public String getParam() {
+		return param;
+	}
+
+	public void setParam(String param) {
+		this.param = param;
 	}
 }

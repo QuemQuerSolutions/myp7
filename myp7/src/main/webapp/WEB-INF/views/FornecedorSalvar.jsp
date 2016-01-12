@@ -42,7 +42,7 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='onRemoveLine(\"",uuid,"\", \"qtdRepresentante\"); reindex(\"#linesRepresentante\", \"representantes\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='verificaFornecedor(\"",id,"\"",uuid,"\", \"qtdRepresentante\",\"#linesRepresentante\", \"representantes\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
@@ -55,6 +55,28 @@ function addLineRepresentanteTab(representante){
 
 function onAddRepresentante(){
 	$("#consulta_representante").modal();
+}
+
+function verificaFornecedor(id, uuid, qtdRepresentante, escopo, lista){
+	$.ajax({
+		url : "obterFornecedorCustoPorIdRepresentante?id=".concat(id),
+		type: "GET",
+        contentType: "application/json; charset=ISO-8859-1",
+	    dataType: "json",
+        success : function(retornoList) {
+        	if(retornoList.length > 0){
+        		alerta("Representante não pode ser desassocioado do Fornecedor.", "warning");
+        		return;
+        	}
+        	onRemoveLine(uuid,qtdRepresentante);
+        	reindex(escopo, lista);
+        	
+        },
+        error: function (xhr, textStatus, errorThrown) {
+	        alerta("Erro ao excluir.","warning");
+        }
+    });
+
 }
 
 </script>
@@ -113,7 +135,7 @@ function onAddRepresentante(){
 									<form:hidden path="objFornecedor.representantes[${i.index}].idRepresentante" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${rep.uuid}" onclick="onRemoveLine('${rep.uuid}', 'qtdRepresentante'); reindex('#linesRepresentante', 'representantes');" >
+									<a href="#" id="${rep.uuid}" onclick="verificaFornecedor('${rep.idRepresentante}','${rep.uuid}', 'qtdRepresentante','#linesRepresentante', 'representantes');">
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>
