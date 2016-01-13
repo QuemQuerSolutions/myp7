@@ -167,7 +167,7 @@
 					    var lines = "";
 					    
 					    if(lista.length == 0){
-					    	$("#resultado").html("<tr><td colspan='1'>Nenhum registro encontrado</td></tr>");
+					    	$("#resultado").html("<tr><td colspan='5'>Nenhum registro encontrado</td></tr>");
 					    	return;
 					    }
 					    
@@ -181,7 +181,7 @@
 					    //	lines += getLineAprovacao(custo);
 					    //});
 					    
-					    $("#resultado").html(data);
+					    $("#resultado").html(lista);
 				  },
 				  error: function (xhr, textStatus, errorThrown) {
 				  	console.log("Erro ao retornar lista: ",errorThrown);

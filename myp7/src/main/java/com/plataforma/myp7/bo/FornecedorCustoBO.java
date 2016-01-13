@@ -20,7 +20,6 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 import com.plataforma.myp7.mapper.FornecedorCustoMapper;
-import com.plataforma.myp7.mapper.FornecedorMapper;
 import com.plataforma.myp7.util.Utils;
 
 @Service
@@ -31,7 +30,8 @@ public class FornecedorCustoBO {
 	private FornecedorCustoMapper fornecedorCustoMapper;
 	
 	@Autowired
-	private FornecedorMapper fornecedorMapper;
+	private FornecedorBO fornecedorBO;
+	
 	
 	public List<FornecedorCusto> seleciona() {
 		return this.fornecedorCustoMapper.obterTodos();
@@ -69,8 +69,7 @@ public class FornecedorCustoBO {
 		}
 		
 		fc.setProduto(prodt);
-		
-		fc.setIdRepresentante(this.getRepresentante(this.fornecedorMapper.obterFornecedorPorId(Long.parseLong(fornecedor))));
+		fc.setIdRepresentante(getRepresentanteFornecedorCusto(fornecedorBO.obterPorId(Long.parseLong(fornecedor))));
 		fc.setIdEmpresa(Integer.parseInt(empresa));
 		
 		return this.fornecedorCustoMapper.obterComFiltro(fc);
@@ -80,6 +79,19 @@ public class FornecedorCustoBO {
 		return this.fornecedorCustoMapper.qtdPorSituacao(idUsuario);
 	}
 
+	private Long getRepresentanteFornecedorCusto(Fornecedor fornecedor){
+		List<FornecedorCusto> lstFornecCusto = new ArrayList<FornecedorCusto>();
+		for(Representante rep: fornecedor.getRepresentantes()){
+			lstFornecCusto = fornecedorBO.obterCustoAprovacaoPorRepresentante(rep.getIdRepresentante());
+			for(FornecedorCusto fornecCusto: lstFornecCusto){
+				if(fornecCusto.getFornecedor().getIdFornecedor().equals(fornecedor.getIdFornecedor())
+						&& rep.getIdRepresentante().equals(fornecCusto.getIdRepresentante()))
+					return fornecCusto.getIdRepresentante();
+			}
+		}
+		
+		return null;
+	}
 	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto, String codigo, String tipo) {
 		if(fornecedorCusto.getProduto() != null)
 			fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
@@ -119,16 +131,4 @@ public class FornecedorCustoBO {
 			this.fornecedorCustoMapper.updateStatusFornecedorCusto(situacaoEnum.getSigla(), id, idUsuario, hoje);
 	}
 	
-	private Long getRepresentante(Fornecedor fornecedor){
-		Long idRepresentante= null;
-		for(Representante rp: fornecedor.getRepresentantes()){
-			for(Fornecedor forn:rp.getFornecedores()){
-				if(forn.getIdFornecedor().equals(fornecedor)){
-					idRepresentante = rp.getIdRepresentante();
-					return idRepresentante;
-				}
-			}
-		}
-		return idRepresentante;
-	}
 }
