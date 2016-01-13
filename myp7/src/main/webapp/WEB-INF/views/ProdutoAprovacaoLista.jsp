@@ -20,7 +20,38 @@ $(document).ready(function(){
 		
 		pesquisar();
 	}
+
+	$("#cbTodos").click(function(e){
+		$('.cbAprovacao').each(function(){
+			if($('#cbTodos').prop('checked'))
+				$(this).prop('checked', true);
+			else
+				$(this).prop('checked', false);
+		});
+	});
+
+	$("#btnAprovar").click(function(){
+		pupulaArraySelecionados();
+		onClickAprovarVarios(pupulaArraySelecionados());
+	});
+
+	$("#btnReprovar").click(function(){
+		pupulaArraySelecionados();
+		onClickReprovarVarios(pupulaArraySelecionados());
+	});
+
+	function pupulaArraySelecionados(){
+		var arraySelecionados = new Array();
 		
+		$('.cbAprovacao').each(function(){
+			if($(this).prop('checked'))
+				arraySelecionados.push($(this).attr("idLinha"));
+		});
+
+		$("#cbTodos").prop('checked', false);
+
+		return arraySelecionados;
+	}	
 	
 	$("#pesquisar").click(function(e){
 		e.stopPropagation();
@@ -29,6 +60,11 @@ $(document).ready(function(){
 			return;
 		}
 		pesquisar();
+	});
+
+	$(".statusPesquisar").click(function(e){
+		if(isValidRequired())
+			pesquisar();
 	});
 	
 	$("#limpar").click(function(e){
@@ -92,6 +128,12 @@ function getLineAprovacao(produto){
 	var line = "";
 
 	line = line.concat("<tr>");
+
+	if(produto.situacao.indexOf("G") > -1)
+		line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", produto.idProduto ," id='cb", produto.idProduto ,"'></td>");
+	else
+		line = line.concat("<td class='centralizar-componente'><span class='glyphicon glyphicon-asterisk' title='Esse produto não pode ser alterado' aria-hidden='true'></span></td>");
+	
 	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.eanDunProduto ,"</td>");
 // 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
 	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.desProduto ,"</td>");
@@ -187,6 +229,68 @@ function onClickAprovar(idProduto){
 	});
 }
 
+function onClickReprovarVarios(idProdutos){
+	if(idProdutos.length > 0){
+		swal({
+			title : "",
+			text : "Tem certeza que deseja Reprovar?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#F0AD4E",
+			confirmButtonText : "Reprovar",
+			cancelButtonText: "Cancelar",
+			closeOnConfirm : false,
+			html: false
+		},
+		function() {
+			$.get("reprovarProdutos?idProdutos=".concat(idProdutos), function(){
+				pesquisar();
+				var qtdAguardando = parseInt($("#qtdAguardando").text());
+				var qtdReprovado = parseInt($("#qtdReprovado").text());
+
+				$.each(idProdutos, function() {
+					$("#qtdAguardando").text(--qtdAguardando);
+					$("#qtdReprovado").text(++qtdReprovado);
+				});
+				swal("Produto reprovado com sucesso", "", "success");
+			});
+		});
+	}else{
+		swal("Selecione ao menos uma linha", "", "warning");
+	}
+}
+
+function onClickAprovarVarios(idProdutos){
+	if(idProdutos.length > 0){
+		swal({
+			title : "",
+			text : "Tem certeza que deseja Aprovar?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#F0AD4E",
+			confirmButtonText : "Aprovar",
+			cancelButtonText: "Cancelar",
+			closeOnConfirm : false,
+			html: false
+		},
+		function() {
+			$.get("aprovarProdutos?idProdutos=".concat(idProdutos), function(){
+				pesquisar();
+				var qtdAguardando = parseInt($("#qtdAguardando").text());
+				var qtdAprovado = parseInt($("#qtdAprovado").text());
+
+				$.each(idProdutos, function() {
+					$("#qtdAguardando").text(--qtdAguardando);
+					$("#qtdAprovado").text(++qtdAprovado);
+				});
+				swal("Produto aprovado com sucesso", "", "success");
+			});
+		});
+	}else{
+		swal("Selecione ao menos uma linha", "", "warning");
+	}		
+}
+
 function onClickBlank(){
 	alerta("Esse produto não pode ser alterado","warning");
 }
@@ -265,26 +369,26 @@ function addLineRepresentanteTab(representante){
 				  	<a href="#" target="_self" class="form-control icon-search" id="buscaRepresentante"><span class="glyphicon glyphicon-search"></span></a>
 				</div>
 				<div class="col-md-7 form-group btn-group" data-toggle="buttons">
-					<label class="btn ${theme} active">
+					<label class="btn ${theme} active statusPesquisar">
     					<input type="radio" name="situacao" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
     					<span id="qtdAguardando" class="badge">0</span>
   					</label>
 					
-					<label class="btn ${theme}">
+					<label class="btn ${theme} statusPesquisar">
     					<input type="radio" name="situacao" id="aprovado" autocomplete="off"> Aprovado 
     					<span id="qtdAprovado" class="badge">0</span>
   					</label>
-  					<label class="btn ${theme}">
+  					<label class="btn ${theme} statusPesquisar">
     					<input type="radio" name="situacao" id="reprovado" autocomplete="off"> Reprovado 
     					<span id="qtdReprovado" class="badge">0</span>
   					</label>
 
-					<label class="btn ${theme}">
+					<label class="btn ${theme} statusPesquisar">
 					    <input type="radio" name="situacao" id="integrado" autocomplete="off"> Integrado 
 					    <span id="qtdIntegrado" class="badge">0</span>
 					  </label>
   					
-					<label class="btn ${theme}">
+					<label class="btn ${theme} statusPesquisar">
     					<input type="radio" name="situacao" id="todos" autocomplete="off"> Todos 
     					<span id="qtdTodos" class="badge">0</span>
   					</label>
@@ -336,9 +440,12 @@ function addLineRepresentanteTab(representante){
 			<table  class="table table-hover table-bordered table-striped mouse-click">
 				<thead>
 					<tr>
+						<th width="5%" class="centralizar-componente">
+							<input type="checkbox" id="cbTodos">
+						</th>					
 						<th width="30%">Código EAN</th>
 <!-- 						<th width="15%">Código Import</th> -->
-						<th width="45%">Descrição</th>
+						<th width="40%">Descrição</th>
 						<th width="15%">Situação</th>
 						<th width="10%" class="text-center">Ação</th>
 					</tr>
@@ -349,6 +456,9 @@ function addLineRepresentanteTab(representante){
 	
 	</div>
 	<c:import url="RepresentanteModalLista.jsp"/>
-	<c:import url="/WEB-INF/views/components/footer.jsp" />
+	
+	<c:import url="/WEB-INF/views/components/footer.jsp">
+		<c:param name="salvar" value="reprovar_aprovar" />
+	</c:import>
 </body>
 </html>

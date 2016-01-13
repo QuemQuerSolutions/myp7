@@ -16,6 +16,7 @@ import com.plataforma.myp7.bo.ProdutoBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 
 @Controller
 @RequestMapping(value={"/retaguarda", "/admin"})
@@ -54,5 +55,22 @@ public class ProdutoAprovacaoController {
 	public String reprovarProduto(Long idProduto){
 		produtoBO.reprovarProduto(idProduto);
 		return "ProdutoAprovacaoLista";
+	}
+	
+	@RequestMapping(value="aprovarProdutos", method=RequestMethod.GET)
+	public String aprovarProdutos(Long[] idProdutos, HttpSession session){
+		Usuario usuario = usuarioBO.getUserSession(session);
+		for(Long idProduto : idProdutos)
+			produtoBO.aprovarProduto(idProduto, usuario);
+		
+		return "CustoAprovacaoLista";
+	}
+	
+	@RequestMapping(value="reprovarProdutos", method=RequestMethod.GET)
+	public String reprovarProdutos(Long[] idProdutos){
+		for(Long idProduto : idProdutos)
+			produtoBO.reprovarProduto(idProduto);
+		
+		return "CustoAprovacaoLista";
 	}
 }
