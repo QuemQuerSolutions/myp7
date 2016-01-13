@@ -34,7 +34,7 @@ public enum SituacaoIntegracaoEnum {
 		if("todos".equals(valorHtml)) return null;
 		
 		for(SituacaoIntegracaoEnum situacao: SituacaoIntegracaoEnum.values()){
-			if(valorHtml.equals(situacao.getValorHtml())){
+			if(situacao.getValorHtml().equals(valorHtml)){
 				return situacao.getSigla();
 			}
 		}
