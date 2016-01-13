@@ -62,7 +62,7 @@ $(document).ready(function(){
 		pesquisar();
 	});
 
-	$(".statusPesquisar").click(function(e){
+	$(".statusPesquisar").change(function(e){
 		if(isValidRequired())
 			pesquisar();
 	});

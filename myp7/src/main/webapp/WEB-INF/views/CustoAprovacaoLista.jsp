@@ -42,6 +42,11 @@ $(document).ready(function(){
 		return arraySelecionados;
 	}
 
+	$(".pesquisar").change(function(e){
+		if(isValidRequired())
+			pesquisar();
+	});
+
 	function atualizarComboEmpresa(){
 		$.ajax({
 			type: "POST",
@@ -342,25 +347,25 @@ function addLineFornecedor(fornecedor){
 				
 				<div class="row">
 					<div class="col-md-9 form-group btn-group" data-toggle="buttons">
-	  					<label class="btn ${theme} active">
+	  					<label class="btn ${theme} active pesquisar">
 	    					<input type="radio" name="situacoes" id="aguardando" autocomplete="off" checked> Aguardando Aprovação 
 	    					<span id="qtdAguardando" class="badge">0</span>
 	  					</label>
 
-						<label class="btn ${theme}">
+						<label class="btn ${theme} pesquisar">
 	    					<input type="radio" name="situacoes" id="aprovado" autocomplete="off"> Aprovado 
 	    					<span id="qtdAprovado" class="badge">0</span>
 	  					</label>
-	  					<label class="btn ${theme}">
+	  					<label class="btn ${theme} pesquisar">
 	    					<input type="radio" name="situacoes" id="reprovado" autocomplete="off"> Reprovado 
 	    					<span id="qtdReprovado" class="badge">0</span>
 	  					</label>
-						<label class="btn ${theme}">
+						<label class="btn ${theme} pesquisar">
 						    <input type="radio" name="situacoes" id="integrado" autocomplete="off"> Integrado 
 						    <span id="qtdIntegrado" class="badge">0</span>
 						  </label>
 
-						<label class="btn ${theme}">
+						<label class="btn ${theme} pesquisar">
 	    					<input type="radio" name="situacoes" id="todos" autocomplete="off"> Todos 
 	    					<span id="qtdTodos" class="badge">0</span>
 	  					</label>
@@ -384,8 +389,8 @@ function addLineFornecedor(fornecedor){
 						<th width="5%" class="centralizar-componente">
 							<input type="checkbox" id="cbTodos">
 						</th>
-						<th width="15%">Código EAN</th>
-						<th width="40%">Descrição</th>
+						<th width="25%">Código EAN</th>
+						<th width="30%">Descrição</th>
 						<th width="10%">Valor Anterior</th>
 						<th width="10%">Valor novo</th>
 						<th width="20%" class="text-center">Situação</th>
