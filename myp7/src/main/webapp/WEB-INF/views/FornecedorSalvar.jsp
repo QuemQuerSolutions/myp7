@@ -19,6 +19,7 @@ $(document).ready(function() {
 			alerta("Preencha os campos obrigatórios.", "warning");
 			return;
 		}
+		
 		go("#frmSalvarFornecedor");
 	});	
 	
@@ -42,7 +43,7 @@ function addLineRepresentanteTab(representante){
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
-	line = line.concat(		"<a href='#' id='",uuid,"' onclick='verificaFornecedor(\"",id,"\"",uuid,"\", \"qtdRepresentante\",\"#linesRepresentante\", \"representantes\");'>");
+	line = line.concat(		"<a href='#' id='",uuid,"' onclick='verificaFornecedor(\"",id,"\",\"",uuid,"\", \"qtdRepresentante\",\"#linesRepresentante\", \"representantes\");'>");
 	line = line.concat(			"<span class='glyphicon glyphicon-remove red'></span>");
 	line = line.concat(		"</a>");
 	line = line.concat(	"</td>");
@@ -58,6 +59,7 @@ function onAddRepresentante(){
 }
 
 function verificaFornecedor(id, uuid, qtdRepresentante, escopo, lista){
+	console.log(id);
 	$.ajax({
 		url : "obterFornecedorCustoPorIdRepresentante?id=".concat(id),
 		type: "GET",
@@ -93,7 +95,6 @@ function verificaFornecedor(id, uuid, qtdRepresentante, escopo, lista){
 			<form action="salvarFornecedor" id="frmSalvarFornecedor" method="POST">
 				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
-				
 				<div class="row">
 				  	<div class="col-md-6 form-group req">
 				   		<label for="nomePessoa">Pessoa</label>
@@ -135,7 +136,7 @@ function verificaFornecedor(id, uuid, qtdRepresentante, escopo, lista){
 									<form:hidden path="objFornecedor.representantes[${i.index}].idRepresentante" />
 								</td>
 								<td class="text-center text-middle">
-									<a href="#" id="${rep.uuid}" onclick="verificaFornecedor('${rep.idRepresentante}','${rep.uuid}', 'qtdRepresentante','#linesRepresentante', 'representantes');">
+									<a href="#" id="${rep.uuid}" onclick="verificaFornecedor('${rep.idRepresentante}','${rep.uuid}', 'qtdRepresentante','linesRepresentante', 'representantes');">
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>

@@ -33,7 +33,6 @@ $(document).ready(function(){
 	$("#btnPesquisarRepresentante").click(function(e){
 		e.stopPropagation();
 
-		console.log("valor: "+$("#lstProdutoAprovacao").length);
 		if($("#lstProdutoAprovacao").length > 0)
 			$("#paramTela").val("produtoAprovacao");
 				

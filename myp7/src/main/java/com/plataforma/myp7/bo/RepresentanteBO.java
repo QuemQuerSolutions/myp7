@@ -105,17 +105,41 @@ public class RepresentanteBO {
 			this.representanteMapper.insertRepresentante(representante);
 		}else{
 			this.representanteMapper.updateRepresentante(representante);
-			this.representanteFornecedorMapper.deletePorRepresentante(representante.getIdRepresentante());
 		}
 
 		this.associaRepresentante(representante.getFornecedores(), representante.getIdRepresentante());
 	}
 	
 	private void associaRepresentante(List<Fornecedor> lstFornecedor, Long  id) throws Exception{
+		List<RepresentanteFornecedor> lstRepresentanteFornecedor = this.representanteFornecedorMapper.obterPorRepresentante(id);
+		
+		//excluir os fornecedores que sairam da lista
+		boolean isOut;
+		for(RepresentanteFornecedor representanteFornecedor : lstRepresentanteFornecedor){
+			isOut=true;
+			for(Fornecedor fn: lstFornecedor){
+				if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
+					isOut = false;
+					break;
+				}
+			}
+			if(isOut)
+				this.representanteFornecedorMapper.delete(representanteFornecedor);
+		}
+		
+		
+		//inclui os faltantes
+		boolean isNew;
 		for(Fornecedor fn: lstFornecedor){
-			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(fn,id);
-			if(!Objects.isNull(rpFornecedor.getFornecedor().getIdFornecedor()))
-				this.representanteFornecedorMapper.insertPorRepresentante(rpFornecedor);	
+			isNew=true;
+			for(RepresentanteFornecedor representanteFornecedor : lstRepresentanteFornecedor){
+				if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
+					isNew = false;
+					break;
+				}
+			}
+			if(isNew)
+				this.representanteFornecedorMapper.insertPorRepresentante(new RepresentanteFornecedor(fn, id));
 		}
 	}
 	
