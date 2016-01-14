@@ -135,24 +135,8 @@ function getLineAprovacao(produto){
 		line = line.concat("<td class='centralizar-componente'><span class='glyphicon glyphicon-asterisk' title='Esse produto não pode ser alterado' aria-hidden='true'></span></td>");
 	
 	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.eanDunProduto ,"</td>");
-// 	line = line.concat("<td>", produto.eanDunProduto ,"</td>");
 	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.desProduto ,"</td>");
 	line = line.concat("<td onclick='onClickLine(", produto.idProduto ,")'>", produto.descSituacao ,"</td>");
-	
-	line = line.concat("<td align='center'>");
-	//Se a situacao for aguardando
-	if(produto.situacao === "G"){
-		line = line.concat( "<a href='#' onclick=\"onClickAprovar('", produto.idProduto , "')\">",
-								"<span class='glyphicon glyphicon-ok' title='Aprovar' aria-hidden='true'></span>",
-							"</a>&nbsp;&nbsp;&nbsp;");
-		line = line.concat( "<a href='#' class='red' onclick=\"onClickReprovar('", produto.idProduto , "')\">",
-								"<span class='glyphicon glyphicon-remove' title='Reprovar' aria-hidden='true'></span>",
-							"</a>");
-	}else
-		line = line.concat( "<a href='#' class='preto' onclick='onClickBlank()'>",
-								"<span class='glyphicon glyphicon-asterisk' title='Esse produto não pode ser alterado' aria-hidden='true'></span>",
-							"</a>");
-	line = line.concat("</td>");
 	
 	line = line.concat("</tr>");
 	
@@ -444,10 +428,8 @@ function addLineRepresentanteTab(representante){
 							<input type="checkbox" id="cbTodos">
 						</th>					
 						<th width="30%">Código EAN</th>
-<!-- 						<th width="15%">Código Import</th> -->
 						<th width="40%">Descrição</th>
 						<th width="15%">Situação</th>
-						<th width="10%" class="text-center">Ação</th>
 					</tr>
 				</thead>
 				<tbody id="lstProdutoAprovacao"></tbody>
