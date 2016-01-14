@@ -43,6 +43,13 @@
 		  ]]>
 	</sql>
 	
+	<sql id="joinRepresentanteComprador">
+		<![CDATA[
+			join rpr_representante_comprador on rpr_representante_comprador.ID_REPRESENTANTE = rpr_representante.ID_REPRESENTANTE
+	        join cpr_comprador on cpr_comprador.ID_COMPRADOR = rpr_representante_comprador.ID_COMPRADOR
+	     ]]>
+	</sql>
+	
 	<sql id="joinUsuarioRepresentante">
 		<![CDATA[
 			join rpr_representante_fornecedor on rpr_representante_fornecedor.ID_FORNECEDOR=frn_fornecedor.ID_FORNECEDOR
@@ -61,17 +68,19 @@
 		<if test="razao != null">
 			AND GBL_PESSOA.RAZAO like #{razao}
 		</if>
-<!-- 		<if test="usuario != null and usuario.tipoUsuario != 'P'"> -->
-<!-- 			AND ID_USUARIO = #{usuario.idUsuario} -->
-<!-- 		</if> -->
-		
-		
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+ 			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
+ 		</if>
 	</sql>
 	
 	<select id="obterFornecedorPorParametro" resultMap="fornecedorComPessoaMap">
 		<include refid="selectFornecedorComPessoaUsuario"/>
 		<if test="usuario.tipoUsuario == usuario.portal">
 			<include refid="joinUsuarioRepresentante" />
+		</if>
+		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
+			<include refid="joinUsuarioRepresentante" />
+			<include refid="joinRepresentanteComprador" />
 		</if>
 		<include refid="whereBuscaFornecedor"/>
 	</select>

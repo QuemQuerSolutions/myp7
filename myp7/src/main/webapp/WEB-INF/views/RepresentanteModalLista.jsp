@@ -34,8 +34,8 @@ $(document).ready(function(){
 		e.stopPropagation();
 
 		if($("#lstProdutoAprovacao").length > 0)
-			$("#paramTela").val("produtoAprovacao");
-				
+			$("#paramTela").val("aprovacao");
+
 		var representante = {idRepresentante	: $("#idRepresentanteBusca").val(),
 							 razao				: $("#razaoSocialBusca").val(),
 							 apelido			: $("#apelidoBusca").val(),

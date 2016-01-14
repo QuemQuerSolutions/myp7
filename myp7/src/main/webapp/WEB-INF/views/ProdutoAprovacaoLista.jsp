@@ -101,7 +101,7 @@ function pesquisar(){
 		    var lines = "";
 		    
 		    if(lista.length == 0){
-		    	$("#lstProdutoAprovacao").html("<tr><td colspan='15'>Nenhum registro encontrado</td></tr>");
+		    	$("#lstProdutoAprovacao").html("<tr><td colspan='4'>Nenhum registro encontrado</td></tr>");
 		    	return;
 		    }
 		    

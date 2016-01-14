@@ -50,6 +50,12 @@
 		   AND ID_REPRESENTANTE = #{representante.idRepresentante}
 	</delete>
 	
+	<delete id="deleteIdRepresentante">
+		DELETE FROM rpr_representante_fornecedor 
+		 WHERE ID_FORNECEDOR = #{fornecedor.idFornecedor} 
+		   AND ID_REPRESENTANTE = #{id}
+	</delete>
+	
 	<delete id="deletePorFornecedor">
 		DELETE FROM rpr_representante_fornecedor WHERE ID_FORNECEDOR = #{id} 
 	</delete>

@@ -124,9 +124,8 @@ public class RepresentanteBO {
 				}
 			}
 			if(isOut)
-				this.representanteFornecedorMapper.delete(representanteFornecedor);
+				this.representanteFornecedorMapper.deleteIdRepresentante(representanteFornecedor);
 		}
-		
 		
 		//inclui os faltantes
 		boolean isNew;

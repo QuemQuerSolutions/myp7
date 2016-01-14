@@ -13,6 +13,7 @@ public interface RepresentanteFornecedorMapper {
 	void deletePorFornecedor(Long idFornecedor);
 	void deletePorRepresentante(Long idRepresentante);
 	void delete(RepresentanteFornecedor representanteFornecedor);
+	void deleteIdRepresentante(RepresentanteFornecedor representanteFornecedor);
 	void insertPorRepresentante(RepresentanteFornecedor representanteFornecedor);
 	List<RepresentanteFornecedor> obterPorRepresentante(Long idRepresentante);
 }

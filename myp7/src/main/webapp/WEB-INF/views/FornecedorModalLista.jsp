@@ -31,15 +31,18 @@ $(document).ready(function(){
 	
 	$("#btnPesquisarFornecedor").click(function(e){
 		e.stopPropagation();
-		
+
+
+		if($("#lstCustoAprovacao").length > 0)
+			$("#paramTela").val("aprovacaoCusto");
 //		if(!hasInformation("#filtroModalFornecedor")){
 //			alerta("Informe ao menos um filtro para continuar", "warning");
 //			return;
 //		}
 		
 		var fornecedor = {idFornecedor	: $("#idFornecedorBusca").val(), 
-							 razao			: $("#razaoBusca").val()};
-		
+							 razao		: $("#razaoBusca").val(),
+							param		: $("#paramTela").val()};
 		$.ajax({
 		    type: "GET",
 		    url: "consultarFornecedor",
@@ -99,6 +102,7 @@ function getLineFornecedor(fornecedor){
 				</button>
 				<h4 class="modal-title">Consulta de Fornecedor</h4>
 			</div>
+			<input type="hidden" id="paramTela" value=""/>
 			<div class="modal-body" id="filtroModalFornecedor">
 				<div id="content-header">
 					<div class="row">

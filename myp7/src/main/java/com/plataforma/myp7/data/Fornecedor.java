@@ -21,6 +21,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private String uuid;
 	private List<Representante> representantes;
 	private Usuario usuario;
+	private String param;
 	
 	//Mensagens
 	private String msgRetorno;
@@ -36,6 +37,16 @@ public class Fornecedor extends Pessoa implements Serializable{
 	public Fornecedor(Long idFornecedor){
 		this();
 		this.setIdFornecedor(idFornecedor);
+	}
+	
+	
+	
+	public String getParam() {
+		return param;
+	}
+
+	public void setParam(String param) {
+		this.param = param;
 	}
 	
 	public String getUuid() {
