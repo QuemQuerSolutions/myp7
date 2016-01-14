@@ -10,7 +10,8 @@
 	
 	<resultMap type="RepresentanteFornecedor" id="mapPorRepresentante">
 		<result property="id" column="ID_REPRESENTANTE" /> 
-		<association property="fornecedor" column="ID_FORNECEDOR" select="com.plataforma.myp7.mapper.FornecedorMapper.obterFornecedorPorId"/>
+		<association property="fornecedor" column="ID_FORNECEDOR" 
+					 select="com.plataforma.myp7.mapper.FornecedorMapper.obterPorId"/>
 	</resultMap>
 	
 	<sql id="selectRepresentanteFornecedor">
@@ -42,6 +43,12 @@
 		VALUES 
 			(#{id}, #{fornecedor.idFornecedor})
 	</insert>	
+	
+	<delete id="delete">
+		DELETE FROM rpr_representante_fornecedor 
+		 WHERE ID_FORNECEDOR = #{id} 
+		   AND ID_REPRESENTANTE = #{representante.idRepresentante}
+	</delete>
 	
 	<delete id="deletePorFornecedor">
 		DELETE FROM rpr_representante_fornecedor WHERE ID_FORNECEDOR = #{id} 

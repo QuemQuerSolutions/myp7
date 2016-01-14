@@ -10,6 +10,7 @@ import com.plataforma.myp7.data.Fornecedor;
 public interface FornecedorMapper {
 	
 	Fornecedor obterFornecedorPorId(Long idFornecedor);
+	Fornecedor obterPorId(Long idFornecedor);
 
 	List<Fornecedor> obterTodos();
 	

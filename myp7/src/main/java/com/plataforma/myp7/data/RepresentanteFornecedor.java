@@ -18,6 +18,11 @@ public class RepresentanteFornecedor implements Serializable {
 		fornecedor = new Fornecedor();
 	}
 	
+	public RepresentanteFornecedor(Representante representante, Fornecedor fornecedor){
+		this.representante = representante;
+		this.fornecedor = fornecedor;
+	}
+	
 	public RepresentanteFornecedor(Representante representante, Long idFornecedor){
 		this.representante = representante;
 		this.id = idFornecedor;

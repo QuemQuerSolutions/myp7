@@ -45,17 +45,6 @@ public class FornecedorBO {
 	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor, Usuario usuario){
 		fornecedor.setUsuario(usuario);
 		fornecedor.setRazao(toLike(fornecedor.getRazao()));
-//		int countFornecedor = this.fornecedorMapper.countFornecedorPorParametro(fornecedor);
-//		if (countFornecedor == 0) 
-//			return new ArrayList<Fornecedor>();
-//		
-//		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
-//			List<Fornecedor> lstFornecedor = new ArrayList<Fornecedor>();
-//			fornecedor.setMsgRetorno(Mensagem.REFINE_SUA_PESQUISA.getMensagem());
-//			fornecedor.setCodRetorno(Mensagem.REFINE_SUA_PESQUISA.getCodigo());
-//			lstFornecedor.add(fornecedor);
-//			return lstFornecedor;
-//		}
 		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
 	
@@ -89,11 +78,6 @@ public class FornecedorBO {
 			setCodRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO.getCodigo());
 			return new ArrayList<Fornecedor>();
 		}
-//		if(countFornecedor > ConfigEnum.LIMITE_COUNT.getValorInt()){
-//			setMsgRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getMensagem());
-//			setCodRetorno(model, Mensagem.REFINE_SUA_PESQUISA.getCodigo());
-//			return new ArrayList<Fornecedor>();
-//		}
 		return this.formataCNPJ(this.fornecedorMapper.obterFornecedorPorParametro(fornecedor));
 	}
 	
@@ -130,24 +114,45 @@ public class FornecedorBO {
 	}
 	
 	public void salvarFornecedor(Fornecedor fornecedor) throws Exception{
-		if(Objects.isNull(fornecedorMapper.obterFornecedorPorId(fornecedor.getIdFornecedor()))){
+		if(Objects.isNull(fornecedorMapper.obterFornecedorPorId(fornecedor.getIdFornecedor())))
 			this.fornecedorMapper.inserirFornecedor(fornecedor);
-		}else{
+		else
 			this.fornecedorMapper.updateFornecedor(fornecedor);
-			//TODO: Nao esta sendo possivel excluir se ja existe um registro relacionado na tabela de custos
-			// Deve-se obter os representantes ja associados, e incluir os que faltam e excluir os que sairam
-			// Criar metodo auxiliar, pois em varios casos isso vai ocorrer
-			this.representanteFornecedorMapper.deletePorFornecedor(fornecedor.getIdFornecedor());
-		}
 		
 		this.associaRepresentante(fornecedor.getRepresentantes(), fornecedor.getIdFornecedor());
 	}
 	
-	private void associaRepresentante(List<Representante> lstRepresentatante, Long  id) throws Exception{
-		for(Representante rp: lstRepresentatante){
-			RepresentanteFornecedor rpFornecedor = new RepresentanteFornecedor(rp,id);
-			if(!Objects.isNull(rpFornecedor.getRepresentante().getIdRepresentante()))
-				this.representanteFornecedorMapper.insert(rpFornecedor);	
+	private void associaRepresentante(List<Representante> lstRepresentante, Long  id) throws Exception{
+		
+		List<RepresentanteFornecedor> lstRepresentanteFornecedores = this.representanteFornecedorMapper.obterPorFornecedor(id);
+		
+		//excluir os que sairam
+		boolean isOut = true;
+		for(RepresentanteFornecedor repF: lstRepresentanteFornecedores){
+			isOut = true;
+			for(Representante rep: lstRepresentante){
+				if(rep.getIdRepresentante() == repF.getRepresentante().getIdRepresentante()){
+					isOut = false;
+					break;
+				}
+			}
+			if(isOut)
+				this.representanteFornecedorMapper.delete(repF);
+		}
+		
+		
+		//incluir os novos
+		boolean isNew = true;
+		for(Representante rep: lstRepresentante){
+			isNew = true;
+			for(RepresentanteFornecedor repF: lstRepresentanteFornecedores){
+				if(rep.getIdRepresentante() == repF.getRepresentante().getIdRepresentante()){
+					isNew = false;
+					break;
+				}
+			}
+			if(isNew)
+				this.representanteFornecedorMapper.insert(new RepresentanteFornecedor(rep,id));
 		}
 	}
 	

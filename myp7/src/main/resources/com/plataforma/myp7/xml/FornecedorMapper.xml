@@ -87,6 +87,12 @@
 		WHERE ID_FORNECEDOR = #{idFornecedor} AND STATUS = 'A'
 	</select>
 	
+	<select id="obterPorId" resultMap="fornecedorMap">
+		<include refid="selectFornecedor"/>
+		WHERE ID_FORNECEDOR = #{idFornecedor}
+	</select>
+	
+	
 	<select id="obterTodos" resultMap="fornecedorMap">
 		<include refid="selectFornecedor"/>
 	</select>
