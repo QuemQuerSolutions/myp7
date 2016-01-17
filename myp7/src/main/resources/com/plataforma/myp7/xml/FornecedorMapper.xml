@@ -32,7 +32,7 @@
 	
 	<sql id="selectFornecedorComPessoaUsuario">
 		<![CDATA[
-			SELECT frn_fornecedor.ID_FORNECEDOR as idFornecedor, 
+			SELECT  frn_fornecedor.ID_FORNECEDOR as idFornecedor, 
 					frn_fornecedor.STATUS as status, 
 			        frn_fornecedor.UTILIZA_TABCUSTO as UTILIZA_TABCUSTO,	
 					RAZAO, 
@@ -71,6 +71,9 @@
 		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
  			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
  		</if>
+ 		<if test="statusTela != null">
+ 			AND frn_fornecedor.STATUS='A'
+ 		</if>
 	</sql>
 	
 	<select id="obterFornecedorPorParametro" resultMap="fornecedorComPessoaMap">
@@ -93,12 +96,12 @@
 	
 	<select id="obterFornecedorPorId" resultMap="fornecedorMap">
 		<include refid="selectFornecedorComPessoaUsuario"/>
-		WHERE ID_FORNECEDOR = #{idFornecedor} AND STATUS = 'A'
+		WHERE frn_fornecedor.ID_FORNECEDOR = #{idFornecedor}
 	</select>
 	
 	<select id="obterPorId" resultMap="fornecedorComPessoaMap">
 		<include refid="selectFornecedorComPessoaUsuario"/>
-		WHERE ID_FORNECEDOR = #{idFornecedor}
+		WHERE ID_FORNECEDOR = #{idFornecedor} AND STATUS = 'A'
 	</select>
 	
 	

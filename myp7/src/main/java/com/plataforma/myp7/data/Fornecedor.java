@@ -22,6 +22,7 @@ public class Fornecedor extends Pessoa implements Serializable{
 	private List<Representante> representantes;
 	private Usuario usuario;
 	private String param;
+	private String statusTela;
 	
 	//Mensagens
 	private String msgRetorno;
@@ -114,8 +115,13 @@ public class Fornecedor extends Pessoa implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-	
+
+	public String getStatusTela() {
+		return statusTela;
+	}
+
+	public void setStatusTela(String statusTela) {
+		this.statusTela = statusTela;
+	}
 	
 }

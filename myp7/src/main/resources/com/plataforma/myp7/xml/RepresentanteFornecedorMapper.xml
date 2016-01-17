@@ -4,19 +4,25 @@
 <mapper namespace="com.plataforma.myp7.mapper.RepresentanteFornecedorMapper">
 	
 	<resultMap type="RepresentanteFornecedor" id="mapSimples">
-		<result property="id" column="ID_FORNECEDOR" /> 
-		<association property="representante" column="ID_REPRESENTANTE" select="com.plataforma.myp7.mapper.RepresentanteMapper.obterPorId"/>
+		<result property="id" column="idFornecedor" /> 
+		<association property="representante" column="idRepresentante" select="com.plataforma.myp7.mapper.RepresentanteMapper.obterPorId"/>
 	</resultMap>
 	
 	<resultMap type="RepresentanteFornecedor" id="mapPorRepresentante">
-		<result property="id" column="ID_REPRESENTANTE" /> 
-		<association property="fornecedor" column="ID_FORNECEDOR" 
+		<result property="id" column="idRepresentante" /> 
+		<association property="fornecedor" column="idFornecedor" 
 					 select="com.plataforma.myp7.mapper.FornecedorMapper.obterPorId"/>
 	</resultMap>
 	
 	<sql id="selectRepresentanteFornecedor">
-		SELECT ID_REPRESENTANTE, ID_FORNECEDOR
-			FROM rpr_representante_fornecedor
+		SELECT rpr_representante_fornecedor.ID_REPRESENTANTE as idRepresentante, rpr_representante_fornecedor.ID_FORNECEDOR as idFornecedor
+			FROM rpr_representante_fornecedor 
+	</sql>
+	
+	<sql id="joinStatusFornecedor">
+		<![CDATA[
+		join frn_fornecedor on frn_fornecedor.ID_FORNECEDOR = rpr_representante_fornecedor.ID_FORNECEDOR
+		 ]]>
 	</sql>
 
 	<select id="obterPorFornecedor" resultMap="mapSimples">
@@ -26,7 +32,8 @@
 	
 	<select id="obterPorRepresentante" resultMap="mapPorRepresentante">
 		<include refid="selectRepresentanteFornecedor" />
-		where ID_REPRESENTANTE = #{id}
+		<include refid="joinStatusFornecedor" />
+		where rpr_representante_fornecedor.ID_REPRESENTANTE = #{id} AND frn_fornecedor.STATUS = 'A'
 	</select>
 	
 	

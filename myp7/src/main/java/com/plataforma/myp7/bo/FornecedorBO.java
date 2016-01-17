@@ -43,9 +43,11 @@ public class FornecedorBO {
 	}
 	
 	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor, Usuario usuario){
+		
 		if(!Objects.isNull(fornecedor.getParam()) && !Utils.isEmpty(fornecedor.getParam()))
 			fornecedor.setUsuario(usuario);
 		fornecedor.setRazao(toLike(fornecedor.getRazao()));
+		fornecedor.setStatusTela("".equals(fornecedor.getStatusTela())?null: fornecedor.getStatusTela());
 		return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
 	}
 	

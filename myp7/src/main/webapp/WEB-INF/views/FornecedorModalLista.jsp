@@ -39,10 +39,11 @@ $(document).ready(function(){
 //			alerta("Informe ao menos um filtro para continuar", "warning");
 //			return;
 //		}
-		
+		$("#statusTela").val("val");
 		var fornecedor = {idFornecedor	: $("#idFornecedorBusca").val(), 
 							 razao		: $("#razaoBusca").val(),
-							param		: $("#paramTela").val()};
+							param		: $("#paramTela").val(),
+							statusTela  : $("#statusTela").val()};
 		$.ajax({
 		    type: "GET",
 		    url: "consultarFornecedor",
@@ -103,6 +104,7 @@ function getLineFornecedor(fornecedor){
 				<h4 class="modal-title">Consulta de Fornecedor</h4>
 			</div>
 			<input type="hidden" id="paramTela" value=""/>
+			<input type="hidden" id="statusTela" value=""/>
 			<div class="modal-body" id="filtroModalFornecedor">
 				<div id="content-header">
 					<div class="row">
