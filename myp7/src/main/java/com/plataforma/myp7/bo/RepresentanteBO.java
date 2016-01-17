@@ -45,6 +45,9 @@ public class RepresentanteBO {
 	@Autowired
 	private FornecedorMapper fornecedorMapper;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
+	
 	public List<Representante> selecionaTodos(){
 		return this.representanteMapper.obterTodosRepresentantes();
 	}
@@ -101,12 +104,14 @@ public class RepresentanteBO {
 	}
 	
 	public void salvarRepresentante(Representante representante) throws Exception{
+		
 		if(Objects.isNull(representanteMapper.obterPorId(representante.getIdRepresentante()))){
 			this.representanteMapper.insertRepresentante(representante);
 		}else{
+			
 			this.representanteMapper.updateRepresentante(representante);
 		}
-
+		this.usuarioBO.inactivateUsuario(representante.getUsuario(), representante.getStatus());
 		this.associaRepresentante(representante.getFornecedores(), representante.getIdRepresentante());
 	}
 	

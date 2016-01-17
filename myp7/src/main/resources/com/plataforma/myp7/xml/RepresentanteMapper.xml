@@ -58,6 +58,9 @@
 		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
  			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
  		</if>
+ 		<if test="statusTela != null">
+ 			AND rpr_representante.STATUS = 'A'
+ 		</if>
 	</sql>
 	
 	<sql id="joinUsuarioComprador">

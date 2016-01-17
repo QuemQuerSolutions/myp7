@@ -1,5 +1,7 @@
 package com.plataforma.myp7.controller;
 
+import static com.plataforma.myp7.util.Utils.setRetorno;
+
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.CompradorBO;
 import com.plataforma.myp7.data.Comprador;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.Mensagem;
-
-import static com.plataforma.myp7.util.Utils.*;
 
 @Controller
 @RequestMapping(value={"/retaguarda", "/admin"})
@@ -19,6 +20,8 @@ public class CompradorController {
 
 	@Autowired
 	private CompradorBO compradorBO; 
+	
+	private Usuario usuario;
 	
 	@RequestMapping("Comprador")
 	public String inicio(Model model){
@@ -47,6 +50,9 @@ public class CompradorController {
 		}
 		
 		Comprador comprador = compradorBO.obterPorId(id);
+		
+		this.usuario = comprador.getUsuario();
+		
 		int qtdEmpresa = comprador.getEmpresa().size(),
 			qtdRepresentante = comprador.getRepresentantes().size();
 		
@@ -60,7 +66,18 @@ public class CompradorController {
 	
 	@RequestMapping("salvarComprador")
 	public String salvarComprador(Comprador comprador){
+		comprador.setUsuario(this.usuario);
 		compradorBO.salvar(comprador);
 		return "redirect:CarregaListaComprador?origem=save";
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 }

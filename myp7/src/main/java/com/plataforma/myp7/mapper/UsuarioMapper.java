@@ -20,6 +20,8 @@ public interface UsuarioMapper {
 	void updateTheme(Usuario usuario);
 	
 	void update(Usuario usuario);
+	
+	void updateStatus(Usuario usuario);
 
 	List<Usuario> obterUsuarioComFiltro(Usuario usuario);
 }

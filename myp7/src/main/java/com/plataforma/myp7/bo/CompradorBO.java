@@ -37,6 +37,9 @@ public class CompradorBO {
 	@Autowired
 	private RepresentanteCompradorMapper representanteCompradorMapper;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
+	
 	public Comprador obterPorId(Integer id){
 		if(Objects.isNull(id)) 
 			return new Comprador();
@@ -64,11 +67,6 @@ public class CompradorBO {
 			return null;
 		}
 		
-//		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
-//			setRetorno(model, Mensagem.REFINE_SUA_PESQUISA);
-//			return null;
-//		}
-		
 		return compradorMapper.obterPorParametro(comprador);
 	}
 	
@@ -84,6 +82,8 @@ public class CompradorBO {
 			empresaMapper.deleteCompradorAlcada(id);
 			representanteCompradorMapper.deletePorComprador(id);
 		}
+		
+		this.usuarioBO.inactivateUsuario(comprador.getUsuario(), comprador.getStatus());
 		
 		//Associa as empresas ao comprador
 		for(Empresa empresa: comprador.getEmpresa()){

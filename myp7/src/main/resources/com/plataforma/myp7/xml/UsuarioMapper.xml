@@ -76,5 +76,9 @@
 							   USU_ATIVO = #{ativo}, usu_senha=#{senha}, TIPOUSUARIO=#{tipoUsuario}
 		WHERE ID_USUARIO=#{idUsuario}
 	</update>
+	<update id="updateStatus">
+		UPDATE usu_usuario SET  USU_ATIVO = #{ativo}
+		WHERE ID_USUARIO=#{idUsuario}
+	</update>
 	
 </mapper>

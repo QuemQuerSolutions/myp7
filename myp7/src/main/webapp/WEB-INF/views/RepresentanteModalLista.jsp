@@ -39,7 +39,8 @@ $(document).ready(function(){
 		var representante = {idRepresentante	: $("#idRepresentanteBusca").val(),
 							 razao				: $("#razaoSocialBusca").val(),
 							 apelido			: $("#apelidoBusca").val(),
-							 param				: $("#paramTela").val()};
+							 param				: $("#paramTela").val(),
+							 statusTela			: $("#statusTela").val()};
 		
 		$.ajax({
 		    type: "GET",
@@ -110,6 +111,8 @@ function getLineRepresentante(representante){
 				<h4 class="modal-title">Consulta de Representante</h4>
 			</div>
 			<input type="hidden" id="paramTela" value=""/>
+			<input type="hidden" id="statusTela" value=""/>
+			
 			<div class="modal-body" id="filtroModalRepresentante">
 				
 				<div id="content-header">

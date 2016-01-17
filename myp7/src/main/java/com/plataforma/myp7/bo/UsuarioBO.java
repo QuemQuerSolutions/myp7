@@ -109,4 +109,9 @@ public class UsuarioBO {
 		
 		return this.usuarioMapper.obterUsuarioComFiltro(busca);
 	}
+	
+	public void inactivateUsuario(Usuario usuario, String status){
+		usuario.setAtivo(status.equals("I")? "0":"1");
+		this.usuarioMapper.updateStatus(usuario);
+	}
 }

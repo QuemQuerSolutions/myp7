@@ -24,10 +24,16 @@
 		join frn_fornecedor on frn_fornecedor.ID_FORNECEDOR = rpr_representante_fornecedor.ID_FORNECEDOR
 		 ]]>
 	</sql>
+	<sql id="joinStatusRepresentante">
+		<![CDATA[
+		join rpr_representante on rpr_representante.ID_REPRESENTANTE = rpr_representante_fornecedor.ID_REPRESENTANTE
+		 ]]>
+	</sql>
 
 	<select id="obterPorFornecedor" resultMap="mapSimples">
 		<include refid="selectRepresentanteFornecedor" />
-		where ID_FORNECEDOR = #{id}
+		<include refid="joinStatusRepresentante" />
+		where rpr_representante_fornecedor.ID_FORNECEDOR = #{id} AND rpr_representante.STATUS='A'
 	</select>
 	
 	<select id="obterPorRepresentante" resultMap="mapPorRepresentante">

@@ -27,6 +27,8 @@ public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	
 	private String param;
 	
+	private String statusTela;
+	
 	
 	//Mensagens
 	private String msgRetorno;
@@ -134,4 +136,13 @@ public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	public void setParam(String param) {
 		this.param = param;
 	}
+
+	public String getStatusTela() {
+		return statusTela;
+	}
+
+	public void setStatusTela(String statusTela) {
+		this.statusTela = statusTela;
+	}
+	
 }

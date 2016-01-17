@@ -21,6 +21,7 @@ import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.util.Utils;
 
@@ -33,6 +34,8 @@ public class RepresentanteController {
 	
 	@Autowired
 	private UsuarioBO usuarioBO;
+	
+	private Usuario usuario;
 	
 	@RequestMapping("Representante")
 	public String inicio(Model model){
@@ -74,6 +77,7 @@ public class RepresentanteController {
 	@RequestMapping("editarRepresentante")
 	public String editarRepresentante(Model model, Long id){
 		Representante representante = this.representanteBO.selecionaPorId(id);
+		this.usuario = representante.getUsuario();
 		model.addAttribute("qtdFornecedor", representante.getFornecedores().size());
 		model.addAttribute("objRepresentante", representante);
 		return "RepresentanteSalvar";
@@ -82,7 +86,9 @@ public class RepresentanteController {
 	
 	@RequestMapping("salvarRepresentante")
 	public String salvarFornecedor(Representante representante, Model model){
+		
 		try{
+			representante.setUsuario(this.usuario);
 			this.representanteBO.salvarRepresentante(representante);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -95,4 +101,14 @@ public class RepresentanteController {
 	public @ResponseBody List<FornecedorCusto> obterFornecedorPorId(Long id) {
 		return representanteBO.obterCustoAprovacaoPorFornecedor(id);
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 }

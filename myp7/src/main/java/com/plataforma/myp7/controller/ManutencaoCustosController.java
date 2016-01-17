@@ -18,6 +18,7 @@ import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
 import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.data.FornecedorCusto;
+import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 
 @Controller
 @RequestMapping(value={"/portal", "/admin"})
@@ -108,7 +109,8 @@ public class ManutencaoCustosController {
 			sb.append("		<td>");
 			sb.append("			<input type='text' class='form-control valorNovo' id='valorNovo");
 			sb.append(			fc.getIdTabCustoFornecedor());
-			sb.append(			"' name='valorNovo' maxlength='10' />");
+			sb.append(			"' name='valorNovo' maxlength='10'");
+			sb.append(fc.getSituacao().equals(SituacaoIntegracaoEnum.APROVADO.getSigla())?" disabled='disabled' />": " />");
 			sb.append("		</td>");
 			sb.append("</tr>");
 		}
