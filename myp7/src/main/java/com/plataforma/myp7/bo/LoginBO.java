@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,21 @@ import com.plataforma.myp7.mapper.UsuarioMapper;
 @Service
 public class LoginBO{
 
+	private final static Logger log = Logger.getLogger(LoginBO.class);
+			
 	@Autowired
 	private UsuarioMapper usuarioMapper;
 	
 	private static final String ATTR_THEME = "theme";
 	
 	public void setUserSession(HttpSession session, String username){
-		Usuario usuBanco = this.usuarioMapper.obterPorEmail(username);
-		this.setTheme(session, usuBanco);
-		session.setAttribute(ConfigEnum.USUARIO_LOGADO.getValor(), usuBanco);
+		try {
+			Usuario usuBanco = this.usuarioMapper.obterPorEmail(username);
+			this.setTheme(session, usuBanco);
+			session.setAttribute(ConfigEnum.USUARIO_LOGADO.getValor(), usuBanco);
+		} catch (Exception e) {
+			log.error("LoginBO.setUserSession", e);
+		}
 	}
 	
 	private void setTheme(HttpSession session, Usuario usuBanco){

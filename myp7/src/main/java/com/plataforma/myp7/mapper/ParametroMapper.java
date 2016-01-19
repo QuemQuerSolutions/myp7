@@ -11,7 +11,7 @@ import com.plataforma.myp7.data.ParametroTipo;
 @Component
 public interface ParametroMapper {
 	
-	List<Parametro> obterParametro(int id) throws Exception;
+	List<Parametro> obterParametro(int id);
 	
 	Parametro obterParametroPorNome(String nome);
 	

@@ -3,6 +3,7 @@ package com.plataforma.myp7.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ import com.plataforma.myp7.mapper.ParametroMapper;
 @Service
 public class SenhaBO {
 	
+	private final static Logger log = Logger.getLogger(SenhaBO.class);
+			
 	@Autowired
 	private HistoricoSenhaMapper historicoSenhaMapper;
 	
@@ -30,65 +33,72 @@ public class SenhaBO {
 	 * Metodo para validar se a senha esta de acordo com os parametros.
 	 */
 	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
-		List<Parametro> parametros;
 		try {
+			List<Parametro> parametros;
 			parametros = parametroMapper.obterParametro(dominio.getId());
-		} catch (Exception e) {
 			parametros = new ArrayList<Parametro>();
+			
+			boolean retorno = true;
+			for(Parametro parametro : parametros){
+				retorno = retorno && this.casesValidacao(senha, usuario, parametro);
+				if(!retorno)
+					break;
+			}
+			return retorno;
+		} catch (Exception e) {
+			log.error("SenhaBO.isValid", e);
+			return false;
 		}
-		
-		boolean retorno = true;
-		for(Parametro parametro : parametros){
-			retorno = retorno && this.casesValidacao(senha, usuario, parametro);
-			if(!retorno)
-				break;
-		}
-		return retorno;
 	}
 	
 	private boolean casesValidacao(String senha, Usuario usuario, Parametro parametro){
-		switch(parametro.getNome().toUpperCase()){
-			/**
-			 * Valida se ha ao menos um numero na senha
-			 */			
-			case "NUMEROS":
-				for(char letra : senha.toCharArray()){
-					if(Character.isDigit(letra)){ 
-						return true;
+		try {
+			switch(parametro.getNome().toUpperCase()){
+				/**
+				 * Valida se ha ao menos um numero na senha
+				 */			
+				case "NUMEROS":
+					for(char letra : senha.toCharArray()){
+						if(Character.isDigit(letra)){ 
+							return true;
+						}
 					}
-				}
-				
-				return false;
-				
-			/**
-			 * Valida se ha ao menos uma letra na senha
-			 */
-			case "LETRAS":
-				for(char letra : senha.toCharArray()){
-					if(Character.isLetter(letra)){ 
-						return true;
+					
+					return false;
+					
+				/**
+				 * Valida se ha ao menos uma letra na senha
+				 */
+				case "LETRAS":
+					for(char letra : senha.toCharArray()){
+						if(Character.isLetter(letra)){ 
+							return true;
+						}
 					}
-				}
-				return false;
-			
-			/**
-			 * Valida se ha ao menos uma letra maiscula na senha
-			 */
-			case "UMA LETRA MAIUSCULA":
-				for(char letra : senha.toCharArray()){
-					if(Character.isUpperCase(letra)){
-						return true;
-					}
-				}
-				return false;
+					return false;
 				
-			/**
-			 * Valida se a senha tem a quantidade minima de caracteres requeridos
-			 */
-			case "QTDE MINIMA":
-				return (!(senha.length() < Integer.parseInt(parametro.getAuxiliar())));
+				/**
+				 * Valida se ha ao menos uma letra maiscula na senha
+				 */
+				case "UMA LETRA MAIUSCULA":
+					for(char letra : senha.toCharArray()){
+						if(Character.isUpperCase(letra)){
+							return true;
+						}
+					}
+					return false;
+					
+				/**
+				 * Valida se a senha tem a quantidade minima de caracteres requeridos
+				 */
+				case "QTDE MINIMA":
+					return (!(senha.length() < Integer.parseInt(parametro.getAuxiliar())));
+			}
+			return true;
+		} catch (Exception e) {
+			log.error("SenhaBO.casesValidacao", e);
+			return false;
 		}
-		return true;
 	}
 	
 	/**
@@ -98,16 +108,21 @@ public class SenhaBO {
 	 * @param parametro 
 	 */
 	public boolean isRepeat(String senha, Usuario usuario, Parametro parametro){
-		String senhaHash = CriptografarBO.criptografar(senha);
-		
-		List<HistoricoSenha> senhasAnteriores = this.historicoSenhaMapper.obterPorUsuarioELimit(usuario.getIdUsuario(), Integer.parseInt(parametro.getAuxiliar()));
-		
-		for(HistoricoSenha senhaAnterior : senhasAnteriores){
-			if(senhaHash.equals(senhaAnterior.getSenha())){
-				return false;
+		try {
+			String senhaHash = CriptografarBO.criptografar(senha);
+			
+			List<HistoricoSenha> senhasAnteriores = this.historicoSenhaMapper.obterPorUsuarioELimit(usuario.getIdUsuario(), Integer.parseInt(parametro.getAuxiliar()));
+			
+			for(HistoricoSenha senhaAnterior : senhasAnteriores){
+				if(senhaHash.equals(senhaAnterior.getSenha())){
+					return false;
+				}
 			}
+			return true;
+		} catch (NumberFormatException e) {
+			log.error("SenhaBO.isRepeat", e);
+			return false;
 		}
-		return true;
 	}
 	
 }

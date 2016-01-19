@@ -7,11 +7,15 @@ import java.io.FileOutputStream;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.enums.ConfigEnum;
 
 public class Upload {
 
+	private final static Logger log = Logger.getLogger(Upload.class);
+	
 	/**
 	 *  Efetua o upload da maquina do usuario para o servidor
 	 * @param request Usado para pegar o contexto e o caminho da aplicacao
@@ -43,10 +47,9 @@ public class Upload {
 			return arq;
 
 		} catch (Exception e) {
-			System.out.println("Erro ao fazer upload de arquivo");
-			e.printStackTrace();
+			log.error("Upload.armazenar", e);
+			return null;
 		}
-		return null;
 	}
 	
 	public void removerArqTmp(File arquivo){

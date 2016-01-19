@@ -1,6 +1,8 @@
 package com.plataforma.myp7.bo;
 
 import static com.plataforma.myp7.util.Utils.isEmpty;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.setRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -30,6 +33,8 @@ import com.plataforma.myp7.mapper.RepresentanteMapper;
 @Service
 public class RepresentanteBO {
 	
+	private final static Logger log = Logger.getLogger(RepresentanteBO.class);
+			
 	@Autowired
 	private RepresentanteMapper representanteMapper;
 	
@@ -53,31 +58,33 @@ public class RepresentanteBO {
 	}
 	
 	public List<Representante> obterPorParametro(Representante representante, Model model){
-		representante.setApelido(toLike(representante.getApelido()));
-		representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
-		
-		int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
-		
-		if(count == 0){
-			setRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO);
-			return new ArrayList<Representante>();
+		try {
+			representante.setApelido(toLike(representante.getApelido()));
+			representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
+			
+			int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
+			
+			if(count == 0){
+				setRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO);
+				return new ArrayList<Representante>();
+			}
+			
+			if(isEmpty(representante.getRazao()))
+				return representanteMapper.obterPorParametro(representante);
+			return representanteMapper.obterPorParametroMaisRazao(representante);
+		} catch (Exception e) {
+			setMsgRetorno(model, "Falha na Operação");
+			setCodRetorno(model, -1);
+			log.error("RepresentanteBO.obterPorParametro", e);
+			return null;
 		}
-		
-//		if(count > ConfigEnum.LIMITE_COUNT.getValorInt()){
-//			List<Representante> ret = new ArrayList<Representante>();
-//			ret.add(new Representante(Mensagem.REFINE_SUA_PESQUISA));
-//			return ret;
-//		}
-		
-		if(isEmpty(representante.getRazao()))
-			return representanteMapper.obterPorParametro(representante);
-		return representanteMapper.obterPorParametroMaisRazao(representante);
 	}
 
 	public void update(Representante representante) throws ManterEntidadeException {
 		try{
 			this.representanteMapper.updateRepresentante(representante);
 		}catch(Exception e){
+			log.error("RepresentanteBO.update", e);
 			throw new ManterEntidadeException(MensagemWS.ATUALIZA_COMPRADOR_ERRO);
 		}
 	}
@@ -86,6 +93,7 @@ public class RepresentanteBO {
 		try{
 			this.representanteMapper.insertRepresentante(representante);
 		}catch(Exception e){
+			log.error("RepresentanteBO.insert", e);
 			throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
 		}
 	}
@@ -98,52 +106,60 @@ public class RepresentanteBO {
 			representante.setFornecedores(getListFornecedor(this.representanteFornecedorMapper.obterPorRepresentante(idRepresentante)));
 			return representante;
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error("RepresentanteBO.selecionaPorId", e);
 			return null;
 		}
 	}
 	
-	public void salvarRepresentante(Representante representante) throws Exception{
+	public void salvarRepresentante(Representante representante){
 		
-		if(Objects.isNull(representanteMapper.obterPorId(representante.getIdRepresentante()))){
-			this.representanteMapper.insertRepresentante(representante);
-		}else{
-			
-			this.representanteMapper.updateRepresentante(representante);
+		try {
+			if(Objects.isNull(representanteMapper.obterPorId(representante.getIdRepresentante()))){
+				this.representanteMapper.insertRepresentante(representante);
+			}else{
+				
+				this.representanteMapper.updateRepresentante(representante);
+			}
+			this.usuarioBO.inactivateUsuario(representante.getUsuario(), representante.getStatus());
+			this.associaRepresentante(representante.getFornecedores(), representante.getIdRepresentante());
+		} catch (Exception e) {
+			log.error("RepresentanteBO.salvarRepresentante", e);
 		}
-		this.usuarioBO.inactivateUsuario(representante.getUsuario(), representante.getStatus());
-		this.associaRepresentante(representante.getFornecedores(), representante.getIdRepresentante());
 	}
 	
 	private void associaRepresentante(List<Fornecedor> lstFornecedor, Long  id) throws Exception{
-		List<RepresentanteFornecedor> lstRepresentanteFornecedor = this.representanteFornecedorMapper.obterPorRepresentante(id);
-		
-		//excluir os fornecedores que sairam da lista
-		boolean isOut;
-		for(RepresentanteFornecedor representanteFornecedor : lstRepresentanteFornecedor){
-			isOut=true;
-			for(Fornecedor fn: lstFornecedor){
-				if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
-					isOut = false;
-					break;
-				}
-			}
-			if(isOut)
-				this.representanteFornecedorMapper.deleteIdRepresentante(representanteFornecedor);
-		}
-		
-		//inclui os faltantes
-		boolean isNew;
-		for(Fornecedor fn: lstFornecedor){
-			isNew=true;
+		try {
+			List<RepresentanteFornecedor> lstRepresentanteFornecedor = this.representanteFornecedorMapper.obterPorRepresentante(id);
+			
+			//excluir os fornecedores que sairam da lista
+			boolean isOut;
 			for(RepresentanteFornecedor representanteFornecedor : lstRepresentanteFornecedor){
-				if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
-					isNew = false;
-					break;
+				isOut=true;
+				for(Fornecedor fn: lstFornecedor){
+					if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
+						isOut = false;
+						break;
+					}
 				}
+				if(isOut)
+					this.representanteFornecedorMapper.deleteIdRepresentante(representanteFornecedor);
 			}
-			if(isNew)
-				this.representanteFornecedorMapper.insertPorRepresentante(new RepresentanteFornecedor(fn, id));
+			
+			//inclui os faltantes
+			boolean isNew;
+			for(Fornecedor fn: lstFornecedor){
+				isNew=true;
+				for(RepresentanteFornecedor representanteFornecedor : lstRepresentanteFornecedor){
+					if(fn.getIdFornecedor() == representanteFornecedor.getFornecedor().getIdFornecedor()){
+						isNew = false;
+						break;
+					}
+				}
+				if(isNew)
+					this.representanteFornecedorMapper.insertPorRepresentante(new RepresentanteFornecedor(fn, id));
+			}
+		} catch (Exception e) {
+			log.error("RepresentanteBO.associaRepresentante", e);
 		}
 	}
 	
@@ -159,6 +175,7 @@ public class RepresentanteBO {
 		try{
 			return representanteMapper.obterPorIdUsuario(idUsuario);
 		}catch(Exception e){
+			log.error("RepresentanteBO.selecionaPorIdUsuario", e);
 			return null;
 		}
 	}
@@ -174,16 +191,20 @@ public class RepresentanteBO {
 			}
 			
 			return listRepr;
-			
 		}catch(Exception e){
+			log.error("RepresentanteBO.obterPorComprador", e);
 			return null;
 		}
 	}
 	
 	public List<FornecedorCusto> obterCustoAprovacaoPorFornecedor(Long id){
-		FornecedorCusto fornCusto = new FornecedorCusto();
-		fornCusto.setFornecedor(fornecedorMapper.obterFornecedorPorId(id));
-		return this.fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornCusto);
-		
+		try {
+			FornecedorCusto fornCusto = new FornecedorCusto();
+			fornCusto.setFornecedor(fornecedorMapper.obterFornecedorPorId(id));
+			return this.fornecedorCustoMapper.obterFornecedorCustoAprovacao(fornCusto);
+		} catch (Exception e) {
+			log.error("RepresentanteBO.obterCustoAprovacaoPorFornecedor", e);
+			return null;
+		}
 	}
 }

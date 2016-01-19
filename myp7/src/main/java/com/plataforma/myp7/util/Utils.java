@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.MaskFormatter;
 
+import org.apache.log4j.Logger;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.enums.ConfigEnum;
@@ -13,6 +14,7 @@ import com.plataforma.myp7.enums.Mensagem;
 
 public class Utils {
 	
+	private final static Logger log = Logger.getLogger(Utils.class);
 	
 	public static String format(String formato, Object valor){
 		MaskFormatter mascara = null;
@@ -21,6 +23,7 @@ public class Utils {
 			mascara.setValueContainsLiteralCharacters(false);
 			return mascara.valueToString(valor);
 		}catch(Exception e){
+			log.error("Utils.format", e);
 			throw new RuntimeException(e);
 		}
 	}

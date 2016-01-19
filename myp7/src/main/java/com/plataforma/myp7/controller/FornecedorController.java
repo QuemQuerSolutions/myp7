@@ -40,25 +40,19 @@ public class FornecedorController {
 	
 	@RequestMapping("carregaListaFornecedor")
 	public String carregaListaForncedor(Long idFornecedor, String cnpjFornecedor,String razao, String origem, Model model){
-		try{
-			if ("save".equals(origem)){
-				setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
-				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
-				return "FornecedorLista";
-			}else if("error".equals(origem)){
-				setMsgRetorno(model, "Falha na Operação");
-				setCodRetorno(model, -1);
-				return "FornecedorLista";
-			}
-			model.addAttribute("idFornecedor", idFornecedor);
-			model.addAttribute("cnpj", "".equals(cnpjFornecedor) || Objects.isNull(cnpjFornecedor)? "" :format("##.###.###/####-##", cnpjFornecedor));
-			model.addAttribute("razao", razao);
-			model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
-		}catch(Exception e){
-			e.printStackTrace();
-			setMsgRetorno(model, "Erro ao carregar lista");
+		if ("save".equals(origem)){
+			setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
+			setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
+			return "FornecedorLista";
+		}else if("error".equals(origem)){
+			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);
+			return "FornecedorLista";
 		}
+		model.addAttribute("idFornecedor", idFornecedor);
+		model.addAttribute("cnpj", "".equals(cnpjFornecedor) || Objects.isNull(cnpjFornecedor)? "" :format("##.###.###/####-##", cnpjFornecedor));
+		model.addAttribute("razao", razao);
+		model.addAttribute("lstFornecedor", this.fornecedorBO.obterFornecedorPorParametro(idFornecedor, cnpjFornecedor,razao, model));
 		return "FornecedorLista";
 	}
 	
@@ -75,7 +69,6 @@ public class FornecedorController {
 		try{
 			this.fornecedorBO.salvarFornecedor(fornecedor);
 		}catch(Exception e){
-			e.printStackTrace();
 			return "redirect:carregaListaFornecedor?origem=error";
 		}
 		return "redirect:carregaListaFornecedor?origem=save";

@@ -44,26 +44,20 @@ public class RepresentanteController {
 	
 	@RequestMapping("carregaListaRepresentante")
 	public String carregaListaRepresentante(Representante representante, String origem, Model model, HttpSession session){
-		try{
-			if ("save".equals(origem)){
-				setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
-				setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
-				return "RepresentanteLista";
-			}else if("error".equals(origem)){
-				setMsgRetorno(model, "Falha na Operação");
-				setCodRetorno(model, -1);
-				return "RepresentanteLista";
-			}
-			model.addAttribute("idRepresentante", !Objects.isNull(representante)? representante.getIdRepresentante() : null );
-			model.addAttribute("apelido", !Objects.isNull(representante) ? emptyToNull(representante.getApelido().trim()) : null );
-			model.addAttribute("razao", !Objects.isNull(representante)? emptyToNull(representante.getRazao().trim()) : null );
-			representante.setUsuario(this.usuarioBO.getUserSession(session));
-			model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
-		}catch(Exception e){
-			e.printStackTrace();
+		if ("save".equals(origem)){
+			setMsgRetorno(model, Mensagem.SALVO_SUCESSO.getMensagem());
+			setCodRetorno(model, Mensagem.SALVO_SUCESSO.getCodigo());
+			return "RepresentanteLista";
+		}else if("error".equals(origem)){
 			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);
+			return "RepresentanteLista";
 		}
+		model.addAttribute("idRepresentante", !Objects.isNull(representante)? representante.getIdRepresentante() : null );
+		model.addAttribute("apelido", !Objects.isNull(representante) ? emptyToNull(representante.getApelido().trim()) : null );
+		model.addAttribute("razao", !Objects.isNull(representante)? emptyToNull(representante.getRazao().trim()) : null );
+		representante.setUsuario(this.usuarioBO.getUserSession(session));
+		model.addAttribute("lstRepresentante", this.representanteBO.obterPorParametro(representante, model));
 		return "RepresentanteLista";
 	}	
 	
@@ -86,12 +80,10 @@ public class RepresentanteController {
 	
 	@RequestMapping("salvarRepresentante")
 	public String salvarFornecedor(Representante representante, Model model){
-		
 		try{
 			representante.setUsuario(this.usuario);
 			this.representanteBO.salvarRepresentante(representante);
 		}catch(Exception e){
-			e.printStackTrace();
 			return "redirect:carregaListaRepresentante?origem=error";
 		}
 		return "redirect:carregaListaRepresentante?origem=save";

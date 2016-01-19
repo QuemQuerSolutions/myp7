@@ -1,14 +1,16 @@
 package com.plataforma.myp7.bo;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
+import static com.plataforma.myp7.util.Utils.setCodRetorno;
+import static com.plataforma.myp7.util.Utils.setMsgRetorno;
+import static com.plataforma.myp7.util.Utils.toLike;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -20,10 +22,10 @@ import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
 
-import static com.plataforma.myp7.util.Utils.*;
-
 @Service
 public class UsuarioBO {
+	
+	private final static Logger log = Logger.getLogger(UsuarioBO.class);
 
 	@Autowired
 	private UsuarioMapper usuarioMapper;
@@ -33,6 +35,7 @@ public class UsuarioBO {
 		try{
 			return this.usuarioMapper.obterPorId(id);
 		}catch(Exception e){
+			log.error("UsuarioBO.obterPorId", e);
 			return null;
 		}
 	}
@@ -41,43 +44,53 @@ public class UsuarioBO {
 		return (Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor());
 	}
 	
-	public String salvar(Usuario usuario, Model model, String tpUsuario) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
-		String pagina="";
-		if(Objects.isNull(usuario.getIdUsuario())){
-			if(this.isValidInsert(usuario, model)){
+	public String salvar(Usuario usuario, Model model, String tpUsuario){
+		try {
+			String pagina="";
+			if(Objects.isNull(usuario.getIdUsuario())){
+				if(this.isValidInsert(usuario, model)){
+					usuario.setTipoUsuario(tpUsuario);
+					usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
+					this.usuarioMapper.incluir(usuario);
+				}else{
+					setCodRetorno(model, -1);
+					pagina="UsuarioInserir";
+				}
+				
+			}else{
 				usuario.setTipoUsuario(tpUsuario);
 				usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
-				this.usuarioMapper.incluir(usuario);
-			}else{
-				setCodRetorno(model, -1);
-				pagina="UsuarioInserir";
+				this.usuarioMapper.update(usuario);
 			}
-			
-		}else{
-			usuario.setTipoUsuario(tpUsuario);
-			usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
-			this.usuarioMapper.update(usuario);
+			return pagina;
+		} catch (Exception e) {
+			log.error("UsuarioBO.salvar", e);
+			return null;
 		}
-		return pagina;
 	}
 	
-	private boolean isValidInsert(Usuario usuario, Model model) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
-		if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
-			setMsgRetorno(model, "Email já cadastrado.");
-			return false;
-		}
-		
-		ParametroDominio dominio = new ParametroDominio();
-		dominio.setId(FuncionalidadeEnum.USUARIO_FUN.getCodFunc());
-		dominio.setDescricao(FuncionalidadeEnum.USUARIO_FUN.getDescFunc().toString());
+	private boolean isValidInsert(Usuario usuario, Model model){
+		try {
+			if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
+				setMsgRetorno(model, "Email já cadastrado.");
+				return false;
+			}
+			
+			ParametroDominio dominio = new ParametroDominio();
+			dominio.setId(FuncionalidadeEnum.USUARIO_FUN.getCodFunc());
+			dominio.setDescricao(FuncionalidadeEnum.USUARIO_FUN.getDescFunc().toString());
 
-		SenhaBO senhaBO = new SenhaBO();
-		if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
-			setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
+			SenhaBO senhaBO = new SenhaBO();
+			if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
+				setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
+				return false;
+			}
+			
+			return true;
+		} catch (Exception e) {
+			log.error("UsuarioBO.isValidInsert", e);
 			return false;
 		}
-		
-		return true;
 	}	
 	
 	public void updateTheme(String theme, Model model, HttpSession session) {
@@ -92,26 +105,35 @@ public class UsuarioBO {
 			setMsgRetorno(model, "Tema alterado com sucesso.");
 			setCodRetorno(model, 0);
 		}catch(Exception e){
-			e.printStackTrace();
 			setMsgRetorno(model, "Erro ao alterar tema, contate o administrador.");
 			setCodRetorno(model, -1);
+			log.error("UsuarioBO.updateTheme", e);
 		}
 	}
 
 	public List<Usuario> selecionaComFiltro(Usuario usuario) {
-		if(Objects.isNull(usuario))
-			return new ArrayList<Usuario>();
-		
-		Usuario busca = new Usuario();
-		
-		busca.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
-		busca.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
-		
-		return this.usuarioMapper.obterUsuarioComFiltro(busca);
+		try {
+			if(Objects.isNull(usuario))
+				return new ArrayList<Usuario>();
+			
+			Usuario busca = new Usuario();
+			
+			busca.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
+			busca.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
+			
+			return this.usuarioMapper.obterUsuarioComFiltro(busca);
+		} catch (Exception e) {
+			log.error("UsuarioBO.selecionaComFiltro", e);
+			return null;
+		}
 	}
 	
 	public void inactivateUsuario(Usuario usuario, String status){
-		usuario.setAtivo(status.equals("I")? "0":"1");
-		this.usuarioMapper.updateStatus(usuario);
+		try {
+			usuario.setAtivo(status.equals("I")? "0":"1");
+			this.usuarioMapper.updateStatus(usuario);
+		} catch (Exception e) {
+			log.error("UsuarioBO.inactivateUsuario", e);
+		}
 	}
 }

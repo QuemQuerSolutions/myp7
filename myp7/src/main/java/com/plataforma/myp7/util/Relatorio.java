@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -16,6 +18,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.export.PdfExporterConfiguration;
 
 public class Relatorio {
+	
+	private final static Logger log = Logger.getLogger(Relatorio.class);
 	
 	private static final String DIR_REPORT = "/com/plataforma/myp7/report/";
 	private static final String DIR_IMAGES_REPORT = "/com/plataforma/myp7/report/images/";
@@ -56,7 +60,7 @@ public class Relatorio {
 			ouputStream.close();
 			
 		} catch (JRException | IOException e) {
-			e.printStackTrace();
+			log.error("Relatorio.gerar", e);
 		}
 	}
 	

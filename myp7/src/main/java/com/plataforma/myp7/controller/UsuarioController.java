@@ -2,9 +2,6 @@ package com.plataforma.myp7.controller;
 
 import static com.plataforma.myp7.util.Utils.setRetorno;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,13 +36,9 @@ public class UsuarioController {
 	
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model, String tpUsuario){
-		try {
-			String pagina = this.usuarioBO.salvar(usuario, model, tpUsuario);
-			if(!"".equals(pagina)){	
-				return pagina;
-			}
-		} catch (SQLException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			e.printStackTrace();
+		String pagina = this.usuarioBO.salvar(usuario, model, tpUsuario);
+		if(!"".equals(pagina)){	
+			return pagina;
 		}
 		return "redirect:CarregaListaUsuario?origem=save";
 	}

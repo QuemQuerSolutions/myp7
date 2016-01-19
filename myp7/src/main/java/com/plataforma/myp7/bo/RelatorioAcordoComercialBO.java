@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import com.plataforma.myp7.util.Relatorio;
 
 @Service
 public class RelatorioAcordoComercialBO {
+	
+	private final static Logger log = Logger.getLogger(RelatorioAcordoComercialBO.class);
 	
 	@Autowired
 	private RelatorioAcordoComercialMapper relatorioAcordoComercialMapper;
@@ -32,12 +35,17 @@ public class RelatorioAcordoComercialBO {
 	}
 
 	private List<RelatorioAcordoComercial> getLista(RelatorioAcordoComercial rac) {
-		List<RelatorioAcordoComercial> lista = relatorioAcordoComercialMapper.obterPorParametro(rac);
-		
-		for(RelatorioAcordoComercial i: lista){
-			i.setSituacao(SituacaoTituloEnum.getNome(i.getSituacao()));
+		try {
+			List<RelatorioAcordoComercial> lista = relatorioAcordoComercialMapper.obterPorParametro(rac);
+			
+			for(RelatorioAcordoComercial i: lista){
+				i.setSituacao(SituacaoTituloEnum.getNome(i.getSituacao()));
+			}
+			return lista;
+		} catch (Exception e) {
+			log.error("RelatorioAcordoComercialBO.getLista", e);
+			return null;
 		}
-		return lista;
 	}
 	
 	public List<RelatorioAcordoComercial> obterPorParametro(RelatorioAcordoComercial rac){
@@ -49,13 +57,15 @@ public class RelatorioAcordoComercialBO {
 	}
 	
 	private void setFilters(RelatorioAcordoComercial rac){
-		String formatoDataTela = "yyyy-MM-dd";
-		rac.setDataInclusaoDeDate(DateUtils.getDate(rac.getDataInclusaoDe(), formatoDataTela));
-		rac.setDataInclusaoAteDate(DateUtils.getDate(rac.getDataInclusaoAte(), formatoDataTela));
-		rac.setDataVencimentoDeDate(DateUtils.getDate(rac.getDataVencimentoDe(), formatoDataTela));
-		rac.setDataVencimentoAteDate(DateUtils.getDate(rac.getDataVencimentoAte(), formatoDataTela));
-		
-//		rac.setSituacao(SituacaoTituloEnum.getSigla(rac.getSituacao()));
+		try {
+			String formatoDataTela = "yyyy-MM-dd";
+			rac.setDataInclusaoDeDate(DateUtils.getDate(rac.getDataInclusaoDe(), formatoDataTela));
+			rac.setDataInclusaoAteDate(DateUtils.getDate(rac.getDataInclusaoAte(), formatoDataTela));
+			rac.setDataVencimentoDeDate(DateUtils.getDate(rac.getDataVencimentoDe(), formatoDataTela));
+			rac.setDataVencimentoAteDate(DateUtils.getDate(rac.getDataVencimentoAte(), formatoDataTela));
+		} catch (Exception e) {
+			log.error("RelatorioAcordoComercialBO.setFilters", e);
+		}
 	}
 	
 }

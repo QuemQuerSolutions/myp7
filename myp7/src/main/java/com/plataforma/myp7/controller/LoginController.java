@@ -26,7 +26,6 @@ public class LoginController {
 
 	@RequestMapping(value={"/", "/home**"}, method = RequestMethod.GET)
 	public String home(Model model, HttpSession session){
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();

@@ -81,20 +81,13 @@ public class ProdutoController {
 	
 	@RequestMapping("InserirProduto")
 	public String salvar(Produto produto, HttpSession session, Model model, HttpServletRequest req){
-		try{
-			
-			if(!this.produtoBO.salvar(produto, session, model, imagemAnterior)){
-				this.carregaSelectEmbalagem(model);
-				model.addAttribute("produto", produto);
-				return "ProdutoInserir";
-			}
-			
-			this.sucessoInsert = "Produto salvo com sucesso";
-		}catch(Exception e){
-			setMsgRetorno(model, "Falha na operação.");
-			setCodRetorno(model, -1);
-			e.printStackTrace();
+		if(!this.produtoBO.salvar(produto, session, model, imagemAnterior)){
+			this.carregaSelectEmbalagem(model);
+			model.addAttribute("produto", produto);
+			return "ProdutoInserir";
 		}
+		
+		this.sucessoInsert = "Produto salvo com sucesso";
 		return "redirect:Produto";
 	}
 	
@@ -104,14 +97,8 @@ public class ProdutoController {
 	
 	@RequestMapping("carregaProdutos")
 	public String carregaProdutos(HttpSession session, Produto produto, Model model){
-		try {
-			produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
-			model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
-		} catch (Exception e) {
-			setMsgRetorno(model, "Falha na operação.");
-			setCodRetorno(model, -1);
-			e.printStackTrace();
-		}
+		produto.setUsuario((Usuario) session.getAttribute(ConfigEnum.USUARIO_LOGADO.getValor()));
+		model.addAttribute("produtos", this.produtoBO.obterProdutos(produto, model));
 		return "ProdutoLista";
 	}
 	

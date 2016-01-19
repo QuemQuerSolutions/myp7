@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,10 @@ import com.plataforma.myp7.util.Relatorio;
 @Service
 public class RelatorioEstoqueBO {
 
+	private final static Logger log = Logger.getLogger(RelatorioEstoqueBO.class);
+			
 	@Autowired
 	private RelatorioEstoqueMapper relatorioEstoqueMapper;
-	
 	
 	public void gerarPDF(HttpServletResponse res, RelatorioEstoque relEstoque){
 		try{
@@ -30,7 +32,7 @@ public class RelatorioEstoqueBO {
 			Relatorio.setImageParam(parametros, "logo", "logopeq.jpg");
 			Relatorio.gerar(parametros, lstEstoques, "rpdEstoque", res);
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error("RelatorioEstoqueBO.gerarPDF", e);
 		}
 	}
 	
@@ -38,16 +40,22 @@ public class RelatorioEstoqueBO {
 		try{
 			return setFormatDate(relatorioEstoqueMapper.obterPorParametro(relatorioEstoque));
 		}catch(Exception e){
+			log.error("RelatorioEstoqueBO.obterPorParametros", e);
 			return null;
 		}
 	}
 	
 	public List<RelatorioEstoque> setFormatDate(List<RelatorioEstoque> lstRel){
-		List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
-		for(RelatorioEstoque iRel: lstRel){
-			iRel.setDataUltimaCompra(iRel.getDataUltimaCompra().substring(0, iRel.getDataUltimaCompra().indexOf(":")-3));
-			lstRelTransformado.add(iRel);
+		try {
+			List<RelatorioEstoque> lstRelTransformado = new ArrayList<RelatorioEstoque>();
+			for(RelatorioEstoque iRel: lstRel){
+				iRel.setDataUltimaCompra(iRel.getDataUltimaCompra().substring(0, iRel.getDataUltimaCompra().indexOf(":")-3));
+				lstRelTransformado.add(iRel);
+			}
+			return lstRel;
+		} catch (Exception e) {
+			log.error("RelatorioEstoqueBO.obterPorParametros", e);
+			return null;
 		}
-		return lstRel;
 	}
 }

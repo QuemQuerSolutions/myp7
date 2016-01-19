@@ -4,6 +4,7 @@ import static com.plataforma.myp7.util.Utils.*;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,30 +16,37 @@ import com.plataforma.myp7.mapper.EmbalagemMapper;
 @Service
 public class EmbalagemBO {
 	
+	private final static Logger log = Logger.getLogger(EmbalagemBO.class);
+	
 	@Autowired
 	private EmbalagemMapper embalagemMapper;
 	
 	public List<Embalagem> selecionaPorParametros(Embalagem embalagem, Model model){
-		this.corrigeParametros(embalagem);
-		Integer count = this.count(embalagem);
-		
-		if(count == 0){
+		try {
+			this.corrigeParametros(embalagem);
+			Integer count = this.count(embalagem);
+			
+			if(count == 0){
+				cleanLikeEmbalagem(embalagem);
+				setMsgRetorno(model, "Nenhum registro localizado.");
+				setCodRetorno(model, -1);
+				return null;
+			}
+			
+			if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
+				cleanLikeEmbalagem(embalagem);
+				setMsgRetorno(model, "Refine sua pesquisa.");
+				setCodRetorno(model, -1);
+				return null;
+			}
+			
+			List<Embalagem> lista = this.embalagemMapper.obterEmbalagens(embalagem);
 			cleanLikeEmbalagem(embalagem);
-			setMsgRetorno(model, "Nenhum registro localizado.");
-			setCodRetorno(model, -1);
+			return lista;
+		} catch (Exception e) {
+			log.error("EmbalagemBO.selecionaPorParametros", e);
 			return null;
 		}
-		
-		if(count > Integer.parseInt(ConfigEnum.LIMITE_COUNT.getValor())){
-			cleanLikeEmbalagem(embalagem);
-			setMsgRetorno(model, "Refine sua pesquisa.");
-			setCodRetorno(model, -1);
-			return null;
-		}
-		
-		List<Embalagem> lista = this.embalagemMapper.obterEmbalagens(embalagem);
-		cleanLikeEmbalagem(embalagem);
-		return lista;
 	}
 
 	private void cleanLikeEmbalagem(Embalagem embalagem) {
@@ -47,15 +55,30 @@ public class EmbalagemBO {
 	}
 	
 	public List<Embalagem> selecionaTodos(){
-		return this.embalagemMapper.obterTodasEmbalagens();
+		try {
+			return this.embalagemMapper.obterTodasEmbalagens();
+		} catch (Exception e) {
+			log.error("EmbalagemBO.selecionaTodos", e);
+			return null;
+		}
 	}
 	
 	public Embalagem selecionaPorId(Long id){
-		return this.embalagemMapper.obterEmbalagemPorId(id);
+		try {
+			return this.embalagemMapper.obterEmbalagemPorId(id);
+		} catch (Exception e) {
+			log.error("EmbalagemBO.selecionaPorId", e);
+			return null;
+		}
 	}
 	
 	public Integer count(Embalagem embalagem){
-		return this.embalagemMapper.countEmbalagem(embalagem);
+		try {
+			return this.embalagemMapper.countEmbalagem(embalagem);
+		} catch (Exception e) {
+			log.error("EmbalagemBO.count", e);
+			return null;
+		}
 	}
 	
 	private void corrigeParametros(Embalagem embalagem){
@@ -64,21 +87,26 @@ public class EmbalagemBO {
 	}
 	
 	public boolean isInsertValido(Embalagem embalagem, Model model){
-		
-		Embalagem embalagemConsulta = new Embalagem();
-		embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
-		
-		if(this.embalagemMapper.obterEmbalagens(embalagemConsulta).size() > 0){
-			setMsgRetorno(model, "Embalagem existente");
-			setCodRetorno(model, -1);
-			model.addAttribute("outraPagina", "insert");
-			model.addAttribute("embalagem", embalagem);
-			return false;
+		try {
+			Embalagem embalagemConsulta = new Embalagem();
+			embalagemConsulta.setSiglaEmbalagem(embalagem.getSiglaEmbalagem());
+			
+			if(this.embalagemMapper.obterEmbalagens(embalagemConsulta).size() > 0){
+				setMsgRetorno(model, "Embalagem existente");
+				setCodRetorno(model, -1);
+				model.addAttribute("outraPagina", "insert");
+				model.addAttribute("embalagem", embalagem);
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			log.error("EmbalagemBO.isInsertValido", e);
+			return true;
 		}
-		return true;
 	}
 	
-	public boolean salvar(Embalagem embalagem, Model model) throws Exception {
+	public boolean salvar(Embalagem embalagem, Model model) {
+		try {
 			embalagem.setSiglaEmbalagem(embalagem.getSiglaEmbalagem().toUpperCase());
 			
 			if(embalagem.getIdEmbalagem() != 0)
@@ -91,10 +119,23 @@ public class EmbalagemBO {
 			setMsgRetorno(model, "Embalagem salva com sucesso");
 			setCodRetorno(model, 0);
 			return true;
+		} catch (Exception e) {
+			setMsgRetorno(model, "Erro ao inserir a embalagem");
+			setCodRetorno(model, -1);
+			model.addAttribute("outraPagina", "insert");
+			model.addAttribute("embalagem", embalagem);
+			log.error("EmbalagemBO.salvar", e);
+			return true;
+		}
 	}
 	
 	public Embalagem obterEmbalagemPorId(Long id){
-		return this.embalagemMapper.obterEmbalagemPorId(id);
+		try {
+			return this.embalagemMapper.obterEmbalagemPorId(id);
+		} catch (Exception e) {
+			log.error("EmbalagemBO.obterEmbalagemPorId", e);
+			return null;
+		}
 	}
 	
 }

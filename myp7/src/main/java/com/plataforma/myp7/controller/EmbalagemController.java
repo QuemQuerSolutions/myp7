@@ -1,7 +1,5 @@
 package com.plataforma.myp7.controller;
 
-import static com.plataforma.myp7.util.Utils.*;
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,18 +40,9 @@ public class EmbalagemController {
 	
 	@RequestMapping("SalvarEmbalagem")
 	public String salvar(Embalagem embalagem, Model model){
-		try{
-			this.embalagemBO.salvar(embalagem, model);
-			model.addAttribute("lista", this.carregaLista());
-			return "EmbalagemLista";
-		}catch(Exception e){
-			e.printStackTrace();
-			setMsgRetorno(model, "Erro ao inserir a embalagem");
-			setCodRetorno(model, -1);
-			model.addAttribute("outraPagina", "insert");
-			model.addAttribute("embalagem", embalagem);
-			return "EmbalagemLista";
-		}
+		this.embalagemBO.salvar(embalagem, model);
+		model.addAttribute("lista", this.carregaLista());
+		return "EmbalagemLista";
 	}
 	
 	private List<Embalagem> carregaLista(Embalagem parametros, Model model){
@@ -63,6 +52,5 @@ public class EmbalagemController {
 	private List<Embalagem> carregaLista(){
 		return this.embalagemBO.selecionaTodos();
 	}
-	
 	
 }
