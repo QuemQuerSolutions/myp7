@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.dto.UsuarioDTO;
 import com.plataforma.myp7.enums.Mensagem;
 
 @Controller
@@ -49,7 +50,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="CarregaListaUsuario")
-	public String carregaListaUsuario(Model model, Usuario usuario, String origem) {
+	public String carregaListaUsuario(Model model, UsuarioDTO usuario, String origem) {
 		
 		if("save".equals(origem)){
 			setRetorno(model, Mensagem.SALVO_SUCESSO);
@@ -61,7 +62,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="pesquisarUsuarioAJAX", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Usuario> pesquisarUsuarioAJAX(Usuario usuario) {
+	public @ResponseBody List<Usuario> pesquisarUsuarioAJAX(UsuarioDTO usuario) {
 		return this.usuarioBO.selecionaComFiltro(usuario);
 	}
 	

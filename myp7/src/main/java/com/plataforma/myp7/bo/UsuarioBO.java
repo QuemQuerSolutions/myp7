@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.ParametroDominio;
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.dto.UsuarioDTO;
 import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
@@ -111,17 +112,18 @@ public class UsuarioBO {
 		}
 	}
 
-	public List<Usuario> selecionaComFiltro(Usuario usuario) {
+	public List<Usuario> selecionaComFiltro(UsuarioDTO usuario) {
 		try {
 			if(Objects.isNull(usuario))
 				return new ArrayList<Usuario>();
 			
-			Usuario busca = new Usuario();
+			usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
+			usuario.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
 			
-			busca.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
-			busca.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
+			if(usuario.getIdsUsuarioRemoverLista() != null)
+				this.populaListaIds(usuario);
 			
-			return this.usuarioMapper.obterUsuarioComFiltro(busca);
+			return this.usuarioMapper.obterUsuarioComFiltro(usuario);
 		} catch (Exception e) {
 			log.error("UsuarioBO.selecionaComFiltro", e);
 			return null;
@@ -135,5 +137,13 @@ public class UsuarioBO {
 		} catch (Exception e) {
 			log.error("UsuarioBO.inactivateUsuario", e);
 		}
+	}
+	
+	private void populaListaIds(UsuarioDTO usuario) {
+		String[] ids = usuario.getIdsUsuarioRemoverLista().split(",");
+		List<Integer> list = new ArrayList<>();
+		for(String id : ids)
+			list.add(Integer.parseInt(id));
+		usuario.setListIdsUsuarioRemoverLista(list);
 	}
 }

@@ -46,6 +46,13 @@
 		<if test="email != null">
 			AND USU_EMAIL LIKE #{email} 
 		</if>		
+		
+		<if test="idsUsuarioRemoverLista != null">
+			AND ID_USUARIO NOT IN
+			<foreach item="item" index="index" collection="listIdsUsuarioRemoverLista" open="(" separator="," close=")">
+		    	#{item}
+		   </foreach>
+		</if>			
 	</select>	
 	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.plataforma.myp7.data.Usuario;
+import com.plataforma.myp7.dto.UsuarioDTO;
 
 @Component
 public interface UsuarioMapper {
@@ -23,5 +24,5 @@ public interface UsuarioMapper {
 	
 	void updateStatus(Usuario usuario);
 
-	List<Usuario> obterUsuarioComFiltro(Usuario usuario);
+	List<Usuario> obterUsuarioComFiltro(UsuarioDTO usuario);
 }

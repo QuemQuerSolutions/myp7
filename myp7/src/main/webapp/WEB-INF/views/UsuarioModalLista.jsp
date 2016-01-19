@@ -41,16 +41,27 @@ $(document).ready(function() {
 
 	$("#btnSelecionarUsuario").click(function(e){
 		e.stopPropagation();
-		if(nomeUsu == ""){
-			alerta("Selecione um usuário.", "warning");
+		if($(".clicked").attr('name') == "subordinado"){
+			var subordinado;
+			$("#listaUsuario tr").each(function(){
+				if($(this).hasClass($("#theme").val())){
+					subordinado = {idUsuario	: $(this).find('td[data-id]').text(),
+							   	   razao		: $(this).find('td[data-razao]').text()}
+				}
+			});	
+			addLineSubordinadoTab(subordinado);
 		}else{
-			$("#"+$(".clicked").attr('name')).val($.trim(nomeUsu));
-			$("#id"+$(".clicked").attr('name')).val($.trim(idUsu));
-			
-			$("#limparUsuario").click();
-			removerClasseClicked();
-			$('#consulta_usuario').modal("hide");
+			if(nomeUsu == ""){
+				alerta("Selecione um usuário.", "warning");
+			}else{
+				$("#"+$(".clicked").attr('name')).val($.trim(nomeUsu));
+				$("#id"+$(".clicked").attr('name')).val($.trim(idUsu));
+				
+				$("#limparUsuario").click();
+				removerClasseClicked();
+			}
 		}
+		$('#consulta_usuario').modal("hide");
 	});	
 });
 
@@ -67,7 +78,11 @@ function pesquisarUsuario(razaoSocial, email){
 //	if(!hasInformation("#usaurio_modal_body")){
 //		alerta("Informe ao menos um filtro para continuar", "warning");
 //	}else { 
-		var usuario = {razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
+		if($(".clicked").attr('name') != "subordinado"){
+			var usuario = {razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
+		}else{
+			var usuario = {idsUsuarioRemoverLista : obterIdsUsuarioRemoverLista(), razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
+		}
 		$.ajax({
 			type: "GET",
 			data :usuario,
@@ -94,12 +109,23 @@ function pesquisarUsuario(razaoSocial, email){
 //	}
 }
 
+function obterIdsUsuarioRemoverLista(){
+	var idsUsuarioRemoverLista = $(".idAdministrador").val();
+
+	$(".listaSubordinados").each(function(){
+		idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat(",");
+		idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat($(this).val());
+	});
+	
+	return idsUsuarioRemoverLista;
+}
+
 function montaTable(lista){
 	var linha = "";
 	lista.forEach(function(item){
 		linha = linha.concat("<tr>", 
-								"<td class=\"idUsu\">",item.idUsuario,"</td>", 
-								"<td class=\"razaoUsu\">",item.razaoSocial,"</td>",
+								"<td class=\"idUsu\" data-id>",item.idUsuario,"</td>", 
+								"<td class=\"razaoUsu\" data-razao>",item.razaoSocial,"</td>",
 								"<td>",item.email,"</td>",
 							 "</tr>");
 	});
