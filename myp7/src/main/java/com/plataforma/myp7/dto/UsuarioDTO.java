@@ -1,7 +1,6 @@
 package com.plataforma.myp7.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDTO  implements Serializable {
@@ -22,6 +21,9 @@ public class UsuarioDTO  implements Serializable {
 	private String tipoUsuario;
 	
 	private List<Integer> listIdsUsuarioRemoverLista;
+	private Boolean aprovacaoProduto;
+	private Boolean aprovacaoCusto;
+	private Integer valorAlcada;
 	
 	public List<Integer> getListIdsUsuarioRemoverLista() {
 		return listIdsUsuarioRemoverLista;
@@ -135,5 +137,29 @@ public class UsuarioDTO  implements Serializable {
 	
 	public void setIdsUsuarioRemoverLista(String idsUsuarioRemoverLista) {
 		this.idsUsuarioRemoverLista = idsUsuarioRemoverLista;
+	}
+
+	public Boolean getAprovacaoProduto() {
+		return aprovacaoProduto;
+	}
+
+	public void setAprovacaoProduto(Boolean aprovacaoProduto) {
+		this.aprovacaoProduto = aprovacaoProduto;
+	}
+
+	public Boolean getAprovacaoCusto() {
+		return aprovacaoCusto;
+	}
+
+	public void setAprovacaoCusto(Boolean aprovacaoCusto) {
+		this.aprovacaoCusto = aprovacaoCusto;
+	}
+
+	public Integer getValorAlcada() {
+		return valorAlcada;
+	}
+
+	public void setValorAlcada(Integer valorAlcada) {
+		this.valorAlcada = valorAlcada;
 	}
 }

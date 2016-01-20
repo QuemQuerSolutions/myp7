@@ -15,9 +15,9 @@
 
 	<sql id="selectUsuario">
 		<![CDATA[
-			SELECT ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, 
+			SELECT USUARIO.ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, 
 				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO
-			FROM USU_USUARIO
+			FROM USU_USUARIO USUARIO
 		  ]]>
 	</sql>
 	
@@ -37,6 +37,7 @@
 	
 	<select id="obterUsuarioComFiltro" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
+		
 		WHERE 1=1
 		
 		<if test="razaoSocial != null">
@@ -53,6 +54,14 @@
 		    	#{item}
 		   </foreach>
 		</if>			
+		
+		<if test="aprovacaoProduto == false">
+			AND FLG_APR_PRD = 0 
+		</if>		
+		
+		<if test="aprovacaoCusto == true">
+			AND VALOR_ALCADA &lt;= #{valorAlcada}
+		</if>		
 	</select>	
 	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">

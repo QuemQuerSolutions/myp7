@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 	$("#btnCancelar").click(function(e){
 		e.stopPropagation();
-		go("Fornecedor");
+		go("UsuarioHierarquia");
 	});
 	
 	$("#btnSalvar").click(function(e){
@@ -20,13 +20,20 @@ $(document).ready(function() {
 			return;
 		}
 		
-		go("#frmSalvarFornecedor");
+		go("#frmSalvarHierarquia");
 	});	
 	
 	$("#clickUsuario").click(function(e){
-		e.stopPropagation();
-		$(this).addClass("clicked");
-		$("#consulta_usuario").modal();
+		var tabelaPopulada = true;
+		$("#linesSubordinado tr").each(function(){
+			tabelaPopulada = false;		
+		});
+
+		if(tabelaPopulada){
+			e.stopPropagation();
+			$(this).addClass("clicked");
+			$("#consulta_usuario").modal();
+		}
 	});
 
 });
@@ -67,11 +74,35 @@ function addLineSubordinadoTab(subordinado){
 }
 
 function onAddSubordinado(){
-	$("#subordinado").addClass("clicked");
-	$("#consulta_usuario").modal();
+	if($.trim($("#usuario").val()) != ""){
+		if(($("#aprCusto").hasClass("glyphicon-ok-sign") && $.trim($("#aprCustoAlcada").val()) != "") || 
+			$("#aprCusto").hasClass("glyphicon glyphicon-remove-sign red")){
+			
+			$("#subordinado").addClass("clicked");
+			$("#consulta_usuario").modal();
+		}else{
+			alerta("Preencha o valor da alçada.", "warning");
+		}
+	}else{
+		alerta("Selecione o usuário principal.", "warning");
+	}
 }
 
 function alterarPermissaoAprovacao(id){
+
+	var itemTabela = false;
+	if(id == "aprProd" || id == "aprCusto"){
+		var existente = false;
+		$("#linesSubordinado tr").each(function(){
+			existente = true;		
+		});
+		
+		if(existente)
+			return;
+	}else{
+		itemTabela = true;
+	}
+		
 	if($("#"+id).hasClass("glyphicon-ok-sign")){
 
 		$("#"+id).removeClass("glyphicon glyphicon-ok-sign green").addClass("glyphicon glyphicon-remove-sign red");
@@ -79,6 +110,14 @@ function alterarPermissaoAprovacao(id){
 		if(id.indexOf("aprCusto") >= 0)
 			$("#"+id+"Alcada").attr("disabled", true);
 	}else{
+		if(itemTabela){
+			if(id.substr(0, 7) == "aprProd" && $("#aprProd").hasClass("glyphicon glyphicon-remove-sign red")){
+				return;
+			}else if(id.substr(0, 8) == "aprCusto" && $("#aprCusto").hasClass("glyphicon glyphicon-remove-sign red")){
+				return;
+			}
+		}
+		
 		$("#"+id).removeClass("glyphicon glyphicon-remove-sign red").addClass("glyphicon glyphicon-ok-sign green");
 
 		if(id.indexOf("aprCusto") >= 0)
@@ -101,18 +140,31 @@ function removerLinha(id){
 		</div>
 		
 		<div id="content-body">
-			<form action="salvarFornecedor" id="frmSalvarFornecedor" method="POST">
+			<form action="salvarHierarquia" id="frmSalvarHierarquia" method="POST">
 				<input type="hidden" id="mensagemRetorno" value="${mensagemRetorno}" />
 				<input type="hidden" id="codMsgem" value="${codMsgem}" />
 				<div class="row">
 				  	<div class="col-md-6 form-group req">
-				   		<label for="nomeUsuario">Usuario</label>
+				   		<label for="nomeUsuario">Usuário</label>
 				    	<input type="hidden" id="idusuario" name="idUsuario" class="idAdministrador" value="1">
 				    	<input type="text" class="form-control" id="usuario" maxlength="11" value="${obj.usuario.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
 				  		<label for="nomeUsuario">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" name="usuario" id="clickUsuario"><span class="glyphicon glyphicon-search"></span></a>
+				  	</div>
+					<div class="col-md-2 form-group req">
+						<br/><br/>
+				  		<a href='#' onclick='alterarPermissaoAprovacao("aprProd");'>
+							<span id="aprProd" class='glyphicon glyphicon-remove-sign red'></span>&nbsp; Aprovar Produto
+						</a>
+					</div>
+					<div class="col-md-3 form-group req">
+						<br/><br/>
+						<a href='#' onclick='alterarPermissaoAprovacao("aprCusto");'>
+							<span id="aprCusto" class='glyphicon glyphicon-remove-sign red'></span>&nbsp; Aprovar Custo
+						</a>
+						&nbsp;&nbsp;<input type="number" id="aprCustoAlcada" placeholder="Alçada" disabled>
 				  	</div>
 				</div>
 				<div class="row">&nbsp;</div>

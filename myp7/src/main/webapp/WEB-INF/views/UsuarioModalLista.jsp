@@ -81,7 +81,12 @@ function pesquisarUsuario(razaoSocial, email){
 		if($(".clicked").attr('name') != "subordinado"){
 			var usuario = {razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
 		}else{
-			var usuario = {idsUsuarioRemoverLista : obterIdsUsuarioRemoverLista(), razaoSocial : $.trim($("#razao_social").val()), email : $.trim($("#email").val())}
+			var usuario = {	idsUsuarioRemoverLista : obterIdsUsuarioRemoverLista(), 
+							razaoSocial : $.trim($("#razao_social").val()), 
+							email : $.trim($("#email").val()),
+							aprovacaoProduto : $("#aprProd").hasClass("glyphicon-ok-sign"), 
+							aprovacaoCusto : $("#aprCusto").hasClass("glyphicon-ok-sign"),
+							valorAlcada : $.trim($("#aprCustoAlcada").val())}
 		}
 		$.ajax({
 			type: "GET",
