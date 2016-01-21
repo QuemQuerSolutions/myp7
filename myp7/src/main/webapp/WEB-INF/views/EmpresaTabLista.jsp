@@ -12,7 +12,7 @@ function addLineEmpresaTab(empresa){
 
 	line = line.concat("<td class='req'>");
 		line = line.concat("<input type='hidden' name='obj.empresa[0].idEmpresa' id='pk' value='", id, "'/>");
-		line = line.concat("<input type='text' name='obj.empresa[0].alcada' id='empresa0.alcada' onkeydown='onlyNumber(event)' class='form-control'>");
+		line = line.concat("<input type='text' name='obj.empresa[0].alcada' maxlength='3' id='empresa0.alcada' onkeydown='onlyNumber(event)' class='form-control'>");
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
@@ -27,7 +27,6 @@ function addLineEmpresaTab(empresa){
 	addContador(qtdEmpresa);
 	reindex("#linesEmpresaTab", "empresa");
 }
-//var uuid=guid();
 </script>
 <div class="row" id="EmpresaTabLista">
 	<div class="col-md-12">
@@ -45,7 +44,7 @@ function addLineEmpresaTab(empresa){
 					<td class="text-middle">${emp.nomeReduzido}</td>
 					<td class="req">
 						<form:hidden path="obj.empresa[${i.index}].idEmpresa"/>
-						<form:input path="obj.empresa[${i.index}].alcada" onkeydown="onlyNumber(event)" cssClass="form-control" />
+						<form:input path="obj.empresa[${i.index}].alcada" maxlength="3" onkeydown="onlyNumber(event)" cssClass="form-control" />
 					</td>
 					<td class="text-center text-middle">
 						<a href="#" id="${emp.uuid}"  onclick="onRemoveLine('${emp.uuid}', 'qtdEmpresa'); reindex('#linesEmpresaTab', 'empresa');" >

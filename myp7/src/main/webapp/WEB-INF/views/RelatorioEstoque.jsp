@@ -34,7 +34,7 @@ $(document).ready(function(){
 			    var lines = "";
 			    
 			    if(lista.length == 0){
-			    	$("#lstRelatorioEstoque").html("<tr><td colspan='10'>Nenhum registro encontrado</td></tr>");
+			    	$("#lstRelatorioEstoque").html("<tr><td colspan='7'>Nenhum registro encontrado</td></tr>");
 			    	return;
 			    }
 			    
@@ -68,7 +68,6 @@ $(document).ready(function(){
 		line = line.concat("<td>", relatEstoque.comprador ,"</td>");	
 		line = line.concat("<td>", relatEstoque.representante ,"</td>");
 		line = line.concat("<td>", relatEstoque.fornecedor ,"</td>");
-		
 		
 		line = line.concat("</tr>");
 		

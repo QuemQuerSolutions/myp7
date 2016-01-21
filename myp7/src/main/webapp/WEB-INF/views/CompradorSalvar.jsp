@@ -91,6 +91,7 @@ function onAddRepresentante(){
 				  	<div class="col-md-5 form-group req">
 				   		<label for="usuario">Usuário</label>
 				   		<input type="hidden" name="usuario.idUsuario" id="idusuario" value="${obj.usuario.idUsuario}"/>
+				   		
 				    	<input type="text" class="form-control" id="usuario" value="${obj.usuario.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">

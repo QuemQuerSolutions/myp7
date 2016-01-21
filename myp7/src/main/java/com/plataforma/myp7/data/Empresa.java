@@ -15,7 +15,7 @@ public class Empresa  implements Serializable{
 	private Long idEmpresa;
 	private String nomeReduzido;
 	private Integer idCompradorAlcada;
-	private Double alcada;
+	private Integer alcada;
 	private Pessoa pessoa;
 	private String uuid;
 	
@@ -84,7 +84,7 @@ public class Empresa  implements Serializable{
 		this.pessoa = pessoa;
 	}
 
-	public Double getAlcada() {
+	public Integer getAlcada() {
 		return alcada;
 	}
 
@@ -92,7 +92,7 @@ public class Empresa  implements Serializable{
 		return pessoa;
 	}
 
-	public void setAlcada(Double alcada) {
+	public void setAlcada(Integer alcada) {
 		this.alcada = alcada;
 	}
 
