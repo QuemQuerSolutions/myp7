@@ -8,7 +8,7 @@
 		<myp7:subMenu label="Representante" link="/retaguarda/Representante" />
 		<myp7:subMenu label="Embalagem" link="/retaguarda/Embalagem" />
 		<myp7:subMenu label="Fornecedor" link="/retaguarda/Fornecedor" />
-		<myp7:subMenu label="Hierarquia" link="/retaguarda/UsuarioHierarquia" />
+		<myp7:subMenu label="Parametrização Usuário" link="/retaguarda/UsuarioHierarquia" />
 	</ul>
 </li>
 

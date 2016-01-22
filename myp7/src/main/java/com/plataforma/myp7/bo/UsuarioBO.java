@@ -146,4 +146,28 @@ public class UsuarioBO {
 			list.add(Integer.parseInt(id));
 		usuario.setListIdsUsuarioRemoverLista(list);
 	}
+
+	public void salvarHierarquia(UsuarioDTO superior) {
+		this.usuarioMapper.updateHierarquia(superior);
+		
+		if(superior.getIdsUsuarioParametrosSubordinados() != null){
+			String[] subordinado = superior.getIdsUsuarioParametrosSubordinados().split(";");
+			UsuarioDTO subordinadoDTO;
+			for(String dados : subordinado){
+				subordinadoDTO = new UsuarioDTO();
+				String[] itens = dados.split(",");
+				
+				subordinadoDTO.setIdSuperior	(superior.getIdUsuario());
+				subordinadoDTO.setIdUsuario		(itens[0] != null ? Long.parseLong(itens[0]) : null);
+				subordinadoDTO.setAprProd		(itens[1] != null ? itens[1].equalsIgnoreCase("TRUE") ? 1 : 0 : null);
+				subordinadoDTO.setAprCustoBoo	(itens[2] != null ? Boolean.parseBoolean(itens[2]) : null);
+				if(itens.length > 3)
+					subordinadoDTO.setValorAlcada	(itens[3] != null ? Integer.parseInt(itens[3]) : null);
+				
+				this.usuarioMapper.updateHierarquia(subordinadoDTO);
+			}
+		}
+		//TODO
+		this.usuarioMapper.updateHierarquiaGeral(superior.getIdUsuario());
+	}
 }

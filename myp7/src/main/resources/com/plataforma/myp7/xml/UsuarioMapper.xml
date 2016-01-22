@@ -98,5 +98,29 @@
 		UPDATE usu_usuario SET  USU_ATIVO = #{ativo}
 		WHERE ID_USUARIO=#{idUsuario}
 	</update>
+	<update id="updateHierarquia">
+		UPDATE usu_usuario 
+		SET  USU_SUPERIOR = #{idSuperior}
+		
+		<if test="aprProd != null">
+			,FLG_APR_PRD = #{aprProd}
+		</if>
+		<choose>
+    		<when test="aprCustoBoo == true">
+    			,VALOR_ALCADA = #{valorAlcada}
+   			</when>
+    		<when test="aprCustoBoo == false">
+    			,VALOR_ALCADA = 0
+   			</when>
+  		</choose>
+		
+		WHERE ID_USUARIO=#{idUsuario}
+	</update>	
+	
+	<update id="updateHierarquiaGeral">
+		UPDATE usu_usuario 
+		SET  USU_SUPERIOR = null
+		WHERE USU_SUPERIOR=#{idSuperior}
+	</update>
 	
 </mapper>

@@ -7,6 +7,7 @@
 	<myp7:menuComSub label="Cadastro" icon="glyphicon-pencil" />
 	<ul>
 		<myp7:subMenu label="Usuário" link="/admin/ListaUsuario" />
+		<myp7:subMenu label="Parametrização Usuário" link="/retaguarda/UsuarioHierarquia" />
 		<myp7:subMenu label="Comprador" link="/admin/Comprador" />
 		<myp7:subMenu label="Representante" link="/admin/Representante" />
 		<myp7:subMenu label="Embalagem" link="/admin/Embalagem" />
