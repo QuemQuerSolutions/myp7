@@ -136,7 +136,9 @@ function pesquisar(){
 
 function getLineAprovacao(custo){
 	var line = "";
-	
+	var valorAnterior = custo.valorAnteriorFormatado.replace(",",".") * 0.10;
+	var valorAtual = custo.valorFormatado.replace(",",".") * 0.10;
+	var diferenca = (valorAnterior - valorAtual) * 100;
 	line = line.concat("<tr>");
 	
 	if(custo.situacao.indexOf("Aguard.") > -1)
@@ -149,6 +151,7 @@ function getLineAprovacao(custo){
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
 	line = line.concat("<td align='center'>", custo.situacao,"</td>");
+	line = line.concat("<td>", diferenca ,"</td>");
 	
 	line = line.concat("</tr>");
 	
@@ -389,11 +392,12 @@ function addLineFornecedor(fornecedor){
 						<th width="5%" class="centralizar-componente">
 							<input type="checkbox" id="cbTodos">
 						</th>
-						<th width="25%">Código EAN</th>
-						<th width="30%">Descrição</th>
-						<th width="10%">Valor Anterior</th>
+						<th width="23%">Código EAN</th>
+						<th width="27%">Descrição</th>
+						<th width="15%">Valor Anterior</th>
 						<th width="10%">Valor novo</th>
 						<th width="20%" class="text-center">Situação</th>
+						<th width="20%">Diferença %</th>
 					</tr>
 				</thead>
 				<tbody id="lstCustoAprovacao"></tbody>
