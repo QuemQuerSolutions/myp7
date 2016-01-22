@@ -25,4 +25,8 @@ public interface UsuarioMapper {
 	void updateStatus(Usuario usuario);
 
 	List<Usuario> obterUsuarioComFiltro(UsuarioDTO usuario);
+	
+	void updateHierarquia(UsuarioDTO usuario);
+	
+	void updateHierarquiaGeral(Long idSuperior);
 }

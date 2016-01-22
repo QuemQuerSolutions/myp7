@@ -10,7 +10,6 @@ public class UsuarioDTO  implements Serializable {
 	private String portal;
 	private String retaguarda;
 
-	private String idsUsuarioRemoverLista;
 	private Long idUsuario;
 	private String razaoSocial;
 	private String email;
@@ -19,11 +18,18 @@ public class UsuarioDTO  implements Serializable {
 	private String senha;
 	private String theme;
 	private String tipoUsuario;
+	private Integer aprProd;
+	private Integer valorAlcada;
 	
 	private List<Integer> listIdsUsuarioRemoverLista;
+	private String idsUsuarioParametrosSubordinados;
+	private String idsUsuarioRemoverLista;
 	private Boolean aprovacaoProduto;
 	private Boolean aprovacaoCusto;
-	private Integer valorAlcada;
+	private Boolean aprProdBoo;
+	private Boolean aprCustoBoo;
+	private Long idSuperior;
+	
 	
 	public List<Integer> getListIdsUsuarioRemoverLista() {
 		return listIdsUsuarioRemoverLista;
@@ -161,5 +167,54 @@ public class UsuarioDTO  implements Serializable {
 
 	public void setValorAlcada(Integer valorAlcada) {
 		this.valorAlcada = valorAlcada;
+	}
+
+	public Integer getAprCustoAlcada() {
+		return this.getValorAlcada();
+	}
+
+	public void setAprCustoAlcada(Integer valorAlcada) {
+		this.setValorAlcada(valorAlcada);
+	}
+
+	public String getIdsUsuarioParametrosSubordinados() {
+		return idsUsuarioParametrosSubordinados;
+	}
+
+	public void setIdsUsuarioParametrosSubordinados(
+			String idsUsuarioParametrosSubordinados) {
+		this.idsUsuarioParametrosSubordinados = idsUsuarioParametrosSubordinados;
+	}
+
+	public Boolean getAprProdBoo() {
+		return aprProdBoo;
+	}
+
+	public void setAprProdBoo(Boolean aprProdBoo) {
+		this.aprProdBoo = aprProdBoo;
+	}
+
+	public Boolean getAprCustoBoo() {
+		return aprCustoBoo;
+	}
+
+	public void setAprCustoBoo(Boolean aprCustoBoo) {
+		this.aprCustoBoo = aprCustoBoo;
+	}
+
+	public Long getIdSuperior() {
+		return idSuperior;
+	}
+
+	public void setIdSuperior(Long idSuperior) {
+		this.idSuperior = idSuperior;
+	}
+
+	public Integer getAprProd() {
+		return aprProd;
+	}
+
+	public void setAprProd(Integer aprProd) {
+		this.aprProd = aprProd;
 	}
 }

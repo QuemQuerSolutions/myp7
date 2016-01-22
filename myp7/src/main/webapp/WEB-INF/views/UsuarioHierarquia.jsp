@@ -19,10 +19,29 @@ $(document).ready(function() {
 			alerta("Preencha os campos obrigatórios.", "warning");
 			return;
 		}
+
+		$("#linesSubordinado tr").each(function(){
+			var id = $(this).attr('id').substr(5);
+			var aprProd = $("#aprProd" + id).hasClass("glyphicon-ok-sign");
+			var aprCusto = $("#aprCusto" + id).hasClass("glyphicon-ok-sign");
+			var valorAlcada = $("#aprCusto" + id + "Alcada").val();
+
+			if($("#idsUsuarioParametrosSubordinados").val() == "")
+				$("#idsUsuarioParametrosSubordinados").val(id + "," + aprProd + "," + aprCusto + "," + valorAlcada);
+			else
+				$("#idsUsuarioParametrosSubordinados").val($("#idsUsuarioParametrosSubordinados").val()
+						+ ";" + id + "," + aprProd + "," + aprCusto + "," + valorAlcada);
+		});
+		
+		if($("#aprProd").hasClass("glyphicon-ok-sign"))
+			$("#aprProdBoo").val(1);
+		else
+			$("#aprProdBoo").val(0);
+		$("#aprCustoBoo").val($("#aprCusto").hasClass("glyphicon-ok-sign"));
 		
 		go("#frmSalvarHierarquia");
 	});	
-	
+
 	$("#clickUsuario").click(function(e){
 		var tabelaPopulada = true;
 		$("#linesSubordinado tr").each(function(){
@@ -60,7 +79,7 @@ function addLineSubordinadoTab(subordinado){
 	line = line.concat(		"<a href='#' onclick='alterarPermissaoAprovacao(\"aprCusto",id,"\");'>");
 	line = line.concat(			"<span id=\"aprCusto",id,"\" class='glyphicon glyphicon-remove-sign red'></span>&nbsp; Aprovar Custo");
 	line = line.concat(		"</a>");
-	line = line.concat(		"&nbsp;&nbsp;<input type=\"number\" id=\"aprCusto",id,"Alcada\" placeholder=\"Alçada\" disabled>");
+	line = line.concat(		"&nbsp;&nbsp;<input type=\"number\" onkeyup='validarNumero(\"aprCusto",id,"Alcada\", ",$("#aprCustoAlcada").val(),")' id=\"aprCusto",id,"Alcada\" placeholder=\"Alçada\" disabled>");
 	line = line.concat("</td>");
 	
 	line = line.concat("<td class='text-center text-middle'>");
@@ -86,6 +105,13 @@ function onAddSubordinado(){
 	}else{
 		alerta("Selecione o usuário principal.", "warning");
 	}
+}
+
+function validarNumero(id, max){
+	if($("#"+id).val() > max)
+		$("#"+id).val(max);
+	else if($("#"+id).val() < 0)
+		$("#"+id).val(0);
 }
 
 function alterarPermissaoAprovacao(id){
@@ -146,10 +172,11 @@ function removerLinha(id){
 				<div class="row">
 				  	<div class="col-md-6 form-group req">
 				   		<label for="nomeUsuario">Usuário</label>
-				    	<input type="hidden" id="idusuario" name="idUsuario" class="idAdministrador" value="1">
+				    	<input type="hidden" id="idusuario" name="idUsuario" class="idAdministrador" />
 				    	<input type="text" class="form-control" id="usuario" maxlength="11" value="${obj.usuario.razaoSocial}" readonly="readonly">
 				  	</div>
 				  	<div class="col-md-1 form-group paddingleft0">
+				  		<input type="hidden" id="idsUsuarioParametrosSubordinados" name="idsUsuarioParametrosSubordinados" />
 				  		<label for="nomeUsuario">&nbsp;</label>
 				  		<a href="#" target="_self" class="form-control icon-search" name="usuario" id="clickUsuario"><span class="glyphicon glyphicon-search"></span></a>
 				  	</div>
@@ -157,14 +184,16 @@ function removerLinha(id){
 						<br/><br/>
 				  		<a href='#' onclick='alterarPermissaoAprovacao("aprProd");'>
 							<span id="aprProd" class='glyphicon glyphicon-remove-sign red'></span>&nbsp; Aprovar Produto
+							<input type="hidden" id="aprProdBoo" name="aprProd" />
 						</a>
 					</div>
 					<div class="col-md-3 form-group req">
 						<br/><br/>
 						<a href='#' onclick='alterarPermissaoAprovacao("aprCusto");'>
 							<span id="aprCusto" class='glyphicon glyphicon-remove-sign red'></span>&nbsp; Aprovar Custo
+							<input type="hidden" id="aprCustoBoo" name="aprCustoBoo" />
 						</a>
-						&nbsp;&nbsp;<input type="number" id="aprCustoAlcada" placeholder="Alçada" disabled>
+						&nbsp;&nbsp;<input type="number" id="aprCustoAlcada" name="aprCustoAlcada" onkeyup='validarNumero("aprCustoAlcada",100)' placeholder="Alçada" disabled>
 				  	</div>
 				</div>
 				<div class="row">&nbsp;</div>
