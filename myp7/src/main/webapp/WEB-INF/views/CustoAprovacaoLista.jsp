@@ -404,8 +404,18 @@ function addLineFornecedor(fornecedor){
 	
 	<c:import url="FornecedorModalLista.jsp"/>
 	
-	<c:import url="/WEB-INF/views/components/footer.jsp">
-		<c:param name="salvar" value="reprovar_aprovar" />
-	</c:import>
+
+	
+	<c:choose>
+		<c:when test="${usuarioLogado.alcada > 0}">
+			<c:import url="/WEB-INF/views/components/footer.jsp">
+				<c:param name="salvar" value="reprovar_aprovar" />
+			</c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="/WEB-INF/views/components/footer.jsp" />
+		</c:otherwise>
+	</c:choose>
+	
 </body>
 </html>

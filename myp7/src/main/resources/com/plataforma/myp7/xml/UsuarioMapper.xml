@@ -11,12 +11,14 @@
 		<result property="ativo" 		column="USU_ATIVO"/>
 		<result property="senha" 		column="USU_SENHA"/>
 		<result property="tipoUsuario" 	column="TIPOUSUARIO"/>
+		<result property="flagAprovProduto" 	column="FLG_APR_PRD"/>
+		<result property="alcada" 		column="VALOR_ALCADA"/>
 	</resultMap>
 
 	<sql id="selectUsuario">
 		<![CDATA[
 			SELECT USUARIO.ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, 
-				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO
+				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO, FLG_APR_PRD, VALOR_ALCADA
 			FROM USU_USUARIO USUARIO
 		  ]]>
 	</sql>

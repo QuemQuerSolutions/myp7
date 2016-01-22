@@ -23,6 +23,8 @@ public class Usuario implements Serializable{
 	private String senha;
 	private String theme;
 	private String tipoUsuario;
+	private Integer alcada;
+	private Integer flagAprovProduto;
 	
 	public Usuario(){
 		this.portal="P";
@@ -108,7 +110,21 @@ public class Usuario implements Serializable{
 	public void setRetaguarda(String retaguarda) {
 		this.retaguarda = retaguarda;
 	}
-	
-	
+
+	public Integer getAlcada() {
+		return alcada;
+	}
+
+	public Integer getFlagAprovProduto() {
+		return flagAprovProduto;
+	}
+
+	public void setAlcada(Integer alcada) {
+		this.alcada = alcada;
+	}
+
+	public void setFlagAprovProduto(Integer flagAprovProduto) {
+		this.flagAprovProduto = flagAprovProduto;
+	}
 
 }
