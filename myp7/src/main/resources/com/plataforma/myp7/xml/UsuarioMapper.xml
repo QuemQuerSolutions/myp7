@@ -119,8 +119,17 @@
 	
 	<update id="updateHierarquiaGeral">
 		UPDATE usu_usuario 
-		SET  USU_SUPERIOR = null
+		SET USU_SUPERIOR = null
+		,FLG_APR_PRD = 0
+		,VALOR_ALCADA = 0
 		WHERE USU_SUPERIOR=#{idSuperior}
+		
+		<if test="idsUsuarioRemoverLista != null">
+			AND ID_USUARIO NOT IN
+			<foreach item="item" index="index" collection="listIdsUsuarioRemoverLista" open="(" separator="," close=")">
+		    	#{item}
+		   	</foreach>
+	   	</if>
 	</update>
 	
 </mapper>

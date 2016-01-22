@@ -22,6 +22,7 @@ import com.plataforma.myp7.enums.ConfigEnum;
 import com.plataforma.myp7.enums.FuncionalidadeEnum;
 import com.plataforma.myp7.enums.ThemeEnum;
 import com.plataforma.myp7.mapper.UsuarioMapper;
+import com.plataforma.myp7.util.Utils;
 
 @Service
 public class UsuarioBO {
@@ -141,16 +142,17 @@ public class UsuarioBO {
 	
 	private void populaListaIds(UsuarioDTO usuario) {
 		String[] ids = usuario.getIdsUsuarioRemoverLista().split(",");
-		List<Integer> list = new ArrayList<>();
+		List<Long> list = new ArrayList<>();
 		for(String id : ids)
-			list.add(Integer.parseInt(id));
+			list.add(Long.parseLong(id));
 		usuario.setListIdsUsuarioRemoverLista(list);
 	}
 
 	public void salvarHierarquia(UsuarioDTO superior) {
 		this.usuarioMapper.updateHierarquia(superior);
+		List<Long> listIds = new ArrayList<>();
 		
-		if(superior.getIdsUsuarioParametrosSubordinados() != null){
+		if(!Utils.isEmpty(superior.getIdsUsuarioParametrosSubordinados())){
 			String[] subordinado = superior.getIdsUsuarioParametrosSubordinados().split(";");
 			UsuarioDTO subordinadoDTO;
 			for(String dados : subordinado){
@@ -165,9 +167,16 @@ public class UsuarioBO {
 					subordinadoDTO.setValorAlcada	(itens[3] != null ? Integer.parseInt(itens[3]) : null);
 				
 				this.usuarioMapper.updateHierarquia(subordinadoDTO);
+				listIds.add(subordinadoDTO.getIdUsuario());
 			}
 		}
-		//TODO
-		this.usuarioMapper.updateHierarquiaGeral(superior.getIdUsuario());
+		
+		UsuarioDTO controle = new UsuarioDTO();
+		controle.setIdSuperior(superior.getIdUsuario());
+		if(listIds != null && listIds.size() > 0){
+			controle.setListIdsUsuarioRemoverLista(listIds);
+			controle.setIdsUsuarioRemoverLista("Controle");
+		}
+		this.usuarioMapper.updateHierarquiaGeral(controle);
 	}
 }

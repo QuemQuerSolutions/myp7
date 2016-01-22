@@ -21,7 +21,7 @@ public class UsuarioDTO  implements Serializable {
 	private Integer aprProd;
 	private Integer valorAlcada;
 	
-	private List<Integer> listIdsUsuarioRemoverLista;
+	private List<Long> listIdsUsuarioRemoverLista;
 	private String idsUsuarioParametrosSubordinados;
 	private String idsUsuarioRemoverLista;
 	private Boolean aprovacaoProduto;
@@ -31,11 +31,11 @@ public class UsuarioDTO  implements Serializable {
 	private Long idSuperior;
 	
 	
-	public List<Integer> getListIdsUsuarioRemoverLista() {
+	public List<Long> getListIdsUsuarioRemoverLista() {
 		return listIdsUsuarioRemoverLista;
 	}
 
-	public void setListIdsUsuarioRemoverLista(List<Integer> list) {
+	public void setListIdsUsuarioRemoverLista(List<Long> list) {
 		this.listIdsUsuarioRemoverLista = list;
 	}
 

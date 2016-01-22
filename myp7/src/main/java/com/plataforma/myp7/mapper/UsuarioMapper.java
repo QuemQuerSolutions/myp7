@@ -28,5 +28,5 @@ public interface UsuarioMapper {
 	
 	void updateHierarquia(UsuarioDTO usuario);
 	
-	void updateHierarquiaGeral(Long idSuperior);
+	void updateHierarquiaGeral(UsuarioDTO usuario);
 }
