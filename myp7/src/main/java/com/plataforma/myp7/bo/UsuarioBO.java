@@ -118,8 +118,8 @@ public class UsuarioBO {
 			if(Objects.isNull(usuario))
 				return new ArrayList<Usuario>();
 			
-			usuario.setRazaoSocial(usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()));
-			usuario.setEmail(usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()));
+			usuario.setRazaoSocial(usuario.getRazaoSocial() != null ? usuario.getRazaoSocial().trim().equals("") ? null : toLike(usuario.getRazaoSocial()) : null);
+			usuario.setEmail(usuario.getEmail() != null ? usuario.getEmail().trim().equals("") ? null : toLike(usuario.getEmail()) : null);
 			
 			if(usuario.getIdsUsuarioRemoverLista() != null)
 				this.populaListaIds(usuario);

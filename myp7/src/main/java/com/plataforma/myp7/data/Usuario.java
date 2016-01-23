@@ -16,6 +16,7 @@ public class Usuario implements Serializable{
 	private String retaguarda;
 
 	private Long idUsuario;
+	private Long idSuperior;
 	private String razaoSocial;
 	private String email;
 	private String nDocumento;
@@ -125,6 +126,14 @@ public class Usuario implements Serializable{
 
 	public void setFlagAprovProduto(Integer flagAprovProduto) {
 		this.flagAprovProduto = flagAprovProduto;
+	}
+
+	public Long getIdSuperior() {
+		return idSuperior;
+	}
+
+	public void setIdSuperior(Long idSuperior) {
+		this.idSuperior = idSuperior;
 	}
 
 }

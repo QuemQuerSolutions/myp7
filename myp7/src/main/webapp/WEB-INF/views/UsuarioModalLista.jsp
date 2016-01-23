@@ -6,6 +6,9 @@
 <script type="text/javascript">
 var idUsu;
 var nomeUsu;
+var valorAlcada;
+var produtoAprovacao;
+var idSuperior;
 
 $(document).ready(function() {
 	$('#consulta_usuario').on('hidden.bs.modal', function (e) {
@@ -37,6 +40,13 @@ $(document).ready(function() {
 		$(this).addClass("linha-selecionada");
 		idUsu = $(this).find(".idUsu").text();
 		nomeUsu = $(this).find(".razaoUsu").text();
+		valorAlcada = $("#valorAlcada"+idUsu).val();
+		produtoAprovacao = $("#produtoAprovacao"+idUsu).val();
+
+		if($("#idSuperiorDoUsuario"+idUsu).val() != "null")
+			idSuperior = $("#idSuperiorDoUsuario"+idUsu).val();
+		else
+			idSuperior = "";
 	});
 
 	$("#btnSelecionarUsuario").click(function(e){
@@ -46,7 +56,9 @@ $(document).ready(function() {
 			$("#listaUsuario tr").each(function(){
 				if($(this).hasClass($("#theme").val())){
 					subordinado = {idUsuario	: $(this).find('td[data-id]').text(),
-							   	   razao		: $(this).find('td[data-razao]').text()}
+							   	   razao		: $(this).find('td[data-razao]').text(),
+							   	   alcada		: $("#valorAlcada" + $(this).find('td[data-id]').text()).val(),
+							   	   flagAprovProduto : $("#produtoAprovacao" + $(this).find('td[data-id]').text()).val(),}
 				}
 			});	
 			addLineSubordinadoTab(subordinado);
@@ -56,6 +68,26 @@ $(document).ready(function() {
 			}else{
 				$("#"+$(".clicked").attr('name')).val($.trim(nomeUsu));
 				$("#id"+$(".clicked").attr('name')).val($.trim(idUsu));
+				
+				if($(".clicked").attr('name') == "usuarioSuperior"){
+					if($.trim(valorAlcada) != "0"){
+						$("#aprCustoAlcada").val($.trim(valorAlcada));
+						historicoAlcada = $.trim(valorAlcada);
+						$("#aprCustoAlcada").removeAttr("disabled");
+						$("#aprCusto").attr( "class", "glyphicon glyphicon-ok-sign green" );
+					}else{
+						$("#aprCustoAlcada").val("");
+						$("#aprCustoAlcada").attr("disabled", true);
+						$("#aprCusto").attr( "class", "glyphicon glyphicon-remove-sign red" );
+					}
+					if($.trim(produtoAprovacao) == "0"){
+						$("#aprProd").removeClass("glyphicon glyphicon-ok-sign green").addClass("glyphicon glyphicon-remove-sign red");
+					}else{
+						$("#aprProd").removeClass("glyphicon glyphicon-remove-sign red").addClass("glyphicon glyphicon-ok-sign green");
+					}
+					$("#idSuperiorDoUsuarioSuperior").val(idSuperior);
+					carregarUsuariosSubordinados(idUsu);
+				}
 				
 				$("#limparUsuario").click();
 				removerClasseClicked();
@@ -121,6 +153,12 @@ function obterIdsUsuarioRemoverLista(){
 		idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat(",");
 		idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat($(this).val());
 	});
+
+	if(historicoAlcada != null && historicoAlcada != ""){
+		if(idsUsuarioRemoverLista != "")
+			idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat(",");
+		idsUsuarioRemoverLista = idsUsuarioRemoverLista.concat(historicoAlcada);
+	}
 	
 	return idsUsuarioRemoverLista;
 }
@@ -131,6 +169,9 @@ function montaTable(lista){
 		linha = linha.concat("<tr>", 
 								"<td class=\"idUsu\" data-id>",item.idUsuario,"</td>", 
 								"<td class=\"razaoUsu\" data-razao>",item.razaoSocial,"</td>",
+								"<input type=\"hidden\" id=\"valorAlcada",item.idUsuario,"\" value=\"",item.alcada,"\">",
+								"<input type=\"hidden\" id=\"produtoAprovacao",item.idUsuario,"\" value=\"",item.flagAprovProduto,"\">",
+								"<input type=\"hidden\" id=\"idSuperiorDoUsuario",item.idUsuario,"\" value=\"",item.idSuperior,"\">",
 								"<td>",item.email,"</td>",
 							 "</tr>");
 	});

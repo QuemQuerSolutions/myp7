@@ -13,12 +13,13 @@
 		<result property="tipoUsuario" 	column="TIPOUSUARIO"/>
 		<result property="flagAprovProduto" 	column="FLG_APR_PRD"/>
 		<result property="alcada" 		column="VALOR_ALCADA"/>
+		<result property="idSuperior" 	column="USU_SUPERIOR"/>
 	</resultMap>
 
 	<sql id="selectUsuario">
 		<![CDATA[
 			SELECT USUARIO.ID_USUARIO, RAZAO_SOCIAL, USU_EMAIL, 
-				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO, FLG_APR_PRD, VALOR_ALCADA
+				   USU_CNPJ, USU_ATIVO, THEME, TIPOUSUARIO, FLG_APR_PRD, VALOR_ALCADA, USU_SUPERIOR
 			FROM USU_USUARIO USUARIO
 		  ]]>
 	</sql>
@@ -63,7 +64,11 @@
 		
 		<if test="aprovacaoCusto == true">
 			AND VALOR_ALCADA &lt;= #{valorAlcada}
-		</if>		
+		</if>	
+		
+		<if test="idSuperior != null">
+			AND USU_SUPERIOR = #{idSuperior}
+		</if>	
 	</select>	
 	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
@@ -100,7 +105,11 @@
 	</update>
 	<update id="updateHierarquia">
 		UPDATE usu_usuario 
-		SET  USU_SUPERIOR = #{idSuperior}
+		SET ID_USUARIO=#{idUsuario}
+		
+		<if test="idSuperior != null">
+			,USU_SUPERIOR = #{idSuperior}
+		</if>
 		
 		<if test="aprProd != null">
 			,FLG_APR_PRD = #{aprProd}
