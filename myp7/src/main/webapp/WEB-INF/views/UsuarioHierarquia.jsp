@@ -173,7 +173,7 @@ function validarNumero(id, max){
 			tabelaPopulada = true;		
 		});
 
-		if(tabelaPopulada){
+		if(tabelaPopulada || ($("#idSuperiorDoUsuarioSuperior").val() != null && $("#idSuperiorDoUsuarioSuperior").val() != "" )){
 			$("#aprCustoAlcada").val(historicoAlcada);
 			return;
 		}
@@ -192,6 +192,10 @@ function alterarPermissaoAprovacao(id){
 
 	var itemTabela = false;
 	if(id == "aprProd" || id == "aprCusto"){
+
+		if($("#idSuperiorDoUsuarioSuperior").val() != null && $("#idSuperiorDoUsuarioSuperior").val() != "" )
+			return;
+		
 		var existente = false;
 		$("#linesSubordinado tr").each(function(){
 			existente = true;		
@@ -217,7 +221,7 @@ function alterarPermissaoAprovacao(id){
 				return;
 			}
 		}
-		
+
 		$("#"+id).removeClass("glyphicon glyphicon-remove-sign red").addClass("glyphicon glyphicon-ok-sign green");
 
 		if(id.indexOf("aprCusto") >= 0)

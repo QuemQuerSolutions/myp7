@@ -29,6 +29,7 @@ public class UsuarioDTO  implements Serializable {
 	private Boolean aprProdBoo;
 	private Boolean aprCustoBoo;
 	private Long idSuperior;
+	private Boolean consultaSubordinado;
 	
 	
 	public List<Long> getListIdsUsuarioRemoverLista() {
@@ -216,5 +217,13 @@ public class UsuarioDTO  implements Serializable {
 
 	public void setAprProd(Integer aprProd) {
 		this.aprProd = aprProd;
+	}
+
+	public Boolean getConsultaSubordinado() {
+		return consultaSubordinado;
+	}
+
+	public void setConsultaSubordinado(Boolean consultaSubordinado) {
+		this.consultaSubordinado = consultaSubordinado;
 	}
 }

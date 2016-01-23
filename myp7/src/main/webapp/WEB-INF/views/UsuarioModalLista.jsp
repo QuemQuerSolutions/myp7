@@ -118,7 +118,8 @@ function pesquisarUsuario(razaoSocial, email){
 							email : $.trim($("#email").val()),
 							aprovacaoProduto : $("#aprProd").hasClass("glyphicon-ok-sign"), 
 							aprovacaoCusto : $("#aprCusto").hasClass("glyphicon-ok-sign"),
-							valorAlcada : $.trim($("#aprCustoAlcada").val())}
+							valorAlcada : $.trim($("#aprCustoAlcada").val()),
+							consultaSubordinado : true}
 		}
 		$.ajax({
 			type: "GET",

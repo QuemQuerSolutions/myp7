@@ -69,6 +69,12 @@
 		<if test="idSuperior != null">
 			AND USU_SUPERIOR = #{idSuperior}
 		</if>	
+		
+		<if test="consultaSubordinado != null">
+			<if test="consultaSubordinado == true">
+				AND USU_SUPERIOR IS NULL
+			</if>
+		</if>
 	</select>	
 	
 	<insert id="incluir" keyProperty="ID_USUARIO" keyColumn="ID_USUARIO" useGeneratedKeys="true">
