@@ -9,7 +9,7 @@ import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.dto.UsuarioDTO;
 
 @Controller
-@RequestMapping(value={"/retaguarda", "/admin", "/portal"})
+@RequestMapping(value={"/admin", "/portal"})
 public class UsuarioHierarquiaController {
 	
 	@Autowired
