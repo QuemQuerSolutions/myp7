@@ -29,6 +29,17 @@ $(document).ready(function(){
 		onClickReprovar(pupulaArraySelecionados());
 	});
 
+// 	function populaArrayDiferenca(){
+// 		var array = new Array();
+// 			$('.cbAprovacao').each(function(){				
+// 				if($(this).prop('checked'))
+// 					array.push($(this).closest('tr').find('td[data-diferenca]').text());
+// 			});
+
+// 		return array;
+// 	}
+	
+	
 	function pupulaArraySelecionados(){
 		var arraySelecionados = new Array();
 		
@@ -49,9 +60,9 @@ $(document).ready(function(){
 
 	function atualizarComboEmpresa(){
 		$.ajax({
-			type: "POST",
-	        data: { uf:$("#uf").val() },
-	        url : 'consultaEmpresaPorUF',
+	        url: "consultaEmpresaPorUF",
+			type: "GET",
+	        data: {uf: $("#uf").val()},
 	        success : function(data) {
 	        	$("#idEmpresa").html(data);
 	        }
@@ -136,27 +147,38 @@ function pesquisar(){
 
 function getLineAprovacao(custo){
 	var line = "";
-	var valorAnterior = custo.valorAnteriorFormatado.replace(",",".") * 0.10;
-	var valorAtual = custo.valorFormatado.replace(",",".") * 0.10;
-	var diferenca = (valorAnterior - valorAtual) * 100;
+	var valorAnterior = custo.valorAnteriorFormatado.replace(",",".");
+	var valorAtual = custo.valorFormatado.replace(",",".");
+	var diferenca = (valorAtual - valorAnterior) / valorAnterior * 100;
 	line = line.concat("<tr>");
 	
 	if(custo.situacao.indexOf("Aguard.") > -1)
 		line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
 	else
 		line = line.concat("<td class='centralizar-componente'><span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser alterado' aria-hidden='true'></span></td>");
-	
 	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
 	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
 	line = line.concat("<td align='center'>", custo.situacao,"</td>");
-	line = line.concat("<td>", diferenca ,"</td>");
-	
+	line = line.concat("<td data-diferenca>", diferenca ,"</td>");
 	line = line.concat("</tr>");
 	
 	return line;
 }
+
+// function isAprova(diferenca, idTabCustoFornecedor){
+// 	$.ajax({
+// 		  type: "GET",
+// 		  url: "isCompradorAprovaCusto?diferenca=".concat(diferenca, "&idCustoFornecedor=",idTabCustoFornecedor),
+// 		  contentType: "application/json; charset=ISO-8859-1",
+// 		  dataType: "json",
+// 		  success: function(obj) {
+// 				onClickAprovar(obj.idFornecedorCustoAprova);
+// 				alerta("Só pode aprovar custo com diferença de até ".concat(obj.valor, "%."), "success");
+// 			}
+// 	});
+// }
 
 function onClickAprovar(idTabCustoFornecedor){
 	if(idTabCustoFornecedor.length > 0){
@@ -259,7 +281,7 @@ function addLineFornecedor(fornecedor){
 
 	<div id="content">
 		<div id="content-title">
-			<h4>Aprovação de Custos</h4>
+			<h4>Aprovação de Custos (<label>Alçada do usuário é: ${usuario.alcada}%</label>)</h4>
 		</div>
 		
 		<form action="CarregaListaCustoAprovacao" id="frmAprovacaoCusto" method="GET">

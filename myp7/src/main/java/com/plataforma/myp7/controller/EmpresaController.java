@@ -13,7 +13,7 @@ import com.plataforma.myp7.bo.EmpresaBO;
 import com.plataforma.myp7.data.Empresa;
 
 @Controller
-@RequestMapping(value={"/retaguarda", "/admin"})
+@RequestMapping(value={"/retaguarda", "/admin", "/portal"})
 public class EmpresaController {
 	
 	@Autowired
@@ -24,4 +24,29 @@ public class EmpresaController {
 		return empresaBO.obterPorParametro(empresa);
 	}
 	
+	private List<Empresa> obtemComboEmpresa(String uf){
+		return this.empresaBO.selecionaPorUF(uf);
+	}
+	
+	@RequestMapping(value="consultaEmpresaPorUF")
+	public @ResponseBody String consultaEmpresaPorUFAJAX(String uf) {
+		return this.getComboEmpresa(obtemComboEmpresa(uf));
+	}
+	
+	private String getComboEmpresa(List<Empresa> lista){
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<option value='-1'>Selecione uma Empresa</option>");
+		for(Empresa emp : lista){
+			sb.append("<option value='");
+			sb.append(emp.getIdEmpresa());
+			sb.append("'>");
+			sb.append(emp.getNomeReduzido());
+			sb.append("</option>");
+		}
+		sb.append("<option value='999'>Todos</option>");
+		
+		return sb.toString();
+	}
+
 }

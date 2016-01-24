@@ -24,7 +24,7 @@ public class Usuario implements Serializable{
 	private String senha;
 	private String theme;
 	private String tipoUsuario;
-	private Integer alcada;
+	private Long alcada;
 	private Integer flagAprovProduto;
 	
 	public Usuario(){
@@ -112,7 +112,7 @@ public class Usuario implements Serializable{
 		this.retaguarda = retaguarda;
 	}
 
-	public Integer getAlcada() {
+	public Long getAlcada() {
 		return alcada;
 	}
 
@@ -120,7 +120,7 @@ public class Usuario implements Serializable{
 		return flagAprovProduto;
 	}
 
-	public void setAlcada(Integer alcada) {
+	public void setAlcada(Long alcada) {
 		this.alcada = alcada;
 	}
 

@@ -18,6 +18,7 @@
 		<association property="produto" 		column="ID_PRODUTO" select="com.plataforma.myp7.mapper.ProdutoMapper.obterProdutoPorId"/>
 	</resultMap>
 	
+	
 	<sql id="selectFornecedorCusto">
 		<![CDATA[
 			SELECT ID_TAB_CUSTO_FORNECEDOR, ID_FORNECEDOR, ID_EMPRESA, 
@@ -39,7 +40,7 @@
 			<if test="produto.eanDunProduto != null">	AND USU.EANDUN = #{produto.eanDunProduto}</if>
 			<if test="produto.desProduto != null">	AND upper(USU.DESCRICAO) like upper(#{produto.desProduto})</if>
 		</if>
-	</sql>	
+	</sql>
 	
 	<select id="obterComFiltro" resultMap="fornecedorCustoMap">
 		SELECT tab_custo_fornecedor.ID_TAB_CUSTO_FORNECEDOR, tab_custo_fornecedor.ID_FORNECEDOR, 
@@ -91,6 +92,7 @@
 		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
 		 WHERE FORNEC.ID_PRODUTO = USU.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		   AND ((FORNEC.VALOR - FORNEC.VALOR_ANTERIOR) * 100) / FORNEC.VALOR_ANTERIOR <![CDATA[<=]]> #{usuAprovacao.alcada}
 		<include refid="whereComSituacao"/>
 	</select>	
 	
@@ -99,6 +101,7 @@
 		  FROM tab_custo_fornecedor FORNEC, prd_usuario_produto USU
 		 WHERE FORNEC.ID_PRODUTO = USU.ID_PRODUTO
 		   AND ID_FORNECEDOR = #{fornecedor.idFornecedor}
+		    AND ((FORNEC.VALOR - FORNEC.VALOR_ANTERIOR) * 100) / FORNEC.VALOR_ANTERIOR <![CDATA[<=]]> #{usuAprovacao.alcada}
 		<include refid="whereComSituacao"/>	
 	</select>
 	

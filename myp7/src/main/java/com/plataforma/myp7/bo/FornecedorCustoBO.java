@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ public class FornecedorCustoBO {
 	@Autowired
 	private FornecedorBO fornecedorBO;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
 	
 	public List<FornecedorCusto> seleciona() {
 		return this.fornecedorCustoMapper.obterTodos();
@@ -114,19 +118,19 @@ public class FornecedorCustoBO {
 			return null;
 		}
 	}
-	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto, String codigo, String tipo) {
+	public List<FornecedorCusto> obterParaAprovacao(FornecedorCusto fornecedorCusto, String codigo, String tipo, HttpSession session) {
 		try {
+			fornecedorCusto.setUsuAprovacao(this.usuarioBO.getUserSession(session));
 			if(fornecedorCusto.getProduto() != null)
 				fornecedorCusto.getProduto().setDesProduto(Utils.toLike(fornecedorCusto.getProduto().getDesProduto()));
-			
 			fornecedorCusto.setSituacao(SituacaoIntegracaoEnum.getSigla(fornecedorCusto.getSituacao()));
-			
 			if(!codigo.trim().equals("")){
 				if(tipo.equalsIgnoreCase("1"))
 					fornecedorCusto.getProduto().setIdProduto(Long.parseLong(codigo));
 				else
 					fornecedorCusto.getProduto().setEanDunProduto(codigo);			
 			}
+			
 			
 			int count = fornecedorCustoMapper.countFornecedorCustoAprovacao(fornecedorCusto);
 			
@@ -161,5 +165,22 @@ public class FornecedorCustoBO {
 			log.error("FornecedorCustoBO.alterarSituacaoFornecedorCusto", e);
 		}
 	}
+	
+//	public AprovaDTO isCompradorAprovaCusto(Long[] diferenca,Long[] idFornecedorCusto, HttpSession session){
+//		Usuario usuario = this.usuarioBO.getUserSession(session);
+//		AprovaDTO ap = new AprovaDTO();
+//		List<Long> lstLong = new ArrayList<Long>();
+//		for(Long dif: diferenca){
+//			for(Long fornCusto: idFornecedorCusto){
+//				if(usuario.getAlcada() >= dif){
+//					lstLong.add(fornCusto);
+//					break;
+//				}
+//			}
+//		}
+//		ap.setIdFornecedorCustoAprova(lstLong);
+//		ap.setValor(usuario.getAlcada());
+//		return ap;
+//	}
 	
 }

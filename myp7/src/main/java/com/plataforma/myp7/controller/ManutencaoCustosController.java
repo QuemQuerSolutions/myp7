@@ -16,7 +16,6 @@ import com.plataforma.myp7.bo.EmpresaBO;
 import com.plataforma.myp7.bo.FornecedorCustoBO;
 import com.plataforma.myp7.bo.PessoaBO;
 import com.plataforma.myp7.bo.RepresentanteBO;
-import com.plataforma.myp7.data.Empresa;
 import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.enums.SituacaoIntegracaoEnum;
 
@@ -53,9 +52,6 @@ public class ManutencaoCustosController {
 		model.addAttribute("representantes", this.representanteBO.selecionaTodos());
 	}
 	
-	private List<Empresa> obtemComboEmpresa(String uf){
-		return this.empresaBO.selecionaPorUF(uf);
-	}		
 	
 	private void carregaComboFiltro(Model model){
 		Map<Integer, String> filtro = new HashMap<Integer, String>();
@@ -74,10 +70,6 @@ public class ManutencaoCustosController {
 		return this.geraTabelaResultado(fornecedorCustoBO.selecionaComFiltro(fornecedor, empresa, tipo, codigo, descricao));
 	}
 	
-	@RequestMapping("consultaEmpresaPorUF")
-	public @ResponseBody String consultaEmpresaPorUFAJAX(String uf) {
-		return this.getComboEmpresa(obtemComboEmpresa(uf));
-	}
 	
 	@RequestMapping("atuaizaManutencaoCusto")
 	public @ResponseBody String atualizaManutencaoCustoAJAX(String id, String novoValor, String valorAnterior) {
@@ -118,19 +110,4 @@ public class ManutencaoCustosController {
 		return sb.toString();
 	}
 	
-	private String getComboEmpresa(List<Empresa> lista){
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<option value='-1'>Selecione uma Empresa</option>");
-		for(Empresa emp : lista){
-			sb.append("<option value='");
-			sb.append(emp.getIdEmpresa());
-			sb.append("'>");
-			sb.append(emp.getNomeReduzido());
-			sb.append("</option>");
-		}
-		sb.append("<option value='999'>Todos</option>");
-		
-		return sb.toString();
-	}
 }

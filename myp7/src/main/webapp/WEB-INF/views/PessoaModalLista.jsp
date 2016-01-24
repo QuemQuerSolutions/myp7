@@ -43,8 +43,6 @@ function pesquisarPessoa(){
 		url : "consultarPessoa",
 		type: "GET",
 		data :pessoa,
-        contentType: "application/json; charset=ISO-8859-1",
-	    dataType: "json",
         success : function(retornoList) {
         	if(retornoList.length == 0){
         		$("#resultado").html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");

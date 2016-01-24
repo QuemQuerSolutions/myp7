@@ -36,10 +36,10 @@ public class CustoAprovacaoController {
 	
 
 	@RequestMapping("CustoAprovacao")
-	public String custoAprovacao(Model model){
+	public String custoAprovacao(Model model, HttpSession session){
 		this.carregaSelectUf(model);
 		this.carregaSelectTipo(model);
-		
+		model.addAttribute("usuario", usuarioBO.getUserSession(session));
 		return "CustoAprovacaoLista";
 	} 
 	
@@ -49,8 +49,8 @@ public class CustoAprovacaoController {
 	}
 	
 	@RequestMapping(value="obterFornecedorCustoAprovacao", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto, String tipo, String codigo) {
-		return fornecedorCustoBO.obterParaAprovacao(fornecedorCusto, codigo, tipo);
+	public @ResponseBody List<FornecedorCusto> obterFornecedorCustoAprovacao(FornecedorCusto fornecedorCusto, String tipo, String codigo, HttpSession session) {
+		return fornecedorCustoBO.obterParaAprovacao(fornecedorCusto, codigo, tipo, session);
 	}
 	
 	@RequestMapping(value="aprovarFornecedorCusto", method=RequestMethod.GET)
@@ -69,6 +69,11 @@ public class CustoAprovacaoController {
 	private void carregaSelectUf(Model model){
 		model.addAttribute("ufs", this.pessoaBO.selecionaTodasUF());
 	}
+	
+//	@RequestMapping(value="isCompradorAprovaCusto", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody AprovaDTO isCompradoAprovaCusto(Long[] diferenca,Long[] idCustoFornecedor, HttpSession session){
+//		return this.fornecedorCustoBO.isCompradorAprovaCusto(diferenca,idCustoFornecedor, session);
+//	}
 	
 	private void carregaSelectTipo(Model model){
 		Map<Integer, String> filtro = new HashMap<Integer, String>();

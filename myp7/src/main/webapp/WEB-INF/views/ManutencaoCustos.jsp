@@ -87,7 +87,7 @@
 
 		function atualizarComboEmpresa(){
 			$.ajax({
-				type: "POST",
+				type: "GET",
 		        data: { uf:$("#uf").val() },
 		        url : 'consultaEmpresaPorUF',
 		        success : function(data) {
