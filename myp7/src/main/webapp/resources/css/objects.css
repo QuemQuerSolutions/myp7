@@ -37,6 +37,10 @@
 	float: right;
   	margin-right: 20px;
 }
+#footer #btnLimpar{
+	float: right;
+  	margin-right: 20px;
+}
 #footer #btnReprovar{
 	float: right;
   	margin-right: 20px;
@@ -197,4 +201,9 @@ label.user-header{
     font-size: 13px;
     color: black;
     padding-top: 5px;
+}
+
+.form-alcada-inline{
+    width: auto;
+    display: inline-block;
 }

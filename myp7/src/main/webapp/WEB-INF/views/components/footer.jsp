@@ -16,6 +16,11 @@
 			<button type="button" class="btn btn-default navbar-btn" id="btnCancelar">Cancelar</button>
 		</c:when>
 		
+		<c:when test="${param.salvar eq 'limpar_salvar'}">
+			<button type="button" class="btn btn-default navbar-btn ${theme}" id="btnSalvar">Salvar</button>
+			<button type="button" class="btn btn-default navbar-btn" id="btnLimpar">Limpar</button>
+		</c:when>
+		
 		<c:when test="${param.salvar eq 'reprovar_aprovar'}">
 			<button type="button" class="btn btn-default navbar-btn ${theme}" id="btnAprovar">Aprovar</button>
 			<button type="button" class="btn btn-default navbar-btn" id="btnReprovar">Reprovar</button>

@@ -3,6 +3,7 @@ package com.plataforma.myp7.enums;
 public enum Mensagem {
 	REFINE_SUA_PESQUISA (-1, "Refine sua pesquisa."),
 	NENHUM_REGISTRO_LOCALIZADO (-1, "Nenhum registro localizado."),
+	FALHA_NA_OPERACAO (-1, "Falha na operação"),
 	
 	SALVO_SUCESSO (0 , "Salvo com sucesso");
 	

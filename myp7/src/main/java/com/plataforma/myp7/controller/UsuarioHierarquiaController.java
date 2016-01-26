@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.plataforma.myp7.bo.UsuarioBO;
 import com.plataforma.myp7.dto.UsuarioDTO;
+import com.plataforma.myp7.enums.Mensagem;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 @RequestMapping(value={"/admin", "/portal"})
@@ -17,7 +19,13 @@ public class UsuarioHierarquiaController {
 
 	
 	@RequestMapping(value="UsuarioHierarquia")
-	public String direcionarTelaUsuarioHierarquia() {
+	public String direcionarTelaUsuarioHierarquia(Model model, String origem) {
+		if("save".equals(origem))
+			Utils.setRetorno(model, Mensagem.SALVO_SUCESSO);
+		
+		if("error".equals(origem))
+			Utils.setRetorno(model, Mensagem.FALHA_NA_OPERACAO);
+		
 		return "UsuarioHierarquia";
 	}
 	
