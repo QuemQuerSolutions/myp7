@@ -188,18 +188,22 @@ function alterarPermissaoAprovacao(id){
 	var itemTabela = false;
 	if(id == "aprProd" || id == "aprCusto"){
 
+		//So pode alterar pelo superior
 		if($("#idSuperiorDoUsuarioSuperior").val() != null && $("#idSuperiorDoUsuarioSuperior").val() != "" ){
 			alerta("Parametrização deve ser feita pelo usuário superior", "warning");
 			return;
 		}
 		
-		var existente = false;
-		$("#linesSubordinado tr").each(function(){
-			existente = true;		
-		});
-		
-		if(existente)
-			return;
+		if(id == "aprCusto"){
+			var existente = false;
+			$("#linesSubordinado tr").each(function(){
+				existente = true;
+				return;
+			});
+			
+			if(existente)
+				return;
+		}
 	}else{
 		itemTabela = true;
 	}
@@ -211,12 +215,8 @@ function alterarPermissaoAprovacao(id){
 		if(id.indexOf("aprCusto") >= 0)
 			$("#"+id+"Alcada").attr("disabled", true);
 	}else{
-		if(itemTabela){
-			if(id.substr(0, 7) == "aprProd" && $("#aprProd").hasClass("glyphicon-remove-sign red")){
-				return;
-			}else if(id.substr(0, 8) == "aprCusto" && $("#aprCusto").hasClass("glyphicon-remove-sign red")){
-				return;
-			}
+		if(itemTabela && (id.substr(0, 8) == "aprCusto" && $("#aprCusto").hasClass("glyphicon-remove-sign red"))){
+			return;
 		}
 
 		$("#"+id).removeClass("glyphicon glyphicon-remove-sign red").addClass("glyphicon glyphicon-ok-sign green");
