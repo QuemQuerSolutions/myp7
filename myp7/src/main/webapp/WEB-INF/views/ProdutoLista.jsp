@@ -102,8 +102,8 @@ function onClickLineProduto(id){
 			<table class="table table-hover table-bordered table-striped mouse-click" id="tblProduto">
 				<thead>
 					<tr>
-						<th>Código</th>
-						<th>Descrição</th>
+						<th width="10%">Código</th>
+						<th width="90%">Descrição</th>
 					</tr>
 				</thead>
 				<tbody>

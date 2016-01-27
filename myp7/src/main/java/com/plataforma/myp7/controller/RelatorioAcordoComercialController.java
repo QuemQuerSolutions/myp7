@@ -11,7 +11,7 @@ import com.plataforma.myp7.bo.RelatorioAcordoComercialBO;
 import com.plataforma.myp7.data.RelatorioAcordoComercial;
 
 @Controller
-@RequestMapping(value={"/retaguarda", "/admin"})
+@RequestMapping(value={"/retaguarda", "/admin", "/portal"})
 public class RelatorioAcordoComercialController {
 	
 	@Autowired

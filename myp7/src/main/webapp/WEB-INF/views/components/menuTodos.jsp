@@ -18,7 +18,7 @@
 <li>
 	<myp7:menuComSub label="Aprovações" icon="glyphicon-check" />
 	<ul>
-		<myp7:subMenu label="Aprovação de Produto" link="/admin//ProdutoAprovacao" />
+		<myp7:subMenu label="Aprovação de Produto" link="/admin/ProdutoAprovacao" />
 		<myp7:subMenu label="Aprovação de Custos" link="/admin/CustoAprovacao" />
 	</ul>
 </li>

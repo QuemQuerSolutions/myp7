@@ -81,7 +81,7 @@ public class ProdutoBO {
 			produto.setCaminhoImagem(imagemAtual.equals("") ? imagemAnterior: imagemAtual);
 			
 			//remove o arquivo se nao houver id e se a imagem nao for a mesma.
-			if(!Objects.isNull(produto.getIdProduto()) && !produto.getCaminhoImagem().equalsIgnoreCase(imagemAnterior)) 
+			if(!Objects.isNull(produto.getIdProduto()) && imagemAnterior!= null && !imagemAnterior.equalsIgnoreCase(produto.getCaminhoImagem())) 
 				removeArquivo(session, imagemAnterior);
 		} catch (Exception e) {
 			log.error("ProdutoBO.setCaminhoImagem", e);

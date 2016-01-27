@@ -20,6 +20,7 @@ import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.data.Produto;
 import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.util.Utils;
 
 @Controller
 @RequestMapping(value={"/portal", "/admin", "/retaguarda"})
@@ -70,12 +71,18 @@ public class ProdutoController {
 	
 	private void ajustarCaminhoImagem(Produto produto, HttpServletRequest request){
 		String url = request.getRequestURL().toString();
-		produto.setCaminhoImagem(url.substring(0, url.indexOf("myp7") + 5) + "resources/upload/" + produto.getCaminhoImagem());
+		if(Utils.isEmpty(produto.getCaminhoImagem())){
+			produto.setCaminhoImagem(url.substring(0, url.indexOf("myp7") + 5).concat("resources/img/default.png"));
+		}else{
+			produto.setCaminhoImagem(url.substring(0, url.indexOf("myp7") + 5) + "resources/upload/" + produto.getCaminhoImagem());
+		}
 	}
 	
 	@RequestMapping("NovoProduto")
 	public String novo(Produto produto, HttpSession session, Model model){
 		this.carregaSelectEmbalagem(model);
+		produto.setCaminhoImagem(ConfigEnum.IMAGEM_DEFAULT_PRODUTO.getValor());
+		model.addAttribute("produto", produto);
 		return "ProdutoInserir";
 	}
 	

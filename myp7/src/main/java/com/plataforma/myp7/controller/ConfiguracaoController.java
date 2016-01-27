@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.plataforma.myp7.bo.UsuarioBO;
 
 @Controller
-@RequestMapping(value={"/retaguarda", "/admin"})
+@RequestMapping(value={"/retaguarda", "/admin", "/portal"})
 public class ConfiguracaoController {
 	
 	@Autowired
