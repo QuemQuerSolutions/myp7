@@ -41,7 +41,9 @@ function pesquisarPessoa(){
 	var pessoa = {idPessoa : $("#codigo").val(),  razao : $("#nome").val()};
 	$.ajax({
 		url : "consultarPessoa",
-		type: "GET",
+		type : "GET",
+        contentType: "application/json; charset=ISO-8859-1",
+	    dataType: "json",
 		data :pessoa,
         success : function(retornoList) {
         	if(retornoList.length == 0){
