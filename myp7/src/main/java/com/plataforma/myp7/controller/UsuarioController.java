@@ -38,6 +38,7 @@ public class UsuarioController {
 	@RequestMapping("cadastroUsuario")
 	public String inserir(Usuario usuario, Model model, String tpUsuario){
 		String pagina = this.usuarioBO.salvar(usuario, model, tpUsuario);
+		model.addAttribute("usuario", usuario);
 		if(!"".equals(pagina)){	
 			return pagina;
 		}

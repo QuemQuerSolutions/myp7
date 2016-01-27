@@ -31,6 +31,10 @@ public class UsuarioBO {
 
 	@Autowired
 	private UsuarioMapper usuarioMapper;
+	
+	@Autowired
+	private SenhaBO senhaBO;
+	
 	private static final String ATTR_THEME = "theme";
 	
 	public Usuario obterPorId(Long id){
@@ -82,7 +86,6 @@ public class UsuarioBO {
 			dominio.setId(FuncionalidadeEnum.USUARIO_FUN.getCodFunc());
 			dominio.setDescricao(FuncionalidadeEnum.USUARIO_FUN.getDescFunc().toString());
 
-			SenhaBO senhaBO = new SenhaBO();
 			if(!senhaBO.isValid(usuario.getSenha(), usuario, dominio)){
 				setMsgRetorno(model, "A senha deve conter ao menos uma letra, um número e uma letra maiúscula.");
 				return false;

@@ -6,14 +6,14 @@
 	<resultMap id="parametroMap" type="com.plataforma.myp7.data.Parametro">
 		<id property="id" 				column="ID_PARAMETRO"/>
 		<result property="nome" 		column="NOME"/>
-		<result property="auxiliar" 	column="AUXILIAR"/>
+		<result property="auxiliar" 	column="VALOR"/>
 		<association property="tipo" 	column="TIPO" select="com.plataforma.myp7.mapper.ParametroTipoMapper.obterPorId" />
 		<association property="dominio" column="DOMINIO" select="com.plataforma.myp7.mapper.ParametroDominioMapper.obterPorId"/>
 	</resultMap>
 
 	<sql id="selectParametro">
 		<![CDATA[
-			SELECT ID_PARAMETRO, NOME, AUXILIAR, TIPO, DOMINIO
+			SELECT ID_PARAMETRO, NOME, VALOR, TIPO, DOMINIO
 			FROM PRM_PARAMETRO
 		  ]]>
 	</sql>

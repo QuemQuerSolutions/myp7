@@ -1,6 +1,5 @@
 package com.plataforma.myp7.bo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -34,9 +33,7 @@ public class SenhaBO {
 	 */
 	public boolean isValid(String senha, Usuario usuario, ParametroDominio dominio){
 		try {
-			List<Parametro> parametros;
-			parametros = parametroMapper.obterParametro(dominio.getId());
-			parametros = new ArrayList<Parametro>();
+			List<Parametro> parametros = parametroMapper.obterParametro(dominio.getId());
 			
 			boolean retorno = true;
 			for(Parametro parametro : parametros){
@@ -119,7 +116,7 @@ public class SenhaBO {
 				}
 			}
 			return true;
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			log.error("SenhaBO.isRepeat", e);
 			return false;
 		}
