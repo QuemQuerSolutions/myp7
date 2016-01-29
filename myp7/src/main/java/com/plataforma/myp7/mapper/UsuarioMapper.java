@@ -29,4 +29,6 @@ public interface UsuarioMapper {
 	void updateHierarquia(UsuarioDTO usuario);
 	
 	void updateHierarquiaGeral(UsuarioDTO usuario);
+	
+	List<Usuario> verificarSubordinados(Usuario usuario);
 }

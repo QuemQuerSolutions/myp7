@@ -67,6 +67,8 @@ public class UsuarioBO {
 				usuario.setTipoUsuario(tpUsuario);
 				usuario.setSenha(CriptografarBO.criptografar(usuario.getSenha()));
 				this.usuarioMapper.update(usuario);
+				
+				removerHierarquiaDosSubordinadosCasoInativacao(usuario);
 			}
 			return pagina;
 		} catch (Exception e) {
@@ -138,8 +140,18 @@ public class UsuarioBO {
 		try {
 			usuario.setAtivo(status.equals("I")? "0":"1");
 			this.usuarioMapper.updateStatus(usuario);
+			
+			removerHierarquiaDosSubordinadosCasoInativacao(usuario);
 		} catch (Exception e) {
 			log.error("UsuarioBO.inactivateUsuario", e);
+		}
+	}
+
+	private void removerHierarquiaDosSubordinadosCasoInativacao(Usuario usuario) {
+		if(usuario.getAtivo() != null && usuario.getAtivo().equals("0")){
+			UsuarioDTO usuarioDto = new UsuarioDTO();
+			usuarioDto.setIdSuperior(usuario.getIdUsuario());
+			this.usuarioMapper.updateHierarquiaGeral(usuarioDto);
 		}
 	}
 	
@@ -176,10 +188,17 @@ public class UsuarioBO {
 		
 		UsuarioDTO controle = new UsuarioDTO();
 		controle.setIdSuperior(superior.getIdUsuario());
+		controle.setAprCustoBoo(true);
+		controle.setAprProdBoo(true);
 		if(listIds != null && listIds.size() > 0){
 			controle.setListIdsUsuarioRemoverLista(listIds);
 			controle.setIdsUsuarioRemoverLista("Controle");
 		}
 		this.usuarioMapper.updateHierarquiaGeral(controle);
+	}
+	
+	public Boolean validarSubordinados(Usuario usuario){
+		List<Usuario> subordinados = this.usuarioMapper.verificarSubordinados(usuario);
+		return subordinados != null ? subordinados.size() == 0 : true;
 	}
 }

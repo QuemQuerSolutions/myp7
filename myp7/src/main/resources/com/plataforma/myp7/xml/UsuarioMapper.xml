@@ -38,6 +38,19 @@
 		WHERE USU_EMAIL = #{email} and USU_ATIVO = 1;
 	</select>	
 	
+	<select id="verificarSubordinados" resultMap="usuarioMap">
+		<include refid="selectUsuario"/>
+		WHERE USU_SUPERIOR = #{idUsuario} 
+		AND (
+		VALOR_ALCADA &gt; #{alcada}
+
+		<if test="flagAprovProduto == 0">
+			OR FLG_APR_PRD = 1
+		</if>
+		
+		);
+	</select>		
+	
 	<select id="obterUsuarioComFiltro" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
 		
@@ -58,13 +71,23 @@
 		   </foreach>
 		</if>			
 		
-		<if test="aprovacaoProduto == false">
-			AND FLG_APR_PRD = 0 
-		</if>		
+		<choose>
+    		<when test="aprovacaoProduto == true">
+    			AND FLG_APR_PRD &gt;= 0 
+   			</when>
+    		<when test="aprovacaoProduto == false">
+    			AND FLG_APR_PRD = 0
+   			</when>
+  		</choose>			
 		
-		<if test="aprovacaoCusto == true">
-			AND VALOR_ALCADA &lt;= #{valorAlcada}
-		</if>	
+		<choose>
+    		<when test="aprovacaoCusto == true">
+    			AND VALOR_ALCADA &lt;= #{valorAlcada}
+   			</when>
+    		<when test="aprovacaoCusto == false">
+    			AND VALOR_ALCADA = 0
+   			</when>
+  		</choose>
 		
 		<if test="idSuperior != null">
 			AND USU_SUPERIOR = #{idSuperior}
@@ -135,8 +158,15 @@
 	<update id="updateHierarquiaGeral">
 		UPDATE usu_usuario 
 		SET USU_SUPERIOR = null
-		,FLG_APR_PRD = 0
-		,VALOR_ALCADA = 0
+		
+		<if test="aprProdBoo != null">
+			,FLG_APR_PRD = 0
+		</if>
+		
+		<if test="aprCustoBoo != null">
+			,VALOR_ALCADA = 0
+		</if>
+		
 		WHERE USU_SUPERIOR=#{idSuperior}
 		
 		<if test="idsUsuarioRemoverLista != null">
