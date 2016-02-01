@@ -52,6 +52,7 @@ public class UsuarioBO {
 	
 	public String salvar(Usuario usuario, Model model, String tpUsuario){
 		try {
+			
 			String pagina="";
 			if(Objects.isNull(usuario.getIdUsuario())){
 				if(this.isValidInsert(usuario, model)){
@@ -77,6 +78,22 @@ public class UsuarioBO {
 		}
 	}
 	
+	
+	public List<Usuario> getSubordinado(Usuario usuario){
+		List<Usuario> lista = new ArrayList<Usuario>();
+		return obterUsuariosPorSuperior(usuario, lista);
+		
+	}
+	
+	private List<Usuario> obterUsuariosPorSuperior(Usuario usuario, List<Usuario> lista) {
+		List<Usuario> lstSubordinado = usuarioMapper.obterPorSuperior(usuario.getIdUsuario());
+		for(Usuario usu: lstSubordinado){
+			lista.add(usu);
+			obterUsuariosPorSuperior(usu, lista);
+		}
+		return lista;
+	}
+
 	private boolean isValidInsert(Usuario usuario, Model model){
 		try {
 			if(!Objects.isNull(this.usuarioMapper.obterPorEmail(usuario.getEmail()))){
@@ -200,5 +217,19 @@ public class UsuarioBO {
 	public Boolean validarSubordinados(Usuario usuario){
 		List<Usuario> subordinados = this.usuarioMapper.verificarSubordinados(usuario);
 		return subordinados != null ? subordinados.size() == 0 : true;
+	}
+	
+	public List<Usuario> getUsuarios(Usuario usuario){
+		return this.usuarioMapper.verificarSubordinados(usuario);
+	}
+	
+	public UsuarioDTO getUsuarioToDTO(Usuario usuario){
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setIdUsuario(usuario.getIdSuperior());
+		usuarioDTO.setIdSuperior(usuario.getIdSuperior());
+		usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
+		usuarioDTO.setnDocumento(usuario.getnDocumento());
+		usuarioDTO.setConsultaSubordinado(true);
+		return usuarioDTO;
 	}
 }

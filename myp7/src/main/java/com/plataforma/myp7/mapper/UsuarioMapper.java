@@ -31,4 +31,6 @@ public interface UsuarioMapper {
 	void updateHierarquiaGeral(UsuarioDTO usuario);
 	
 	List<Usuario> verificarSubordinados(Usuario usuario);
+
+	List<Usuario> obterPorSuperior(Long idSuperior);
 }

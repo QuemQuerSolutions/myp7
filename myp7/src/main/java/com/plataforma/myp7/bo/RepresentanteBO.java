@@ -7,7 +7,9 @@ import static com.plataforma.myp7.util.Utils.setRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.apache.log4j.Logger;
@@ -21,6 +23,7 @@ import com.plataforma.myp7.data.FornecedorCusto;
 import com.plataforma.myp7.data.Representante;
 import com.plataforma.myp7.data.RepresentanteComprador;
 import com.plataforma.myp7.data.RepresentanteFornecedor;
+import com.plataforma.myp7.data.Usuario;
 import com.plataforma.myp7.enums.Mensagem;
 import com.plataforma.myp7.enums.MensagemWS;
 import com.plataforma.myp7.exception.ManterEntidadeException;
@@ -59,19 +62,37 @@ public class RepresentanteBO {
 	
 	public List<Representante> obterPorParametro(Representante representante, Model model){
 		try {
+			
+			
+			List<Usuario> listaRepresentantesSubordinado = this.usuarioBO.getSubordinado(representante.getUsuario());
+			
 			representante.setApelido(toLike(representante.getApelido()));
 			representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
 			
-			int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
+//			int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
 			
-			if(count == 0){
+			
+			List<Representante> lstRepresentante = isEmpty(representante.getRazao())?representanteMapper.obterPorParametro(representante) :representanteMapper.obterPorParametroMaisRazao(representante);
+			
+			Map<Long, List<Representante>> mapRepresentanteSubordinado = new HashMap<Long, List<Representante>>();
+			for(Usuario usu: listaRepresentantesSubordinado){
+				representante.setUsuario(usu);
+				mapRepresentanteSubordinado.put(usu.getIdUsuario(), isEmpty(representante.getRazao())?representanteMapper.obterPorParametro(representante) :representanteMapper.obterPorParametroMaisRazao(representante));
+			}
+			
+			for(Long key: mapRepresentanteSubordinado.keySet()){
+				for(Representante rep: mapRepresentanteSubordinado.get(key)){
+					lstRepresentante.add(rep);
+				}
+			}
+			
+			if(lstRepresentante.size() == 0){
 				setRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO);
 				return new ArrayList<Representante>();
 			}
 			
-			if(isEmpty(representante.getRazao()))
-				return representanteMapper.obterPorParametro(representante);
-			return representanteMapper.obterPorParametroMaisRazao(representante);
+			return lstRepresentante;
+			
 		} catch (Exception e) {
 			setMsgRetorno(model, "Falha na Operação");
 			setCodRetorno(model, -1);

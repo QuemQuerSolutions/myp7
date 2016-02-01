@@ -33,6 +33,11 @@
 		WHERE ID_USUARIO = #{id}
 	</select>
 	
+	<select id="obterPorSuperior" resultMap="usuarioMap">
+		<include refid="selectUsuario"/>
+		WHERE USU_SUPERIOR = #{idSuperior}
+	</select>
+	
 	<select id="obterPorEmail" resultMap="usuarioMap">
 		<include refid="selectUsuario"/>
 		WHERE USU_EMAIL = #{email} and USU_ATIVO = 1;
@@ -88,7 +93,6 @@
     			AND VALOR_ALCADA = 0
    			</when>
   		</choose>
-		
 		<if test="idSuperior != null">
 			AND USU_SUPERIOR = #{idSuperior}
 		</if>	

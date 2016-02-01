@@ -39,8 +39,8 @@ public class ProdutoAprovacaoController {
 	}
 	
 	@RequestMapping(value="obterProdutoAprovacao", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Produto> obterProdutoAprovacao(Produto produto) {
-		return produtoBO.obterParaAprovacao(produto);
+	public @ResponseBody List<Produto> obterProdutoAprovacao(Produto produto, HttpSession session) {
+		return produtoBO.obterParaAprovacao(produto, session);
 	}
 	
 	@RequestMapping(value="aprovarProduto", method=RequestMethod.GET)

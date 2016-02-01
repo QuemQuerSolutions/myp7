@@ -9,7 +9,9 @@ import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
@@ -181,17 +183,14 @@ public class ProdutoBO {
 		}
 	}
 	
-	public List<Produto> obterParaAprovacao(Produto produto){
+	public List<Produto> obterParaAprovacao(Produto produto, HttpSession session){
 		try {
 			produto.setDesProduto(toLike(produto.getDesProduto()));
 			produto.setSituacao(SituacaoIntegracaoEnum.getSigla(produto.getSituacao()));
 			
-			int count = produtoMapper.countProdutoAprovacao(produto);
-			
-			if(count == 0)
-				return new ArrayList<Produto>();
-			
 			List<Produto> lista = produtoMapper.obterProdutoAprovacao(produto);
+			
+			if(lista.size()==0) return new ArrayList<Produto>();
 			
 			for(Produto p: lista)
 				p.setDescSituacao(SituacaoIntegracaoEnum.getDescricao(p.getSituacao()));
@@ -227,5 +226,5 @@ public class ProdutoBO {
 			return null;
 		}
 	}
-
+	
 }

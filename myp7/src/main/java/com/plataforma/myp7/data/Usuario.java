@@ -136,4 +136,8 @@ public class Usuario implements Serializable{
 		this.idSuperior = idSuperior;
 	}
 
+	@Override
+	public String toString() {
+		return email;
+	}
 }
