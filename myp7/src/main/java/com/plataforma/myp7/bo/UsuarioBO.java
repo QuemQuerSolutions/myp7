@@ -81,17 +81,18 @@ public class UsuarioBO {
 	
 	public List<Usuario> getSubordinado(Usuario usuario){
 		List<Usuario> lista = new ArrayList<Usuario>();
-		return obterUsuariosPorSuperior(usuario, lista);
+		obterUsuariosPorSuperior(usuario, lista);
+		lista.add(usuario);
+		return lista;
 		
 	}
 	
-	private List<Usuario> obterUsuariosPorSuperior(Usuario usuario, List<Usuario> lista) {
+	private void obterUsuariosPorSuperior(Usuario usuario, List<Usuario> lista) {
 		List<Usuario> lstSubordinado = usuarioMapper.obterPorSuperior(usuario.getIdUsuario());
 		for(Usuario usu: lstSubordinado){
 			lista.add(usu);
 			obterUsuariosPorSuperior(usu, lista);
 		}
-		return lista;
 	}
 
 	private boolean isValidInsert(Usuario usuario, Model model){

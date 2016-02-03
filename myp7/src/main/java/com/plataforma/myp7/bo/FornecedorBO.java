@@ -6,8 +6,10 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +43,35 @@ public class FornecedorBO {
 	@Autowired
 	private FornecedorCustoMapper fornecedorCustoMapper;
 	
+	@Autowired
+	private UsuarioBO usuarioBO;
+	
 	public List<Fornecedor> obterTodos(){
 		return this.fornecedorMapper.obterTodos();
 	}
 	
-	public List<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor, Usuario usuario){
+	public Set<Fornecedor> obterFornecedorPorParametro(Fornecedor fornecedor, Usuario usuario){
 		try {
-			if(!Objects.isNull(fornecedor.getParam()) && !Utils.isEmpty(fornecedor.getParam()))
+			
+			if(!Objects.isNull(fornecedor.getParam()) && !Utils.isEmpty(fornecedor.getParam())){
 				fornecedor.setUsuario(usuario);
+				List<Usuario> lstUsuarioSubordinado =this.usuarioBO.getSubordinado(fornecedor.getUsuario());
+				List<Long> ids = new ArrayList<Long>();
+				for(Usuario usu: lstUsuarioSubordinado){
+					ids.add(usu.getIdUsuario());
+				}
+				fornecedor.getUsuario().setLstIdUsuariosSubordinado(ids);
+			}
 			fornecedor.setRazao(toLike(fornecedor.getRazao()));
 			fornecedor.setStatusTela("".equals(fornecedor.getStatusTela()) ? null : fornecedor.getStatusTela());
-			return this.fornecedorMapper.obterFornecedorPorParametro(fornecedor);
+			
+			List<Fornecedor> lstFornecedor = fornecedorMapper.obterFornecedorPorParametro(fornecedor);
+			
+			if(lstFornecedor.size()==0) return new HashSet<Fornecedor>();
+			
+			Set<Fornecedor> setFornecedor = new HashSet<Fornecedor>();
+			setFornecedor.addAll(lstFornecedor);
+			return setFornecedor;
 		} catch (Exception e) {
 			log.error("FornecedorBO.obterFornecedorPorParametro", e);
 			return null;

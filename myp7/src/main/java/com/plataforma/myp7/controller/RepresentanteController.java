@@ -6,6 +6,7 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -62,7 +63,7 @@ public class RepresentanteController {
 	}	
 	
 	@RequestMapping(value="obterRepresentantePorParametro", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Representante> obterRepresentantePorParametro(Representante representante, Model model, HttpSession session) {
+	public @ResponseBody Set<Representante> obterRepresentantePorParametro(Representante representante, Model model, HttpSession session) {
 		if(!Objects.isNull(representante.getParam()) && !Utils.isEmpty(representante.getParam()))
 			representante.setUsuario(this.usuarioBO.getUserSession(session));
 		return representanteBO.obterPorParametro(representante, model);

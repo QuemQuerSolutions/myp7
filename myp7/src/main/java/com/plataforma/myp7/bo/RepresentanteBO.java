@@ -7,10 +7,10 @@ import static com.plataforma.myp7.util.Utils.setRetorno;
 import static com.plataforma.myp7.util.Utils.toLike;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,38 +60,33 @@ public class RepresentanteBO {
 		return this.representanteMapper.obterTodosRepresentantes();
 	}
 	
-	public List<Representante> obterPorParametro(Representante representante, Model model){
+	public Set<Representante> obterPorParametro(Representante representante, Model model){
 		try {
 			
 			
 			List<Usuario> listaRepresentantesSubordinado = this.usuarioBO.getSubordinado(representante.getUsuario());
 			
+			List<Long> ids = new ArrayList<Long>();
+			for(Usuario usu: listaRepresentantesSubordinado){
+				ids.add(usu.getIdUsuario());
+			}
+			
+			representante.getUsuario().setLstIdUsuariosSubordinado(ids);
+			
 			representante.setApelido(toLike(representante.getApelido()));
 			representante.setRazao(!isEmpty(representante.getRazao()) ? toLike(representante.getRazao()) : null );
 			
-//			int count = isEmpty(representante.getRazao()) ? representanteMapper.countPorParametro(representante) : representanteMapper.countPorParametroMaisRazao(representante);
-			
-			
 			List<Representante> lstRepresentante = isEmpty(representante.getRazao())?representanteMapper.obterPorParametro(representante) :representanteMapper.obterPorParametroMaisRazao(representante);
-			
-			Map<Long, List<Representante>> mapRepresentanteSubordinado = new HashMap<Long, List<Representante>>();
-			for(Usuario usu: listaRepresentantesSubordinado){
-				representante.setUsuario(usu);
-				mapRepresentanteSubordinado.put(usu.getIdUsuario(), isEmpty(representante.getRazao())?representanteMapper.obterPorParametro(representante) :representanteMapper.obterPorParametroMaisRazao(representante));
-			}
-			
-			for(Long key: mapRepresentanteSubordinado.keySet()){
-				for(Representante rep: mapRepresentanteSubordinado.get(key)){
-					lstRepresentante.add(rep);
-				}
-			}
 			
 			if(lstRepresentante.size() == 0){
 				setRetorno(model, Mensagem.NENHUM_REGISTRO_LOCALIZADO);
-				return new ArrayList<Representante>();
+				return new HashSet<Representante>();
 			}
 			
-			return lstRepresentante;
+			Set<Representante> setRepresentante= new HashSet<Representante>();
+			setRepresentante.addAll(lstRepresentante);
+			
+			return setRepresentante;
 			
 		} catch (Exception e) {
 			setMsgRetorno(model, "Falha na Operação");

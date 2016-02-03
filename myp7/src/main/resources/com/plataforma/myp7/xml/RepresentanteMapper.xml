@@ -56,7 +56,12 @@
 			AND UPPER(rpr_representante.APELIDO) like UPPER(#{apelido})
 		</if>
 		<if test="usuario != null and (usuario.tipoUsuario != null and usuario.tipoUsuario == usuario.retaguarda)">
- 			AND cpr_comprador.ID_USUARIO = #{usuario.idUsuario} 
+			<if test="usuario.lstIdUsuariosSubordinado != null">
+				AND cpr_comprador.ID_USUARIO IN
+				<foreach item="item" index="index" collection="usuario.lstIdUsuariosSubordinado" open="(" separator="," close=")">
+			    	#{item}
+			   	</foreach>
+			</if>
  		</if>
  		<if test="statusTela != null">
  			AND rpr_representante.STATUS = 'A'

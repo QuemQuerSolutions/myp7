@@ -6,6 +6,7 @@ import static com.plataforma.myp7.util.Utils.setMsgRetorno;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -75,7 +76,7 @@ public class FornecedorController {
 	}
 	
 	@RequestMapping(value="consultarFornecedor", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Fornecedor> consultarFornecedor(Fornecedor fornecedor, HttpSession session){
+	public @ResponseBody Set<Fornecedor> consultarFornecedor(Fornecedor fornecedor, HttpSession session){
 		return this.fornecedorBO.obterFornecedorPorParametro(fornecedor, this.usuarioBO.getUserSession(session));
 	}
 	

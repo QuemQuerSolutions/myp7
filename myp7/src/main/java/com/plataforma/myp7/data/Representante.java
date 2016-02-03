@@ -144,5 +144,32 @@ public class Representante extends Pessoa implements Serializable, ComboPessoa {
 	public void setStatusTela(String statusTela) {
 		this.statusTela = statusTela;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idRepresentante == null) ? 0 : idRepresentante.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Representante other = (Representante) obj;
+		if (idRepresentante == null) {
+			if (other.idRepresentante != null)
+				return false;
+		} else if (!idRepresentante.equals(other.idRepresentante))
+			return false;
+		return true;
+	}
+	
 	
 }

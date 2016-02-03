@@ -156,8 +156,8 @@ function getLineAprovacao(custo){
 		line = line.concat("<td class='centralizar-componente'><input type='checkbox' class='cbAprovacao' idLinha=", custo.idTabCustoFornecedor ," id='cb", custo.idTabCustoFornecedor ,"'></td>");
 	else
 		line = line.concat("<td class='centralizar-componente'><span class='glyphicon glyphicon-asterisk' title='Esse custo não pode ser alterado' aria-hidden='true'></span></td>");
-	line = line.concat("<td>", custo.produto.eanDunProduto ,"</td>");
-	line = line.concat("<td>", custo.produto.desProduto ,"</td>");
+	line = line.concat("<td class='truncText'>", custo.produto.eanDunProduto ,"</td>");
+	line = line.concat("<td class='truncText'>", custo.produto.desProduto ,"</td>");
 	line = line.concat("<td>", custo.valorAnteriorFormatado ,"</td>");
 	line = line.concat("<td>", custo.valorFormatado ,"</td>");
 	line = line.concat("<td align='center'>", custo.situacao,"</td>");

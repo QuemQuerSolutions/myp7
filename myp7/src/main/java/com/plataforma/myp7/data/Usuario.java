@@ -1,6 +1,8 @@
 package com.plataforma.myp7.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -26,10 +28,13 @@ public class Usuario implements Serializable{
 	private String tipoUsuario;
 	private Long alcada;
 	private Integer flagAprovProduto;
+	private List<Long> lstIdUsuariosSubordinado;
+	private boolean isSubordinado;
 	
 	public Usuario(){
 		this.portal="P";
 		this.retaguarda = "R";
+		this.lstIdUsuariosSubordinado = new ArrayList<Long>();
 	}
 	
 	public Usuario(Long idUsuario){
@@ -134,6 +139,24 @@ public class Usuario implements Serializable{
 
 	public void setIdSuperior(Long idSuperior) {
 		this.idSuperior = idSuperior;
+	}
+	
+
+	public List<Long> getLstIdUsuariosSubordinado() {
+		return lstIdUsuariosSubordinado;
+	}
+
+	public void setLstIdUsuariosSubordinado(List<Long> lstIdUsuariosSubordinado) {
+		this.lstIdUsuariosSubordinado = lstIdUsuariosSubordinado;
+	}
+	
+
+	public boolean isSubordinado() {
+		return isSubordinado;
+	}
+
+	public void setSubordinado(boolean isSubordinado) {
+		this.isSubordinado = isSubordinado;
 	}
 
 	@Override
