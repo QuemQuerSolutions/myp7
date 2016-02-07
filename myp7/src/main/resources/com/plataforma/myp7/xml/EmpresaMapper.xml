@@ -66,9 +66,9 @@
 	
 	<insert id="inserirEmpresa">
 		INSERT INTO emp_empresa
-			(NOME_REDUZIDO, ID_PESSOA) 
+			(ID_EMPRESA, NOME_REDUZIDO, ID_PESSOA) 
 		VALUES 
-			(#{nomeReduzido}, #{pessoa.idPessoa})
+			( #{idEmpresa} ,#{nomeReduzido}, #{pessoa.idPessoa})
 	</insert>
 
 	<insert id="inserCompradorAlcada">

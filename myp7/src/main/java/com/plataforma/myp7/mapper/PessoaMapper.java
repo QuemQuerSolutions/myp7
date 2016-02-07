@@ -12,7 +12,7 @@ public interface PessoaMapper {
 	List<String> obterTodasUF();
 	
 	List<Pessoa> obterPessoaCodNome(Pessoa pessoa);
-	
+
 	void inserir(Pessoa pessoa);
 	
 	void atualiza(Pessoa pessoa);

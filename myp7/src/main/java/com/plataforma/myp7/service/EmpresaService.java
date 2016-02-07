@@ -24,6 +24,7 @@ public class EmpresaService {
 	
 	@Autowired
 	private EmpresaBO empresaeBO;
+
 	
 	private Gson gson;
 	
@@ -39,35 +40,35 @@ public class EmpresaService {
 		
 		MensagemWS mensagem;
 		Empresa empresa = new Empresa();
-		
-		try {
-			if(idEmpresa == null){
-				empresa.setIdEmpresa(idEmpresa);
-				this.populaEmporesa(empresa, nomeReduzido, idPessoa);
-				
+			
+		if(idEmpresa != null){
+
+			populaEmpresa(empresa ,idEmpresa, nomeReduzido, idPessoa);
+
+			if (empresaeBO.selecionaPorId(idEmpresa)!= null) {
+				empresaeBO.update(empresa);
+				mensagem = MensagemWS.ATUALIZA_EMPRESA_SUCESSO;
+			} else {
 				empresaeBO.insert(empresa);
 				mensagem = MensagemWS.INSERT_EMPRESA_SUCESSO;
-			}else{
-				empresa = empresaeBO.selecionaPorId(idEmpresa);
-				
-				if(empresa != null){
-					this.populaEmporesa(empresa, nomeReduzido, idPessoa);
-					
-					empresaeBO.update(empresa);
-					mensagem = MensagemWS.ATUALIZA_EMPRESA_SUCESSO;
-				}else{
-					throw new ManterEntidadeException(MensagemWS.ATUALIZA_EMPRESA_ERRO);
-				}
 			}
+
+		} else {
+			throw new ManterEntidadeException(MensagemWS.ATUALIZA_EMPRESA_ERRO);
+		}
+		
 			
 			return gson.toJson(MensagemWS.getMensagem(mensagem));
-		} catch (ManterEntidadeException e) {
-			return gson.toJson(MensagemWS.getMensagem(e.getMensagemEnum()));
-		}
 	}
 	
-	private void populaEmporesa(Empresa empresa, String nomeReduzido, Integer idPessoa){
+
+	public void populaEmpresa(Empresa empresa, Long idEmpresa, String nomeReduzido, Integer idPessoa) {
+
+		empresa.setIdEmpresa(idEmpresa);
 		empresa.setIdPessoa(new Pessoa(idPessoa));
 		empresa.setNomeReduzido(nomeReduzido);
+
 	}
+	
+	
 }

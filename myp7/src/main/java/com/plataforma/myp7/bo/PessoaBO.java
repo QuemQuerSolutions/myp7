@@ -40,6 +40,16 @@ public class PessoaBO {
 		}
 	}
 	
+
+	public Pessoa obterPessoaPorID(Long idPessoa){
+		try {
+			return this.pessoaMapper.obterPessoaPorId(idPessoa);
+		} catch (Exception e) {
+			log.error("PessoaBO.obterPessoaPorId", e);
+			return null;
+		}
+	}
+	
 	public List<Pessoa> obterPessoaCodNome(Pessoa pessoa){
 		try {
 			return this.pessoaMapper.obterPessoaCodNome(pessoa);
@@ -49,19 +59,30 @@ public class PessoaBO {
 		}
 	}
 	
-	public MensagemRetornoDTO salvarPessoa(Pessoa pessoa) throws Exception{
+	
+	public MensagemRetornoDTO inserir(Pessoa pessoa) throws Exception{
 		try {
-			if(pessoa.getIdPessoa()==0L){
-				this.pessoaMapper.inserir(pessoa);
-				return MensagemWS.getMensagem(MensagemWS.INSERT_PESSOA_SUCESSO);
-			}else{
-				this.pessoaMapper.atualiza(pessoa);
-				return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PESSOA_SUCESSO);
-			}
+		this.pessoaMapper.inserir(pessoa);
+		return MensagemWS.getMensagem(MensagemWS.INSERT_PESSOA_SUCESSO);
 		} catch (Exception e) {
 			log.error("PessoaBO.salvarPessoa", e);
 			return null;
 		}
+
+		}
+	
+	
+	public MensagemRetornoDTO atualizar(Pessoa pessoa) throws Exception{
+		try {
+		this.pessoaMapper.atualiza(pessoa);
+		return MensagemWS.getMensagem(MensagemWS.ATUALIZA_PESSOA_SUCESSO);
+	} catch (Exception e) {
+		log.error("PessoaBO.salvarPessoa", e);
+		return null;
 	}
+
+	}
+	
+	
 		
 }

@@ -44,11 +44,9 @@ public class CompradorService {
 		MensagemWS mensagem;
 		
 		try {
+
 			if(idComprador != null){	
-				Pessoa pessoa = new Pessoa();
-				pessoa.setIdPessoa(Long.parseLong(idComprador.toString()));
-				List<Pessoa> pessoas = this.pessoaBO.obterPessoaCodNome(pessoa);
-				if(pessoas != null && pessoas.size() > 0){
+
 					Comprador comprador = this.compradorBO.obterPorId(idComprador);
 					
 					if(comprador == null){
@@ -63,9 +61,7 @@ public class CompradorService {
 						this.compradorBO.update(comprador);
 						mensagem = MensagemWS.ATUALIZA_COMPRADOR_SUCESSO;
 					}
-				}else{
-					throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
-				}
+	
 			}else{
 				throw new ManterEntidadeException(MensagemWS.INSERT_COMPRADOR_ERRO);
 			}
