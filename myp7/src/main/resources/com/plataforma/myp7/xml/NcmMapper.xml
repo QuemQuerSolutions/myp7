@@ -8,6 +8,7 @@
 		<result property="codNcm"  		column="CODIGO_NCM" />
 		<result property="descNcm" 		column="DESCRICAO_NCM" />
 	</resultMap>
+
 	<sql id="selectNcm">
 		<![CDATA[
 			SELECT ID_NCM, CODIGO_NCM, DESCRICAO_NCM
@@ -15,14 +16,40 @@
 		  ]]>
 	</sql>
 	
+
 	<select id="obterNcmPorCodigo" resultMap="ncmMap">
 		<include refid="selectNcm"/>
 		WHERE CODIGO_NCM = #{codNcm}
 	</select>
 	
+
+	<select id="obterPorCodigo" resultMap="ncmMap">
+		<include refid="selectNcm"/>
+		WHERE CODIGO_NCM = #{codNcm}
+	</select>
+	
+
 	<select id="obterNcmPorId" resultMap="ncmMap">
 		<include refid="selectNcm"/>
 		WHERE ID_NCM = #{idNcm}
 	</select>
 	
+	
+		<insert id="inserir">
+		INSERT INTO GBL_NCM
+			(CODIGO_NCM, DESCRICAO_NCM) 
+		VALUES 
+			( #{codNcm} , #{descNcm})
+	</insert>
+
+
+	<update id="update">
+		UPDATE gbl_ncm
+		   SET DESCRICAO_NCM = #{descNcm}
+		WHERE CODIGO_NCM = #{codNcm}
+	</update>
+	
+	
+	
 </mapper>
+

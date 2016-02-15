@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.plataforma.myp7.data.Embalagem;
+import com.plataforma.myp7.data.NCM;
 import com.plataforma.myp7.enums.ConfigEnum;
+import com.plataforma.myp7.enums.MensagemWS;
+import com.plataforma.myp7.exception.ManterEntidadeException;
 import com.plataforma.myp7.mapper.EmbalagemMapper;
 
 @Service
@@ -137,5 +140,36 @@ public class EmbalagemBO {
 			return null;
 		}
 	}
+
+	public Embalagem obterEmbalagemPorSigla(String siglaEmbalagem){
+		try {
+			return this.embalagemMapper.obterEmbalagemPorSigla(siglaEmbalagem);
+		} catch (Exception e) {
+			log.error("EmbalagemBO.obterEmbalagemPorId", e);
+			return null;
+		}
+	}
 	
+	
+	public  void insert(Embalagem embalagem) throws ManterEntidadeException {
+		try{
+			this.embalagemMapper.salvarEmbalagem(embalagem);
+		}catch(Exception e){
+			log.error("EmbalagemBO.insert", e);
+			throw new ManterEntidadeException(MensagemWS.INSERT_EMBALAGEM_ERRO);
+		}
+		
+	}
+
+	public void update(Embalagem embalagem) throws ManterEntidadeException {
+		try{
+			this.embalagemMapper.atualizarEmbalagem(embalagem);
+		}catch(Exception e){
+			log.error("EmbalagemBO.update", e);
+			throw new ManterEntidadeException(MensagemWS.ATUALIZA_EMBALAGEM_ERRO);
+		}
+	}
+
+
 }
+

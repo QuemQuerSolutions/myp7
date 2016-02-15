@@ -35,7 +35,25 @@ public enum MensagemWS {
 	ATUALIZA_PESSOA_SUCESSO(11, "Pessoa atualizada com sucesso."),
 	ATUALIZA_PESSOA_ERRO(12, "Erro ao atualizar a pessoa."),
 	
+	INSERT_NCM_ERRO(27,"Erro ao inserir o ncm."),
+	INSERT_NCM_SUCESSO(28,"Ncm inserido com sucesso."),
+	ATUALIZA_NCM_SUCESSO(29,"Ncm atualizado com sucesso."),
+	ATUALIZA_NCM_ERRO(30, "Ncm ao atualizar a empresa"),
+
+	INSERT_EMBALAGEM_ERRO(31,"Erro ao inserir a embalagem."),
+	INSERT_EMBALAGEM_SUCESSO(32,"Embalagem inserida com sucesso."),
+	ATUALIZA_EMBALAGEM_SUCESSO(33,"Embalagem atualizada com sucesso."),
+	ATUALIZA_EMBALAGEM_ERRO(34, "Erro ao atualizar a embalagem"),
+
+	INSERT_FAMILIA_ERRO(35,"Erro ao inserir a embalagem."),
+	INSERT_FAMILIA_SUCESSO(36,"Embalagem inserida com sucesso."),
+	ATUALIZA_FAMILIA_SUCESSO(37,"Embalagem atualizada com sucesso."),
+	ATUALIZA_FAMILIA_ERRO(38, "Erro ao atualizar a embalagem"),
+	
 	CONSULTA_EMB_NCM_VAZIO(8, "Embalagem, NCM ou Usuario invalidos.");
+
+		
+
 	
 	private String mensagem;
 	private Integer codigo;
@@ -73,3 +91,4 @@ public enum MensagemWS {
 		return msgem;
 	}
 }
+

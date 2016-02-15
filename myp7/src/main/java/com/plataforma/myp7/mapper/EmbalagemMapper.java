@@ -20,4 +20,7 @@ public interface EmbalagemMapper {
 	void atualizarEmbalagem(Embalagem embalagem);
 	
 	Embalagem obterEmbalagemPorId(Long id);
+
+	Embalagem obterEmbalagemPorSigla(String siglaEmbalagem);
 }
+

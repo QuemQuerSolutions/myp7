@@ -21,6 +21,13 @@
 		ORDER BY SIGLA_EMBALAGEM
 	</select>
 
+	<select id="obterEmbalagemPorSigla" resultMap="embalagemMap">
+		<include refid="selectEmbalagem"/>
+			WHERE SIGLA_EMBALAGEM like #{siglaEmbalagem} 
+	</select>
+
+
+
 	<select id="obterEmbalagens" resultMap="embalagemMap" parameterType="Embalagem">
 <!-- 		<include refid="selectEmbalagem"/> -->
 		
@@ -68,3 +75,4 @@
 		WHERE ID_EMBALAGEM = #{ID} 
 	</select>
 </mapper>
+

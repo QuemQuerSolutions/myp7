@@ -24,6 +24,7 @@ public class NCM implements Serializable{
 	public Long getIdNcm() {
 		return idNcm;
 	}
+	
 	public void setIdNcm(Long idNcm) {
 		this.idNcm = idNcm;
 	}
@@ -42,3 +43,4 @@ public class NCM implements Serializable{
 	
 	
 }
+
